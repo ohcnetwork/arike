@@ -69,7 +69,7 @@ jobs:
             docker rm arike-staging
             docker pull docker.pkg.github.com/coronasafe/arike/arike:$VERSION
             docker images
-            docker run -p 4600:3600 --name arike-staging --env-file /home/ubuntu/.env.list -d docker.pkg.github.com/coronasafe/arike/arike-staging:staging
+            docker run -p 4600:3000 --name arike-staging --env-file /data/env.list -d docker.pkg.github.com/coronasafe/arike/arike-staging:staging
             docker ps
             echo "Latest Arike Image Deployed"
             sudo systemctl restart nginx
