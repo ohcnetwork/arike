@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 env:
   IMAGE_NAME: arike
 
@@ -25,7 +28,6 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
 
@@ -54,7 +56,6 @@ jobs:
   deploy:
     needs: push
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
       - name: Deploy Docker
         uses: appleboy/ssh-action@master
