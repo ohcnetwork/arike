@@ -67,7 +67,7 @@ jobs:
           script: |
             docker stop arike-staging
             docker rm arike-staging
-            docker pull docker.pkg.github.com/coronasafe/arike/arike:$VERSION
+            docker pull docker.pkg.github.com/coronasafe/arike/arike:staging
             docker images
             docker run -p 4600:3000 --name arike-staging --env-file /data/env.list -d docker.pkg.github.com/coronasafe/arike/arike-staging:staging
             docker ps
