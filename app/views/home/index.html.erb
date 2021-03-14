@@ -1,1 +1,9 @@
-<h1> Arike </h1>
+<div class="px-4 py-8 sm:px-0">
+  <div class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+    <%= render partial: "action", locals: { title: "Schedule", text: "Schedule visits for patients.", icon: "icon_outline_clock" } %>
+    <%= render partial: "action", locals: { title: "Visit", text: "Visit a patient and record their details.", icon: "icon_outline_clock" } %>
+    <%= render partial: "action", locals: { title: "Enroll new patient", text: "Queue a new patient for visit when a volunteer or a health worker informs of a new patient.", icon: "icon_outline_clock" } %>
+    <%= render partial: "action", locals: { title: "Calendar", text: "See the current calendar for visits.", icon: "icon_outline_clock" } %>
+  </div>
+</div>
+
