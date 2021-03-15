@@ -1,4 +1,12 @@
 <div>
-<label>Name</label>
+  <%= form_with model: @patient do |form| %>
 
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name %>
+
+    <%= form.submit %>
+  <% end %>
 </div>
