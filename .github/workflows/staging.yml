@@ -15,7 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
@@ -28,7 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Build image
         run: docker build . --file Dockerfile --add-host localhost:172.31.24.49 --tag $IMAGE_NAME
 
