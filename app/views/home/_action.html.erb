@@ -6,7 +6,11 @@
   </div>
   <div class="mt-8">
     <h3 class="text-lg font-medium">
-      <a href="#" class="focus:outline-none">
+      <% if link && link.length > 0 %>
+        <a href=<%= link %> class="focus:outline-none">
+      <% else %>
+        <a href="#" class="focus:outline-none">
+      <% end %>
         <!-- Extend touch target to entire panel -->
         <span class="absolute inset-0" aria-hidden="true"></span>
         <%= title %>

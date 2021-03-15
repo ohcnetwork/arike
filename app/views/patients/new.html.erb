@@ -15,6 +15,12 @@
             <%= form.text_field :full_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
         </div>
+        <div class="sm:col-span-3">
+          <%= form.label :date_of_birth, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.date_field :dob, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
       </div>
       <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     <% end %>
