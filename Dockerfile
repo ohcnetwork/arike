@@ -20,5 +20,5 @@ ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_ENV=production
 
 RUN SECRET_KEY_BASE='dummy' rake assets:precompile
-
+EXPOSE 3000
 CMD ["rails","server","-b","0.0.0.0"]
