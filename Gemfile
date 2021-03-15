@@ -63,3 +63,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "pry", "~> 0.14.0"
+
+gem "twilio-ruby", "~> 5.48"
