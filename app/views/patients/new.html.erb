@@ -3,22 +3,60 @@
   <div class="max-w-3xl mx-auto">
     <%= form_with model: @patient do |form| %>
       <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+
         <div class="sm:col-span-3">
           <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
             <%= form.text_field :first_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
         </div>
+
         <div class="sm:col-span-3">
           <%= form.label :full_name, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
             <%= form.text_field :full_name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
         </div>
+
         <div class="sm:col-span-3">
           <%= form.label :date_of_birth, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
             <%= form.date_field :dob, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6">
+          <%= form.label :address, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.text_field :address, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.label :route, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.text_field :route, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.label :phone, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.text_field :phone, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+           <%= form.label :economic_status, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.select :economic_status, ["Well-Off", "Middle Class", "Poor", "Very Poor"], {}, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.label :notes, class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.text_field :notes, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
           </div>
         </div>
       </div>
