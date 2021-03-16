@@ -11,4 +11,8 @@ class PatientsController < ApplicationController
     Patient.create!(patient)
     redirect_to patients_path
   end
+
+  def show
+    @patient = Patient.find_by(id: params[:id])
+  end
 end

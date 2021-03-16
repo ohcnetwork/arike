@@ -27,7 +27,7 @@
               <tbody x-max="2">
                  <% Patient.all.each do |patient| %>
                   <%= render partial: "table-row",
-                    locals: { full_name: patient.full_name, dob: patient.dob, phone: patient.phone, address: patient.address }
+                    locals: { full_name: patient.full_name, dob: patient.dob, phone: patient.phone, address: patient.address, id: patient.id }
                     %>
                   <% end %>
               </tbody>
