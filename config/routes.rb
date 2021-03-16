@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root "home#index"
   resources :patients
   resources :users
+
+  resources :sessions
 end
