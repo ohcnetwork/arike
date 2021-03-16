@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  ROLES = %w(superuser primary_nurse secondary_nurse)
+  ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
 
   validates :role, inclusion: {
                      in: ROLES,
