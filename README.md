@@ -10,10 +10,6 @@ bin/webpack-dev-server
 rails server
 ```
 
-## Notes
-
-* We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
-
 ## Configure application environment variables
 
 1. Copy `example.env` to `.env`.
@@ -28,4 +24,6 @@ rails server
 
 The `.env` file contains environment variables that are used to configure the application. The file contains documentation explaining where you should source its values from. If you're just starting out, you shouldn't have to change any variables other than the ones listed above.
 
+## General Notes
 
+* We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
