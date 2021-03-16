@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
-
+  SIGNUP_ROLES = %w(asha volunteer)
   validates :role, inclusion: {
                      in: ROLES,
                      message: "%{value} is not a valid role",
