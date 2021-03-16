@@ -6,6 +6,7 @@
 bundle
 yarn
 rake db:setup
+bin/webpack-dev-server
 rails server
 ```
 
