@@ -1,16 +1,15 @@
 # Arike
 
-## Local Development
+## For Local Development
+
+### 1. Install Packages
 
 ```
 bundle
 yarn
-rake db:setup
-bin/webpack-dev-server
-rails server
 ```
 
-## Configure application environment variables
+### 2. Configure application environment variables
 
 1. Copy `example.env` to `.env`.
 
@@ -24,6 +23,16 @@ rails server
 
 The `.env` file contains environment variables that are used to configure the application. The file contains documentation explaining where you should source its values from. If you're just starting out, you shouldn't have to change any variables other than the ones listed above.
 
+### 3. Setup and Run Server
+
+```bash
+rake db:setup
+# run the following scripts concurrently
+# in 2 terminals
+bin/webpack-dev-server
+rails server
+```
+
 ## General Notes
 
-* We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
+- We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
