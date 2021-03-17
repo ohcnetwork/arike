@@ -115,7 +115,7 @@
         <%= form.label :asha_member, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
-          <%= form.select :aasha_member, User.ashas.to_a.map {|member| [member.first_name, member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+          <%= form.select :asha_member, User.ashas.to_a.map {|member| [member.first_name, member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
         </div>

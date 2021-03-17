@@ -9,7 +9,7 @@ class PatientsController < ApplicationController
   end
 
   def create
-    patient_params = params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status, :notes, :aasha_member)
+    patient_params = params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status, :notes, :asha_member)
     patient = Patient.create!(patient_params)
     User.addVolunteer(patient, params[:patient][:volunteer])
     redirect_to patients_path

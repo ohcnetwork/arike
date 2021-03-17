@@ -93,9 +93,19 @@
                 >
                   <dt class="text-sm font-medium text-gray-500">Volunteers</dt>
                   <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.users.volunteers.to_a.map {|asha| asha.first_name}.join(", ") %>
+                    <%= @patient.users.volunteers.to_a.map {|member| member.first_name}.join(", ") %>
                   </dd>
                 </div>
+
+                <div
+                  class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                >
+                  <dt class="text-sm font-medium text-gray-500">ASHA Member</dt>
+                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    <%= User.find_by_id(@patient.asha_member).full_name %>
+                  </dd>
+                </div>
+
               </dl>
             </div>
           </div>
