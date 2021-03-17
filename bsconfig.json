@@ -1,0 +1,22 @@
+{
+  "name": "arike",
+  "bsc-flags": ["-bs-super-errors"],
+  "sources": [
+    {
+      "dir": "app/javascript",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "bs-dependencies": ["@rescript/react"],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "ppx-flags": [],
+  "refmt": 3,
+  "reason": { "react-jsx": 3 }
+}
