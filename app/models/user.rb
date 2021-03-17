@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   has_and_belongs_to_many :patients
   ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
   SIGNUP_ROLES = %w(asha volunteer)
