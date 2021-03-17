@@ -9,8 +9,9 @@ class PatientsController < ApplicationController
   end
 
   def create
-    patient = params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status, :notes)
-    Patient.create!(patient)
+    patient_params = params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status, :notes)
+    patient = Patient.create!(patient_params)
+    User.addAshaWorker(patient, params[:patient][:ashas])
     redirect_to patients_path
   end
 
@@ -28,7 +29,8 @@ class PatientsController < ApplicationController
   end
 
   private
-    def set_patient
-      @patient = Patient.find(params[:id])
-    end
+
+  def set_patient
+    @patient = Patient.find(params[:id])
+  end
 end

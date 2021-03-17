@@ -106,7 +106,7 @@
           end
           %>
 
-          <% User.aasha_member.each do |member| %>
+          <% User.ashas.each do |member| %>
             <%= render partial:"checkbox", locals: {
               user_id: member.id,
               user_name: member.first_name,

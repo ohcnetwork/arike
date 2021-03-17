@@ -1,11 +1,13 @@
 class User < ApplicationRecord
-  scope :aasha_member, -> { where(role: "asha") }
+  has_and_belongs_to_many :patients
   ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
   SIGNUP_ROLES = %w(asha volunteer)
   validates :role, inclusion: {
                      in: ROLES,
                      message: "%{value} is not a valid role",
                    }
+  scope :ashas, -> { where(role: "asha") }
+  scope :volunteers, -> { where(role: "volunteer") }
 
   def send_sms
     phone_num = ENV["TWILIO_SENDER_NUMBER"]
@@ -19,5 +21,11 @@ class User < ApplicationRecord
     )
   end
 
-
+  def self.addAshaWorker(patient, params)
+    params.each { |key, value|
+      if value.to_i == 1
+        patient.users << User.find_by_id(key)
+      end
+    }
+  end
 end
