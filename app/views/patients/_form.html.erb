@@ -46,26 +46,6 @@
         </div>
       </div>
 
-      <div class="sm:col-span-6 field">
-        <%= form.label :address, class: "block text-sm font-medium
-        text-gray-700" %>
-        <div class="mt-1">
-          <%= form.text_field :address, class: "shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md" %>
-        </div>
-      </div>
-
-      <div class="sm:col-span-3 field">
-        <%= form.label :route, class: "block text-sm font-medium text-gray-700"
-        %>
-        <div class="mt-1">
-          <%= form.text_field :route, class: "shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md" %>
-        </div>
-      </div>
-
       <div class="sm:col-span-3 field">
         <%= form.label :phone, class: "block text-sm font-medium text-gray-700"
         %>
@@ -73,6 +53,26 @@
           <%= form.text_field :phone, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :address, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.text_area :address, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md h-24" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :route, class: "block text-sm font-medium text-gray-700"
+        %>
+        <div class="mt-1">
+          <%= form.text_area :route, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md h-24" %>
         </div>
       </div>
 
@@ -91,9 +91,28 @@
         <%= form.label :notes, class: "block text-sm font-medium text-gray-700"
         %>
         <div class="mt-1">
-          <%= form.text_field :notes, class: "shadow-sm focus:ring-indigo-500
+          <%= form.text_area :notes, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md" %>
+          rounded-md h-24" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :asha_member, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+         <%# <%= collection_check_boxes(:asha_member, :a_ids, User.aasha_member, :id, :name_with_initial) do |b|
+            b.label(class: "check_box") { b.check_box(class: "check_box") }
+          end
+          %>
+
+          <% User.aasha_member.each do |member| %>
+            <%= render partial:"checkbox", locals: {
+              user_id: member.id,
+              user_name: member.first_name,
+              form: form,
+            } %>
+          <% end %>
         </div>
       </div>
     </div>

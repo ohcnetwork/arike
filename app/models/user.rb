@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  scope :aasha_member, -> { where(role: "asha") }
   ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
   SIGNUP_ROLES = %w(asha volunteer)
   validates :role, inclusion: {
@@ -17,4 +18,6 @@ class User < ApplicationRecord
       body: "Click here to login: ",
     )
   end
+
+
 end
