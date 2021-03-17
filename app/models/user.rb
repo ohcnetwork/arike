@@ -8,6 +8,7 @@ class User < ApplicationRecord
                    }
   scope :ashas, -> { where(role: "asha") }
   scope :volunteers, -> { where(role: "volunteer") }
+  # enum roles: ROLES
 
   def send_sms
     phone_num = ENV["TWILIO_SENDER_NUMBER"]
@@ -27,5 +28,24 @@ class User < ApplicationRecord
         patient.users << User.find_by_id(key)
       end
     }
+  end
+
+  def self.getRole(role)
+
+    case role
+
+    when "primary_nurse"
+      return "Primary Nurse"
+
+    when "secondary_nurse"
+      return "Secondary Nurse"
+
+    when "asha"
+      return "ASHA Member"
+
+    when "volunteer"
+      return "Volunteer"
+    end
+
   end
 end
