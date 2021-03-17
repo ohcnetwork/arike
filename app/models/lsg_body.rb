@@ -1,0 +1,3 @@
+class LsgBody < ApplicationRecord
+
+end
