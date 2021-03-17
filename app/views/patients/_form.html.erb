@@ -1,0 +1,109 @@
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <%= form_with(model: patient) do |form| %> <% if patient.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(patient.errors.count, "error") %> prohibited this patient
+        from being saved:
+      </h2>
+
+      <ul>
+        <% patient.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+      <div class="sm:col-span-3 field">
+        <%= form.label :first_name, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.text_field :first_name, class: "shadow-sm
+          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+          border-gray-300 rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :full_name, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.text_field :full_name, class: "shadow-sm
+          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+          border-gray-300 rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :date_of_birth, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.date_field :dob, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-6 field">
+        <%= form.label :address, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.text_field :address, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :route, class: "block text-sm font-medium text-gray-700"
+        %>
+        <div class="mt-1">
+          <%= form.text_field :route, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :phone, class: "block text-sm font-medium text-gray-700"
+        %>
+        <div class="mt-1">
+          <%= form.text_field :phone, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :economic_status, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.select :economic_status, ["Well-Off", "Middle Class", "Poor",
+          "Very Poor"], {}, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :notes, class: "block text-sm font-medium text-gray-700"
+        %>
+        <div class="mt-1">
+          <%= form.text_field :notes, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border
+      border-transparent shadow-sm text-sm font-medium rounded-md text-white
+      bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+      focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
+    <% end %>
+  </div>
+</div>
