@@ -98,7 +98,7 @@
       </div>
 
       <div class="sm:col-span-3 field">
-        <%= form.label :asha_member, class: "block text-sm font-medium
+        <%= form.label :volunteer, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
          <%# <%= collection_check_boxes(:asha_member, :a_ids, User.aasha_member, :id, :name_with_initial) do |b|
@@ -106,7 +106,7 @@
           end
           %>
 
-          <% User.ashas.each do |member| %>
+          <% User.volunteers.each do |member| %>
             <%= render partial:"checkbox", locals: {
               user_id: member.id,
               user_name: member.first_name,
