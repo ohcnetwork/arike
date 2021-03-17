@@ -21,7 +21,7 @@ class User < ApplicationRecord
     )
   end
 
-  def self.addAshaWorker(patient, params)
+  def self.addVolunteer(patient, params)
     params.each { |key, value|
       if value.to_i == 1
         patient.users << User.find_by_id(key)
