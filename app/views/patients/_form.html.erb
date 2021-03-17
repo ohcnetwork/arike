@@ -77,17 +77,6 @@
       </div>
 
       <div class="sm:col-span-3 field">
-        <%= form.label :economic_status, class: "block text-sm font-medium
-        text-gray-700" %>
-        <div class="mt-1">
-          <%= form.select :economic_status, ["Well-Off", "Middle Class", "Poor",
-          "Very Poor"], {}, class: "shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md" %>
-        </div>
-      </div>
-
-      <div class="sm:col-span-3 field">
         <%= form.label :notes, class: "block text-sm font-medium text-gray-700"
         %>
         <div class="mt-1">
@@ -100,12 +89,7 @@
       <div class="sm:col-span-3 field">
         <%= form.label :volunteer, class: "block text-sm font-medium
         text-gray-700" %>
-        <div class="mt-1">
-         <%# <%= collection_check_boxes(:asha_member, :a_ids, User.aasha_member, :id, :name_with_initial) do |b|
-            b.label(class: "check_box") { b.check_box(class: "check_box") }
-          end
-          %>
-
+        <div class="mt-1 overflow-y-scroll h-24 py-3 px-2">
           <% User.volunteers.each do |member| %>
             <%= render partial:"checkbox", locals: {
               user_id: member.id,
@@ -115,6 +99,28 @@
           <% end %>
         </div>
       </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :economic_status, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.select :economic_status, ["Well-Off", "Middle Class", "Poor",
+          "Very Poor"], {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
+      <div class="sm:col-span-3 field">
+        <%= form.label :asha_member, class: "block text-sm font-medium
+        text-gray-700" %>
+        <div class="mt-1">
+          <%= form.select :aasha_member, User.ashas.to_a.map {|member| [member.first_name, member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+        </div>
+      </div>
+
     </div>
 
     <div class="actions">
