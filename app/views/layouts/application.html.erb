@@ -122,6 +122,10 @@
     </div>
   </nav>
 
+  <% if flash[:error] %>
+    <%= render partial: "/layouts/flash-message" %>
+  <% end %>
+
   <div class="py-10">
     <header>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
