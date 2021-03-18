@@ -7,12 +7,10 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
-import * as Index from "../index.bs";
+import "./autocomplete";
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
 import "stylesheets/application";
-
-window.runReact = Index.runReact;

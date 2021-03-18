@@ -12,17 +12,21 @@ function runReact(param) {
   var root = document.querySelector("#root");
   if (!(root == null)) {
     ReactDom.render(React.createElement(AutoComplete$Arike.make, {
-              options: [
-                "emma",
-                "david",
-                "brian",
-                "robert",
-                "kiwyoski",
-                "heugo",
-                "droka",
-                "daran",
-                "eugi"
-              ]
+              getFilteredArray: (function (inputValue) {
+                  return [
+                            "emma",
+                            "david",
+                            "brian",
+                            "robert",
+                            "kiwyoski",
+                            "heugo",
+                            "droka",
+                            "daran",
+                            "eugi"
+                          ].filter(function (el) {
+                              return el.includes(inputValue);
+                            });
+                })
             }), root);
     return ;
   }

@@ -31,7 +31,7 @@ var Record = {
 };
 
 function AutoComplete(Props) {
-  var options = Props.options;
+  var getFilteredArray = Props.getFilteredArray;
   var match = React.useState(function () {
         return "";
       });
@@ -41,19 +41,16 @@ function AutoComplete(Props) {
         return false;
       });
   var setRenderSuggestions = match$1[1];
-  var options$1 = Belt_Array.map(options, (function (w) {
-          return {
-                  id: Nanoid.nanoid(),
-                  word: w
-                };
-        }));
   var getSuggestions = function (input) {
-    var sg = options$1.filter(function (word) {
-          return word.word.includes(input);
-        });
+    var sg = Belt_Array.map(Curry._1(getFilteredArray, input), (function (w) {
+            return {
+                    id: Nanoid.nanoid(),
+                    word: w
+                  };
+          }));
     return React.createElement("div", {
                 "aria-labelledby": "options-menu",
-                className: "w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none",
+                className: "w-full absolute rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none",
                 role: "menu"
               }, React.createElement("div", {
                     "aria-expanded": true,
@@ -62,13 +59,19 @@ function AutoComplete(Props) {
                   }, Belt_Array.map(sg, (function (word) {
                           return React.createElement("li", {
                                       key: word.id,
-                                      className: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900",
+                                      className: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 hover:text-gray-900",
                                       role: "menuitem",
                                       tabIndex: 0,
-                                      onFocus: (function (param) {
-                                          return Curry._1(setInputValue, (function (param) {
-                                                        return word.word;
-                                                      }));
+                                      onKeyDown: (function ($$event) {
+                                          if ($$event.key === "Enter") {
+                                            Curry._1(setInputValue, (function (param) {
+                                                    return word.word;
+                                                  }));
+                                            return Curry._1(setRenderSuggestions, (function (param) {
+                                                          return false;
+                                                        }));
+                                          }
+                                          
                                         }),
                                       onClick: (function (param) {
                                           Curry._1(setInputValue, (function (param) {
@@ -85,18 +88,20 @@ function AutoComplete(Props) {
               className: "p-8 flex items-center justify-center bg-white"
             }, React.createElement("div", {
                   className: "w-full max-w-xs mx-auto"
-                }, React.createElement("div", undefined, React.createElement("label", {
+                }, React.createElement("div", {
+                      className: "relative"
+                    }, React.createElement("label", {
                           className: "block text-sm font-medium text-gray-700",
                           htmlFor: "email"
-                        }, "Email"), React.createElement("div", {
+                        }, "Disease"), React.createElement("div", {
                           className: "mt-1"
                         }, React.createElement("input", {
-                              "aria-describedby": "email-description",
+                              "aria-describedby": "disease-description",
                               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                              id: "email",
+                              id: "diseases",
                               tabIndex: 0,
-                              name: "email",
-                              placeholder: "you@example.com",
+                              name: "diseases",
+                              placeholder: "Pneumonia",
                               type: "text",
                               value: inputValue,
                               onChange: (function ($$event) {

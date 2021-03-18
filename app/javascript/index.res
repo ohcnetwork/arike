@@ -5,7 +5,19 @@ let runReact = () => {
   | Some(root) =>
     ReactDOM.render(
       <AutoComplete
-        options=["emma", "david", "brian", "robert", "kiwyoski", "heugo", "droka", "daran", "eugi"]
+        getFilteredArray={inputValue => {
+          [
+            "emma",
+            "david",
+            "brian",
+            "robert",
+            "kiwyoski",
+            "heugo",
+            "droka",
+            "daran",
+            "eugi",
+          ]->Js.Array2.filter(el => el->Js.String2.includes(inputValue))
+        }}
       />,
       root,
     )
