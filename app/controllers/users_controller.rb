@@ -7,9 +7,20 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+    @user = User.find_by_id(params[:id])
+  end
+
+  def update
+    newUser = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone)
+    user = User.find_by_id(params[:id])
+    user.update(full_name: newUser[:full_name], first_name: newUser[:first_name], role: newUser[:role], email: newUser[:email], phone: newUser[:phone])
+    redirect_to home_path
+  end
+
   def create
-    user = params.require(:user).permit(:full_name, :first_name, :role)
+    user = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone, :password)
     User.create!(user)
-    redirect_to root_path
+    redirect_to home_path
   end
 end

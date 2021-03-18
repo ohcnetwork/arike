@@ -32,24 +32,18 @@ class User < ApplicationRecord
   end
 
   def self.get_role(role)
-
     case role
 
     when "primary_nurse"
       return "Primary Nurse"
-
     when "secondary_nurse"
       return "Secondary Nurse"
-
     when "asha"
       return "ASHA Member"
-
     when "volunteer"
       return "Volunteer"
-
     when "superuser"
       return "Super User"
     end
-
   end
 end
