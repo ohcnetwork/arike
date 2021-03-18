@@ -11,23 +11,24 @@
                     Full Name
                   </th>
                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date of Birth
+                    LSG Body
                   </th>
                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Phone
                   </th>
                   <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Address
+                    ASHA Member
                   </th>
-                  <th scope="col" class="relative px-6 py-3">
-                    <span class="sr-only">Edit</span>
+                  <th scope="col" colspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
                   </th>
                 </tr>
               </thead>
               <tbody x-max="2">
                  <% Patient.all.each do |patient| %>
                   <%= render partial: "table-row",
-                    locals: { full_name: patient.full_name, dob: patient.dob, phone: patient.phone, address: patient.address, id: patient.id }
+                    locals: { full_name: patient.full_name, asha_member: User.all.find_by_id(patient.asha_member),
+                            phone: patient.phone, lsg_body: LsgBody.all.find_by_id(patient.lsg_body), id: patient.id }
                     %>
                   <% end %>
               </tbody>

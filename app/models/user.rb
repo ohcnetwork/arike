@@ -23,7 +23,7 @@ class User < ApplicationRecord
     )
   end
 
-  def self.addVolunteer(patient, params)
+  def self.add_volunteer(patient, params)
     params.each { |key, value|
       if value.to_i == 1
         patient.users << User.find_by_id(key)
@@ -31,22 +31,19 @@ class User < ApplicationRecord
     }
   end
 
-  def self.getRole(role)
-
+  def self.get_role(role)
     case role
 
     when "primary_nurse"
       return "Primary Nurse"
-
     when "secondary_nurse"
       return "Secondary Nurse"
-
     when "asha"
       return "ASHA Member"
-
     when "volunteer"
       return "Volunteer"
+    when "superuser"
+      return "Super User"
     end
-
   end
 end

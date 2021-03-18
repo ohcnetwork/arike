@@ -1,0 +1,20 @@
+<tr class="bg-white" x-description="Odd row">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= full_name %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= first_name  %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= email %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= phone %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+    <%= role %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+    <%= link_to "Edit", edit_user_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+  </td>
+</tr>
