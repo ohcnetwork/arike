@@ -11,6 +11,6 @@ class LsgBodiesController < ApplicationController
   def create
     p = params[:lsg_body]
     LsgBody.create!(name: p[:name], kind: p[:kind])
-    redirect_to home_path
+    redirect_to lsg_bodies_path
   end
 end
