@@ -93,7 +93,7 @@
                 >
                   <dt class="text-sm font-medium text-gray-500">Volunteers</dt>
                   <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.users.volunteers.to_a.map {|member| member.first_name}.join(", ") %>
+                    <%= @patient.users.volunteers.to_a.map {|member| member.full_name}.join(", ") %>
                   </dd>
                 </div>
 
