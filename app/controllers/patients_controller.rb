@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter {|key, value| value.to_i == 1}.map {|key, value| key}
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value.to_i == 1 }.map { |key, value| key }
     patient.add_users(volunteer_user_ids)
     redirect_to patients_path
   end
@@ -36,6 +36,6 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status,
-                                    :notes, :asha_member, :reported_by)
+                                    :notes, :asha_member, :reported_by, :lsg_body)
   end
 end

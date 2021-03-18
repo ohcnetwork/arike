@@ -1,3 +1,2 @@
 class LsgBody < ApplicationRecord
-
 end
