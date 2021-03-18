@@ -8,27 +8,30 @@ function s(prim) {
   return prim;
 }
 
-function runReact(param) {
-  var root = document.querySelector("#root");
-  if (!(root == null)) {
+function runReact(root) {
+  var root$1 = document.querySelector("#" + root);
+  if (root$1 == null) {
+    console.log("hunu");
+  } else {
     ReactDom.render(React.createElement(AutoComplete$Arike.make, {
               getFilteredArray: (function (inputValue) {
                   return [
-                            "emma",
-                            "david",
-                            "brian",
-                            "robert",
-                            "kiwyoski",
-                            "heugo",
+                            "euma",
+                            "euvid",
+                            "euian",
+                            "eubert",
+                            "euwyoski",
+                            "euugo",
                             "droka",
                             "daran",
                             "eugi"
                           ].filter(function (el) {
                               return el.includes(inputValue);
                             });
-                })
-            }), root);
-    return ;
+                }),
+              placeholder: "Diseases",
+              value: ""
+            }), root$1);
   }
   
 }
