@@ -14,8 +14,8 @@ RSpec.describe "Patients", type: :request do
   end
 
   it "assigns volunteers to the patient" do
-    v1 = User.create!(first_name: "v1", role: "volunteer", password: "test123")
-    v2 = User.create!(first_name: "v2", role: "volunteer", password: "test123")
+    v1 = FactoryBot.create(:volunteer)
+    v2 = FactoryBot.create(:volunteer)
     post "/patients", params: { patient: { full_name: "Test123", volunteer: { v1.id => 1, v2.id => 1 } } }
     patient = Patient.last
     expect(patient.users.volunteers).to include(v1, v2)
