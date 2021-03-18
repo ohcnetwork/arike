@@ -20,7 +20,7 @@
         <%= form.label :first_name, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
-          <%= form.text_field :first_name, class: "shadow-sm
+          <%= form.text_field :first_name, required: true, class: "shadow-sm
           focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
           border-gray-300 rounded-md" %>
         </div>
@@ -30,7 +30,7 @@
         <%= form.label :full_name, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
-          <%= form.text_field :full_name, class: "shadow-sm
+          <%= form.text_field :full_name, required: true, class: "shadow-sm
           focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
           border-gray-300 rounded-md" %>
         </div>
@@ -40,7 +40,7 @@
         <%= form.label :dob, "Date of Birth", class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
-          <%= form.date_field :dob, class: "shadow-sm focus:ring-indigo-500
+          <%= form.date_field :dob, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
         </div>
@@ -50,7 +50,7 @@
         <%= form.label :phone, class: "block text-sm font-medium text-gray-700"
         %>
         <div class="mt-1">
-          <%= form.text_field :phone, class: "shadow-sm focus:ring-indigo-500
+          <%= form.text_field :phone, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
         </div>
@@ -60,7 +60,7 @@
         <%= form.label :address, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1">
-          <%= form.text_area :address, class: "shadow-sm focus:ring-indigo-500
+          <%= form.text_area :address, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md h-24" %>
         </div>
@@ -70,7 +70,7 @@
         <%= form.label :route, class: "block text-sm font-medium text-gray-700"
         %>
         <div class="mt-1">
-          <%= form.text_area :route, class: "shadow-sm focus:ring-indigo-500
+          <%= form.text_area :route, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md h-24" %>
         </div>
@@ -80,7 +80,7 @@
         <%= form.label :notes, class: "block text-sm font-medium text-gray-700"
         %>
         <div class="mt-1">
-          <%= form.text_area :notes, class: "shadow-sm focus:ring-indigo-500
+          <%= form.text_area :notes, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md h-24" %>
         </div>
@@ -90,11 +90,13 @@
         <%= form.label :volunteer, class: "block text-sm font-medium
         text-gray-700" %>
         <div class="mt-1 overflow-y-scroll h-24 py-3 px-2">
+
           <% User.volunteers.each do |member| %>
             <%= render partial:"checkbox", locals: {
               user_id: member.id,
               user_name: member.full_name,
               form: form,
+              checked: !@patient.users.volunteers.find_by_id(member.id).nil?,
             } %>
           <% end %>
         </div>
