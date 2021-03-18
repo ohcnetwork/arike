@@ -41,15 +41,15 @@ let make = (
   }
 
   let handleInputValueChange = event => {
+    let value = ReactEvent.Form.target(event)["value"]
     setInputValue(_ => {
-      let value = ReactEvent.Form.target(event)["value"]
       let len = value->Js.String2.length
       if len > 1 {
         setRenderSuggestions(_ => true)
       } else {
         setRenderSuggestions(_ => false)
       }
-      ReactEvent.Form.target(event)["value"]
+      value
     })
   }
 
