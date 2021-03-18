@@ -1,6 +1,7 @@
 class LsgBodiesController < ApplicationController
   def index
-    render plain: "Index"
+    @lsg_body = LsgBody.all
+    render "index"
   end
 
   def new
