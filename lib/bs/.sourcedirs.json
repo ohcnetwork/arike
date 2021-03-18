@@ -1,1 +1,0 @@
-{ "dirs" : [ "app/javascript" , "app/javascript/channels" , "app/javascript/stylesheets" , "app/javascript/packs" , "app/javascript/AutoComplete" ] , "pkgs" : [ [ "@rescript/react" , "/Users/pradiptaghoshal/Desktop/projects/arike/node_modules/@rescript/react" ] ] , "generated" : [] }
