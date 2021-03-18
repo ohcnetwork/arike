@@ -46,6 +46,9 @@ class User < ApplicationRecord
 
     when "volunteer"
       return "Volunteer"
+
+    when "superuser"
+      return "Super User"
     end
 
   end
