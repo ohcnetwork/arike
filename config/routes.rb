@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "home#index", as: :home
 
   get "/dashboard", to: "dashboard#index", as: :dashboard
-  get "/signup", to: "users#signup"
+  get "/signup", to: "users#signup", as: :signup
   get "/search", to: "search#index"
 
   put "/users/:id/verify", to: "users#verify", as: :verify_user

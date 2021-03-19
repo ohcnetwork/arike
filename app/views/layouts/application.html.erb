@@ -13,9 +13,12 @@
       <% if session[:current_user_id] %>
         <%= render partial: "/layouts/navbar" %>
       <% else %>
-         <%= render partial: "/layouts/home-nav" %>
+        <%= render partial: "/layouts/home-nav" %>
       <% end %>
       <% if flash[:error] %>
+        <%= render partial: "/layouts/flash-message" %>
+      <% end %>
+      <% if flash[:notice] %>
         <%= render partial: "/layouts/flash-message" %>
       <% end %>
       <div class="py-10">

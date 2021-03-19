@@ -10,6 +10,10 @@ class User < ApplicationRecord
   scope :ashas, -> { where(role: "asha") }
   scope :volunteers, -> { where(role: "volunteer") }
   # enum roles: ROLES
+  validates :email, presence: true
+  validates :password, presence: true
+  validates :email, uniqueness: true
+  validates :phone, uniqueness: true
 
   def send_sms
     phone_num = ENV["TWILIO_SENDER_NUMBER"]
