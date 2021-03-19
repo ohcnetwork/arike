@@ -14,10 +14,15 @@ class SearchController < ApplicationController
   end
 
   def index
-    query = params[:query]
-    res = with_read_only_connection do
-      ActiveRecord::Base.connection.execute("#{query}")
-    end
-    render json: res.to_json
+    # query = params[:query]
+    # res = with_read_only_connection do
+    #   ActiveRecord::Base.connection.execute("#{query}")
+    # end
+    # render json: res.to_json
+
+    # sending asha members info to AutoComplete react component
+    result = User.where(role: "asha").select(:id, :full_name)
+    data = result.map { |r| r.attributes.symbolize_keys }
+    render :json => data
   end
 end

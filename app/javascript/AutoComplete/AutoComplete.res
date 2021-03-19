@@ -22,13 +22,13 @@ let make = (~id, ~api, ~name, ~label="Enter", ~placeholder="Start searching", ~v
   let (renderSuggestions, setRenderSuggestions) = React.useState(() => false)
   let (sg, setSg) = React.useState(() => [])
 
-  // line 45
+  // reducer function to build sg (see line 51)
   let createSuggestionArrayReducer = (acc, current) => {
     let idNameArray =
       current->Js.Json.decodeObject->Belt.Option.getWithDefault(Js.Dict.empty())->Js.Dict.entries
     // get the id and the name in type Js.Json.t
-    let (_, idValue) = idNameArray[2]
-    let (_, nameValue) = idNameArray[3]
+    let (_, idValue) = idNameArray[0] // use Belt.Array.get
+    let (_, nameValue) = idNameArray[1]
 
     // convert id and name to type string
     let idValue = idValue->Js.Json.decodeString->Belt.Option.getWithDefault("")
@@ -46,7 +46,7 @@ let make = (~id, ~api, ~name, ~label="Enter", ~placeholder="Start searching", ~v
     Fetch.fetch(api)
     |> then_(Fetch.Response.json)
     |> then_(json => Js.Json.decodeArray(json) |> resolve)
-    |> then_(opt => Belt.Option.getExn(opt) |> resolve)
+    |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
     |> then_(items => {
       // convert the array<Js.Json.t> into array<Record.t>
       let suggestionsList = items->Belt.Array.reduce([], createSuggestionArrayReducer)
@@ -78,12 +78,19 @@ let make = (~id, ~api, ~name, ~label="Enter", ~placeholder="Start searching", ~v
     setInputValue(_ => value)
   }
 
+  let neutraliseString = str => {
+    str->Js.String2.trim->Js.String2.toLocaleLowerCase
+  }
+
   // filter the original array to create suggestions array
   let getFilteredArray = input => {
     if input == "" {
       sg
     } else {
-      let newSg = sg->Js.Array2.filter(info => info.name->Js.String2.includes(input))
+      let newSg =
+        sg->Js.Array2.filter(info =>
+          info.name->neutraliseString->Js.String2.includes(input->neutraliseString)
+        )
       newSg
     }
   }

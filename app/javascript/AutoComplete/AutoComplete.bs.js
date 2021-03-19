@@ -60,8 +60,8 @@ function AutoComplete(Props) {
   var sg = match$2[0];
   var createSuggestionArrayReducer = function (acc, current) {
     var idNameArray = Js_dict.entries(Belt_Option.getWithDefault(Js_json.decodeObject(current), {}));
-    var match = Caml_array.get(idNameArray, 2);
-    var match$1 = Caml_array.get(idNameArray, 3);
+    var match = Caml_array.get(idNameArray, 0);
+    var match$1 = Caml_array.get(idNameArray, 1);
     var idValue = Belt_Option.getWithDefault(Js_json.decodeString(match[1]), "");
     var nameValue = Belt_Option.getWithDefault(Js_json.decodeString(match$1[1]), "");
     if (idValue !== "" && nameValue !== "") {
@@ -79,7 +79,7 @@ function AutoComplete(Props) {
                           }).then(function (json) {
                           return Promise.resolve(Js_json.decodeArray(json));
                         }).then(function (opt) {
-                        return Promise.resolve(Belt_Option.getExn(opt));
+                        return Promise.resolve(Belt_Option.getWithDefault(opt, [null]));
                       }).then(function (items) {
                       var suggestionsList = Belt_Array.reduce(items, [], createSuggestionArrayReducer);
                       return Promise.resolve(Curry._1(setSg, (function (param) {
@@ -95,7 +95,7 @@ function AutoComplete(Props) {
       return sg;
     } else {
       return sg.filter(function (info) {
-                  return info.name.includes(input);
+                  return info.name.trim().toLocaleLowerCase().includes(input.trim().toLocaleLowerCase());
                 });
     }
   };
