@@ -13,7 +13,12 @@
       "in-source": true
     }
   ],
-  "bs-dependencies": ["@rescript/react", "bs-fetch"],
+
+  "bs-dependencies": [
+    "@rescript/react",
+    "bs-fetch",
+    "@pupilfirst/multiselect-dropdown"
+  ],
   "suffix": ".bs.js",
   "namespace": true,
   "ppx-flags": [],
