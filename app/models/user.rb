@@ -38,4 +38,12 @@ class User < ApplicationRecord
       return "Super User"
     end
   end
+
+  def self.verified
+    User.where(verified: true)
+  end
+
+  def self.unverified
+    User.where(verified: false)
+  end
 end

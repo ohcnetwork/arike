@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: :dashboard
   get "/signup", to: "users#signup"
   get "/search", to: "search#index"
+
+  put "/users/:id/verify", to: "users#verify", as: :verify_user
+
   resources :patients
   resources :users
 

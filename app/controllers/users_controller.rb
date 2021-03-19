@@ -30,4 +30,10 @@ class UsersController < ApplicationController
     User.create!(user)
     redirect_to home_path
   end
+
+  def verify
+    user=User.find_by_id(params[:id])
+    user.update(verified: true)
+    redirect_to users_path
+  end
 end

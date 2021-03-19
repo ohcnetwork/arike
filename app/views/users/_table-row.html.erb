@@ -15,6 +15,10 @@
     <%= role %>
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-    <%= link_to "Edit", edit_user_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+    <% if verified %>
+      <%= link_to "Edit", edit_user_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+    <% else %>
+      <%= link_to "Verify access", verify_user_path(id),method: :put, class: "text-indigo-600 hover:text-indigo-900"  %>
+    <% end %>
   </td>
 </tr>

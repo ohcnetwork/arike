@@ -28,11 +28,11 @@
                 </tr>
               </thead>
               <tbody x-max="2">
-                 <% User.all.each do |user| %>
-                  <%= render partial: "verified-table-row",
-                    locals: { full_name: user.full_name, first_name: user.first_name, phone: user.phone, email: user.email, role: user.role, id: user.id }
+                <% users.each do |user| %>
+                  <%= render partial: "table-row",
+                    locals: { full_name: user.full_name, first_name: user.first_name, phone: user.phone, email: user.email, role: user.role, id: user.id, verified: user.verified }
                     %>
-                  <% end %>
+                <% end %>
               </tbody>
             </table>
           </div>
