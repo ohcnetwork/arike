@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(password)
         session[:current_user_id] = user.id
-        redirect_to home_path
+        redirect_to dashboard_path
     else
       flash[:error] = "Invalid Credentials!"
       redirect_to new_session_path
