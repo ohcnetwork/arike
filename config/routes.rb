@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root "home#index", as: :home
 
   get "/signup", to: "users#signup"
+  get "/search", to: "search#index"
   resources :patients
   resources :users
 
