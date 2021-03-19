@@ -2,5 +2,5 @@
 <%= content_tag(:div,"" ,id: uniq_id) %>
 <%= javascript_pack_tag "autocomplete", 'data-turbolinks-track': "reload" %>
 <script>
-  runReact("<%= uniq_id %>")
+  runReact("<%= uniq_id %>", "<%= api_endpoint %>", "<%= name %>", "<%= id %>", "<%= label %>", "<%= placeholder %>")
 </script>

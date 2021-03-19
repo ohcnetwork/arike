@@ -128,6 +128,16 @@
           rounded-md" %>
           </div>
         </div>
+        <div class="sm:col-span-3 field">
+          <%= render partial: "utils/autocomplete", :locals => {
+          :uniq_id => "auu",
+          :api_endpoint => "https://jsonplaceholder.typicode.com/users/1/posts",
+          :name => "patient[asha_member]",
+          :id => "patient_asha_member",
+          :label => "Asha Member",
+          :placeholder => "Find Asha Member"
+           } %>
+        </div>
       </div>
       <div class="actions">
         <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border

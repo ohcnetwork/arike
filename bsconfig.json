@@ -13,7 +13,7 @@
       "in-source": true
     }
   ],
-  "bs-dependencies": ["@rescript/react"],
+  "bs-dependencies": ["@rescript/react", "bs-fetch"],
   "suffix": ".bs.js",
   "namespace": true,
   "ppx-flags": [],

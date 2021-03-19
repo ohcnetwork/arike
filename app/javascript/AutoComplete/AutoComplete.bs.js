@@ -2,17 +2,20 @@
 
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
-import * as Nanoid from "nanoid";
+import * as Js_dict from "bs-platform/lib/es6/js_dict.js";
+import * as Js_json from "bs-platform/lib/es6/js_json.js";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
+import * as Caml_array from "bs-platform/lib/es6/caml_array.js";
+import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 
 function s(prim) {
   return prim;
 }
 
-function make(word) {
+function make(id, word) {
   return {
-          id: Nanoid.nanoid(),
-          word: word
+          id: id,
+          name: word
         };
 }
 
@@ -20,20 +23,24 @@ function id(t) {
   return t.id;
 }
 
-function word(t) {
-  return t.word;
+function name(t) {
+  return t.name;
 }
 
 var Record = {
   make: make,
   id: id,
-  word: word
+  name: name
 };
 
 function AutoComplete(Props) {
-  var getFilteredArray = Props.getFilteredArray;
+  var id = Props.id;
+  var api = Props.api;
+  var name = Props.name;
+  var labelOpt = Props.label;
   var placeholderOpt = Props.placeholder;
   var valueOpt = Props.value;
+  var label = labelOpt !== undefined ? labelOpt : "Enter";
   var placeholder = placeholderOpt !== undefined ? placeholderOpt : "Start searching";
   var value = valueOpt !== undefined ? valueOpt : "";
   var match = React.useState(function () {
@@ -45,11 +52,58 @@ function AutoComplete(Props) {
         return false;
       });
   var setRenderSuggestions = match$1[1];
+  var renderSuggestions = match$1[0];
+  var match$2 = React.useState(function () {
+        return [];
+      });
+  var setSg = match$2[1];
+  var sg = match$2[0];
+  var createSuggestionArrayReducer = function (acc, current) {
+    var idNameArray = Js_dict.entries(Belt_Option.getWithDefault(Js_json.decodeObject(current), {}));
+    var match = Caml_array.get(idNameArray, 2);
+    var match$1 = Caml_array.get(idNameArray, 3);
+    var idValue = Belt_Option.getWithDefault(Js_json.decodeString(match[1]), "");
+    var nameValue = Belt_Option.getWithDefault(Js_json.decodeString(match$1[1]), "");
+    if (idValue !== "" && nameValue !== "") {
+      return Belt_Array.concat(acc, [{
+                    id: idValue,
+                    name: nameValue
+                  }]);
+    } else {
+      return acc;
+    }
+  };
+  React.useEffect((function () {
+          Promise.resolve(fetch(api).then(function (prim) {
+                            return prim.json();
+                          }).then(function (json) {
+                          return Promise.resolve(Js_json.decodeArray(json));
+                        }).then(function (opt) {
+                        return Promise.resolve(Belt_Option.getExn(opt));
+                      }).then(function (items) {
+                      var suggestionsList = Belt_Array.reduce(items, [], createSuggestionArrayReducer);
+                      return Promise.resolve(Curry._1(setSg, (function (param) {
+                                        return suggestionsList;
+                                      })));
+                    }).then(function (opt) {
+                    return Promise.resolve(opt);
+                  }));
+          
+        }), []);
+  var getFilteredArray = function (input) {
+    if (input === "") {
+      return sg;
+    } else {
+      return sg.filter(function (info) {
+                  return info.name.includes(input);
+                });
+    }
+  };
   var getSuggestions = function (input) {
-    var sg = Belt_Array.map(Curry._1(getFilteredArray, input), (function (w) {
+    var sg = Belt_Array.map(getFilteredArray(input), (function (w) {
             return {
-                    id: Nanoid.nanoid(),
-                    word: w
+                    id: w.id,
+                    name: w.name
                   };
           }));
     if (sg.length < 1) {
@@ -69,13 +123,13 @@ function AutoComplete(Props) {
                             return React.createElement("li", {
                                         key: word.id,
                                         className: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100 hover:text-gray-900",
-                                        id: word.word,
+                                        id: word.name,
                                         role: "menuitem",
                                         tabIndex: 0,
                                         onKeyDown: (function ($$event) {
                                             if ($$event.key === "Enter") {
                                               Curry._1(setInputValue, (function (param) {
-                                                      return word.word;
+                                                      return word.name;
                                                     }));
                                               return Curry._1(setRenderSuggestions, (function (param) {
                                                             return false;
@@ -85,54 +139,49 @@ function AutoComplete(Props) {
                                           }),
                                         onClick: (function (param) {
                                             Curry._1(setInputValue, (function (param) {
-                                                    return word.word;
+                                                    return word.name;
                                                   }));
                                             return Curry._1(setRenderSuggestions, (function (param) {
                                                           return false;
                                                         }));
                                           })
-                                      }, word.word);
+                                      }, word.name);
                           }))));
     }
   };
   return React.createElement("div", {
-              className: "p-8 flex items-center justify-center bg-white"
+              className: "bg-white"
             }, React.createElement("div", {
-                  className: "w-full max-w-xs mx-auto"
+                  className: "w-full"
                 }, React.createElement("div", {
                       className: "relative"
                     }, React.createElement("label", {
                           className: "block text-sm font-medium text-gray-700",
                           htmlFor: "email"
-                        }, "Disease"), React.createElement("div", {
+                        }, label), React.createElement("div", {
                           className: "mt-1"
                         }, React.createElement("input", {
                               "aria-describedby": "disease-description",
                               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                              id: "diseases",
+                              id: id,
                               tabIndex: 0,
                               autoComplete: "off",
-                              name: "diseases",
+                              name: name,
                               placeholder: placeholder,
                               type: "search",
                               value: inputValue,
                               onChange: (function ($$event) {
                                   var value = $$event.target.value;
                                   return Curry._1(setInputValue, (function (param) {
-                                                var len = value.length;
-                                                if (len > 1) {
-                                                  Curry._1(setRenderSuggestions, (function (param) {
-                                                          return true;
-                                                        }));
-                                                } else {
-                                                  Curry._1(setRenderSuggestions, (function (param) {
-                                                          return false;
-                                                        }));
-                                                }
                                                 return value;
                                               }));
+                                }),
+                              onClick: (function (param) {
+                                  return Curry._1(setRenderSuggestions, (function (param) {
+                                                return !renderSuggestions;
+                                              }));
                                 })
-                            })), match$1[0] === true ? getSuggestions(inputValue) : React.createElement(React.Fragment, undefined))));
+                            })), renderSuggestions === true ? getSuggestions(inputValue) : React.createElement(React.Fragment, undefined))));
 }
 
 var make$1 = AutoComplete;

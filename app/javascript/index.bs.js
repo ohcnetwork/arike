@@ -8,28 +8,17 @@ function s(prim) {
   return prim;
 }
 
-function runReact(root) {
+function runReact(root, api, name, id, label, placeholder) {
   var root$1 = document.querySelector("#" + root);
   if (root$1 == null) {
     console.log("hunu");
   } else {
     ReactDom.render(React.createElement(AutoComplete$Arike.make, {
-              getFilteredArray: (function (inputValue) {
-                  return [
-                            "euma",
-                            "euvid",
-                            "euian",
-                            "eubert",
-                            "euwyoski",
-                            "euugo",
-                            "droka",
-                            "daran",
-                            "eugi"
-                          ].filter(function (el) {
-                              return el.includes(inputValue);
-                            });
-                }),
-              placeholder: "Diseases",
+              id: id,
+              api: api,
+              name: name,
+              label: label,
+              placeholder: placeholder,
               value: ""
             }), root$1);
   }
