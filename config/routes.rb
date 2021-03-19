@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   root "home#index", as: :home
 
+  get "/dashboard", to: "dashboard#index", as: :dashboard
   get "/signup", to: "users#signup"
+  get "/search", to: "search#index"
   resources :patients
   resources :users
 

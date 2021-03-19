@@ -117,8 +117,8 @@ function AutoComplete(Props) {
                               type: "search",
                               value: inputValue,
                               onChange: (function ($$event) {
+                                  var value = $$event.target.value;
                                   return Curry._1(setInputValue, (function (param) {
-                                                var value = $$event.target.value;
                                                 var len = value.length;
                                                 if (len > 1) {
                                                   Curry._1(setRenderSuggestions, (function (param) {
@@ -129,7 +129,7 @@ function AutoComplete(Props) {
                                                           return false;
                                                         }));
                                                 }
-                                                return $$event.target.value;
+                                                return value;
                                               }));
                                 })
                             })), match$1[0] === true ? getSuggestions(inputValue) : React.createElement(React.Fragment, undefined))));
