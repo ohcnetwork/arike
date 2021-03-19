@@ -1,6 +1,6 @@
-<!-- <%= render partial: "utils/autocomplete", :locals => {:uniq_id => "autocomplete"} %> -->
 <!-- Because React is not integrated yet, The uniq_id helps mount several autocomplete components in the same page.-->
 <%= content_tag(:div,"" ,id: uniq_id) %>
+<%= javascript_pack_tag "autocomplete", 'data-turbolinks-track': "reload" %>
 <script>
   runReact("<%= uniq_id %>")
 </script>

@@ -45,3 +45,4 @@ yarn-debug.log*
 # Ignore dotenv files.
 .env*
 lib/bs
+.bsb.lock
