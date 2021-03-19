@@ -17,11 +17,16 @@ class SessionsController < ApplicationController
       user = User.find_by(phone: login_id)
     end
 
-    if user && user.authenticate(password)
+    if user
+      if user.authenticate(password)
         session[:current_user_id] = user.id
         redirect_to dashboard_path
+      else
+        flash[:error] = "Invalid Credentials!"
+        redirect_to new_session_path
+      end
     else
-      flash[:error] = "Invalid Credentials!"
+      flash[:error] = "Enter a Valid Login ID"
       redirect_to new_session_path
     end
   end
