@@ -22,7 +22,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone, :password)
+    user = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone, :password,:verified)
+
+    if !user.has_key?(:password)
+      user[:password] = "arike"
+    end
     User.create!(user)
     redirect_to home_path
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_080500) do
+ActiveRecord::Schema.define(version: 2021_03_19_111239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_080500) do
     t.string "email"
     t.bigint "phone"
     t.string "password_digest"
+    t.boolean "verified", default: true
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
   end
 
