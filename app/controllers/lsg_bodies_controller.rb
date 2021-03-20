@@ -17,4 +17,17 @@ class LsgBodiesController < ApplicationController
     id = params[:id]
     @lsg_body = LsgBody.find(id)
   end
+
+  def edit
+    id = params[:id]
+    @lsg_body = LsgBody.find(id)
+  end
+
+  def update
+    id = params[:id]
+    p = params[:lsg_body]
+
+    LsgBody.update(id, name: p[:name], kind: p[:kind], code: p[:code], district: p[:district])
+    redirect_to lsg_body_path(id)
+  end
 end
