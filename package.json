@@ -2,7 +2,6 @@
   "name": "arike",
   "private": true,
   "dependencies": {
-    "@pupilfirst/multiselect-dropdown": "^1.0.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -12,6 +11,7 @@
     "autoprefixer": "^9",
     "bs-fetch": "^0.6.2",
     "bs-platform": "^9.0.2",
+    "bs-webapi": "^0.19.1",
     "nanoid": "^3.1.22",
     "postcss": "^7",
     "react": "^17.0.1",
