@@ -150,7 +150,9 @@ let make = (~id, ~api, ~name, ~label="Enter", ~placeholder="Start searching", ~v
             ariaDescribedby="disease-description"
             value=inputValue
             onChange={event => handleInputValueChange(event)}
-            onClick={_ => setRenderSuggestions(_ => !renderSuggestions)}
+            // onClick={_ => setRenderSuggestions(_ => !renderSuggestions)}
+            onClick={_ => setRenderSuggestions(_ => true)}
+            onBlur={_ => {setRenderSuggestions(_ => false)}}
           />
         </div>
         {if renderSuggestions == true {

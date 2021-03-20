@@ -10,8 +10,8 @@ class User < ApplicationRecord
   scope :ashas, -> { where(role: "asha") }
   scope :volunteers, -> { where(role: "volunteer") }
   # enum roles: ROLES
-  validates :email, presence: true
-  validates :password, presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, :on => :create
   validates :email, uniqueness: true
   validates :phone, uniqueness: true
 
@@ -49,5 +49,9 @@ class User < ApplicationRecord
 
   def self.unverified
     User.where(verified: false)
+  end
+
+  def superuser?
+    self[:role] == "superuser"
   end
 end

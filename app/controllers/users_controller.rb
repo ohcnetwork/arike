@@ -1,15 +1,16 @@
 class UsersController < ApplicationController
+  before_action :ensure_superuser, only: [:index, :new, :update, :verify]
+
   def index
   end
 
   def new
     @user = User.new
-    flash[:notice] = "Added user to system!"
   end
 
   def signup
     @user = User.new
-    @user[:verified]=false
+    @user[:verified] = false
   end
 
   def edit
@@ -32,13 +33,13 @@ class UsersController < ApplicationController
       user[:password] = "arike"
     end
 
-    user= User.new(user)
+    user = User.new(user)
 
     if user.valid?
       user.save
-      redirect_to home_path,notice: 'You have successfully signed up!'
+      redirect_to new_session_path, notice: "You have successfully signed up!"
     else
-      flash[:error]=user.errors.full_messages.to_sentence
+      flash[:error] = user.errors.full_messages.to_sentence
       redirect_to signup_path
     end
   end

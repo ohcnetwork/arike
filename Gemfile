@@ -23,7 +23,7 @@ gem "jbuilder", "~> 2.7"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -36,7 +36,7 @@ group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   # Testing framework to Ruby on Rails
   gem "rspec-rails", "~> 4.0.2"
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end
 
 group :development do
@@ -48,6 +48,8 @@ group :development do
   gem "listen", "~> 3.3"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
+  gem "pry", "~> 0.14.0"
+  gem "htmlbeautifier"
 end
 
 group :test do
@@ -57,6 +59,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem "webdrivers"
   gem "factory_bot_rails"
+  gem "faker"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -64,7 +67,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "tailwindcss-rails", "~> 0.3.3"
 
-gem "pry", "~> 0.14.0"
-
 gem "twilio-ruby", "~> 5.48"
-gem "htmlbeautifier"
