@@ -30,4 +30,10 @@ class LsgBodiesController < ApplicationController
     LsgBody.update(id, name: p[:name], kind: p[:kind], code: p[:code], district: p[:district])
     redirect_to lsg_body_path(id)
   end
+
+  def destroy
+    LsgBody.delete(params[:id])
+
+    redirect_to lsg_bodies_path
+  end
 end

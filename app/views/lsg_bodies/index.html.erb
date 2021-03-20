@@ -42,6 +42,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                       <%= link_to "View", lsg_body_path(lsg_body.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
                       <%= link_to "Edit", edit_lsg_body_path(lsg_body.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
+                      <%= link_to "Delete", lsg_body_path(lsg_body.id), class: "px-2 text-red-600 hover:text-red-900", method: :delete %>
                     </td>
                   </tr>
                 <% end %>
