@@ -1,9 +1,15 @@
-<!-- Because React is not integrated yet, The uniq_id helps mount several autocomplete components in the same page.-->
+<%# locals this partial need:
+  uniq_id: where the component will be mounted to,
+  name = name of input tag(for creating params hash),
+  id = id of input,
+  label = label for input,
+  placeholder, dataElem
+%>
 <%= content_tag(:div,"" ,id: uniq_id) %>
-<%= javascript_pack_tag "autocomplete", 'data-turbolinks-track': "reload" %>
+<%= javascript_pack_tag "MultiSelectPack", 'data-turbolinks-track': "reload" %>
 <script type="text/json" id="volunteer_list">
   <%= User.volunteers.select(:id, :full_name).to_json %>
 </script>
 <script>
-  runReact("<%= uniq_id %>", "<%= api_endpoint %>", "<%= name %>", "<%= id %>", "<%= label %>", "<%= placeholder %>")
+  runReact("<%= uniq_id %>", "<%= name %>", "<%= id %>", "<%= label %>", "<%= placeholder %>", "<%= dataElem %>")
 </script>

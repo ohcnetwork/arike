@@ -146,6 +146,7 @@ function Make(Selectable) {
   };
   var MultiselectDropdown$Make = function (Props) {
     var id = Props.id;
+    var name = Props.name;
     var placeholderOpt = Props.placeholder;
     var onChange = Props.onChange;
     var value = Props.value;
@@ -215,6 +216,7 @@ function Make(Selectable) {
                             className: "flex-grow appearance-none bg-transparent border-none text-gray-700 mr-3 py-1 leading-snug focus:outline-none",
                             id: inputId,
                             autoComplete: "off",
+                            name: name,
                             placeholder: placeholder,
                             type: "search",
                             value: value,

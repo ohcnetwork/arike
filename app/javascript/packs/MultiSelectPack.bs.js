@@ -4,13 +4,25 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 import * as Multiselect$Arike from "../Multi-select-dropdown/Multiselect.bs.js";
 
-var root = document.querySelector("#DetailedExample");
-
-if (!(root == null)) {
-  ReactDom.render(React.createElement(Multiselect$Arike.MinimalExample.make, {}), root);
-}
-
-export {
+function runReact(rootId, name, id, label, placeholder, dataElem) {
+  var root = document.querySelector("#" + rootId);
+  if (!(root == null)) {
+    ReactDom.render(React.createElement(Multiselect$Arike.make, {
+              name: name,
+              id: id,
+              label: label,
+              placeholder: placeholder,
+              dataElem: dataElem
+            }), root);
+    return ;
+  }
   
 }
-/* root Not a pure module */
+
+window.runReact = runReact;
+
+export {
+  runReact ,
+  
+}
+/*  Not a pure module */

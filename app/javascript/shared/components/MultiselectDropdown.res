@@ -152,6 +152,7 @@ module Make = (Selectable: Selectable) => {
   @react.component
   let make = (
     ~id=?,
+    ~name,
     ~placeholder="Search",
     ~onChange,
     ~value,
@@ -198,6 +199,7 @@ module Make = (Selectable: Selectable) => {
           className="flex flex-wrap items-center text-sm bg-white border border-gray-400 rounded w-full py-1 px-3 mt-1 focus:outline-none focus:bg-white focus:border-primary-300">
           {selected |> showSelected(onDeselect, labelSuffix) |> React.array}
           <input
+            name
             onClick={_ => setShowDropdown(s => !s)}
             autoComplete="off"
             value

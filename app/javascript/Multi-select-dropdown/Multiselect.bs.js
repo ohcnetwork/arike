@@ -4,19 +4,41 @@ import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as Caml_obj from "bs-platform/lib/es6/caml_obj.js";
+import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as MultiselectDropdown$Arike from "../shared/components/MultiselectDropdown.bs.js";
 
-function str(prim) {
+function s(prim) {
   return prim;
 }
+
+function make(id, word) {
+  return {
+          id: id,
+          full_name: word
+        };
+}
+
+function id(t) {
+  return t.id;
+}
+
+function name(t) {
+  return t.full_name;
+}
+
+var Record = {
+  make: make,
+  id: id,
+  name: name
+};
 
 function label(_t) {
   
 }
 
-function id(t) {
+function id$1(t) {
   return t._0;
 }
 
@@ -39,7 +61,7 @@ function makeVolunteer(id, name) {
 
 var Selectable = {
   label: label,
-  id: id,
+  id: id$1,
   value: value,
   searchString: searchString,
   color: color,
@@ -53,42 +75,21 @@ var Multiselect = MultiselectDropdown$Arike.Make({
       color: color
     });
 
-var unselected = [
-  /* Volunteer */{
-    _0: "1",
-    _1: "Yash Raj Gupta"
-  },
-  /* Volunteer */{
-    _0: "2",
-    _1: "jjjj"
-  },
-  /* Volunteer */{
-    _0: "3",
-    _1: "kkkk"
-  },
-  /* Volunteer */{
-    _0: "4",
-    _1: "llll"
-  },
-  /* Volunteer */{
-    _0: "5",
-    _1: "Ypp"
-  }
-];
-
-function deselect(selected, setState, selectable) {
-  var newSelected = selected.filter(function (s) {
-        return Caml_obj.caml_notequal(s, selectable);
-      });
-  return Curry._1(setState, (function (param) {
-                return {
-                        selected: newSelected,
-                        searchString: ""
+function getJsonFromHtml(dataElem) {
+  return Belt_Array.map(JSON.parse(Belt_Option.getWithDefault(Caml_option.nullable_to_opt(document.querySelector("#" + dataElem)), document.createElement("div")).innerText.replaceAll("&quot;", "\"")), (function (optionsInfo) {
+                return /* Volunteer */{
+                        _0: optionsInfo.id,
+                        _1: optionsInfo.full_name
                       };
               }));
 }
 
-function Multiselect$MinimalExample(Props) {
+function Multiselect$1(Props) {
+  var name = Props.name;
+  var id$2 = Props.id;
+  var label = Props.label;
+  var placeholder = Props.placeholder;
+  var dataElem = Props.dataElem;
   var match = React.useState(function () {
         return {
                 selected: [],
@@ -98,32 +99,29 @@ function Multiselect$MinimalExample(Props) {
   var setState = match[1];
   var state = match[0];
   var match$1 = React.useState(function () {
-        return unselected;
+        return getJsonFromHtml(dataElem);
       });
-  var setUS = match$1[1];
-  var us = match$1[0];
+  var setUnselected = match$1[1];
+  var unselected = match$1[0];
   React.useEffect((function () {
-          var na = us.filter(function (tmp) {
-                var got = state.selected.find(function (elem) {
-                      return id(elem) === id(tmp);
+          var newArray = unselected.filter(function (tmp) {
+                var optionElement = state.selected.find(function (elem) {
+                      return id$1(elem) === id$1(tmp);
                     });
-                return !Belt_Option.isSome(got === undefined ? undefined : Caml_option.some(got));
+                return Belt_Option.isNone(optionElement === undefined ? undefined : Caml_option.some(optionElement));
               });
-          console.log(na);
-          Curry._1(setUS, (function (param) {
-                  return na;
+          Curry._1(setUnselected, (function (param) {
+                  return newArray;
                 }));
           
         }), [state]);
   var partial_arg = state.selected;
-  return React.createElement("div", {
-              className: "mt-4"
-            }, React.createElement("div", {
-                  className: "mt-4"
-                }, React.createElement("label", {
+  return React.createElement("div", undefined, React.createElement("div", undefined, React.createElement("label", {
                       className: "block text-sm font-medium text-gray-700",
                       htmlFor: "MultiselectDropdown__search-input"
-                    }, "Asha Member ")), React.createElement(Multiselect.make, {
+                    }, label)), React.createElement(Multiselect.make, {
+                  id: id$2,
+                  name: name,
                   onChange: (function (searchString) {
                       return Curry._1(setState, (function (s) {
                                     return {
@@ -133,7 +131,7 @@ function Multiselect$MinimalExample(Props) {
                                   }));
                     }),
                   value: state.searchString,
-                  unselected: us,
+                  unselected: unselected,
                   selected: state.selected,
                   onSelect: (function (selectable) {
                       return Curry._1(setState, (function (s) {
@@ -144,24 +142,33 @@ function Multiselect$MinimalExample(Props) {
                                   }));
                     }),
                   onDeselect: (function (param) {
-                      return deselect(partial_arg, setState, param);
+                      Curry._1(setUnselected, (function (pv) {
+                              return Belt_Array.concat(pv, [param]);
+                            }));
+                      var newSelected = partial_arg.filter(function (s) {
+                            return Caml_obj.caml_notequal(s, param);
+                          });
+                      return Curry._1(setState, (function (param) {
+                                    return {
+                                            selected: newSelected,
+                                            searchString: ""
+                                          };
+                                  }));
                     }),
-                  hint: "Enter Name",
-                  defaultOptions: us
+                  hint: placeholder,
+                  defaultOptions: unselected
                 }));
 }
 
-var MinimalExample = {
-  Selectable: Selectable,
-  Multiselect: Multiselect,
-  unselected: unselected,
-  deselect: deselect,
-  make: Multiselect$MinimalExample
-};
+var make$1 = Multiselect$1;
 
 export {
-  str ,
-  MinimalExample ,
+  s ,
+  Record ,
+  Selectable ,
+  Multiselect ,
+  getJsonFromHtml ,
+  make$1 as make,
   
 }
 /* Multiselect Not a pure module */
