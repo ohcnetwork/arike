@@ -50,7 +50,7 @@ while i < 15
   while j < 3
     name += alphabet[rand(26)]
     code += alphabet[rand(5)]
-    district += alphabet[rand(10)]
+    district += alphabet[rand(10)] + alphabet[rand(10)] + alphabet[rand(10)]
     j += 1
   end
   LsgBody.create!(name: name, kind: kinds[rand(3)], code: code, district: district)
