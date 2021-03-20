@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_logged_in
     unless current_user
-      redirect_to "/"
+      redirect_to home_path
     end
   end
 

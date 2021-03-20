@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # skip_before_action :ensure_logged_in, only: [:signup, :create]
   before_action :ensure_superuser, only: [:index, :new, :update, :verify]
 
   def index
@@ -9,6 +10,9 @@ class UsersController < ApplicationController
   end
 
   def signup
+    if current_user
+      redirect_to dashboard_path
+    end
     @user = User.new
     @user[:verified] = false
   end

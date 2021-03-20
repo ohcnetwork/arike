@@ -1,5 +1,10 @@
 class SessionsController < ApplicationController
+  # skip_before_action :ensure_logged_in
+
   def new
+    if current_user
+      redirect_to dashboard_path
+    end
     @user = User.new
   end
 
