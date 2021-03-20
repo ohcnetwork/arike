@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     login_id = params[:user][:login_id]
     password = params[:user][:password]
 
-    is_email = /[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9.-]{3,}\.[a-zA-Z]{2,4}/
+    is_email = URI::MailTo::EMAIL_REGEXP
     is_phone = /^(\+\d{1,3}[- ]?)?\d{10}$/
 
     user = nil
