@@ -18,5 +18,15 @@ class WardsController < ApplicationController
   end
 
   def edit
+    @ward = Ward.find(params[:id])
+  end
+
+  def update
+    id = params[:id]
+    p = params[:ward]
+    lsg_body = LsgBody.find(p[:lsg_body])
+
+    Ward.update(id, name: p[:name], number: p[:number], lsg_body: lsg_body)
+    redirect_to ward_path(id)
   end
 end
