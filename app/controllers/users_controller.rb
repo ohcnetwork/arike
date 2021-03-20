@@ -33,7 +33,8 @@ class UsersController < ApplicationController
   def create
     user = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone, :password, :verified)
     user[:verified] = false
-    if user[:password].strip.empty?
+
+    if !user[:password] || user[:password].strip.empty?
       user[:password] = "arike"
     end
 
