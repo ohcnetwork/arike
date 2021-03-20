@@ -14,11 +14,7 @@
     }
   ],
 
-  "bs-dependencies": [
-    "@rescript/react",
-    "bs-fetch",
-    "@pupilfirst/multiselect-dropdown"
-  ],
+  "bs-dependencies": ["@rescript/react", "bs-fetch", "bs-webapi"],
   "suffix": ".bs.js",
   "namespace": true,
   "ppx-flags": [],

@@ -94,7 +94,8 @@ module DetailedExample = {
     |> Array.append(countrySuggestions)
   }
 
-  let select = (setState, selectable) => setState(s => {
+  let select = (setState, selectable) =>
+    setState(s => {
       searchInput: "",
       selected: [selectable] |> Array.append(s.selected),
     })
@@ -194,17 +195,22 @@ module MinimalExample = {
           {"Filter by:" |> str}
         </label>
       </div>
-      <Multiselect unselected selected={state.selected} onSelect={selectable => setState(s => {
+      <Multiselect
+        unselected
+        selected={state.selected}
+        onSelect={selectable =>
+          setState(s => {
             searchString: "",
             selected: [selectable] |> Array.append(s.selected),
-          })} onDeselect={deselect(
-          state.selected,
-          setState,
-        )} value={state.searchString} onChange={searchString =>
-          setState(s => {...s, searchString: searchString})} hint="Enter your city name" />
+          })}
+        onDeselect={deselect(state.selected, setState)}
+        value={state.searchString}
+        onChange={searchString => setState(s => {...s, searchString: searchString})}
+        hint="Enter your city name"
+      />
     </div>
   }
 }
 
-ReactDOMRe.renderToElementWithId(<DetailedExample />, "DetailedExample")
-ReactDOMRe.renderToElementWithId(<MinimalExample />, "MinimalExample")
+// ReactDOM.renderToElementWithId(, "DetailedExample")
+// ReactDOM.renderToElementWithId(<MinimalExample />, "MinimalExample")
