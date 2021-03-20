@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     login_id = params[:user][:login_id]
     password = params[:user][:password]
 
-    is_email = /[a-zA-Z0-9._-]{3,}@[a-zA-Z0-9.-]{3,}\.[a-zA-Z]{2,4}/
+    is_email = URI::MailTo::EMAIL_REGEXP
     is_phone = /^(\+\d{1,3}[- ]?)?\d{10}$/
 
     user = nil
@@ -16,11 +16,16 @@ class SessionsController < ApplicationController
     elsif login_id =~ is_phone
       user = User.find_by(phone: login_id)
     end
-    if user && user.authenticate(password) && user[:verified]
-      session[:current_user_id] = user.id
-      redirect_to dashboard_path
+    if user
+      if user.authenticate(password) && user[:verified]
+        session[:current_user_id] = user.id
+        redirect_to dashboard_path
+      else
+        flash[:error] = "Invalid Credentials!"
+        redirect_to new_session_path
+      end
     else
-      flash[:error] = "Invalid Credentials!"
+      flash[:error] = "Enter a Valid Login ID"
       redirect_to new_session_path
     end
   end
