@@ -7,6 +7,7 @@ class WardsController < ApplicationController
   end
 
   def show
+    @ward = Ward.find(params[:id])
   end
 
   def edit
