@@ -39,19 +39,23 @@ User.create!([
 ])
 
 # Panchayat/Municipliaty/Corporation
-# kinds = ["Panchayat", "Municipliaty", "Corporation"]
-# alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-# i = 0
-# while i < 15
-#   name = ""
-#   j = 0
-#   while j < 3
-#     name += alphabet[rand(26)]
-#     j += 1
-#   end
-#   LsgBody.create!(name: name, kind: kinds[rand(3)])
-#   i += 1
-# end
+kinds = ["Panchayat", "Municipliaty", "Corporation"]
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+i = 0
+while i < 15
+  name = ""
+  code = ""
+  district = ""
+  j = 0
+  while j < 3
+    name += alphabet[rand(26)]
+    code += alphabet[rand(5)]
+    district += alphabet[rand(10)]
+    j += 1
+  end
+  LsgBody.create!(name: name, kind: kinds[rand(3)], code: code, district: district)
+  i += 1
+end
 
 # # SuperUser
 # User.create!([
