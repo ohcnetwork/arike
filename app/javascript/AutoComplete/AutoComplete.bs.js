@@ -52,7 +52,6 @@ function AutoComplete(Props) {
         return false;
       });
   var setRenderSuggestions = match$1[1];
-  var renderSuggestions = match$1[0];
   var match$2 = React.useState(function () {
         return [];
       });
@@ -183,10 +182,10 @@ function AutoComplete(Props) {
                                 }),
                               onClick: (function (param) {
                                   return Curry._1(setRenderSuggestions, (function (param) {
-                                                return !renderSuggestions;
+                                                return true;
                                               }));
                                 })
-                            })), renderSuggestions === true ? getSuggestions(inputValue) : React.createElement(React.Fragment, undefined))));
+                            })), match$1[0] === true ? getSuggestions(inputValue) : React.createElement(React.Fragment, undefined))));
 }
 
 var make$1 = AutoComplete;
