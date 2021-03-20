@@ -8,7 +8,9 @@ FactoryBot.define do
 
   factory :volunteer, class: "User" do
     first_name { generate(:first_name) }
-    full_name  { generate(:full_name) }
+    full_name { generate(:full_name) }
+    email { Faker::Internet.email }
+    phone { Faker::Number.number(digits: 10) }
     password { "password123" }
     role { "volunteer" }
   end
