@@ -29,4 +29,10 @@ class WardsController < ApplicationController
     Ward.update(id, name: p[:name], number: p[:number], lsg_body: lsg_body)
     redirect_to ward_path(id)
   end
+
+  def destroy
+    Ward.delete(params[:id])
+
+    redirect_to wards_path
+  end
 end
