@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
     elsif login_id =~ is_phone
       user = User.find_by(phone: login_id)
     end
-
     if user && user.authenticate(password) && user[:verified]
       session[:current_user_id] = user.id
       redirect_to dashboard_path

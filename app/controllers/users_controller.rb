@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :ensure_superuser, only: [:index, :new, :update, :verify]
+
   def index
   end
 
