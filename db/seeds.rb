@@ -52,3 +52,8 @@ while i < 15
   LsgBody.create!(name: name, kind: kinds[rand(3)])
   i += 1
 end
+
+# SuperUser
+User.create!([
+  { first_name: "Admin", full_name: "Admin User", role: "superuser", email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
+])
