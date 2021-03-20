@@ -9,6 +9,8 @@ class PatientsController < ApplicationController
   end
 
   def create
+    puts "params are "
+    puts params
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value.to_i == 1 }.map { |key, value| key }
@@ -20,7 +22,7 @@ class PatientsController < ApplicationController
     @patient = Patient.find_by(id: params[:id])
   end
 
-  def edit
+def edit
   end
 
   def update
@@ -35,7 +37,7 @@ class PatientsController < ApplicationController
   end
 
   def patient_params
-    params.require(:patient).permit(:full_name, :first_name, :dob, :address, :route, :phone, :economic_status,
+    params.require(:patient).permit(:full_name, :dob, :address, :route, :phone, :economic_status,
                                     :notes, :asha_member, :reported_by, :lsg_body)
   end
 end

@@ -170,6 +170,11 @@ function AutoComplete(Props) {
                               placeholder: placeholder,
                               type: "search",
                               value: inputValue,
+                              onBlur: (function (param) {
+                                  return Curry._1(setRenderSuggestions, (function (param) {
+                                                return false;
+                                              }));
+                                }),
                               onChange: (function ($$event) {
                                   var value = $$event.target.value;
                                   return Curry._1(setInputValue, (function (param) {
