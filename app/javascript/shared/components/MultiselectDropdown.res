@@ -2,16 +2,6 @@
 
 let str = React.string
 
-module DomUtils = {
-  exception RootElementMissing(string)
-  open Webapi.Dom
-  let focus = id =>
-    (switch document |> Document.getElementById(id) {
-    | Some(el) => el
-    | None => raise(RootElementMissing(id))
-    } |> Element.asHtmlElement)->Belt.Option.map(HtmlElement.focus) |> ignore
-}
-
 module type Selectable = {
   type t
   let label: t => option<string>
@@ -57,7 +47,7 @@ module Make = (Selectable: Selectable) => {
     event |> ReactEvent.Mouse.preventDefault
 
     onSelect(selection)
-    DomUtils.focus(id)
+    Domutils.focus(id)
   }
 
   let showOptions = (options, onSelect, id, labelSuffix) =>
@@ -152,6 +142,7 @@ module Make = (Selectable: Selectable) => {
   @react.component
   let make = (
     ~id=?,
+    ~name,
     ~placeholder="Search",
     ~onChange,
     ~value,
@@ -180,13 +171,13 @@ module Make = (Selectable: Selectable) => {
       let curriedFunction = onWindowClick(showDropdown, setShowDropdown)
 
       let removeEventListener = () =>
-        Webapi.Dom.Window.removeEventListener("click", curriedFunction, Webapi.Dom.window)
+        Domutils.window["removeEventListener"]("click", curriedFunction, Domutils.window)
 
       if showDropdown {
-        Webapi.Dom.Window.addEventListener("click", curriedFunction, Webapi.Dom.window)
+        Domutils.window["addEventListener"]("click", curriedFunction, Domutils.window)->ignore
         Some(removeEventListener)
       } else {
-        removeEventListener()
+        removeEventListener()->ignore
         None
       }
     }, [showDropdown])
@@ -198,6 +189,7 @@ module Make = (Selectable: Selectable) => {
           className="flex flex-wrap items-center text-sm bg-white border border-gray-400 rounded w-full py-1 px-3 mt-1 focus:outline-none focus:bg-white focus:border-primary-300">
           {selected |> showSelected(onDeselect, labelSuffix) |> React.array}
           <input
+            name
             onClick={_ => setShowDropdown(s => !s)}
             autoComplete="off"
             value
