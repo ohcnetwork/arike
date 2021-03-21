@@ -5,41 +5,14 @@ import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
 import * as $$String from "bs-platform/lib/es6/string.js";
 import * as Js_math from "bs-platform/lib/es6/js_math.js";
-import * as Belt_Option from "bs-platform/lib/es6/belt_Option.js";
 import * as Belt_SortArray from "bs-platform/lib/es6/belt_SortArray.js";
-import * as Caml_exceptions from "bs-platform/lib/es6/caml_exceptions.js";
-import * as Webapi__Dom__Element from "bs-webapi/src/Webapi/Dom/Webapi__Dom__Element.bs.js";
+import * as Domutils$Arike from "../../Domutils/Domutils.bs.js";
 
 ((require("./MultiselectDropdown.css")));
 
 function str(prim) {
   return prim;
 }
-
-var RootElementMissing = /* @__PURE__ */Caml_exceptions.create("MultiselectDropdown-Arike.DomUtils.RootElementMissing");
-
-function focus(id) {
-  var el = document.getElementById(id);
-  var tmp;
-  if (el == null) {
-    throw {
-          RE_EXN_ID: RootElementMissing,
-          _1: id,
-          Error: new Error()
-        };
-  }
-  tmp = el;
-  Belt_Option.map(Webapi__Dom__Element.asHtmlElement(tmp), (function (prim) {
-          prim.focus();
-          
-        }));
-  
-}
-
-var DomUtils = {
-  RootElementMissing: RootElementMissing,
-  focus: focus
-};
 
 function Make(Selectable) {
   var search = function (searchString, selections) {
@@ -70,7 +43,7 @@ function Make(Selectable) {
   var applyFilter = function (selection, onSelect, id, $$event) {
     $$event.preventDefault();
     Curry._1(onSelect, selection);
-    return focus(id);
+    return Domutils$Arike.focus(id);
   };
   var showOptions = function (options, onSelect, id, labelSuffix) {
     return $$Array.mapi((function (index, selection) {
@@ -180,11 +153,10 @@ function Make(Selectable) {
               return onWindowClick(showDropdown, setShowDropdown, param);
             };
             var removeEventListener = function (param) {
-              window.removeEventListener("click", curriedFunction);
-              
+              return window.removeEventListener("click", curriedFunction, window);
             };
             if (showDropdown) {
-              window.addEventListener("click", curriedFunction);
+              window.addEventListener("click", curriedFunction, window);
               return removeEventListener;
             } else {
               removeEventListener(undefined);
@@ -249,7 +221,6 @@ function Make(Selectable) {
 
 export {
   str ,
-  DomUtils ,
   Make ,
   
 }

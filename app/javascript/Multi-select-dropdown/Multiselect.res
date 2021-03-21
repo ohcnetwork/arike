@@ -46,22 +46,22 @@ type state = {
   searchString: string,
 }
 
-// string.replaceAll(string, string)
-@send external replaceAll: (string, string, string) => string = "replaceAll"
 // JSON.parse
 @scope("JSON") @val
 external parseJson: string => array<Record.t> = "parse"
 
 // get the initial suggestions data
-let getJsonFromHtml = dataElem =>
-  Webapi.Dom.Document.querySelector("#" ++ dataElem, Webapi.Dom.document)
-  ->Belt.Option.getWithDefault(Webapi.Dom.Document.createElement("div", Webapi.Dom.document))
-  ->Webapi.Dom.Element.innerText
-  ->replaceAll("&quot;", "\"")
+let getJsonFromHtml = dataElem => {
+  let elem =
+    Domutils.doc->Domutils.getElementById(dataElem)->Belt.Option.getWithDefault(Js.Obj.empty())
+
+  elem["innerText"]
+  ->Domutils.replaceAll("&quot;", "\"")
   ->parseJson
   ->Belt.Array.map(optionsInfo =>
     Selectable.makeVolunteer(~id=optionsInfo->Record.id, ~name=optionsInfo->Record.name)
   )
+}
 
 @react.component
 let make = (~name, ~id, ~label, ~placeholder, ~dataElem) => {

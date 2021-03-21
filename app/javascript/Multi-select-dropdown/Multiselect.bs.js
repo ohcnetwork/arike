@@ -76,7 +76,8 @@ var Multiselect = MultiselectDropdown$Arike.Make({
     });
 
 function getJsonFromHtml(dataElem) {
-  return Belt_Array.map(JSON.parse(Belt_Option.getWithDefault(Caml_option.nullable_to_opt(document.querySelector("#" + dataElem)), document.createElement("div")).innerText.replaceAll("&quot;", "\"")), (function (optionsInfo) {
+  var elem = Belt_Option.getWithDefault(document.getElementById(dataElem), {});
+  return Belt_Array.map(JSON.parse(elem.innerText.replaceAll("&quot;", "\"")), (function (optionsInfo) {
                 return /* Volunteer */{
                         _0: optionsInfo.id,
                         _1: optionsInfo.full_name

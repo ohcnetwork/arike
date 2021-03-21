@@ -3,11 +3,12 @@
   name = name of input tag(for creating params hash),
   id = id of input,
   label = label for input,
-  placeholder, dataElem
+  placeholder,
+  dataElem,
 %>
 <%= content_tag(:div,"" ,id: uniq_id) %>
 <%= javascript_pack_tag "MultiSelectPack", 'data-turbolinks-track': "reload" %>
-<script type="text/json" id="volunteer_list">
+<script type="text/json" id="<%= dataElem %>">
   <%= User.volunteers.select(:id, :full_name).to_json %>
 </script>
 <script>
