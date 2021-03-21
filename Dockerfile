@@ -17,6 +17,7 @@ RUN bundle install
 ADD . $APP_HOME
 
 RUN yarn install
+RUN yarn run re:build
 
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_ENV=production
