@@ -22,9 +22,14 @@ class SessionsController < ApplicationController
       user = User.find_by(phone: login_id)
     end
     if user
-      if user.authenticate(password) && user[:verified]
-        session[:current_user_id] = user.id
-        redirect_to dashboard_path
+      if user.authenticate(password)
+        if user[:verified]
+          session[:current_user_id] = user.id
+          redirect_to dashboard_path
+        else
+          flash[:error] = "Your account has not been verified yet!"
+          redirect_to new_session_path
+        end
       else
         flash[:error] = "Invalid Credentials!"
         redirect_to new_session_path
