@@ -5,21 +5,25 @@
       <div>
         <h1 class="text-4xl text-center font-bold">Arike</h1>
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Forgot Password
+          Reset Your Password
         </h2>
       </div>
-      <%= form_with :url => forgot_password_url, method:"post", class: "mt-8 space-y-6" do |form| %>
+      <%= form_with  :url => reset_password_url, method: "post", class: "mt-8 space-y-6" do |form| %>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <%= form.email_field :email, placeholder: "Your Email", :required => true,
-                                         class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
+            <%= form.password_field :password, placeholder: "Enter New Password",
+                                class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
+          </div>
+          <div>
+            <%= form.password_field :confirm_password, placeholder: "Re-Enter New Password",
+                                    class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
           </div>
         </div>
 
         <div>
           <%= form.button value: "Sign In", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: { :disable_with => "Please wait..." } do %>
               <span class="absolute left-0 inset-y-0 flex items-center pl-3"> <%= render partial: "layouts/icon-lock" %> </span>
-              <span>Next</span>
+              <span>Reset Password</span>
           <% end %>
         </div>
       <% end %>
