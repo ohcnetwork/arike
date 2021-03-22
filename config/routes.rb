@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get "/signup", to: "users#signup", as: :signup
   get "/password_reset", to: "password_reset#index", as: :password_reset
   get "/password_reset/verify", to: "password_reset#verify", as: :password_reset_verify
+  get "/schedule", to: "schedule#index", as: :schedule
+
+
 
   resources :sessions
   resources :lsg_bodies
