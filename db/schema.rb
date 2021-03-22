@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_091445) do
+ActiveRecord::Schema.define(version: 2021_03_22_131136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(version: 2021_03_22_091445) do
 
   create_table "diseases", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "patient_id"
+    t.string "full_name"
+    t.string "phone"
+    t.date "dob"
+    t.string "relation"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -50,13 +61,6 @@ ActiveRecord::Schema.define(version: 2021_03_22_091445) do
   create_table "patients_users", force: :cascade do |t|
     t.uuid "patient_id"
     t.uuid "user_id"
-  end
-
-  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

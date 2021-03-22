@@ -22,7 +22,12 @@ class PatientsController < ApplicationController
     @patient = Patient.find_by(id: params[:id])
   end
 
-def edit
+  def family_details
+    @patient = Patient.find_by(id: params[:id])
+    render "patients/details/family_details"
+  end
+
+  def edit
   end
 
   def update

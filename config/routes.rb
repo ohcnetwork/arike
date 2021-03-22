@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :patients
   resources :users
+  get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
 
   post "sessions/signup", to: "sessions#signup", as: :signup
   resources :sessions
