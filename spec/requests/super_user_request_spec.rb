@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Users", type: :request do
   before :each do
-    @superuser = FactoryBot.create(:user, role: "superuser", verified: true)
+    @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
     post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
 

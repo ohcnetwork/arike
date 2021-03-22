@@ -1,15 +1,14 @@
 class User < ApplicationRecord
   has_secure_password
   has_and_belongs_to_many :patients
-  ROLES = %w(superuser primary_nurse secondary_nurse asha volunteer)
-  SIGNUP_ROLES = %w(asha volunteer)
+  enum roles: { superuser: "Superuser", primary_nurse: "Primary Nurse", secondary_nurse: "Secondary Nurse", asha: "ASHA", volunteer: "Volunteer" }
+  SIGNUP_ROLES = [roles[:asha], roles[:volunteer]]
   validates :role, inclusion: {
-                     in: ROLES,
+                     in: roles.values,
                      message: "%{value} is not a valid role",
                    }
-  scope :ashas, -> { where(role: "asha") }
-  scope :volunteers, -> { where(role: "volunteer") }
-  # enum roles: ROLES
+  scope :ashas, -> { where(role: roles[:asha]) }
+  scope :volunteers, -> { where(role: roles[:volunteer]) }
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, :on => :create
   validates :email, uniqueness: true
@@ -25,22 +24,6 @@ class User < ApplicationRecord
       to: to,
       body: "Click here to login: ",
     )
-  end
-
-  def self.get_role(role)
-    case role
-
-    when "primary_nurse"
-      return "Primary Nurse"
-    when "secondary_nurse"
-      return "Secondary Nurse"
-    when "asha"
-      return "ASHA Member"
-    when "volunteer"
-      return "Volunteer"
-    when "superuser"
-      return "Super User"
-    end
   end
 
   def self.verified

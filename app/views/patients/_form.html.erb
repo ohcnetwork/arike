@@ -114,7 +114,7 @@
           <%= form.label :reported_by, class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
-            <%= form.select :reported_by, User.all.to_a.map {|member| ["#{member.full_name} - #{User.get_role(member.role)}", member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.select :reported_by, User.all.to_a.map {|member| ["#{member.full_name} - #{member.role}", member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>

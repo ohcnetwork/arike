@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Patients", type: :request do
   it "renders the list of patients" do
     lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
-    asha = User.create!(full_name: "Asha", role: "asha", password: "01", email: "test@test.com")
+    asha = User.create!(full_name: "Asha", role: User.roles[:asha], password: "01", email: "test@test.com")
     patient = Patient.create!(full_name: "Mogambe khush hua", lsg_body: lsg_body.id, asha_member: asha.id)
     get "/patients"
     expect(response).to render_template(:index)
@@ -25,7 +25,7 @@ RSpec.describe "Patients", type: :request do
 
   it "see single patient" do
     lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
-    asha = User.create!(full_name: "Asha", role: "asha", password: "01", email: "test@test.com")
+    asha = User.create!(full_name: "Asha", role: User.roles[:asha], password: "01", email: "test@test.com")
     patient = Patient.create!(full_name: "Mogambe khush hua", lsg_body: lsg_body.id, asha_member: asha.id, reported_by: asha.id)
     get "/patients/#{patient.id}"
     expect(response).to render_template("patients/show")
