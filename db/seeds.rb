@@ -7,35 +7,35 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!([
-  #{ first_name: "Pulkit", full_name: "Pulkit Ahuja", role: "asha", password: "0", email: "pulkit@gmail.com", phone: 1234567890 },
-  { first_name: "Yash", full_name: "Yash Gupta", role: "asha", password: "0", email: "yash@gmail.com", phone: 2345678901 },
-  { first_name: "Rajesh", full_name: "Rajesh Sharma", role: "asha", password: "0", email: "rajesh@gmail.com", phone: 3456789012 },
-  { first_name: "Himanshu", full_name: "Himanshu", role: "asha", password: "0", email: "himanshu@gmail.com", phone: 4567890123 },
-  { first_name: "Abhay", full_name: "Abhay Ahuja", role: "asha", password: "0", email: "abhay@gmail.com", phone: 5678901234 },
+  #{ first_name: "Pulkit", full_name: "Pulkit Ahuja", role: User.roles[:asha], password: "0", email: "pulkit@gmail.com", phone: 1234567890 },
+  { first_name: "Yash", full_name: "Yash Gupta", role: User.roles[:asha], password: "0", email: "yash@gmail.com", phone: 2345678901 },
+  { first_name: "Rajesh", full_name: "Rajesh Sharma", role: User.roles[:asha], password: "0", email: "rajesh@gmail.com", phone: 3456789012 },
+  { first_name: "Himanshu", full_name: "Himanshu", role: User.roles[:asha], password: "0", email: "himanshu@gmail.com", phone: 4567890123 },
+  { first_name: "Abhay", full_name: "Abhay Ahuja", role: User.roles[:asha], password: "0", email: "abhay@gmail.com", phone: 5678901234 },
 ])
 
 User.create!([
-  { first_name: "Aniket", full_name: "Aniket Sharma", role: "volunteer", password: "0", email: "aniket@gmail.com", phone: 6789012345 },
-  { first_name: "Tanishq", full_name: "Tanishq Agarwal", role: "volunteer", password: "0", email: "tanishq@gmail.com", phone: 7890123456 },
-  { first_name: "Aman", full_name: "Aman Gupta", role: "volunteer", password: "0", email: "aman@gmail.com", phone: 8901234567 },
-  { first_name: "Naveen", full_name: "Naveen Rohilla", role: "volunteer", password: "0", email: "naveen@gmail.com", phone: 90123456789 },
-  { first_name: "Raj", full_name: "Raj Mishra", role: "volunteer", password: "0", email: "raj@gmail.com", phone: 1234506789 },
+  { first_name: "Aniket", full_name: "Aniket Sharma", role: User.roles[:volunteer], password: "0", email: "aniket@gmail.com", phone: 6789012345 },
+  { first_name: "Tanishq", full_name: "Tanishq Agarwal", role: User.roles[:volunteer], password: "0", email: "tanishq@gmail.com", phone: 7890123456 },
+  { first_name: "Aman", full_name: "Aman Gupta", role: User.roles[:volunteer], password: "0", email: "aman@gmail.com", phone: 8901234567 },
+  { first_name: "Naveen", full_name: "Naveen Rohilla", role: User.roles[:volunteer], password: "0", email: "naveen@gmail.com", phone: 90123456789 },
+  { first_name: "Raj", full_name: "Raj Mishra", role: User.roles[:volunteer], password: "0", email: "raj@gmail.com", phone: 1234506789 },
 ])
 
 User.create!([
-  { first_name: "Kajal", full_name: "Kajal Brar", role: "primary_nurse", password: "0", email: "kajal@gmail.com", phone: 5768901234 },
-  { first_name: "Ansh", full_name: "Ansh Aggarwal", role: "primary_nurse", password: "0", email: "ansh@gmail.com", phone: 5678902134 },
-  { first_name: "Darshana", full_name: "Darshana Thakkar", role: "primary_nurse", password: "0", email: "darshana@gmail.com", phone: 5678901243 },
-  { first_name: "Kalyani", full_name: "Kalyani Nayak", role: "primary_nurse", password: "0", email: "kalyani@gmail.com", phone: 5678910234 },
-  { first_name: "Dhruv", full_name: "Dhruv Pathak", role: "primary_nurse", password: "0", email: "dhruv@gmail.com", phone: 5678091234 },
+  { first_name: "Kajal", full_name: "Kajal Brar", role: User.roles[:primary_nurse], password: "0", email: "kajal@gmail.com", phone: 5768901234 },
+  { first_name: "Ansh", full_name: "Ansh Aggarwal", role: User.roles[:primary_nurse], password: "0", email: "ansh@gmail.com", phone: 5678902134 },
+  { first_name: "Darshana", full_name: "Darshana Thakkar", role: User.roles[:primary_nurse], password: "0", email: "darshana@gmail.com", phone: 5678901243 },
+  { first_name: "Kalyani", full_name: "Kalyani Nayak", role: User.roles[:primary_nurse], password: "0", email: "kalyani@gmail.com", phone: 5678910234 },
+  { first_name: "Dhruv", full_name: "Dhruv Pathak", role: User.roles[:primary_nurse], password: "0", email: "dhruv@gmail.com", phone: 5678091234 },
 ])
 
 User.create!([
-  { first_name: "Tara", full_name: "Tara Vaidya", role: "secondary_nurse", password: "0", email: "tara@gmail.com", phone: 5679801234 },
-  { first_name: "Nilam", full_name: "Nilam Natarajan", role: "secondary_nurse", password: "0", email: "nilam@gmail.com", phone: 5728901234 },
-  { first_name: "Jivika", full_name: "Jivika Malhotra", role: "secondary_nurse", password: "0", email: "jivika@gmail.com", phone: 5698701234 },
-  { first_name: "Sudhir", full_name: "Sudhir Kashyap", role: "secondary_nurse", password: "0", email: "sudhir@gmail.com", phone: 56712341234 },
-  { first_name: "Kabir", full_name: "Kabir Munshi", role: "secondary_nurse", password: "0", email: "kabir@gmail.com", phone: 5675364334 },
+  { first_name: "Tara", full_name: "Tara Vaidya", role: User.roles[:secondary_nurse], password: "0", email: "tara@gmail.com", phone: 5679801234 },
+  { first_name: "Nilam", full_name: "Nilam Natarajan", role: User.roles[:secondary_nurse], password: "0", email: "nilam@gmail.com", phone: 5728901234 },
+  { first_name: "Jivika", full_name: "Jivika Malhotra", role: User.roles[:secondary_nurse], password: "0", email: "jivika@gmail.com", phone: 5698701234 },
+  { first_name: "Sudhir", full_name: "Sudhir Kashyap", role: User.roles[:secondary_nurse], password: "0", email: "sudhir@gmail.com", phone: 56712341234 },
+  { first_name: "Kabir", full_name: "Kabir Munshi", role: User.roles[:secondary_nurse], password: "0", email: "kabir@gmail.com", phone: 5675364334 },
 ])
 
 # Panchayat/Municipliaty/Corporation
