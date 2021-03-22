@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Users", type: :request do
+RSpec.describe "Super Users", type: :request do
   before :each do
     @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
     post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
@@ -29,5 +29,18 @@ RSpec.describe "Users", type: :request do
     expect(finalUser.first_name).not_to eq(oldUser.first_name)
     expect(finalUser.email).to eq(user.email)
     expect(finalUser.phone).not_to eq(oldUser.phone)
+  end
+
+  it "validates new user email address" do
+    full_name = Faker::Name.name
+    first_name = Faker::Name.first_name
+    email = "invalid_abcd$!@"
+    post "/users", params: { user: { first_name: first_name, full_name: full_name, role: User.roles[:asha], email: email, phone: Faker::Number.number(digits: 10), verified: false, password: "0" } }
+
+    # Expecting the User.count = 1, since we have 1 Super User
+    expect(User.count).to eq(1)
+    expect(response).to redirect_to("/users/new")
+    follow_redirect!
+    expect(response.body).to include("Email is invalid")
   end
 end
