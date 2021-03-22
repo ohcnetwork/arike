@@ -41,8 +41,7 @@
           rounded-md" %>
           </div>
         </div>
-
-         <div class="sm:col-span-3 field">
+        <div class="sm:col-span-3 field">
           <%= form.label :lsg_body, class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
@@ -51,7 +50,6 @@
           rounded-md" %>
           </div>
         </div>
-
         <div class="sm:col-span-3 field">
           <%= form.label :address, class: "block text-sm font-medium
         text-gray-700" %>
@@ -112,26 +110,15 @@
           rounded-md" %>
           </div>
         </div>
-
         <div class="sm:col-span-3 field">
           <%= form.label :reported_by, class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
-            <%= form.select :reported_by, User.all.to_a.map {|member| ["#{member.full_name} - #{User.get_role(member.role)}", member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.select :reported_by, User.all.to_a.map {|member| ["#{member.full_name} - #{member.role}", member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>
         </div>
-        <%# <div class="sm:col-span-3 field">
-          <%= render partial: "utils/autocomplete", :locals => {
-          :uniq_id => "auu",
-          :api_endpoint => "/search",
-          :name => "patient[asha_member]",
-          :id => "patient_asha_member",
-          :label => "Asha Member",
-          :placeholder => "Find Asha Member"
-           }
-        </div> %>
       </div>
       <div class="actions">
         <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border

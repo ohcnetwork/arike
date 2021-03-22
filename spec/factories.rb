@@ -12,6 +12,16 @@ FactoryBot.define do
     email { Faker::Internet.email }
     phone { Faker::Number.number(digits: 10) }
     password { "password123" }
-    role { "volunteer" }
+    role { User.roles[:volunteer] }
+  end
+
+  factory :user, class: "User" do
+    first_name { generate(:first_name) }
+    full_name { generate(:full_name) }
+    email { Faker::Internet.email }
+    phone { Faker::Number.number(digits: 10) }
+    verified { true }
+    password { "password123" }
+    role { User.roles[:asha] }
   end
 end

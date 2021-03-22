@@ -4,13 +4,16 @@ Rails.application.routes.draw do
   root "home#index", as: :home
 
   get "/dashboard", to: "dashboard#index", as: :dashboard
-  get "/signup", to: "users#signup", as: :signup
   get "/search", to: "search#index"
 
   put "/users/:id/verify", to: "users#verify", as: :verify_user
 
   resources :patients
   resources :users
+
+  get "/signup", to: "users#signup", as: :signup
+  get "/password_reset", to: "password_reset#index", as: :password_reset
+  get "/password_reset/verify", to: "password_reset#verify", as: :password_reset_verify
 
   resources :sessions
   resources :lsg_bodies
