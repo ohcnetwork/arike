@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_superuser
     unless current_user && current_user.superuser?
+      flash[:error] = "You are not allowed to view this page!"
       redirect_to home_path
     end
   end
