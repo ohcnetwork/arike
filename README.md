@@ -31,6 +31,10 @@ rake db:setup
 # in 2 terminals
 bin/webpack-dev-server
 rails server
+
+#to run the tests
+
+bundle exec rspec
 ```
 
 ## General Notes
