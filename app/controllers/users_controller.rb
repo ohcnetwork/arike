@@ -1,20 +1,12 @@
 class UsersController < ApplicationController
   # skip_before_action :ensure_logged_in, only: [:signup, :create]
-  before_action :ensure_superuser, only: [:index, :new, :update, :verify]
+  before_action :ensure_superuser
 
   def index
   end
 
   def new
     @user = User.new
-  end
-
-  def signup
-    if current_user
-      redirect_to dashboard_path
-    end
-    @user = User.new
-    @user[:verified] = false
   end
 
   def edit
@@ -42,10 +34,10 @@ class UsersController < ApplicationController
 
     if user.valid?
       user.save
-      redirect_to new_session_path, notice: "You have successfully signed up!"
+      redirect_to new_user_path, notice: "New User Created!"
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to signup_path
+      redirect_to new_user_path
     end
   end
 
