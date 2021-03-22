@@ -11,14 +11,13 @@ Rails.application.routes.draw do
   resources :patients
   resources :users
 
-  get "/signup", to: "users#signup", as: :signup
+  post "sessions/signup", to: "sessions#signup", as: :signup
+  resources :sessions
+
   get "/password_reset", to: "password_reset#index", as: :password_reset
   get "/password_reset/verify", to: "password_reset#verify", as: :password_reset_verify
   get "/schedule", to: "schedule#index", as: :schedule
 
-
-
-  resources :sessions
   resources :lsg_bodies
   resources :wards
 end
