@@ -59,5 +59,5 @@ end
 
 # # SuperUser
 # User.create!([
-#   { first_name: "Admin", full_name: "Admin User", role: "superuser", email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
+#   { first_name: "Admin", full_name: "Admin User", role: User.roles[:superuser], email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
 # ])

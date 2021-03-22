@@ -1,7 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
   has_and_belongs_to_many :patients
-  enum roles: { superuser: "Superuser", primary_nurse: "Primary Nurse", secondary_nurse: "Secondary Nurse", asha: "ASHA", volunteer: "Volunteer" }
+  enum roles: {
+                superuser: "Superuser",
+                primary_nurse: "Primary Nurse",
+                secondary_nurse: "Secondary Nurse",
+                asha: "ASHA",
+                volunteer: "Volunteer",
+              }
   SIGNUP_ROLES = [roles[:asha], roles[:volunteer]]
   validates :role, inclusion: {
                      in: roles.values,
@@ -35,6 +41,6 @@ class User < ApplicationRecord
   end
 
   def superuser?
-    self[:role] == "superuser"
+    self[:role] == User.roles[:superuser]
   end
 end
