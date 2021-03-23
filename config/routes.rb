@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :patients
   resources :users
-  get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+  # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
 
   get "/signup", to: "users#signup", as: :signup
 

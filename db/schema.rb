@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_120944) do
+ActiveRecord::Schema.define(version: 2021_03_23_125441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -47,6 +47,9 @@ ActiveRecord::Schema.define(version: 2021_03_23_120944) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "education"
+    t.string "occupation"
+    t.string "remarks"
   end
 
   create_table "lsg_bodies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -74,6 +77,11 @@ ActiveRecord::Schema.define(version: 2021_03_23_120944) do
     t.uuid "lsg_body"
     t.uuid "facility_id"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
+    t.string "sex"
+    t.string "emergency_phone_no"
+    t.string "disease"
+    t.string "patient_views"
+    t.string "family_views"
   end
 
   create_table "patients_users", force: :cascade do |t|
