@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_and_belongs_to_many :patients # how can user has many patients?
-  belongs_to :facilities
+  belongs_to :facilities, optional: true
   enum roles: {
                 superuser: "Superuser",
                 primary_nurse: "Primary Nurse",
@@ -43,5 +43,9 @@ class User < ApplicationRecord
 
   def superuser?
     self[:role] == User.roles[:superuser]
+  end
+
+  def has_facility_access?
+    [User.roles[:superuser], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
   end
 end

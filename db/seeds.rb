@@ -38,14 +38,6 @@ User.create!([
   { first_name: "Kabir", full_name: "Kabir Munshi", role: User.roles[:secondary_nurse], password: "0", email: "kabir@gmail.com", phone: 5675364334 },
 ])
 
-Ward.create!(
-  name: "Something", number: 12334, lsg_body_id: "c87983fc-e2e5-4139-8c0d-2326f4b735ca",
-)
-
-Facility.create!(
-  kind: "PHC", name: "Facility1", state: "Kerala", district: "Ernakulum", lsg_body: "c87983fc-e2e5-4139-8c0d-2326f4b735ca", ward: "189a7a34-5bf7-4374-98ce-e2c3af571dc0",
-)
-
 # Panchayat/Municipliaty/Corporation
 kinds = ["Panchayat", "Municipliaty", "Corporation"]
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -66,6 +58,14 @@ while i < 15
 end
 
 # # SuperUser
-# User.create!([
-#   { first_name: "Admin", full_name: "Admin User", role: User.roles[:superuser], email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
-# ])
+User.create!([
+  { first_name: "Admin", full_name: "Admin User", role: User.roles[:superuser], email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
+])
+
+Ward.create!(
+  name: "Something", number: 12334, lsg_body_id: LsgBody.last.id,
+)
+
+Facility.create!(
+  kind: "PHC", name: "Facility1", state: "Kerala", district: "Ernakulum", lsg_body: "c87983fc-e2e5-4139-8c0d-2326f4b735ca", ward: Ward.last.id,
+)
