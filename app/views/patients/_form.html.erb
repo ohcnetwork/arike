@@ -27,7 +27,16 @@
           <%= form.label :dob, "Date of Birth", class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
-            <%= form.date_field :dob, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.date_field :dob, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+          </div>
+        </div>
+        <div class="sm:col-span-3 field">
+          <%= form.label :sex, "Sex", class: "block text-sm font-medium
+        text-gray-700" %>
+          <div class="mt-1">
+            <%= form.select :sex, ["Male", "Female", "Others"], {:prompt => 'Select'}, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>
@@ -37,6 +46,15 @@
         %>
           <div class="mt-1">
             <%= form.text_field :phone, required: true, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+          </div>
+        </div>
+        <div class="sm:col-span-3 field">
+          <%= form.label :emergency_phone_no,"Emergency Phone No.", class: "block text-sm font-medium text-gray-700"
+        %>
+          <div class="mt-1">
+            <%= form.text_field :emergency_phone_no, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>
@@ -63,7 +81,7 @@
           <%= form.label :route, class: "block text-sm font-medium text-gray-700"
         %>
           <div class="mt-1">
-            <%= form.text_area :route, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.text_area :route, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md h-24" %>
           </div>
@@ -72,7 +90,7 @@
           <%= form.label :notes, class: "block text-sm font-medium text-gray-700"
         %>
           <div class="mt-1">
-            <%= form.text_area :notes, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.text_area :notes, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md h-24" %>
           </div>
@@ -96,7 +114,16 @@
         text-gray-700" %>
           <div class="mt-1">
             <%= form.select :economic_status, ["Well-Off", "Middle Class", "Poor",
-          "Very Poor"], {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+          "Very Poor"], {:prompt => 'Select'}, class: "shadow-sm focus:ring-indigo-500
+          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+          rounded-md" %>
+          </div>
+        </div>
+         <div class="sm:col-span-3 field">
+          <%= form.label :disease, class: "block text-sm font-medium text-gray-700"
+        %>
+          <div class="mt-1">
+            <%= form.text_field :disease, required: true, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>
@@ -105,7 +132,7 @@
           <%= form.label :asha_member, class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
-            <%= form.select :asha_member, User.ashas.to_a.map {|member| [member.full_name, member.id]}, {:prompt => 'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+            <%= form.select :asha_member, User.ashas.to_a.map {|member| [member.full_name, member.id]}, {:prompt => 'Select'}, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>

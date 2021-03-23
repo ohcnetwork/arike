@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_131136) do
+ActiveRecord::Schema.define(version: 2021_03_23_122212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -70,6 +70,9 @@ ActiveRecord::Schema.define(version: 2021_03_22_131136) do
     t.uuid "reported_by"
     t.uuid "created_by"
     t.uuid "lsg_body"
+    t.string "sex"
+    t.string "emergency_phone_no"
+    t.string "disease"
   end
 
   create_table "patients_users", force: :cascade do |t|
