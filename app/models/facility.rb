@@ -6,4 +6,12 @@ class Facility < ApplicationRecord
   def self.secondary_facilities
     Facility.where(parent_id: nil)
   end
+
+  def secondary_facility?
+    parent_id == nil
+  end
+
+  def primary_facility?
+    parent_id != nil
+  end
 end
