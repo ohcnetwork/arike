@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
-  has_and_belongs_to_many :patients
+  has_and_belongs_to_many :patients # how can user has many patients?
+  belongs_to :facilities
   enum roles: {
                 superuser: "Superuser",
                 primary_nurse: "Primary Nurse",
