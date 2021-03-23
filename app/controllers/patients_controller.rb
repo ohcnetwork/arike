@@ -9,8 +9,6 @@ class PatientsController < ApplicationController
   end
 
   def create
-    puts "params are "
-    puts params
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value.to_i == 1 }.map { |key, value| key }
@@ -43,6 +41,6 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(:full_name, :dob, :address, :route, :phone, :economic_status,
-                                    :notes, :asha_member, :reported_by, :lsg_body)
+                                    :notes, :asha_member, :reported_by, :lsg_body, :sex, :emergency_phone_no, :disease)
   end
 end
