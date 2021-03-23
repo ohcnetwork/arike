@@ -58,6 +58,14 @@ while i < 15
 end
 
 # # SuperUser
-# User.create!([
-#   { first_name: "Admin", full_name: "Admin User", role: User.roles[:superuser], email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
-# ])
+User.create!([
+  { first_name: "Admin", full_name: "Admin User", role: User.roles[:superuser], email: "admin@arike.com", phone: 123456789, verified: true, password: "0" },
+])
+
+Ward.create!(
+  name: "Something", number: 12334, lsg_body_id: LsgBody.last.id,
+)
+
+Facility.create!(
+  kind: "PHC", name: "Facility1", state: "Kerala", district: "Ernakulum", lsg_body: "c87983fc-e2e5-4139-8c0d-2326f4b735ca", ward: Ward.last.id,
+)

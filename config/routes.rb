@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post "/password_reset/verify", to: "password_reset#reset", as: :password_reset_update
 
   resources :sessions
+  resources :facilities
   resources :lsg_bodies
   resources :wards
 end

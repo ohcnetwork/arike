@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.bigint "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "parent_id"
+    t.index ["parent_id"], name: "index_facilities_on_parent_id"
   end
 
   create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -73,6 +75,8 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.uuid "reported_by"
     t.uuid "created_by"
     t.uuid "lsg_body"
+    t.uuid "facility_id"
+    t.index ["facility_id"], name: "index_patients_on_facility_id"
     t.string "sex"
     t.string "emergency_phone_no"
     t.string "disease"
@@ -102,7 +106,9 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.bigint "phone"
     t.string "password_digest"
     t.boolean "verified", default: true
+    t.uuid "facility_id"
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
+    t.index ["facility_id"], name: "index_users_on_facility_id"
   end
 
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -127,5 +133,6 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.index ["lsg_body_id"], name: "index_wards_on_lsg_body_id"
   end
 
+  add_foreign_key "facilities", "facilities", column: "parent_id"
   add_foreign_key "wards", "lsg_bodies"
 end
