@@ -1,0 +1,17 @@
+/.bundle/
+/coverage/
+/pkg/
+/playground/
+/vendor/
+
+/.eslintcache
+/.*ignore
+/bin/port
+/docs/logo.png
+/*.lock
+/LICENSE
+/test.rb
+/test.rbs
+/test.haml
+
+*.txt

@@ -4,7 +4,6 @@ kinds = ["Panchayat", "Municipliaty", "Corporation"]
   LsgBody.create!(name: Faker::Name.name, kind: kinds.sample, code: Faker::Name.name, district: Faker::Name.name)
 end
 
-
 (1..20).each do |index|
   User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: User.roles.values.sample, password: "0", email: "user#{index}@example.com", phone: rand(10 ** 10))
 end
@@ -14,7 +13,7 @@ User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: Us
 
 LsgBody.all.each do |lsg|
   (1..3).each do |index|
-  Ward.create!(name: Faker::Name.name, number: index, lsg_body_id: lsg.id)
+    Ward.create!(name: Faker::Name.name, number: index, lsg_body_id: lsg.id)
   end
 
   Facility.create!(

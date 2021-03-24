@@ -1,0 +1,7 @@
+{
+  "rubySingleQuote": false,
+  "rubyArrayLiteral": true,
+  "rubyHashLabel": true,
+  "rubyModifier": true,
+  "tabWidth": 2
+}
