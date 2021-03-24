@@ -68,3 +68,5 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "twilio-ruby", "~> 5.48"
+
+gem 'active_model_otp'
