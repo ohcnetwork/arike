@@ -26,6 +26,7 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    render "patients/edit/edit"
   end
 
   def update
@@ -41,6 +42,7 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(:full_name, :dob, :address, :route, :phone, :economic_status,
-                                    :notes, :asha_member, :reported_by, :lsg_body, :sex, :emergency_phone_no, :disease)
+                                    :notes, :asha_member, :reported_by, :lsg_body, :sex,
+                                    :emergency_phone_no, :disease, :facility_id)
   end
 end

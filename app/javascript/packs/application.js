@@ -7,9 +7,12 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
+import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
 import "stylesheets/application";
+
+window.PatientFormPage = PatientFormPage;
