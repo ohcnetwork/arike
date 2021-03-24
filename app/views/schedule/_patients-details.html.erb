@@ -42,50 +42,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="ml-4">
-                    <div class="text-sm text-gray-500">
-                      1
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">Rohit</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                18th march
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                2 days
-              </td>
-
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                10th march
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                Oral
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                shyam
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                common cold
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div class="text-sm text-gray-500">Optimization</div>
-                <div class="text-sm text-gray-500">Optimization</div>
-                <div class="text-sm text-gray-500">Optimization</div>
-                <div class="text-sm text-gray-500">Optimization</div>
-                <div class="text-sm text-gray-500">Optimization</div>
-                <div class="text-sm text-gray-500">Optimization</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <input class="max-h-8 rounded-md mr-4" type="date"/>
-              </td>
-            </tr>
+            <%= render partial: "patient", locals: { ward: 1, name: "Rohit", due_date: "18th march", review_due_in: "2 days", last_visited: "10th march", procedures: ["oral", "dialisis"], referred_by: "shyam", diseases: ["common cold", "pneumonia"], notes: ["check notes 1", "check notes 2"]} %>
           </tbody>
         </table>
       </div>
