@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_092516) do
+ActiveRecord::Schema.define(version: 2021_03_24_131157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -89,13 +89,6 @@ ActiveRecord::Schema.define(version: 2021_03_24_092516) do
     t.uuid "user_id"
   end
 
-  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
@@ -107,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_092516) do
     t.string "password_digest"
     t.boolean "verified", default: true
     t.uuid "facility_id"
+    t.string "otp_secret_key"
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
     t.index ["facility_id"], name: "index_users_on_facility_id"
   end

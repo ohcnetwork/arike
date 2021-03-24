@@ -2,47 +2,52 @@ class PasswordResetController < ApplicationController
   def index
   end
 
-  def verify
-    @user = User.find_signed(params[:token], purpose: "password_reset")
-    unless @user
-      flash[:error] = "Your Token is invalid"
-      redirect_to home_path
-    end
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    flash[:error] = "Your Token is invalid"
-    redirect_to home_path
-  end
+  def options
+    user_id = params[:user_id]
 
-  def send_mail
-    @user = User.find_by(email: params[:email])
-    if @user
-      SessionMailer.with(user: @user).password_reset.deliver_now
-    end
-    redirect_to home_path, notice: "If an account with that email was found, we have sent a link to reset your password!"
-  end
+    is_email = URI::MailTo::EMAIL_REGEXP
+    is_phone = /^(\+\d{1,3}[- ]?)?\d{10}$/
 
-  def reset
-    password = params[:user][:password]
-    confirm_password = params[:user][:confirm_password]
-    if password != confirm_password
-      flash[:error] = "Your Password doesn't match!"
-      redirect_to password_reset_verify_path(token: params[:token])
+    user = nil
+    if user_id =~ is_email
+      user = User.find_by(email: user_id)
+    elsif user_id =~ is_phone
+      user = User.find_by(phone: user_id)
+    end
+    if user
+      render "options", locals: { :user => user }
     else
-      user = User.find_signed(params[:token], purpose: "password_reset")
-      if user
-        if user.update(password: password)
-          redirect_to home_path, notice: "Password Reset Successful! You can login now."
-        else
-          flash[:error] = user.errors.full_messages.to_sentence
-          redirect_to password_reset_verify_path(token: params[:token])
-        end
-      else
-        flash[:error] = "Your token has been expired! Try resetting your password again!"
-        redirect_to home_path
-      end
+      flash[:error] = "Invalid Email or Phone Number!"
+      redirect_to password_reset_page_path
     end
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    flash[:error] = "Your Token is invalid"
-    redirect_to home_path
+  end
+
+  def send_otp
+    option = params[:option]
+    user_id = params[:user_id]
+    user = User.find_by(id: user_id)
+    if user
+      if option == "mail"
+        send_otp_mail
+        render "verify", locals: {}
+      elsif option == "sms"
+        send_otp_sms
+        render "verify", locals: {}
+      else
+        flash[:error] = "Invalid Option!"
+        redirect_to password_reset_page_path
+      end
+    else
+      flash[:error] = "Invalid Email or Phone Number!"
+      redirect_to password_reset_page_path
+    end
+  end
+
+  def send_otp_sms
+    puts "OTP SMS will be sent here!"
+  end
+
+  def send_otp_mail
+    puts "OTP Email will be sent here!"
   end
 end
