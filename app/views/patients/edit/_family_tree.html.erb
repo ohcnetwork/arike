@@ -1,0 +1,68 @@
+<div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+  <div class="sm:col-span-3 field">
+    <%= form.label :full_name, class: "block text-sm font-medium text-gray-700"
+    %>
+    <div class="mt-1">
+      <%= form.text_field :full_name, required: true, class: "shadow-sm
+      focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+      border-gray-300 rounded-md" %>
+    </div>
+  </div>
+  <div class="sm:col-span-3 field">
+    <%= form.label :dob, "Date of Birth", class: "block text-sm font-medium
+    text-gray-700" %>
+    <div class="mt-1">
+      <%= form.date_field :dob, required: true, class: "shadow-sm
+      focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+      border-gray-300 rounded-md" %>
+    </div>
+  </div>
+  <div class="sm:col-span-3 field">
+    <%= form.label :phone, class: "block text-sm font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= form.text_field :phone, required: true, class: "shadow-sm
+      focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+      border-gray-300 rounded-md" %>
+    </div>
+  </div>
+  <div class="sm:col-span-3 field">
+    <%= form.label :relation, class: "block text-sm font-medium text-gray-700"
+    %>
+    <div class="mt-1">
+      <%= form.select :relation, FamilyDetail.relations.values, {:prompt =>
+      'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+      focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+      rounded-md" %>
+    </div>
+  </div>
+  <div class="sm:col-span-3 field">
+    <%= form.label :education, class: "block text-sm font-medium text-gray-700"
+    %>
+    <div class="mt-1">
+      <%= form.select :education, FamilyDetail.educations.values, {:prompt =>
+      'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+      focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+      rounded-md" %>
+    </div>
+  </div>
+
+  <div class="sm:col-span-3 field">
+    <%= form.label :occupation, class: "block text-sm font-medium text-gray-700"
+    %>
+    <div class="mt-1">
+      <%= form.select :occupation, FamilyDetail.occupations.values, {:prompt =>
+      'Select'}, required: true, class: "shadow-sm focus:ring-indigo-500
+      focus:border-indigo-500 block w-full sm:text-sm border-gray-300
+      rounded-md" %>
+    </div>
+  </div>
+
+  <div class="sm:col-span-3 field">
+    <%= form.label :remarks, class: "block text-sm font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= form.text_area :remarks, required: true, class: "shadow-sm
+      focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
+      border-gray-300 rounded-md h-24" %>
+    </div>
+  </div>
+</div>

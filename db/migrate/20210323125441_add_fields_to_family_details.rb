@@ -5,3 +5,5 @@ class AddFieldsToFamilyDetails < ActiveRecord::Migration[6.1]
     add_column :family_details, :remarks, :string
   end
 end
+
+# add_column <table name> <field_name> jsonb, default[]

@@ -26,6 +26,7 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    render "patients/edit/edit"
   end
 
   def update
