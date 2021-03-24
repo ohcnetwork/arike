@@ -17,8 +17,9 @@ Rails.application.routes.draw do
 
   get "/password_reset", to: "password_reset#index", as: "password_reset_page"
   post "/password_reset", to: "password_reset#options"
-  post "/password_reset/verify", to: "password_reset#send_otp"
-
+  post "/password_reset/send_otp", to: "password_reset#send_otp"
+  post "/password_reset/verify", to: "password_reset#verify"
+  post "/password_reset/update", to: "password_reset#update"
 
   resources :sessions
   resources :facilities
