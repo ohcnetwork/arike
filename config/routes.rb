@@ -15,10 +15,10 @@ Rails.application.routes.draw do
 
   get "/signup", to: "users#signup", as: :signup
 
-  get "/password_reset", to: "password_reset#index", as: :password_reset
-  post "/password_reset", to: "password_reset#send_mail", as: :password_reset_send_mail
-  get "/password_reset/verify", to: "password_reset#verify", as: :password_reset_verify
-  post "/password_reset/verify", to: "password_reset#reset", as: :password_reset_update
+  get "/password_reset", to: "password_reset#index", as: "password_reset_page"
+  post "/password_reset", to: "password_reset#options"
+  post "/password_reset/verify", to: "password_reset#send_otp"
+
 
   resources :sessions
   resources :facilities
