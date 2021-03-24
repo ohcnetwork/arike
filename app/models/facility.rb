@@ -5,6 +5,9 @@ class Facility < ApplicationRecord
   has_many :primary_nurses, through: :primary_facilities
   has_many :secondary_nurses, through: :secondary_facility
 
+  validates :parent_id, presence: true, if: -> { kind == "PHC" }
+  validates :parent_id, absence: true, if: -> { kind == "CHC" }
+
   def self.secondary_facilities
     Facility.where(parent_id: nil)
   end
