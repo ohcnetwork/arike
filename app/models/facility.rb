@@ -5,6 +5,8 @@ class Facility < ApplicationRecord
   has_many :primary_nurses, through: :primary_facilities
   has_many :secondary_nurses, through: :secondary_facility
 
+  has_many :users, -> { where("role = ? OR role = ? OR role = ?", "Primary Nurse", "Secondary Nurse", "Superuser") }
+
   validates :parent_id, presence: true, if: -> { kind == "PHC" }
   validates :parent_id, absence: true, if: -> { kind == "CHC" }
 
