@@ -1,0 +1,30 @@
+<div class="mt-2">
+
+  <div class="flex justify-center bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div>
+        <h1 class="text-4xl text-center font-bold">Arike</h1>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          How do you want to get the OTP?
+        </h2>
+      </div>
+      <%= form_with :url => password_reset_verify_path, method:"post", class: "mt-8 space-y-6" do |form| %>
+
+        <%= form.hidden_field :user_id, value: user.id %>
+        <div>
+          <%= form.button value: "mail", name: "option", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: { :disable_with => "Please wait..." } do %>
+              <span class="absolute left-0 inset-y-0 flex items-center pl-3"> <%= render partial: "layouts/icon-lock" %> </span>
+              <span>Get OTP with Mail</span>
+          <% end %>
+        </div>
+        <div>
+          <%= form.button value: "sms", name: "option", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: { :disable_with => "Please wait..." } do %>
+              <span class="absolute left-0 inset-y-0 flex items-center pl-3"> <%= render partial: "layouts/icon-lock" %> </span>
+              <span>Get OTP with SMS</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>
