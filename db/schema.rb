@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_125441) do
+ActiveRecord::Schema.define(version: 2021_03_24_092516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.datetime "first_visit"
     t.datetime "last_visit"
     t.json "records"
+    t.datetime "next_visit"
     t.index ["patient_id"], name: "index_visits_on_patient_id"
     t.index ["user_id"], name: "index_visits_on_user_id"
   end
