@@ -9,6 +9,15 @@ class FacilitiesController < ApplicationController
   def show
     @facility = Facility.find_by_id(params[:id])
   end
+
+  def new
+    @facility = Facility.new
+  end
+
+  def create
+    facility = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone)
+    # facility
+  end
 end
 
 # see all the secondary facilites -> superuser #index
