@@ -15,8 +15,19 @@ class FacilitiesController < ApplicationController
   end
 
   def create
-    facility = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone)
+    facility_params = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
     # facility
+    if facility_params[:kind] == "CHC"
+      facility_params[:parent_id] = nil
+    end
+
+    facility = Facility.create(facility_params)
+    if facility.errors.empty?
+      redirect_to facility_path(facility.id), notice: "You have successfully created a facility!"
+    else
+      flash[:error] = facility.errors.full_messages.to_sentence
+      redirect_to new_facility_path
+    end
   end
 end
 
