@@ -7,7 +7,6 @@ class FacilitiesController < ApplicationController
   end
 
   def show
-    # assuming it is a secondary
     @facility = Facility.find_by_id(params[:id])
   end
 end
