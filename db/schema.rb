@@ -76,12 +76,12 @@ ActiveRecord::Schema.define(version: 2021_03_23_125441) do
     t.uuid "created_by"
     t.uuid "lsg_body"
     t.uuid "facility_id"
-    t.index ["facility_id"], name: "index_patients_on_facility_id"
     t.string "sex"
     t.string "emergency_phone_no"
     t.string "disease"
     t.string "patient_views"
     t.string "family_views"
+    t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
 
   create_table "patients_users", force: :cascade do |t|
