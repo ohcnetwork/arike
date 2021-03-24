@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_one_time_password
   has_and_belongs_to_many :patients # how can user has many patients?
   belongs_to :facilities, optional: true
   enum roles: {
@@ -21,15 +22,13 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :phone, uniqueness: true
 
-  def send_sms
+  def send_sms(to, message)
     phone_num = ENV["TWILIO_SENDER_NUMBER"]
-    puts "SMS sending stub"
     client = Twilio::REST::Client.new()
-    to = "" # verified twilio number
     client.messages.create(
       from: phone_num,
-      to: to,
-      body: "Click here to login: ",
+      to: "+91" + to,
+      body: message,
     )
   end
 
