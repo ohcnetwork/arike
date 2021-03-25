@@ -10,7 +10,7 @@ class Patient < ApplicationRecord
   end
 
   def self.get_ward(patient)
-    facility = Facility.find(patient.facility_id)
+    facility = Facility.all.find_by_id(patient.facility_id)
     Ward.find(facility.ward)
   end
 end
