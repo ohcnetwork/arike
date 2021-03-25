@@ -49,6 +49,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def assign_facility
+    assignables = params.require(:facility).permit(:facility_id, :user_id)
+    puts assignables
+
+    user = User.find_by(id: assignables[:user_id])
+    user.facility_id = assignables[:facility_id]
+    if user.save
+      flash[:success] = "Successfully assigned #{user.full_name} to this facility!"
+      redirect_to facility_path(assignables[:facility_id])
+    else
+      flash[:error] = user.errors.full_messages.to_sentence
+      redirect_to facility_path(assignables[:facility_id])
+    end
+  end
+
   def verify
     user = User.find_by_id(params[:id])
     if user
