@@ -150,13 +150,28 @@
           <h1 class="my-2">Primary</h1>
           <ul class="mb-8">
             <% @facility.primary_nurses.map do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm"><%= nurse.full_name %></li>
+              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2">
+                <h1><%= nurse.full_name %></h1>
+                <button class="bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600">
+                  <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </li>
             <% end %>
           </ul>
           <h1 class="my-2">Secondary</h1>
           <ul class="mb-8">
             <% @facility.secondary_nurses.map do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm"><%= nurse.full_name %></li>
+              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2">
+                <h1><%= nurse.full_name %></h1>
+                <% form_with url: assign_facility_path%>
+                <button class="bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600">
+                  <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </li>
             <% end %>
           </ul>
         </div>
