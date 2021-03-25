@@ -1,21 +1,12 @@
 <div class="bg-gray-100 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-            <div class="w-full flex items-center justify-between p-6 space-x-6">
-              <div class="flex-1 truncate">
-                <div class="flex items-center space-x-3">
-                  <h3 class="text-gray-900 text-sm font-medium truncate">18th March</h3>
-                </div>
-                <p class="mt-1 text-gray-500 text-sm truncate">Monday</p>
-              </div>
-            </div>
-            <ol class="px-2">
-              <li>Patient 1</li>
-              <li>Patient 2</li>
-              <li>Patient 3</li>
-            </ol>
-          </li>
+        <%= render partial: "day", locals: { date: "22nd March", day: "MONDAY" } %>
+        <%= render partial: "day", locals: { date: "23rd March", day: "TUESDAY" } %>
+        <%= render partial: "day", locals: { date: "24th March", day: "WEDNESDAY" } %>
+        <%= render partial: "day", locals: { date: "25th March", day: "THURSDAY" } %>
+        <%= render partial: "day", locals: { date: "26th March", day: "FRIDAY" } %>
+        <%= render partial: "day", locals: { date: "27th March", day: "SATURDAY" } %>
       </ul>
     </div>
   </div>
