@@ -1,0 +1,1 @@
+<%= render "form", facility: @facility, lsg_body: LsgBody.all.select(:id, :name), ward: Ward.all.select(:id, :name), secondary_facilities: Facility.secondary_facilities %>

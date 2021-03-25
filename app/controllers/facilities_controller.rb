@@ -1,6 +1,7 @@
 class FacilitiesController < ApplicationController
   before_action :ensure_facility_access, only: [:show, :new, :create]
   before_action :ensure_superuser, only: [:index]
+  before_action :set_facility, only: [:edit, :update]
 
   def index
     @secondary_facilities = Facility.secondary_facilities
@@ -35,6 +36,22 @@ class FacilitiesController < ApplicationController
       flash[:error] = facility.errors.full_messages.to_sentence
       redirect_to new_facility_path
     end
+  end
+
+  def edit
+  end
+
+  def update
+    result = @facility.update!(facilities_params)
+    redirect_to facility_path(@facility.id)
+  end
+
+  def set_facility
+    @facility = Facility.find(params[:id])
+  end
+
+  def facilities_params
+    params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
   end
 end
 
