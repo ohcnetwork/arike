@@ -9,8 +9,8 @@ class Facility < ApplicationRecord
 
   # has_many :users, -> { where("role = ? OR role = ? OR role = ?", "Primary Nurse", "Secondary Nurse", "Superuser") }
 
-  validates :parent_id, presence: true, if: -> { kind == "PHC" }
-  validates :parent_id, absence: true, if: -> { kind == "CHC" }
+  validates :parent_id, presence: true, if: -> { kind.in? ["PHC"] }
+  validates :parent_id, absence: true, if: -> { kind.in? ["CHC"] }
 
   def self.secondary_facilities
     Facility.where(parent_id: nil)
@@ -21,6 +21,6 @@ class Facility < ApplicationRecord
   end
 
   def primary_facility?
-    parent_id != nil
+    !secondary_facility?
   end
 end
