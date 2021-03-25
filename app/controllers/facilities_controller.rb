@@ -1,5 +1,5 @@
 class FacilitiesController < ApplicationController
-  before_action :ensure_facility_access
+  before_action :ensure_facility_access, only: [:show, :new, :create]
   before_action :ensure_superuser, only: [:index]
 
   def index
@@ -22,7 +22,14 @@ class FacilitiesController < ApplicationController
     end
 
     facility = Facility.create(facility_params)
-    if facility.errors.empty?
+    user_saved = if !current_user.superuser?
+        user = User.add_to_facility(current_user.id, facility.id)
+        user.save
+      else
+        true
+      end
+
+    if facility.errors.empty? && user_saved
       redirect_to facility_path(facility.id), notice: "You have successfully created a facility!"
     else
       flash[:error] = facility.errors.full_messages.to_sentence

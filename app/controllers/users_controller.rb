@@ -53,8 +53,7 @@ class UsersController < ApplicationController
     assignables = params.require(:facility).permit(:facility_id, :user_id)
     puts assignables
 
-    user = User.find_by(id: assignables[:user_id])
-    user.facility_id = assignables[:facility_id]
+    user = User.add_to_facility(assignables[:user_id], assignables[:facility_id])
     if user.save
       flash[:success] = "Successfully assigned #{user.full_name} to this facility!"
       redirect_to facility_path(assignables[:facility_id])
