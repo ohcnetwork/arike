@@ -38,6 +38,14 @@ class User < ApplicationRecord
     user
   end
 
+  def self.remove_from_facility(user_id, facility_id)
+    user = find_by(id: user_id)
+    if user.facility_id == facility_id
+      user.facility_id = nil
+    end
+    user
+  end
+
   def self.verified
     User.where(verified: true)
   end
