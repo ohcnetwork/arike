@@ -13,6 +13,7 @@ class PatientsController < ApplicationController
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value.to_i == 1 }.map { |key, value| key }
     patient.add_users(volunteer_user_ids)
+    # patient.add_family_members()
     redirect_to patients_path
   end
 

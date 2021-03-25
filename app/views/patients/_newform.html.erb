@@ -1,0 +1,19 @@
+<div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div className="max-w-3xl mx-auto">
+      <%= form_with(model: patient) do |form| %>
+        <div id="patient-form"></div>
+        <script type="text/json" id="data">
+          {
+          "lsg": <%= LsgBody.all.to_a.map {|body| ["#{body.name} - #{body.kind}", body.id]} %>,
+          "volunteers": <%= User.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
+          "ashas": <%= User.ashas.to_a.map {|member| [member.full_name, member.id]} %>,
+          "facility": <%= Facility.all.to_a.map {|facility| [facility.name, facility.id]} %>
+          }
+        </script>
+        <script>
+          window.PatientFormPage.run()
+          window.PatientFormPage.getData()
+        </script>
+      <% end %>
+  </div>
+</div>
