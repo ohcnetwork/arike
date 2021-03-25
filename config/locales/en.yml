@@ -31,3 +31,39 @@
 
 en:
   hello: "Hello world"
+  presenters:
+    dashboard:
+      index_presenter:
+        links:
+          schedule:
+            title: "Schedule"
+            text: "Schedule message"
+            icon: "icon_outline_clock"
+          visit:
+            title: "Visit"
+            text: "Visit a patient and record their details."
+            icon: "icon_outline_clock"
+          lsg:
+            title: "LSG"
+            text: "Visit a patient and record their details."
+            icon: "icon_outline_clock"
+          calendar:
+            title: "Enroll New Patients"
+            text: "See the current calendar for visits."
+            icon: "icon_outline_clock"
+          enroll_patients:
+            title: "Enroll New Patients"
+            text: "Queue a new patient for visit when a volunteer or a health worker informs of a new patient. The patient data will be added to the core system only after the first visit."
+            icon: "icon_outline_clock"
+          new_users:
+            title: "Add new Users"
+            text: "Add new users to the system. These users can belong to roles like nurses, doctors, junior health inspectors, and volunteers."
+            icon: "icon_outline_clock"
+          account_settings:
+            title: "Account settings"
+            text: "Change username, logout, and so on."
+            icon: "icon_outline_clock"
+          facilities:
+            title: "Facilities"
+            text: "Display, Add or Edit Facility details"
+            icon: "icon_outline_clock"
