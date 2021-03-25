@@ -43,7 +43,7 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             <% visits.each do |visit| %>
-              <% patient = Patient.find(visit.patient_id) %>
+              <% patient = Patient.all.find_by_id(visit.patient_id) %>
               <%= render partial: "patient-details", locals: { ward: Patient.get_ward(patient).number, name: patient.full_name, due_date: visit.next_visit, review_due_in: visit.next_visit - visit.last_visit, last_visited: visit.last_visit, procedures: ["oral", "dialisis"], referred_by: User.find(patient.reported_by).first_name, diseases: [patient.diseases], notes: [patient.notes]} %>
             <% end %>
           </tbody>

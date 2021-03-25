@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_131157) do
+ActiveRecord::Schema.define(version: 2021_03_25_101634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -89,13 +89,6 @@ ActiveRecord::Schema.define(version: 2021_03_24_131157) do
     t.uuid "user_id"
   end
 
-  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
@@ -114,16 +107,14 @@ ActiveRecord::Schema.define(version: 2021_03_24_131157) do
 
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "date"
-    t.bigint "patient_id"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "first_visit"
     t.datetime "last_visit"
     t.json "records"
     t.datetime "next_visit"
-    t.index ["patient_id"], name: "index_visits_on_patient_id"
-    t.index ["user_id"], name: "index_visits_on_user_id"
+    t.uuid "patient_id"
+    t.uuid "user_id"
   end
 
   create_table "wards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
