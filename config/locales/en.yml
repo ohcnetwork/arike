@@ -82,3 +82,11 @@ en:
             title: "Manage Wards"
             text: "See the list of Wards and manage them."
             icon: "icon_outline_clock"
+
+    users:
+      index_presenter:
+        users_list:
+          verified:
+            title: "Verified Users"
+          unverified:
+            title: "Unverified Users"

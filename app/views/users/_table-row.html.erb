@@ -3,7 +3,7 @@
     <%= full_name %>
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= first_name  %>
+    <%= first_name %>
   </td>
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
     <%= email %>
@@ -14,11 +14,13 @@
   <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
     <%= role %>
   </td>
-  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-    <% if verified %>
-      <%= link_to "Edit", edit_user_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
-    <% else %>
-      <%= link_to "Verify access", verify_user_path(id),method: :put, class: "text-indigo-600 hover:text-indigo-900"  %>
-    <% end %>
-  </td>
+  <% if current_user.superuser? %>
+    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+      <% if verified %>
+        <%= link_to "Edit", edit_user_path(id), class: "text-indigo-600 hover:text-indigo-900" %>
+      <% else %>
+        <%= link_to "Verify access", verify_user_path(id), method: :put, class: "text-indigo-600 hover:text-indigo-900" %>
+      <% end %>
+    </td>
+  <% end %>
 </tr>

@@ -66,6 +66,10 @@ class User < ApplicationRecord
     self[:role] == User.roles[:secondary_nurse]
   end
 
+  def nurse?
+    self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
+  end
+
   def has_facility_access?
     [User.roles[:superuser], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
   end
