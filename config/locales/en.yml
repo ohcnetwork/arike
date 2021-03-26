@@ -78,3 +78,7 @@ en:
             title: "Manage LSGs"
             text: "See the list of LSGs and manage them."
             icon: "icon_outline_clock"
+          wards:
+            title: "Manage Wards"
+            text: "See the list of Wards and manage them."
+            icon: "icon_outline_clock"

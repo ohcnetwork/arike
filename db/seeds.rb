@@ -25,3 +25,7 @@ LsgBody.all.each do |lsg|
     kind: "PHC", name: Faker::Name.name, state: "Kerala", district: "Ernakulum", lsg_body: lsg.id, ward: lsg.wards.last.id, parent_id: Facility.first.id,
   )
 end
+
+
+Facility.all.each do |facility|
+  (21..)
