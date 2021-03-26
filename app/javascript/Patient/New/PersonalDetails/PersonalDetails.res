@@ -1,14 +1,18 @@
 type data = {
   lsg: array<array<string>>,
-  lsg_selected: string,
+  //lsg_selected: string,
   volunteers: array<array<string>>,
-  volunteers_selected: array<array<string>>,
+  //volunteers_selected: array<array<string>>,
   ashas: array<array<string>>,
-  asha_selected: string,
+  //asha_selected: string,
   facility: array<array<string>>,
-  facility_selected: string,
+  //facility_selected: string,
   reported_by: array<array<string>>,
-  reported_by_selected: string,
+  //reported_by_selected: string,
+}
+type d = {
+  newData: data,
+  editData: data,
 }
 
 @scope("JSON") @val
@@ -36,11 +40,11 @@ module PatientRegister = {
     let (state, setState) = React.useState(() => getData())
 
     //Js.log(state.volunteers_selected->Belt.Array.map(x => x[0]))
-    // if(state.volunteers->Belt.Array.length > 0)
-    // {
-    //   Js.log(state.volunteers_selected)
-    //    checkExistingVolunteers(state)
-    // }
+     if(state.volunteers->Belt.Array.length > 0)
+    {
+      Js.log(state.volunteers_selected)
+       checkExistingVolunteers(state)
+    }
 
 
     <div>
@@ -113,6 +117,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[lsg_body]"
+              defaultValue=state.lsg_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               {state.lsg->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)->React.array}
             </select>
@@ -146,7 +151,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[facility_id]"
-
+              defaultValue=state.facility_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               {state.facility
               ->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)
@@ -178,7 +183,7 @@ module PatientRegister = {
                   name=`patient[volunteer[${e[1]}]]`
                   id=e[1]
                   // checked=state.volunteers_selected->Belt.Array.map(x => Js.Array.includes(e[0], x))
-                  // checked = e[0] -> Js.Array.includes(state.volunteers_selected->Belt.Array.map(x => x[0]))
+                  //checked = e[0] -> Js.Array.includes(state.volunteers_selected->Belt.Array.map(x => x[0]))
                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                 />
               </div>
