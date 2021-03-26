@@ -12,8 +12,9 @@
           "asha_selected": "<%= patient.asha_member %>",
           "facility": <%= Facility.all.to_a.map {|facility| [facility.name, facility.id]} %>,
           "facility_selected": "<%= patient.facility %>",
-          "reported_by": <%= User.all.to_a.map {|user| [user.full_name, user.id]} %>,
+          "reported_by": <%= User.nurses.to_a.map { |nurse| ["#{nurse.full_name} - #{nurse.role}", nurse.id]} %>,
           "reported_by_selected": "<%= patient.reported_by %>"
+
           }
         </script>
         <script>

@@ -7,6 +7,8 @@ type data = {
   asha_selected: string,
   facility: array<array<string>>,
   facility_selected: string,
+  reported_by: array<array<string>>,
+  reported_by_selected: string,
 }
 
 @scope("JSON") @val
@@ -97,8 +99,9 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="lsg_body"
+              value=state.lsg_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              <option />
+              {state.lsg->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)->React.array}
             </select>
           </div>
         </div>
@@ -140,20 +143,23 @@ module PatientRegister = {
             {s("Volunteer")}
           </label>
           <div className="mt-1 overflow-y-scroll h-24 py-3 px-2">
+          {state.volunteers->Belt.Array.map(e =>
             <div className="flex items-start">
               <div className="flex items-center h-5">
                 <input
                   type_="checkbox"
-                  name="volunteer[user_id]"
+                  name=`volunteer[${e[1]}]`
+                  checked=true
                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                 />
               </div>
               <div className="ml-3 text-sm">
-                <label name="volunteer[user_id]" className="font-medium text-gray-700">
-                  {s("Volunteer Name")}
+                <label name=`volunteer[${e[1]}]` className="font-medium text-gray-700">
+                  {s(e[0])}
                 </label>
               </div>
             </div>
+          )->React.array}
           </div>
         </div>
         <div className="sm:col-span-3 field">
@@ -193,8 +199,9 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="reported_by"
+              value=state.reported_by_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              <option> {s("Reported By")} </option>
+              {state.reported_by->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)->React.array}
             </select>
           </div>
         </div>
