@@ -55,10 +55,10 @@ class UsersController < ApplicationController
     user = User.add_to_facility(assignables[:user_id], assignables[:facility_id])
     if user.save
       flash[:success] = "Successfully assigned #{user.full_name} to this facility!"
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
 
@@ -68,10 +68,10 @@ class UsersController < ApplicationController
     user = User.remove_from_facility(assignables[:nurse_id], assignables[:facility_id])
     if user.save
       flash[:success] = "Successfully removed #{user.full_name} to this facility!"
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
 
