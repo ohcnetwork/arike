@@ -1,0 +1,24 @@
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+      <%= form_with(model: patient) do |form| %>
+        <div id="patient-form"></div>
+        <script type="text/json" id="data">
+          {
+          "lsg": <%= LsgBody.all.to_a.map {|body| ["#{body.name} - #{body.kind}", body.id]} %>,
+          "lsg_selected": "<%= patient.lsg_body %>",
+          "volunteers": <%= User.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
+          "volunteers_selected": <%= patient.users.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
+          "ashas": <%= User.ashas.to_a.map {|member| [member.full_name, member.id]} %>,
+          "asha_selected": "<%= patient.asha_member %>",
+          "facility": <%= Facility.all.to_a.map {|facility| [facility.name, facility.id]} %>,
+          "facility_selected": "<%= patient.facility %>",
+          "reported_by": <%= User.all.to_a.map {|user| [user.full_name, user.id]} %>,
+          "reported_by_selected": "<%= patient.reported_by %>"
+          }
+        </script>
+        <script>
+          window.PatientFormPage.run()
+        </script>
+      <% end %>
+  </div>
+</div>
