@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-  has_one_time_password
+  # has_one_time_password
   has_and_belongs_to_many :patients # how can user has many patients?
-  belongs_to :facilities, optional: true
+  belongs_to :facilities, class_name: "Facility", foreign_key: "facility_id", optional: true
   enum roles: {
                 superuser: "Superuser",
                 primary_nurse: "Primary Nurse",
@@ -32,6 +32,20 @@ class User < ApplicationRecord
     )
   end
 
+  def self.add_to_facility(user_id, facility_id)
+    user = find_by(id: user_id)
+    user.facility_id = facility_id
+    user
+  end
+
+  def self.remove_from_facility(user_id, facility_id)
+    user = find_by(id: user_id)
+    if user.facility_id == facility_id
+      user.facility_id = nil
+    end
+    user
+  end
+
   def self.verified
     User.where(verified: true)
   end
@@ -44,7 +58,19 @@ class User < ApplicationRecord
     self[:role] == User.roles[:superuser]
   end
 
+  def primary_nurse?
+    self[:role] == User.roles[:primary_nurse]
+  end
+
+  def secondary_nurse?
+    self[:role] == User.roles[:secondary_nurse]
+  end
+
   def has_facility_access?
     [User.roles[:superuser], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
+  end
+
+  def facility
+    Facility.where(id: facility_id).first
   end
 end
