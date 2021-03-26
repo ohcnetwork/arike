@@ -75,12 +75,12 @@ ActiveRecord::Schema.define(version: 2021_03_25_101634) do
     t.uuid "reported_by"
     t.uuid "created_by"
     t.uuid "lsg_body"
-    t.uuid "facility_id"
     t.string "sex"
     t.string "emergency_phone_no"
     t.string "disease"
     t.string "patient_views"
     t.string "family_views"
+    t.uuid "facility_id"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
 
