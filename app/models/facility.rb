@@ -6,15 +6,17 @@ class Facility < ApplicationRecord
   has_many :secondary_nurses, -> { where("role = ?", "Secondary Nurse") }, class_name: "User", foreign_key: "facility_id"
   belongs_to :lsg_body_info, class_name: "LsgBody", foreign_key: "lsg_body"
   belongs_to :ward_info, class_name: "Ward", foreign_key: "ward"
+  scope :secondary_facilities, -> { where(parent_id: nil) }
+  scope :primary_facilities, -> { where.not(parent_id: nil) }
 
   # has_many :users, -> { where("role = ? OR role = ? OR role = ?", "Primary Nurse", "Secondary Nurse", "Superuser") }
 
   validates :parent_id, presence: true, if: -> { kind.in? ["PHC"] }
   validates :parent_id, absence: true, if: -> { kind.in? ["CHC"] }
 
-  def self.secondary_facilities
-    Facility.where(parent_id: nil)
-  end
+  # def self.secondary_facilities
+  #   Facility.where(parent_id: nil)
+  # end
 
   def secondary_facility?
     parent_id == nil

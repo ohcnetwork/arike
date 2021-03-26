@@ -141,7 +141,7 @@
           <%= form.label :facility_id, class: "block text-sm font-medium
         text-gray-700" %>
           <div class="mt-1">
-            <%= form.select :facility_id, Facility.all.to_a.map {|facility| [facility.name, facility.id]}, {:prompt => 'Select'}, class: "shadow-sm focus:ring-indigo-500
+            <%= form.select :facility_id, Facility.primary_facilities.map {|facility| [facility.name, facility.id]}, {:prompt => 'Select'}, class: "shadow-sm focus:ring-indigo-500
           focus:border-indigo-500 block w-full sm:text-sm border-gray-300
           rounded-md" %>
           </div>
