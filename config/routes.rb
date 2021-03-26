@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   resources :patients
   resources :users
   put "/users/:id/verify", to: "users#verify", as: :verify_user
-  # for assigning a nurse to a facility
+  # for assigning a users to a facility
   put "/assign", to: "users#assign_facility", as: :assign_facility
-  # for removing a nurse from a facility
+  # for removing a users from a facility
   put "/unassign", to: "users#unassign_facility", as: :unassign_facility
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   resources :sessions
   resources :facilities
+  # get users belonging to a facility
+  get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
   resources :lsg_bodies
   resources :wards
 end

@@ -1,7 +1,7 @@
 class FacilitiesController < ApplicationController
   before_action :ensure_facility_access, only: [:show, :new, :create]
   before_action :ensure_superuser, only: [:index]
-  before_action :set_facility, only: [:edit, :update]
+  before_action :set_facility, only: [:edit, :update, :show_users]
 
   def index
     @secondary_facilities = Facility.secondary_facilities
@@ -44,6 +44,9 @@ class FacilitiesController < ApplicationController
   def update
     result = @facility.update!(facilities_params)
     redirect_to facility_path(@facility.id)
+  end
+
+  def show_users
   end
 
   def set_facility

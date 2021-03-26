@@ -122,7 +122,7 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.9)
+    mimemagic (0.3.6)
       nokogiri (~> 1)
       rake
     mini_mime (1.0.3)
