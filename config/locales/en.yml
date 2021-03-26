@@ -30,14 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
   presenters:
     dashboard:
       index_presenter:
         links:
           schedule:
             title: "Schedule"
-            text: "Schedule message"
+            text: "Schedule visits for patients. Field workers like nurses, doctors, and physiotherapists can see patients who need care in the next week and schedule their visits."
             icon: "icon_outline_clock"
           visit:
             title: "Visit"
@@ -60,7 +59,7 @@ en:
             text: "View Patient Details"
             icon: "icon_outline_clock"
           new_users:
-            title: "Add new Users"
+            title: "Add new users"
             text: "Add new users to the system. These users can belong to roles like nurses, doctors, junior health inspectors, and volunteers."
             icon: "icon_outline_clock"
           users:
@@ -74,4 +73,8 @@ en:
           facilities:
             title: "Facilities"
             text: "Display, Add or Edit Facility details"
+            icon: "icon_outline_clock"
+          lsg_body:
+            title: "Manage LSGs"
+            text: "See the list of LSGs and manage them."
             icon: "icon_outline_clock"
