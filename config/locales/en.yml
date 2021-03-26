@@ -48,16 +48,24 @@ en:
             text: "Visit a patient and record their details."
             icon: "icon_outline_clock"
           calendar:
-            title: "Enroll New Patients"
+            title: "Calendar"
             text: "See the current calendar for visits."
             icon: "icon_outline_clock"
           enroll_patients:
             title: "Enroll New Patients"
             text: "Queue a new patient for visit when a volunteer or a health worker informs of a new patient. The patient data will be added to the core system only after the first visit."
             icon: "icon_outline_clock"
+          patients:
+            title: "Patients"
+            text: "View Patient Details"
+            icon: "icon_outline_clock"
           new_users:
             title: "Add new Users"
             text: "Add new users to the system. These users can belong to roles like nurses, doctors, junior health inspectors, and volunteers."
+            icon: "icon_outline_clock"
+          users:
+            title: "Users"
+            text: "View Details of all Users"
             icon: "icon_outline_clock"
           account_settings:
             title: "Account settings"
