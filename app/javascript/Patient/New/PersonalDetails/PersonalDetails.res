@@ -113,8 +113,22 @@ module PatientRegister = {
         </div>
         <div className="sm:col-span-3 field">
           <label className="block text-sm font-medium text-gray-700"> {s("Volunteer")} </label>
-          //
-          <div className="mt-1 overflow-y-scroll h-24 py-3 px-2" />
+          <div className="mt-1 overflow-y-scroll h-24 py-3 px-2">
+            <div className="flex items-start">
+              <div className="flex items-center h-5">
+                <input
+                  type_="checkbox"
+                  name="volunteer[user_id]"
+                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                />
+              </div>
+              <div className="ml-3 text-sm">
+                <label name="volunteer[user_id]" className="font-medium text-gray-700">
+                  {s("Volunteer Name")}
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="sm:col-span-3 field">
           <label className="block text-sm font-medium text-gray-700">
