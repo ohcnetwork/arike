@@ -76,4 +76,9 @@ class User < ApplicationRecord
   def facility
     Facility.where(id: facility_id).first
   end
+
+  # users that are currently not assigned to a facility
+  def self.assignable_users
+    where.not(role: "Superuser").where(facility_id: nil)
+  end
 end
