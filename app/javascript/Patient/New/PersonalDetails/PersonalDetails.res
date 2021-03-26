@@ -6,15 +6,13 @@ type data = {
 }
 
 @scope("JSON") @val
-external parseJson: string => Js.Json.t = "parse"
+external parseJson: string => data = "parse"
 
-let getData = (raw: string) => {
+let getData = () => {
   let elem =
     Domutils.doc->Domutils.getElementById("data")->Belt.Option.getWithDefault(Js.Obj.empty())
 
-  let data = elem["innerText"]->Domutils.replaceAll("&quot;", "\"")->parseJson
-  Js.log(data)
-  data
+  elem["innerText"]->Domutils.replaceAll("&quot;", "\"")->parseJson
 }
 
 let s = React.string
@@ -23,6 +21,8 @@ let s = React.string
 module PatientRegister = {
   @react.component
   let make = () => {
+    let (state, setState) = React.useState(() => getData())
+
     <div>
       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div className="sm:col-span-3 field">
@@ -30,9 +30,7 @@ module PatientRegister = {
           <div className="mt-1">
             <input
               type_="text"
-              className="shadow-sm
-          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
-          border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -41,9 +39,7 @@ module PatientRegister = {
           <div className="mt-1">
             <input
               type_="date"
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -51,8 +47,7 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("Sex")} </label>
           <div className="mt-1">
             <select
-              className="shadow-sm focus:ring-indigo-500
-        focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option value="Male"> {s("Male")} </option>
               <option value="Female"> {s("Female")} </option>
               <option value="Others"> {s("Others")} </option>
@@ -64,9 +59,7 @@ module PatientRegister = {
           <div className="mt-1">
             <input
               type_="text"
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -77,9 +70,7 @@ module PatientRegister = {
           <div className="mt-1">
             <input
               type_="text"
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
@@ -87,9 +78,7 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("LSG Body")} </label>
           <div className="mt-1">
             <select
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option />
             </select>
           </div>
@@ -98,9 +87,7 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("Address")} </label>
           <div className="mt-1">
             <textarea
-              className="shadow-sm focus:ring-indigo-500
-        focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-        rounded-md h-24"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
             />
           </div>
         </div>
@@ -108,9 +95,7 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("Route")} </label>
           <div className="mt-1">
             <textarea
-              className="shadow-sm focus:ring-indigo-500
-        focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-        rounded-md h-24"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
             />
           </div>
         </div>
@@ -118,32 +103,22 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("Notes")} </label>
           <div className="mt-1">
             <textarea
-              className="shadow-sm focus:ring-indigo-500
-        focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-        rounded-md h-24"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
             />
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label
-            className="block text-sm font-medium
-      text-gray-700">
-            {s("Volunteer")}
-          </label>
+          <label className="block text-sm font-medium text-gray-700"> {s("Volunteer")} </label>
           //
           <div className="mt-1 overflow-y-scroll h-24 py-3 px-2" />
         </div>
         <div className="sm:col-span-3 field">
-          <label
-            className="block text-sm font-medium
-      text-gray-700">
+          <label className="block text-sm font-medium text-gray-700">
             {s("Economic Status")}
           </label>
           <div className="mt-1">
             <select
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option> {s("Well Off")} </option>
               <option> {s("Middle Class")} </option>
               <option> {s("Poor")} </option>
@@ -152,31 +127,21 @@ module PatientRegister = {
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label
-            className="block text-sm font-medium
-      text-gray-700">
-            {s("ASHA Member")}
-          </label>
+          <label className="block text-sm font-medium text-gray-700"> {s("ASHA Member")} </label>
           <div className="mt-1">
             <select
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md">
-              <option> {s("ASHA")} </option>
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              {state.ashas
+              ->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)
+              ->React.array}
             </select>
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label
-            className="block text-sm font-medium
-      text-gray-700">
-            {s("Reported By")}
-          </label>
+          <label className="block text-sm font-medium text-gray-700"> {s("Reported By")} </label>
           <div className="mt-1">
             <select
-              className="shadow-sm focus:ring-indigo-500
-          focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-          rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option> {s("Reported By")} </option>
             </select>
           </div>
@@ -185,10 +150,7 @@ module PatientRegister = {
       <div className="actions">
         <input
           type_="submit"
-          className="mt-4 inline-flex justify-center py-2 px-4 border
-      border-transparent shadow-sm text-sm font-medium rounded-md text-white
-      bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
-      focus:ring-offset-2 focus:ring-indigo-500"
+          className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         />
       </div>
     </div>
