@@ -4,131 +4,132 @@
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js"
       defer=""
     ></script>
-
     <link
       href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
       rel="stylesheet"
     />
-  </head>
-  <body>
-    <div class="bg-gray-100">
-      <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-          <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div class="px-4 py-5 sm:px-6">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Patient Information
-              </h3>
-              <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                Personal details
-              </p>
-            </div>
-            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-              <dl class="sm:divide-y sm:divide-gray-200">
-                <div
+    </head>
+    <body>
+      <div class="bg-gray-100">
+        <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
+          <div class="max-w-4xl mx-auto">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+              <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                  Patient Information
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                  Personal details
+                </p>
+              </div>
+              <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                <dl class="sm:divide-y sm:divide-gray-200">
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.full_name %>
-                  </dd>
-                </div>
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.full_name %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">
-                    Date of birth
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.dob %>
-                  </dd>
-                </div>
-                <div
+                    <dt class="text-sm font-medium text-gray-500">
+                      Date of birth
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.dob %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Phone No.</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.phone %>
-                  </dd>
-                </div>
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Phone No.</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.phone %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Address</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.address %>
-                  </dd>
-                </div>
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Address</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.address %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Route</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.route %>
-                  </dd>
-                </div>
-
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Route</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.route %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">
-                    Economic Status
-                  </dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.economic_status %>
-                  </dd>
-                </div>
-
-                <div
+                    <dt class="text-sm font-medium text-gray-500">
+                      Economic Status
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.economic_status %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Notes</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.notes %>
-                  </dd>
-                </div>
-
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Notes</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.notes %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Volunteers</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= @patient.users.volunteers.to_a.map {|member| member.full_name}.join(", ") %>
-                  </dd>
-                </div>
-
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Volunteers</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= @patient.users.volunteers.to_a.map {|member| member.full_name}.join(", ") %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">ASHA Member</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= User.find_by_id(@patient.asha_member).full_name %>
-                  </dd>
-                </div>
-
-                <div
+                    <dt class="text-sm font-medium text-gray-500">ASHA Member</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= User.find_by_id(@patient.asha_member).full_name %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">Reported By</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <%= User.find_by_id(@patient.reported_by).full_name %>
-                  </dd>
-                </div>
-                <div
+                    <dt class="text-sm font-medium text-gray-500">Facility</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= Facility.find_by_id(@patient.facility_id).name %>
+                    </dd>
+                  </div>
+                  <div
                   class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                 >
-                  <dt class="text-sm font-medium text-gray-500">LSG Body</dt>
-                  <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <% lsg_body = LsgBody.find_by_id(@patient.lsg_body) %>
-                    <%= "#{lsg_body.name} - #{lsg_body.kind}" %>
-                  </dd>
-                </div>
-
-              </dl>
+                    <dt class="text-sm font-medium text-gray-500">Reported By</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <%= User.find_by_id(@patient.reported_by).full_name %>
+                    </dd>
+                  </div>
+                  <div
+                  class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                >
+                    <dt class="text-sm font-medium text-gray-500">LSG Body</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <% lsg_body = LsgBody.find_by_id(@patient.lsg_body) %>
+                      <%= "#{lsg_body.name} - #{lsg_body.kind}" %>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </body>
-</html>
+    </body>
+  </html>
