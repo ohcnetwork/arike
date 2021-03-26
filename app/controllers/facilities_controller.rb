@@ -1,7 +1,7 @@
 class FacilitiesController < ApplicationController
   before_action :ensure_facility_access, only: [:show, :new, :create]
   before_action :ensure_superuser, only: [:index]
-  before_action :set_facility, only: [:edit, :update, :show_users]
+  before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
     @secondary_facilities = Facility.secondary_facilities
@@ -47,6 +47,9 @@ class FacilitiesController < ApplicationController
   end
 
   def show_users
+  end
+
+  def show_patients
   end
 
   def set_facility

@@ -11,6 +11,9 @@
       </div>
     </div>
     <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+      <% if !@facility.secondary_facility? %>
+        <%= link_to "Patients", show_facility_patients_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
+      <% end %>
       <%= link_to "Members", show_facility_users_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
       <%= link_to "New Facility", new_facility_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
     </div>
@@ -111,34 +114,6 @@
                 </dd>
               </div>
             </dl>
-          </div>
-        </div>
-      </section>
-      <section aria-labelledby="notes-title">
-        <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
-          <div class="divide-y divide-gray-200">
-            <div class="px-4 py-5 sm:px-6">
-              <h2 id="notes-title" class="text-lg font-medium text-gray-900">Patients</h2>
-            </div>
-            <div class="px-4 py-6 sm:px-6">
-              <ul class="space-y-8 list-disc ml-4">
-                <% @facility.patients.map do |patient| %>
-                  <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div class="w-0 flex-1 flex items-center">
-                      <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="ml-2 flex-1 w-0 truncate">
-                        <%= patient.full_name %>
-                      </span>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                      <%= link_to "More Info", patient_path(patient.id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
           </div>
         </div>
       </section>

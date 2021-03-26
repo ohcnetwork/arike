@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :facilities
   # get users belonging to a facility
   get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
+  get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
   resources :lsg_bodies
   resources :wards
 end
