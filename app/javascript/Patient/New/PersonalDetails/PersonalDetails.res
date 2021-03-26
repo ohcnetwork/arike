@@ -1,8 +1,12 @@
 type data = {
   lsg: array<array<string>>,
-  volunteer: array<array<string>>,
+  lsg_selected: string,
+  volunteers: array<array<string>>,
+  volunteers_selected: array<array<string>>,
   ashas: array<array<string>>,
+  asha_selected: string,
   facility: array<array<string>>,
+  facility_selected: string,
 }
 
 @scope("JSON") @val
@@ -130,6 +134,7 @@ module PatientRegister = {
           <label className="block text-sm font-medium text-gray-700"> {s("ASHA Member")} </label>
           <div className="mt-1">
             <select
+              value=state.asha_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               {state.ashas
               ->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)
