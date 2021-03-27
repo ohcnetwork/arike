@@ -1,20 +1,24 @@
 type data = {
+  full_name: string,
+  dob: string,
+  sex: string,
+  phone: string,
+  address: string,
+  route: string,
+  notes: string,
+  emergency_phone_no: string,
+  economic_status: string,
   lsg: array<array<string>>,
-  //lsg_selected: string,
+  lsg_selected: string,
   volunteers: array<array<string>>,
-  //volunteers_selected: array<array<string>>,
+  volunteers_selected: array<array<string>>,
   ashas: array<array<string>>,
-  //asha_selected: string,
+  asha_selected: string,
   facility: array<array<string>>,
-  //facility_selected: string,
+  facility_selected: string,
   reported_by: array<array<string>>,
-  //reported_by_selected: string,
+  reported_by_selected: string,
 }
-type d = {
-  newData: data,
-  editData: data,
-}
-
 @scope("JSON") @val
 external parseJson: string => data = "parse"
 
@@ -24,6 +28,8 @@ let getData = () => {
 
   elem["innerText"]->Domutils.replaceAll("&quot;", "\"")->parseJson
 }
+
+
 
 let checkExistingVolunteers = (state) => {
   state.volunteers->Belt.Array.forEach(e => {
@@ -57,6 +63,7 @@ module PatientRegister = {
             <input
               type_="text"
               name="patient[full_name]"
+              defaultValue=state.full_name
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -69,6 +76,7 @@ module PatientRegister = {
             <input
               name="patient[dob]"
               type_="date"
+              defaultValue=state.dob
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -78,7 +86,9 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[sex]"
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              defaultValue=state.sex
+              >
               <option> {s("Select")} </option>
               <option value="Male"> {s("Male")} </option>
               <option value="Female"> {s("Female")} </option>
@@ -94,6 +104,7 @@ module PatientRegister = {
             <input
               name="patient[phone]"
               type_="text"
+              defaultValue=state.phone
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -106,6 +117,7 @@ module PatientRegister = {
             <input
               name="patient[emergency_phone_no]"
               type_="text"
+              defaultValue=state.emergency_phone_no
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -118,7 +130,8 @@ module PatientRegister = {
             <select
               name="patient[lsg_body]"
               defaultValue=state.lsg_selected
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              >
               {state.lsg->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)->React.array}
             </select>
           </div>
@@ -131,6 +144,7 @@ module PatientRegister = {
             <textarea
               name="patient[address]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
+              defaultValue=state.address
             />
           </div>
         </div>
@@ -142,6 +156,7 @@ module PatientRegister = {
             <textarea
               name="patient[route]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
+              defaultValue=state.route
             />
           </div>
         </div>
@@ -166,6 +181,7 @@ module PatientRegister = {
           <div className="mt-1">
             <textarea
               name="patient[notes]"
+              defaultValue=state.notes
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
             />
           </div>
@@ -203,6 +219,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[economic_status]"
+              defaultValue=state.economic_status
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option> {s("Well Off")} </option>
               <option> {s("Middle Class")} </option>
@@ -218,7 +235,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[asha_member]"
-
+              defaultValue=state.asha_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               {state.ashas
               ->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)
@@ -233,7 +250,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[reported_by]"
-
+              defaultValue=state.reported_by_selected
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               {state.reported_by->Belt.Array.map(e => <option value={e[1]}> {s(e[0])} </option>)->React.array}
             </select>
