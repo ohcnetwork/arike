@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: :dashboard
   get "/search", to: "search#index"
   get "/schedule", to: "schedule#index", as: :schedule
+  post "/schedule", to: "schedule#update"
 
   put "/users/:id/verify", to: "users#verify", as: :verify_user
 
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   post "/password_reset/send_otp", to: "password_reset#send_otp"
   post "/password_reset/verify", to: "password_reset#verify"
   post "/password_reset/update", to: "password_reset#update"
+
 
   resources :sessions
   resources :facilities
