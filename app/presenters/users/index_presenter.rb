@@ -8,7 +8,8 @@ module Users
     def unverified
       default_key = "presenters.users.index_presenter.users_list.unverified"
       if current_user.superuser?
-        [{ title: I18n.t("#{default_key}.title"), users: User.unverified}]
+        unverified = User.unverified.map{ |user| user.attributes.symbolize_keys }
+        [{ title: I18n.t("#{default_key}.title"), users: unverified}]
       else
         []
       end
@@ -16,16 +17,28 @@ module Users
 
     def verified
       default_key = "presenters.users.index_presenter.users_list.verified"
-        [{ title: I18n.t("#{default_key}.title"), users: user_access}]
+        [{ title: I18n.t("#{default_key}.title"), users: user_access, }]
     end
 
     def user_access
       if current_user.superuser?
-        User.verified
+        can_edit(User.verified)
       elsif current_user.nurse?
-        (User.verified.nurses).or(User.verified.ashas).or(User.verified.volunteers)
+        users = (User.verified.nurses).or(User.verified.ashas).or(User.verified.volunteers)
+        can_edit(users)
       else
-        (User.verified.ashas).or(User.verified.volunteers)
+        users = (User.verified.ashas).or(User.verified.volunteers)
+        can_edit(users)
+      end
+    end
+
+    def can_edit(users)
+      users.map do |user|
+        if user.role == current_user.role
+          user.attributes.symbolize_keys.update(can_edit: false)
+        else
+          user.attributes.symbolize_keys.update(can_edit: true)
+        end
       end
     end
   end
