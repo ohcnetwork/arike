@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_101634) do
+ActiveRecord::Schema.define(version: 2021_03_27_091142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_101634) do
     t.datetime "next_visit"
     t.uuid "patient_id"
     t.uuid "user_id"
+    t.datetime "expected_visit"
   end
 
   create_table "wards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

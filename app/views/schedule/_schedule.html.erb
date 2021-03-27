@@ -46,13 +46,14 @@
               <% patient = Patient.all.find_by_id(visit.patient_id) %>
               <%= render partial: "patient-details", locals: { ward: Patient.get_ward(patient).number,
                name: patient.full_name,
-                due_date: visit.next_visit.to_time.strftime('%B %e, %Y'),
-                review_due_in: (visit.next_visit - DateTime.now).to_i/3600/24,
+                due_date: visit.expected_visit.to_time.strftime('%B %e, %Y'),
+                review_due_in: (visit.expected_visit - DateTime.now).to_i/3600/24,
                 last_visited: visit.last_visit.to_time.strftime('%B %e, %Y'),
                 procedures: ["oral", "dialisis"],
                 referred_by: User.find(patient.reported_by).first_name,
                 diseases: [patient.disease],
-                notes: [visit.records[visit.first_visit.strftime("%F")]["notes"]]} %>
+                notes: [visit.records[visit.first_visit.strftime("%F")]["notes"]],
+                visit_id: visit.id}%>
             <% end %>
           </tbody>
         </table>
