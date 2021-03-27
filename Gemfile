@@ -70,3 +70,4 @@ gem "tailwindcss-rails", "~> 0.3.3"
 gem "twilio-ruby", "~> 5.48"
 
 gem 'active_model_otp'
+gem "seedbank", "~> 0.5.0"
