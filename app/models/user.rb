@@ -17,6 +17,10 @@ class User < ApplicationRecord
                    }
   scope :ashas, -> { where(role: roles[:asha]) }
   scope :volunteers, -> { where(role: roles[:volunteer]) }
+  scope :primary_nurses, ->  { where(role: roles[:primary_nurse]) }
+  scope :secondary_nurses, -> {where(role: roles[:secondary_nurse])}
+  scope :nurses, -> { where(role: roles[:primary_nurse] || roles[:secondary_nurse])}
+
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, :on => :create
   validates :email, uniqueness: true

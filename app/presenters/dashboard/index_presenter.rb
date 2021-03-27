@@ -32,12 +32,12 @@ module Dashboard
 
 
     def new_users
-      return [] unless current_user.superuser?
+      return [] unless current_user.superuser? or current_user.nurse?
       [link("new_users", view.new_user_path)]
     end
 
     def users
-      return [] unless current_user.superuser? or current_user.nurse?
+      # return [] unless current_user.superuser? or current_user.nurse?
       [link("users", view.users_path)]
     end
 

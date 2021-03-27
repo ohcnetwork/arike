@@ -42,10 +42,6 @@ en:
             title: "Visit"
             text: "Visit a patient and record their details."
             icon: "icon_outline_clock"
-          lsg:
-            title: "LSG"
-            text: "Visit a patient and record their details."
-            icon: "icon_outline_clock"
           calendar:
             title: "Calendar"
             text: "See the current calendar for visits."
