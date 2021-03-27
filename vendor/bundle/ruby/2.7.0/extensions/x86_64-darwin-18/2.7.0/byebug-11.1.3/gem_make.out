@@ -1,0 +1,19 @@
+current directory: /Users/sammu/CEF/arike_project/arike/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+/Users/sammu/.rvm/rubies/ruby-2.7.2/bin/ruby -I /Users/sammu/.rvm/rubies/ruby-2.7.2/lib/ruby/2.7.0 -r ./siteconf20210326-39967-9xv5wm.rb extconf.rb
+creating Makefile
+
+current directory: /Users/sammu/CEF/arike_project/arike/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/sammu/CEF/arike_project/arike/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/sammu/CEF/arike_project/arike/vendor/bundle/ruby/2.7.0/gems/byebug-11.1.3/ext/byebug
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 byebug.bundle ./.gem.20210326-39967-1cexy0h/byebug
