@@ -9,10 +9,11 @@ import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
 
+import "./../../assets/stylesheets/application";
+import '@fortawesome/fontawesome-free/js/all';
+
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
-
-import "./../../assets/stylesheets/application";
 
 window.PatientFormPage = PatientFormPage;
