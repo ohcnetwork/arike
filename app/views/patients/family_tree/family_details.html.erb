@@ -1,9 +1,17 @@
-<h1>Hello Family Details</h1>
-<%= form_with url: "/patients/#{@patient.id}/family_details", method: :put do |form| %>
-  <div id="family_form"></div>
-<% end %>
-<script type="text/json">
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <%= form_with url: "/patients/#{@patient.id}/family_details", method: :put do |form| %>
+      <div id="family_form"  ></div>
+    <% end %>
+  </div>
+</div>
+<script type="text/json" id="data">
+  {
+    "relations": <%= FamilyDetail.relations.values %>,
+    "educations":<%= FamilyDetail.educations.values %>,
+    "occupations":<%= FamilyDetail.occupations.values %>
+  }
 </script>
-<script>
+<script  >
 FamilyManager.start("family_form")
 </script>
