@@ -19,6 +19,10 @@ class PatientsController < ApplicationController
 
   def show
     @patient = Patient.find_by(id: params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @patient}
+    end
   end
 
   def family_details
