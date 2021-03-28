@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value.to_i == 1 }.map { |key, value| key }
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
     patient.add_users(volunteer_user_ids)
     # patient.add_family_members()
     redirect_to patients_path
@@ -31,6 +31,10 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update!(patient_params)
+    volunteer = params[:patient].permit(:volunteer => {})
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
+    @patient.update_users(volunteer_user_ids)
+
     redirect_to patients_path
   end
 
