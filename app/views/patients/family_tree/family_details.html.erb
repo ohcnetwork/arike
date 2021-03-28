@@ -1,0 +1,9 @@
+<h1>Hello Family Details</h1>
+<%= form_with url: "/patients/#{@patient.id}/family_details", method: :put do |form| %>
+  <div id="family_form"></div>
+<% end %>
+<script type="text/json">
+</script>
+<script>
+FamilyManager.start("family_form")
+</script>
