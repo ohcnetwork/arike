@@ -1,18 +1,21 @@
 class FacilitiesController < ApplicationController
-  before_action :ensure_facility_access, only: [:show, :new, :create]
-  before_action :ensure_superuser, only: [:index]
+  # before_action :ensure_facility_access, only: [:show, :new, :create]
+  # before_action :ensure_superuser, only: [:index]
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
     @secondary_facilities = Facility.secondary_facilities
+    authorize Facility
   end
 
   def show
     @facility = Facility.find_by(id: params[:id])
+    authorize @facility
   end
 
   def new
     @facility = Facility.new
+    authorize @facility
   end
 
   def create
@@ -51,6 +54,8 @@ class FacilitiesController < ApplicationController
 
   def show_patients
   end
+
+  private
 
   def set_facility
     @facility = Facility.find(params[:id])
