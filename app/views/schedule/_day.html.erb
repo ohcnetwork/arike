@@ -1,4 +1,4 @@
- <li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+<li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
   <div class="w-full flex items-center justify-between p-6 space-x-6">
     <div class="flex-1 truncate">
       <div class="flex items-center space-x-3">
@@ -6,9 +6,18 @@
       </div>
       <p class="mt-1 text-gray-500 text-sm truncate"><%= day %></p>
     </div>
+    <div class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
+      <div class="font-medium text-gray-900"><%= appt %></div>
+      <div class="ml-1 text-gray-500 sm:ml-0">appt.</div>
+    </div>
   </div>
 
-  <ul class="space-y-1" role="radiogroup" aria-labelledby="radiogroup-label" x-ref="radiogroup">
+  <ul
+    class="space-y-1"
+    role="radiogroup"
+    aria-labelledby="radiogroup-label"
+    x-ref="radiogroup"
+  >
     <%= render partial: "patient-scheduled" %>
     <%= render partial: "patient-scheduled" %>
   </ul>

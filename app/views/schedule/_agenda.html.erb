@@ -1,12 +1,11 @@
 <div id="calender" class="bg-gray-100 py-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <%= render partial: "day", locals: { date: "22nd March", day: "MONDAY" } %>
-      <%= render partial: "day", locals: { date: "23rd March", day: "TUESDAY" } %>
-      <%= render partial: "day", locals: { date: "24th March", day: "WEDNESDAY" } %>
-      <%= render partial: "day", locals: { date: "25th March", day: "THURSDAY" } %>
-      <%= render partial: "day", locals: { date: "26th March", day: "FRIDAY" } %>
-      <%= render partial: "day", locals: { date: "27th March", day: "SATURDAY" } %>
+      <%= render partial: "day", locals: { date: Visit.working_day(0).to_s(:short), day: Visit.working_day(0).strftime("%A") , appt: 2 } %>
+      <%= render partial: "day", locals: { date: Visit.working_day(1).to_s(:short), day: Visit.working_day(1).strftime("%A") , appt: 2 } %>
+      <%= render partial: "day", locals: { date: Visit.working_day(2).to_s(:short), day: Visit.working_day(2).strftime("%A") , appt: 2 } %>
+      <%= render partial: "day", locals: { date: Visit.working_day(3).to_s(:short), day: Visit.working_day(3).strftime("%A") , appt: 2 } %>
+      <%= render partial: "day", locals: { date: Visit.working_day(4).to_s(:short), day: Visit.working_day(4).strftime("%A") , appt: 2 } %>
     </ul>
   </div>
 </div>
