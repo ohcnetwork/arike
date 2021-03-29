@@ -22,14 +22,15 @@ module Users
 
     def user_access
       if current_user.superuser?
-        can_edit(User.verified)
-      elsif current_user.nurse?
+        users = User.verified
+      elsif current_user.secondary_nurse?
         users = (User.verified.nurses).or(User.verified.ashas).or(User.verified.volunteers)
-        can_edit(users)
+      elsif current_user.primary_nurse?
+        users = (User.verified.primary_nurses).or(User.verified.ashas).or(User.verified.volunteers)
       else
         users = (User.verified.ashas).or(User.verified.volunteers)
-        can_edit(users)
       end
+      can_edit(users)
     end
 
     def can_edit(users)
