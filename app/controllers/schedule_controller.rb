@@ -3,7 +3,7 @@ class ScheduleController < ApplicationController
     @visits = Visit.all
   end
 
-  def update
+  def schedule
     visit = Visit.find_by_id(params[:visit_id])
     visit.next_visit = params[:next_visit]
     visit.save

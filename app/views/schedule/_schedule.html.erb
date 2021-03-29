@@ -78,7 +78,7 @@
               <%=
                 render partial: 'patient-details',
                        locals: {
-                         ward: Patient.get_ward(visit.patient).number,
+                         ward: visit.patient.facility.ward.number,
                          name: visit.patient.full_name,
                          due_date: visit.expected_visit.to_time.strftime('%B %e, %Y'),
                          review_due_in: (visit.expected_visit - DateTime.now).to_i / 3600 / 24,
