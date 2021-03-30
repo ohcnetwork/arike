@@ -16,4 +16,24 @@ class Visit < ApplicationRecord
 
     initial_date+inc
   end
+
+  def self.unscheduled_visits
+    all.where(next_visit: nil)
+  end
+
+  def self.scheduled_visits_on(date)
+    all.where(next_visit: date)
+  end
+
+  def record_on(date)
+    records[date]
+  end
+
+  def latest_record
+    records[last_visit.to_date.to_s]
+  end
+
+  def first_record
+    records[first_visit.to_date.to_s]
+  end
 end
