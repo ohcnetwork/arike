@@ -8,9 +8,4 @@ class Patient < ApplicationRecord
       self.users << User.find_by_id(user_id)
     end
   end
-
-  def self.get_ward(patient)
-    facility = Facility.all.find_by_id(patient.facility_id)
-    Ward.find(facility.ward)
-  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_101634) do
+ActiveRecord::Schema.define(version: 2021_03_29_122725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2021_03_25_101634) do
     t.string "name"
     t.string "state"
     t.string "district"
-    t.uuid "lsg_body"
-    t.uuid "ward"
+    t.uuid "lsg_body_id"
+    t.uuid "ward_id"
     t.string "address"
     t.bigint "pincode"
     t.bigint "phone"
@@ -112,6 +112,44 @@ ActiveRecord::Schema.define(version: 2021_03_25_101634) do
     t.index ["facility_id"], name: "index_users_on_facility_id"
   end
 
+  create_table "visit_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "AKPS"
+    t.text "disease_history_changed"
+    t.string "palliative_phase"
+    t.string "patient_worried"
+    t.string "family_anxious"
+    t.string "patient_depressed"
+    t.string "patient_feels"
+    t.string "patient_informed"
+    t.string "patient_at_peace"
+    t.string "pain"
+    t.string "shortness_breath"
+    t.string "weakness"
+    t.string "poor_mobility"
+    t.string "nausea"
+    t.string "vomiting"
+    t.string "poor_appetite"
+    t.string "constipation"
+    t.string "sore"
+    t.string "drowsiness"
+    t.string "wound"
+    t.string "lack_of_sleep"
+    t.string "micturition"
+    t.text "other_symptoms"
+    t.float "bp"
+    t.float "grbs"
+    t.float "rr"
+    t.float "pulse"
+    t.text "personal_hygiene"
+    t.text "mouth_hygiene"
+    t.text "pubic_hygiene"
+    t.string "systemic_examination"
+    t.text "systemic_examination_details"
+    t.text "done_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
@@ -122,6 +160,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_101634) do
     t.datetime "next_visit"
     t.uuid "patient_id"
     t.uuid "user_id"
+    t.datetime "expected_visit"
   end
 
   create_table "wards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,13 +1,13 @@
 <% presenter = ::Dashboard::IndexPresenter.new(self) %>
 <header>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h1 class="text-3xl font-bold leading-tight text-gray-900">
-      Dashboard
-    </h1>
+    <h1 class="text-3xl font-bold leading-tight text-gray-900">Dashboard</h1>
   </div>
 </header>
 <div class="px-4 py-8 sm:px-0">
-  <div class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
+  <div
+    class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
+  >
     <% presenter.links.each do |link| %>
       <%= render partial: "action", locals: link %>
     <% end %>
