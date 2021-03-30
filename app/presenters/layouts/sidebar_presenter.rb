@@ -10,7 +10,7 @@ module Layouts
     def links
       presenter = ::Dashboard::IndexPresenter.new(view)
       presenter.links.map do |p|
-        p[:is_selected] = {
+        {
           title: p[:title],
           link: p[:link],
           selected: view.current_page?(p[:link]),
