@@ -32,11 +32,8 @@ gem "twilio-ruby", "~> 5.48"
 gem 'active_model_otp', '~> 2.1.1'
 
 gem "roo", "~> 2.8"
-
-
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
+# Better organized seed data.
+gem "seedbank", "~> 0.5.0"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
