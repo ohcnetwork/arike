@@ -39,26 +39,29 @@ let make = (~props: props, ~onClick) => {
   <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
     <div className="sm:col-span-3 field">
       <label
-        name={`familyDetails[${id}][name]`} className="block text-sm font-medium text-gray-700">
+        name={`familyDetails[${id}][full_name]`}
+        className="block text-sm font-medium text-gray-700">
         {s("Full Name")}
       </label>
       <div className="mt-1">
         <input
           type_="text"
-          name={`familyDetails[${id}][name]`}
+          name={`familyDetails[${id}][full_name]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          required={true}
         />
       </div>
     </div>
     <div className="sm:col-span-3 field">
       <label
-        name={`familyDetails[${id}][relationship]`}
+        name={`familyDetails[${id}][relations]`}
         className="block text-sm font-medium text-gray-700">
         {s("Relationship")}
       </label>
       <div className="mt-1">
         <select
-          name={`familyDetails[${id}][relationship]`}
+          required={true}
+          name={`familyDetails[${id}][relations]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           <option> {s("Select")} </option>
           {state.relations
@@ -102,12 +105,12 @@ let make = (~props: props, ~onClick) => {
     </div>
     <div className="sm:col-span-3 field">
       <label
-        name={`familyDetails[${id}][phone_no]`} className="block text-sm font-medium text-gray-700">
+        name={`familyDetails[${id}][phone]`} className="block text-sm font-medium text-gray-700">
         {s("Phone No.")}
       </label>
       <div className="mt-1">
         <input
-          name={`familyDetails[${id}][phone_no]`}
+          name={`familyDetails[${id}][phone]`}
           type_="text"
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
         />
@@ -134,12 +137,12 @@ let make = (~props: props, ~onClick) => {
     </div>
     <div className="sm:col-span-3 field">
       <label
-        name={`familyDetails[${id}][remark]`} className="block text-sm font-medium text-gray-700">
+        name={`familyDetails[${id}][remarks]`} className="block text-sm font-medium text-gray-700">
         {s("Remark")}
       </label>
       <div className="mt-1">
         <textarea
-          name={`familyDetails[${id}][remark]`}
+          name={`familyDetails[${id}][remarks]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
         />
       </div>

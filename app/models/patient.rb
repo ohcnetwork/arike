@@ -20,4 +20,13 @@ class Patient < ApplicationRecord
     facility = Facility.all.find_by_id(patient.facility_id)
     Ward.find(facility.ward)
   end
+
+  def update_family_member(family_details_params, patient_id)
+    self.family_details.destroy_all
+    family_details_params.values.each { |details|
+      details[:patient_id] = patient_id
+      family_member = FamilyDetail.create!(details)
+      self.family_details << family_details
+    }
+  end
 end

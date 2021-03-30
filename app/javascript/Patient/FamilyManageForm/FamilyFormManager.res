@@ -21,7 +21,11 @@ let initialState = []
 @react.component
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState)
-
+  let submit = if count.contents > 0 {
+    <button type_="submit" className="bg-blue-200 text-blue-800 rounded"> {s("Save")} </button>
+  } else {
+    React.null
+  }
   <div className="max-w-3xl mx-auto mt-8 relative">
     {state
     ->Belt.Array.mapWithIndex((i, props) => {
@@ -39,5 +43,6 @@ let make = () => {
       }}>
       {s("Add Family Member")}
     </button>
+    {submit}
   </div>
 }
