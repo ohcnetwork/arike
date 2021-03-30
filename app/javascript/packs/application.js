@@ -8,19 +8,16 @@ import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
-import * as FamilyManager from "../Patient/FamilyManageForm/main.bs"
+import * as FamilyManager from "../Patient/FamilyManageForm/main.bs";
 import * as PatientVitals from "../Patient/RecurringVisit/PatientVitals.bs";
 
 import "stylesheets/application";
-import '@fortawesome/fontawesome-free/js/all';
+import "@fortawesome/fontawesome-free/js/all";
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
 window.PatientFormPage = PatientFormPage;
-<<<<<<< HEAD
 window.FamilyManager = FamilyManager;
-=======
-window.PatientVitals=PatientVitals;
->>>>>>> 26164bcfa7cff8cc81a3876c52192c5829afd645
+window.PatientVitals = PatientVitals;
