@@ -8,5 +8,8 @@ class FamilyDetailsController < ApplicationController
   end
 
   def update
+    @patient = Patient.find_by_id(params[:id])
+    @patient.update_family_member(params[:familyDetails], params[:id])
+    redirect_back fallback_location: "/"
   end
 end

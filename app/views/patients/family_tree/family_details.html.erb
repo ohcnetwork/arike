@@ -9,7 +9,8 @@
   {
     "relations": <%= FamilyDetail.relations.values %>,
     "educations":<%= FamilyDetail.educations.values %>,
-    "occupations":<%= FamilyDetail.occupations.values %>
+    "occupations":<%= FamilyDetail.occupations.values %>,
+    "patients": <%= @patient.family_details.to_json %>
   }
 </script>
 <script  >
