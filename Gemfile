@@ -25,9 +25,15 @@ gem "jbuilder", "~> 2.7"
 # Use Active Model has_secure_password
 gem "bcrypt", "~> 3.1.7"
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem "tailwindcss-rails", "~> 0.3.3"
 
+gem "twilio-ruby", "~> 5.48"
+
+gem 'active_model_otp', '~> 2.1.1'
+
+gem "roo", "~> 2.8"
+# Better organized seed data.
+gem "seedbank", "~> 0.5.0"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
@@ -64,11 +70,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "tailwindcss-rails", "~> 0.3.3"
-
-gem "twilio-ruby", "~> 5.48"
-
-gem 'active_model_otp'
-gem "seedbank", "~> 0.5.0"
-gem "roo", "~> 2.8"
