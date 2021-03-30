@@ -61,11 +61,11 @@
   <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
 </svg>
                   <span class="ml-2 flex-1 w-0 truncate">
-                    Lsg Body: <%= @facility.lsg_body %>
+                    Lsg Body: <%= @facility.ward.lsg_body_id %>
                   </span>
                 </div>
                 <div class="ml-4 flex-shrink-0">
-                  <%= link_to "See more", lsg_body_path(@facility.lsg_body), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                  <%= link_to "See more", lsg_body_path(@facility.ward.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
                 </div>
               </li>
               <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
@@ -74,11 +74,11 @@
   <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
 </svg>
                   <span class="ml-2 flex-1 w-0 truncate">
-                    Ward Body: <%= @facility.ward %>
+                    Ward Body: <%= @facility.ward_id %>
                   </span>
                 </div>
                 <div class="ml-4 flex-shrink-0">
-                   <%= link_to "See more", ward_path(@facility.ward), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                   <%= link_to "See more", ward_path(@facility.ward_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
                 </div>
               </li>
             </ul>

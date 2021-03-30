@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_154357) do
+ActiveRecord::Schema.define(version: 2021_03_29_122725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2021_03_27_154357) do
     t.string "name"
     t.string "state"
     t.string "district"
-    t.uuid "lsg_body"
-    t.uuid "ward"
+    t.uuid "lsg_body_id"
+    t.uuid "ward_id"
     t.string "address"
     t.bigint "pincode"
     t.bigint "phone"

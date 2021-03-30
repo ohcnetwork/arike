@@ -71,3 +71,4 @@ gem "twilio-ruby", "~> 5.48"
 
 gem 'active_model_otp'
 gem "seedbank", "~> 0.5.0"
+gem "roo", "~> 2.8"
