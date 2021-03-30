@@ -18,6 +18,7 @@ class LsgBodiesController < ApplicationController
   def show
     id = params[:id]
     @lsg_body = LsgBody.find(id)
+    @wards = Ward.where(lsg_body_id: id)
   end
 
   def edit

@@ -8,11 +8,14 @@ import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
+import * as PatientVitals from "../Patient/RecurringVisit/PatientVitals.bs";
+
+import "stylesheets/application";
+import '@fortawesome/fontawesome-free/js/all';
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
-import "stylesheets/application";
-
 window.PatientFormPage = PatientFormPage;
+window.PatientVitals=PatientVitals;

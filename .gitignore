@@ -53,3 +53,6 @@ npm-debug.log
 .DS_Store
 .bsb.lock
 *.bs.js
+
+#Ignore vendor files
+/vendor

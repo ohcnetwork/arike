@@ -2,7 +2,7 @@ class PasswordResetController < ApplicationController
   def index
   end
 
-  def options
+  def send_otp
     user_id = params[:user_id]
 
     is_email = URI::MailTo::EMAIL_REGEXP
@@ -15,46 +15,16 @@ class PasswordResetController < ApplicationController
       @user = User.find_by(phone: user_id)
     end
     if @user
-      # email = user.email.gsub(/.{0,4}/, '####@')
-      # phone = user.phone.to_s[0,1]+
       session[:password_reset_user_id] = @user.id
-      render "options"
-    else
-      session[:password_reset_user_id] = nil
-      flash[:error] = "Invalid Email or Phone Number!"
-      redirect_to password_reset_page_path
-    end
-  end
-
-  def send_otp
-    option = params[:option]
-    user_id = session[:password_reset_user_id]
-    @user = User.find_by(id: user_id)
-
-    if @user
-      # valid for 5 min
       otp = @user.otp_code
-
-      if option == "mail"
-        send_otp_mail(@user.email, otp)
-        render "verify"
-      elsif option == "sms"
-        send_otp_sms(@user.phone, otp)
-        render "verify"
-      else
-        session[:password_reset_user_id] = nil
-        flash[:error] = "Invalid Option!"
-        redirect_to password_reset_page_path
-      end
+      send_otp_mail(@user.email, otp)
+      flash.now[:notice] = "OTP has been sent to your email!"
+      render "verify"
     else
       session[:password_reset_user_id] = nil
       flash[:error] = "Invalid Email or Phone Number!"
       redirect_to password_reset_page_path
     end
-  end
-
-  def send_otp_sms(phone, otp)
-    User.send_sms(phone, "Here is your OTP: #{otp}")
   end
 
   def send_otp_mail(email, otp)
