@@ -11,10 +11,8 @@ type action =
 
 let reducer = (state, action) =>
   switch action {
-  | AddFamilyMember => {
-      count := count.contents + 1
-      Belt.Array.concat(state, [FamilyMemberForm.FamilyMember.make(~id=count.contents)])
-    }
+  | AddFamilyMember =>
+    Belt.Array.concat(state, [FamilyMemberForm.FamilyMember.make(~id=count.contents)])
   | DeleteFamilyMember(member) => Js.Array.filter(m => m != member, state)
   }
 
@@ -26,13 +24,16 @@ let make = () => {
 
   <div className="max-w-3xl mx-auto mt-8 relative">
     {state
-    ->Belt.Array.map(props => {
-      <FamilyMemberForm props onClick={_mouseEvt => DeleteFamilyMember(props)->dispatch} />
+    ->Belt.Array.mapWithIndex((i, props) => {
+      <FamilyMemberForm
+        props key={i->Belt.Int.toString} onClick={_mouseEvt => DeleteFamilyMember(props)->dispatch}
+      />
     })
     ->React.array}
     <button
       className="bg-blue-200 text-blue-800 rounded"
       onClick={mouseEvt => {
+        count := count.contents + 1
         mouseEvt->ReactEvent.Mouse.preventDefault
         AddFamilyMember->dispatch
       }}>
