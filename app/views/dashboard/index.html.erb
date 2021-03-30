@@ -6,7 +6,7 @@
 </header>
 <div class="px-4 py-8 sm:px-0">
   <div
-    class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
+    class="rounded-lg overflow-hidden shadow divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
   >
     <% presenter.links.each do |link| %>
       <%= render partial: "action", locals: link %>
