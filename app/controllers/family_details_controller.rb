@@ -7,6 +7,11 @@ class FamilyDetailsController < ApplicationController
     render "patients/family_tree/family_details"
   end
 
+  def allMembers
+    @familyMembers = FamilyDetail.all.where(patient_id: params[:id])
+    render "patients/family_tree/index"
+  end
+
   def update
   end
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :patients
   resources :users
   get "/patients/:id/family_details", to: "family_details#index"
+  get "patients/:id/family_details/all", to: "family_details#allMembers"
   get "/patients/:patient_id/family_details/edit", to: "family_details#edit"
   put "/patients/:id/family_details/", to: "family_details#update"
   put "/users/:id/verify", to: "users#verify", as: :verify_user

@@ -1,0 +1,13 @@
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+  <% @familyMembers.map |member| do %>
+    <details>
+    <summary>
+      <div>Name: <%= member.full_name %></div>
+      <div>Name: <%= member.relation %></div>
+    </summary>
+    <p>Phone: <%= member.phone %></p>
+    </details>
+  <% end %>
+  </div>
+</div>
