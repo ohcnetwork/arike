@@ -1,7 +1,6 @@
 <% presenter = ::Users::IndexPresenter.new(self) %>
-
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-  <% presenter.users_list.each do |list| %>
+  <% presenter.user_sections.each do |list| %>
     <div class="text-2xl font-bold mt-5"><%= list[:title] %></div>
     <div class="mt-5">
       <%= render "users_table", users: list[:users] %>

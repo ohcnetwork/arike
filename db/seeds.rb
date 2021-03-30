@@ -27,5 +27,17 @@ LsgBody.all.each do |lsg|
 end
 
 
-Facility.all.each do |facility|
-  (21..)
+# Facility.limit(3).each do |facility|
+#   (21..24).each do |index|
+#     User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: User.roles[:primary_nurse], password: "0", verified: true, email: "pn#{index}@example.com", phone: rand(10 ** 10), facility_id: facility.id)
+#   end
+# end
+
+# Facility.where(kind: "CHC").limit(3).each do |facility|
+#   (25..28).each do |index|
+#     User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: User.roles[:secondary_nurse], password: "0", verified: true, email: "sn#{index}@example.com", phone: rand(10 ** 10), facility_id: facility.id)
+#   end
+# end
+
+User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: User.roles[:primary_nurse], password: "0", verified: true, email: "pn@example.com", phone: rand(10 ** 10), facility_id: Facility.first.id)
+User.create!(first_name: Faker::Name.name, full_name: Faker::Name.name, role: User.roles[:secondary_nurse], password: "0", verified: true, email: "pn@example.com", phone: rand(10 ** 10), facility_id: Facility.second.id)
