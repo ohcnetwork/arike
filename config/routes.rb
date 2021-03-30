@@ -8,6 +8,13 @@ Rails
 
     root 'home#index'
 
+    # for assigning a nurse to a facility
+    put '/assign', to: 'users#assign_facility', as: :assign_facility
+
+    # for removing a nurse from a facility
+    put '/unassign', to: 'users#unassign_facility', as: :unassign_facility
+
+    # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
     get '/dashboard', to: 'dashboard#index', as: :dashboard
     get '/search', to: 'search#index'
     get '/schedule', to: 'schedule#index', as: :schedule
