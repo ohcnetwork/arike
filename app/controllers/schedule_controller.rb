@@ -1,6 +1,6 @@
 class ScheduleController < ApplicationController
   def index
-    @visits = Visit.all
+    @unscheduled_visits = Visit.unscheduled_visits
   end
 
   def schedule

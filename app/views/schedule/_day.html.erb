@@ -7,7 +7,7 @@
       <p class="mt-1 text-gray-500 text-sm truncate"><%= day %></p>
     </div>
     <div class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
-      <div class="font-medium text-gray-900"><%= appt %></div>
+      <div class="font-medium text-gray-900"><%= visits.length %></div>
       <div class="ml-1 text-gray-500 sm:ml-0">appt.</div>
     </div>
   </div>
@@ -18,7 +18,8 @@
     aria-labelledby="radiogroup-label"
     x-ref="radiogroup"
   >
-    <%= render partial: "patient-scheduled" %>
-    <%= render partial: "patient-scheduled" %>
+    <% visits.each do |visit| %>
+      <%= render partial: "patient-scheduled", locals: { visit: visit } %>
+    <% end %>
   </ul>
 </li>
