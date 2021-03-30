@@ -13,11 +13,14 @@
   </div>
 
   <ul
-    class="space-y-1"
+    class="space-y-1 flex flex-col items-center justify-center"
     role="radiogroup"
     aria-labelledby="radiogroup-label"
     x-ref="radiogroup"
   >
+    <% if visits.length == 0 %>
+      <%= render partial: "text-info", locals: { message: "No appointments on #{date}!" } %>
+    <% end %>
     <% visits.each do |visit| %>
       <%= render partial: "patient-scheduled", locals: { visit: visit } %>
     <% end %>
