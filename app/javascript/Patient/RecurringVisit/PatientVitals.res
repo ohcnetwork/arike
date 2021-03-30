@@ -1,108 +1,95 @@
 let s = React.string
 
+let general_options = [
+  "Not at all",
+  "Slightly",
+  "Moderately",
+  "Severely",
+  "Overwhelmingly",
+  "Cannot assess",
+]
+
+let general_questions = [
+  ("Is the patient feeling worried about illness/treatment?", "patient_worried"),
+  ("Does family/friends feel anxious about patient's illness/treatment", "family_anxious"),
+  ("Is patient depressed", "patient_depressed"),
+  (
+    "Has the patient been able to share how he is feeling with his family/friends as much as he wanted?",
+    "patient_feels",
+  ),
+  ("Has the patient had as much information as he wanted?", "patient_informed"),
+  ("Do you think patient feels at peace?", "patient_at_peace"),
+  ("Pain", "pain"),
+  ("Shortness of breath", "shortness_breath"),
+  ("Weakness/Lack of energy", "weakness"),
+  ("Poor mobility", "poor_mobility"),
+  ("Nausea", "nausea"),
+  ("Vomiting", "vomiting"),
+  ("Poor Appetite", "poor_Appetite"),
+  ("Constipation", "constipation"),
+  ("Sore/dry mouth", "sore"),
+  ("Drowsiness", "drowsiness"),
+  ("Wound", "wound"),
+  ("Lack of sleep", "lack_of_sleep"),
+  ("Micturition", "micturition"),
+]
+
 /* Add State for capturing data */
 module PatientVitals = {
   @react.component
   let make = () => {
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <form action="/patients" method="post">
-          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div className="sm:col-span-3 field">
-              <label className="block text-sm font-medium text-gray-700">
-                {s("Patient's general health status(AKPS)")}
-              </label>
-              <div className="mt-1">
-                <input
-                  type_="number"
-                  min="0"
-                  max="100"
-                  name="AKPS"
-                  className="shadow-sm
-              focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm
-              border-gray-300 rounded-md"
-                />
-              </div>
+      <form className="space-y-8 " id="patientvitals-form">
+        <div className="space-y-8 sm:space-y-5">
+          <div>
+            <div>
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                {s("Current disease status and Patient vitals")}
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                {s("Captured during every visit")}
+              </p>
             </div>
-            <div className="sm:col-span-3 field">
-              <label className="block text-sm font-medium text-gray-700">
-                {s("Any change in disease history? If yes,enter details.")}
-              </label>
-              <div className="mt-1">
-                <input
-                  type_="text"
-                  name="disease_history_changed"
-                  className="shadow-sm focus:ring-indigo-500
-              focus:border-indigo-500 block w-full sm:text-sm border-gray-300
-              rounded-md"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-3 field">
-              <label className="block text-sm font-medium text-gray-700">
-                {s("Palliative phase of illness")}
-              </label>
-              <div className="mt-1">
-                <select
-                  name="palliative_phase"
-                  className="shadow-sm focus:ring-indigo-500
-            focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                  <option value="Stable"> {s("Stable")} </option>
-                  <option value="Unstable"> {s("Unstable")} </option>
-                  <option value="Deteriorating"> {s("Deteriorating")} </option>
-                  <option value="Dying"> {s("Dying")} </option>
-                </select>
-              </div>
-            </div>
-            <div className="sm:col-span-3 field ">
-              <p className="block text-sm font-medium text-gray-700"> {s("Change text size")} </p>
-              <div className="flex items-center text-sm mt-1">
-                <div id="radio-text-size" className="flex">
-                  <label className="flex items-center pr-8">
-                    <input
-                      className="mr-2 focus:ring-indigo-500
-            focus:border-indigo-500"
-                      type_="radio"
-                      name="textSize"
-                      id="selectSmall"
-                    />
-                    <span> {s("Small")} </span>
-                  </label>
-                  <label className="flex items-center pr-8">
-                    <input
-                      className="mr-2 focus:ring-indigo-500
-            focus:border-indigo-500"
-                      type_="radio"
-                      name="textSize"
-                      id="selectRegular"
-                    />
-                    <span> {s("Regular")} </span>
-                  </label>
-                  <label className="flex items-center pr-8">
-                    <input
-                      className="mr-2 focus:ring-indigo-500
-            focus:border-indigo-500"
-                      type_="radio"
-                      name="textSize"
-                      id="selectLarge"
-                    />
-                    <span> {s("Large")} </span>
-                  </label>
-                </div>
-              </div>
+            <div className="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
+              {QuestionsJSX.numberInput(
+                "Patient's general health status(AKPS)",
+                "AKPS",
+                Some(0),
+                Some(100),
+              )}
+              {QuestionsJSX.textInput(
+                "Any change in disease history? If yes, enter details.",
+                "disease_history_changed",
+                "patientvitals-form",
+              )}
+              {QuestionsJSX.dropdownInput(
+                "Palliative phase of illness",
+                "palliative_phase",
+                ["Stable", "Unstable", "Deteriorating", "Dying"],
+              )}
+              {general_questions
+              ->Belt.Array.map(((ques, field)) =>
+                QuestionsJSX.radioInput(ques, field, general_options)
+              )
+              ->React.array}
             </div>
           </div>
-          <div className="actions">
-            <input
+        </div>
+        <div className="pt-5">
+          <div className="flex justify-end">
+            <button
+              type_="button"
+              className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              {s("Cancel")}
+            </button>
+            <button
               type_="submit"
-              className="mt-4 inline-flex justify-center py-2 px-4 border
-          border-transparent shadow-sm text-sm font-medium rounded-md text-white
-          bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
-          focus:ring-offset-2 focus:ring-indigo-500"
-            />
+              className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              {s("Submit")}
+            </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   }
 }
