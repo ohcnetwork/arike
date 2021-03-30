@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :visit_details
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "home#index", as: :home
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: :dashboard
   get "/search", to: "search#index"
   get "/schedule", to: "schedule#index", as: :schedule
+  post "/schedule", to: "schedule#schedule"
 
   put "/users/:id/verify", to: "users#verify", as: :verify_user
 
@@ -16,10 +18,10 @@ Rails.application.routes.draw do
   get "/signup", to: "users#signup", as: :signup
 
   get "/password_reset", to: "password_reset#index", as: "password_reset_page"
-  post "/password_reset", to: "password_reset#options"
   post "/password_reset/send_otp", to: "password_reset#send_otp"
   post "/password_reset/verify", to: "password_reset#verify"
   post "/password_reset/update", to: "password_reset#update"
+
 
   resources :sessions
   resources :facilities

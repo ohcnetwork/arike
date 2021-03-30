@@ -71,5 +71,4 @@ gem "twilio-ruby", "~> 5.48"
 
 gem 'active_model_otp'
 gem "sentry-ruby", "~> 4.3"
-
-gem "sentry-rails", "~> 4.3"
+gem "roo", "~> 2.8"

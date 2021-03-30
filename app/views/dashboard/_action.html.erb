@@ -6,15 +6,11 @@
   </div>
   <div class="mt-8">
     <h3 class="text-lg font-medium">
-      <% if link && link.length > 0 %>
-        <a href=<%= link %> class="focus:outline-none">
-      <% else %>
-        <a href="#" class="focus:outline-none">
-      <% end %>
+      <%= link_to link do %>
         <!-- Extend touch target to entire panel -->
         <span class="absolute inset-0" aria-hidden="true"></span>
         <%= title %>
-      </a>
+      <% end %>
     </h3>
     <p class="mt-2 text-sm text-gray-500">
       <%= text %>
