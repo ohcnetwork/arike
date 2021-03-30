@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-feature 'Index spec' do
+feature 'Dashboard view for different users', js: true do
   include UserSpecHelper
 
   before(:all) do
-    (1..20).each do
-        FactoryBot.create(:user, role: User.roles[User.roles.keys.sample], verified: true)
-      end
+    20.times do
+      create(:user, role: User.roles[User.roles.keys.sample], verified: true)
+    end
   end
 
-  context 'When an superuser signs in', js: true do
+  context 'When an superuser signs in' do
     before(:all) do
-      @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+      @superuser = create(:user, role: User.roles[:superuser], verified: true)
     end
 
     scenario 'Dashboard for superuser' do
@@ -32,17 +32,14 @@ feature 'Index spec' do
       login_as(@superuser)
 
       visit users_path
+      expect(page).to have_text('Unverified Users')
       expect(page).to have_text('Superuser')
-      expect(page).to have_text('Secondary Nurse')
-      expect(page).to have_text('Primary Nurse')
-      expect(page).to have_text('ASHA')
-      expect(page).to have_text('Volunteer')
     end
   end
 
-  context 'When a Secondary nurse signs in ', js: true do
+  context 'When a secondary nurse signs in' do
     before(:all) do
-      @secondary_nurse = FactoryBot.create(:user, role: User.roles[:secondary_nurse], verified: true)
+      @secondary_nurse = create(:user, role: User.roles[:secondary_nurse], verified: true)
     end
 
     scenario 'Dashboard for nurse' do
@@ -64,17 +61,15 @@ feature 'Index spec' do
       login_as(@secondary_nurse)
 
       visit users_path
+      expect(page).not_to have_text('Unverified Users')
       expect(page).not_to have_text('Superuser')
       expect(page).to have_text('Secondary Nurse')
-      expect(page).to have_text('Primary Nurse')
-      expect(page).to have_text('ASHA')
-      expect(page).to have_text('Volunteer')
     end
   end
 
-  context 'When a Primary nurse signs in ', js: true do
-    before do
-      @primary_nurse = FactoryBot.create(:user, role: User.roles[:primary_nurse], verified: true)
+  context 'When a primary nurse signs in' do
+    before(:all) do
+      @primary_nurse = create(:user, role: User.roles[:primary_nurse], verified: true)
     end
 
     scenario 'Dashboard for nurse' do
@@ -96,11 +91,10 @@ feature 'Index spec' do
       login_as(@primary_nurse)
 
       visit users_path
+      expect(page).not_to have_text('Unverified Users')
       expect(page).not_to have_text('Superuser')
       expect(page).not_to have_text('Secondary Nurse')
       expect(page).to have_text('Primary Nurse')
-      expect(page).to have_text('ASHA')
-      expect(page).to have_text('Volunteer')
     end
   end
 end

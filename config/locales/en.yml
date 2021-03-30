@@ -81,7 +81,7 @@ en:
 
     users:
       index_presenter:
-        users_list:
+        user_sections:
           verified:
             title: "Verified Users"
           unverified:

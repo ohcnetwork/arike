@@ -2,7 +2,7 @@ module Dashboard
   class IndexPresenter < ::ApplicationPresenter
 
     def links
-      schedule + visit + lsg_body + wards + enroll_patients + patients + calendar + new_users + users + facilities + account_settings
+      schedule + visit + lsg_body + wards + enroll_patients + patients + new_users + users + calendar + facilities + account_settings
     end
 
     def link(key, path)
@@ -37,7 +37,6 @@ module Dashboard
     end
 
     def users
-      # return [] unless current_user.superuser? or current_user.nurse?
       [link("users", view.users_path)]
     end
 
@@ -48,11 +47,11 @@ module Dashboard
     def facilities
       if current_user.superuser?
         [link("facilities", view.facilities_path)]
-      elsif current_user.facility.nil?
-        []
-      else
+      elsif !current_user.facility.nil?
         id = current_user.facility.id
         [link("facilities", view.facility_path(id))]
+      else
+        []
       end
     end
 
