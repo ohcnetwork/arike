@@ -2,16 +2,17 @@
 <html>
   <head>
     <title>Arike</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
     <%= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
+    <%= yield :head %>
   </head>
   <body>
-    <div class="min-h-screen bg-white">
+    <div class="h-screen flex overflow-hidden bg-white">
       <% if session[:current_user_id] %>
-        <%= render partial: "/layouts/navbar" %>
+        <%= render  partial: "/layouts/sidebar" %>
       <% else %>
         <%= render partial: "/layouts/home-nav" %>
       <% end %>
@@ -21,13 +22,19 @@
       <% if flash[:notice] %>
         <%= render partial: "/layouts/flash-message" %>
       <% end %>
-      <div class="py-10">
-        <main>
-          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <%= yield %>
+      <div class="flex flex-col w-0 flex-1 overflow-hidden">
+        <main
+          class="flex-1 relative z-0 overflow-y-auto focus:outline-none"
+          tabindex="0"
+        >
+          <div class="py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+              <%= yield %>
+            </div>
           </div>
         </main>
       </div>
+      <%= yield :tail %>
     </div>
   </body>
 </html>

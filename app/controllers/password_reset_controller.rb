@@ -1,6 +1,5 @@
 class PasswordResetController < ApplicationController
-  def index
-  end
+  def index; end
 
   def send_otp
     user_id = params[:user_id]
@@ -18,11 +17,11 @@ class PasswordResetController < ApplicationController
       session[:password_reset_user_id] = @user.id
       otp = @user.otp_code
       send_otp_mail(@user.email, otp)
-      flash.now[:notice] = "OTP has been sent to your email!"
-      render "verify"
+      flash.now[:notice] = 'OTP has been sent to your email!'
+      render 'verify'
     else
       session[:password_reset_user_id] = nil
-      flash[:error] = "Invalid Email or Phone Number!"
+      flash[:error] = 'Invalid Email or Phone Number!'
       redirect_to password_reset_page_path
     end
   end
@@ -39,15 +38,15 @@ class PasswordResetController < ApplicationController
       # Default: 30 secs | Drift: 270 secs
       is_verified = @user.authenticate_otp(otp, drift: 270)
       if is_verified
-        flash.now[:notice] = "OTP Verification Successful!"
-        render "update"
+        flash.now[:notice] = 'OTP Verification Successful!'
+        render 'update'
       else
-        flash.now[:error] = "Invalid OTP!"
-        render "verify"
+        flash.now[:error] = 'Invalid OTP!'
+        render 'verify'
       end
     else
       session[:password_reset_user_id] = nil
-      redirect_to home_path
+      redirect_to root_path
     end
   end
 
@@ -58,19 +57,20 @@ class PasswordResetController < ApplicationController
     if @user
       if new_password != confirm_password
         flash[:error] = "Your Password doesn't match!"
-        render "update"
+        render 'update'
       else
         if @user.update(password: new_password)
-          redirect_to home_path, notice: "Password Reset Successful! You can login now."
+          redirect_to root_path,
+                      notice: 'Password Reset Successful! You can login now.'
         else
           session[:password_reset_user_id] = nil
           flash[:error] = @user.errors.full_messages.to_sentence
-          redirect_to home_path, notice: "Someting went wrong! Try again later!"
+          redirect_to root_path, notice: 'Someting went wrong! Try again later!'
         end
       end
     else
       session[:password_reset_user_id] = nil
-      redirect_to home_path
+      redirect_to root_path
     end
   end
 end

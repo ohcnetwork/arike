@@ -1,6 +1,5 @@
 <div class="mt-2">
-
-  <div class="flex justify-center bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+  <div class="flex justify-center py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
         <h1 class="text-4xl text-center font-bold">Arike</h1>
@@ -11,12 +10,20 @@
       <%= form_with model: @user, :url => sessions_path(@user), class: "mt-8 space-y-6" do |form| %>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <%= form.text_field :login_id, placeholder: "Email or Phone Number",
-                                class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
+            <%=
+              form.text_field :login_id,
+                              placeholder: 'Email or Phone Number',
+                              class:
+                                'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+            %>
           </div>
           <div>
-            <%= form.password_field :password, placeholder: "Password",
-                                    class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
+            <%=
+              form.password_field :password,
+                                  placeholder: 'Password',
+                                  class:
+                                    'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+            %>
           </div>
         </div>
 
@@ -26,12 +33,13 @@
 
         <div>
           <%= form.button value: "Sign In", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", data: { :disable_with => "Please wait..." } do %>
-              <span class="absolute left-0 inset-y-0 flex items-center pl-3"> <%= render partial: "layouts/icon-lock" %> </span>
-              <span>Sign in</span>
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <%= render partial: "layouts/icon-lock" %>
+            </span>
+            <span>Sign in</span>
           <% end %>
         </div>
       <% end %>
     </div>
   </div>
-
 </div>

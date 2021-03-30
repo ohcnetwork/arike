@@ -1,20 +1,19 @@
 class UsersController < ApplicationController
   # skip_before_action :ensure_logged_in, only: [:signup, :create]
-  before_action :ensure_superuser, only: [:index, :new, :update, :verify]
+  before_action :ensure_superuser, only: %i[index new update verify]
 
-  def index
-  end
+  def index; end
 
   def new
     @user = User.new
   end
 
   def signup
-    if current_user
-      redirect_to dashboard_path
-    end
+    redirect_to dashboard_path if current_user
     @user = User.new
     @user[:verified] = false
+
+    render layout: 'public'
   end
 
   def edit
@@ -22,27 +21,47 @@ class UsersController < ApplicationController
   end
 
   def update
-    newUser = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone)
+    newUser =
+      params
+        .require(:user)
+        .permit(:full_name, :first_name, :role, :email, :phone)
     user = User.find_by_id(params[:id])
     if user
-      user.update(full_name: newUser[:full_name], first_name: newUser[:first_name], role: newUser[:role], email: newUser[:email], phone: newUser[:phone])
+      user.update(
+        full_name: newUser[:full_name],
+        first_name: newUser[:first_name],
+        role: newUser[:role],
+        email: newUser[:email],
+        phone: newUser[:phone],
+      )
     end
     redirect_to users_path
   end
 
   def create
-    user = params.require(:user).permit(:full_name, :first_name, :role, :email, :phone, :password, :verified)
+    user =
+      params
+        .require(:user)
+        .permit(
+          :full_name,
+          :first_name,
+          :role,
+          :email,
+          :phone,
+          :password,
+          :verified,
+        )
     user[:verified] = false
 
     if !user[:password] || user[:password].strip.empty?
-      user[:password] = "arike"
+      user[:password] = 'arike'
     end
 
     user = User.new(user)
 
     if user.valid?
       user.save
-      redirect_to new_session_path, notice: "You have successfully signed up!"
+      redirect_to new_session_path, notice: 'You have successfully signed up!'
     else
       flash[:error] = user.errors.full_messages.to_sentence
       redirect_to signup_path
@@ -51,9 +70,7 @@ class UsersController < ApplicationController
 
   def verify
     user = User.find_by_id(params[:id])
-    if user
-      user.update(verified: true)
-    end
+    user.update(verified: true) if user
     redirect_to users_path
   end
 end
