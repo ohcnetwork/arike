@@ -69,5 +69,6 @@ gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "twilio-ruby", "~> 5.48"
 
-gem 'active_model_otp'
+gem "active_model_otp"
 gem "pundit", "~> 2.1"
+gem "roo", "~> 2.8"

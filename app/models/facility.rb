@@ -10,6 +10,7 @@ class Facility < ApplicationRecord
   belongs_to :ward_info, class_name: "Ward", foreign_key: "ward"
   scope :secondary_facilities, -> { where(parent_id: nil) }
   scope :primary_facilities, -> { where.not(parent_id: nil) }
+  belongs_to :ward
 
   # has_many :users, -> { where("role = ? OR role = ? OR role = ?", "Primary Nurse", "Secondary Nurse", "Superuser") }
 

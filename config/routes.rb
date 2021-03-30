@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index", as: :dashboard
   get "/search", to: "search#index"
   get "/schedule", to: "schedule#index", as: :schedule
-  post "/schedule", to: "schedule#update"
+  post "/schedule", to: "schedule#schedule"
 
   resources :patients
   resources :users
