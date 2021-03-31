@@ -54,14 +54,14 @@ let make = (~props: props, ~onClick) => {
     </div>
     <div className="sm:col-span-3 field">
       <label
-        name={`familyDetails[${id}][relations]`}
+        name={`familyDetails[${id}][relation]`}
         className="block text-sm font-medium text-gray-700">
         {s("Relationship")}
       </label>
       <div className="mt-1">
         <select
           required={true}
-          name={`familyDetails[${id}][relations]`}
+          name={`familyDetails[${id}][relation]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           <option> {s("Select")} </option>
           {state.relations

@@ -22,7 +22,7 @@ let initialState = []
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initialState)
   let submit = if count.contents > 0 {
-    <button type_="submit" className="bg-blue-200 text-blue-800 rounded"> {s("Save")} </button>
+    <button type_="submit" className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"> {s("Save")} </button>
   } else {
     React.null
   }
@@ -35,7 +35,7 @@ let make = () => {
     })
     ->React.array}
     <button
-      className="bg-blue-200 text-blue-800 rounded"
+      className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       onClick={mouseEvt => {
         count := count.contents + 1
         mouseEvt->ReactEvent.Mouse.preventDefault
@@ -43,6 +43,7 @@ let make = () => {
       }}>
       {s("Add Family Member")}
     </button>
+    <div></div>
     {submit}
   </div>
 }
