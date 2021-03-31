@@ -15,11 +15,11 @@ class FacilityPolicy < ApplicationPolicy
     user && user.has_facility_access?
   end
 
-  # class Scope < Scope
-  #   def resolve
-  #     if user.superuser?
-  #       Facility.secondary_facilities
-  #     end
-  #   end
-  # end
+  class Scope < Scope
+    def resolve
+      if user.superuser?
+        Facility.all
+      end
+    end
+  end
 end

@@ -56,7 +56,7 @@
         to
         <span class="font-medium"><%= @CARDS_PER_PAGE * @page %></span>
         of
-        <span class="font-medium"><%= Facility.secondary_facilities.count %></span>
+        <span class="font-medium"><%= policy_scope(Facility).count %></span>
         results
       </p>
     </div>
@@ -70,7 +70,7 @@
           </svg>
         <% end %>
         <%= link_to @page, facilities_path({:page => @page}), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" %>
-        <%= link_to facilities_path({:page => @page == @page ? @total_pages : @page + 1}), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+        <%= link_to facilities_path({:page => @page == @total_pages ? @total_pages : @page + 1}), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
           <span class="sr-only">Next</span>
           <!-- Heroicon name: solid/chevron-right -->
           <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
