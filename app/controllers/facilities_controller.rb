@@ -6,7 +6,7 @@ class FacilitiesController < ApplicationController
   def index
     @CARDS_PER_PAGE = 8
     @page = params.fetch(:page, 0).to_i
-    @total_pages = policy_scope(Facility).count / @CARDS_PER_PAGE
+    @total_pages = (policy_scope(Facility).count * 1.0 / @CARDS_PER_PAGE).ceil()
     @secondary_facilities = policy_scope(Facility).offset(@CARDS_PER_PAGE * ((@page == 0) ? 0 : @page - 1)).limit(@CARDS_PER_PAGE)
     authorize Facility
   end

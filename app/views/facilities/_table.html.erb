@@ -52,9 +52,9 @@
     <div>
       <p class="text-sm text-gray-700">
         Showing
-        <span class="font-medium"><%= @CARDS_PER_PAGE * (@page - 1) %></span>
+        <span class="font-medium"><%= @CARDS_PER_PAGE * (@page - 1) + 1 %></span>
         to
-        <span class="font-medium"><%= @CARDS_PER_PAGE * @page %></span>
+        <span class="font-medium"><%= [@CARDS_PER_PAGE * @page, policy_scope(Facility).count].min %></span>
         of
         <span class="font-medium"><%= policy_scope(Facility).count %></span>
         results
