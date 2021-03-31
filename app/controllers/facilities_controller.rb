@@ -4,7 +4,10 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
-    @secondary_facilities = Facility.secondary_facilities.offset(1).limit(12)
+    @CARDS_PER_PAGE = 8
+    @page = params.fetch(:page, 0).to_i
+    @total_pages = Facility.secondary_facilities.count / @CARDS_PER_PAGE
+    @secondary_facilities = Facility.secondary_facilities.offset(@CARDS_PER_PAGE * ((@page == 0) ? 0 : @page - 1)).limit(@CARDS_PER_PAGE)
     authorize Facility
   end
 
