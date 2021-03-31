@@ -120,21 +120,7 @@ module PatientRegister = {
             />
           </div>
         </div>
-        <div className="sm:col-span-3 field">
-          <label name="patient[lsg_body]" className="block text-sm font-medium text-gray-700">
-            {s("LSG Body")}
-          </label>
-          <div className="mt-1">
-            <select
-              name="patient[lsg_body]"
-              defaultValue=state.lsg_selected
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              {state.lsg
-              ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
-              ->React.array}
-            </select>
-          </div>
-        </div>
+
         <div className="sm:col-span-3 field">
           <label name="patient[address]" className="block text-sm font-medium text-gray-700">
             {s("Address")}
@@ -230,21 +216,6 @@ module PatientRegister = {
               <option> {s("Middle Class")} </option>
               <option> {s("Poor")} </option>
               <option> {s("Very Poor")} </option>
-            </select>
-          </div>
-        </div>
-        <div className="sm:col-span-3 field">
-          <label name="patient[asha_member]" className="block text-sm font-medium text-gray-700">
-            {s("ASHA Member")}
-          </label>
-          <div className="mt-1">
-            <select
-              name="patient[asha_member]"
-              defaultValue=state.asha_selected
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              {state.ashas
-              ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
-              ->React.array}
             </select>
           </div>
         </div>
