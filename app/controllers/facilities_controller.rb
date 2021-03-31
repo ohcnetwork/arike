@@ -19,7 +19,7 @@ class FacilitiesController < ApplicationController
   end
 
   def create
-    facility_params = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
+    facility_params = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body_id, :ward_id, :address, :pincode, :phone, :parent_id)
     # facility
     if facility_params[:kind] == "CHC"
       facility_params[:parent_id] = nil
