@@ -22,7 +22,7 @@
               <div class="flex py-4 justify-between">
                 <div>
                   <div class="text-gray-500 leading-relaxed">Phone:</div>
-                  <a href=<%= "tel:" + facility.phone.to_s %> class="font-semibold"><%= facility.phone %></a></div>
+                  <a href=<%= "tel:" + facility.phone.to_s %> class="font-semibold"><%= "+91 " + facility.phone %></a></div>
                 <span class="inline-flex rounded-md shadow-sm"><%= link_to "View Facility", facility_path(facility.id), class: "inline-flex items-center px-3 py-2 border border-green-500 text-sm leading-4 font-medium rounded-md text-green-700 bg-white hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:text-green-800 active:bg-gray-50 transition ease-in-out duration-150 hover:shadow" %></span></div>
             </div>
           </div>

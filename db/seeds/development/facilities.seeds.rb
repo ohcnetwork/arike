@@ -4,11 +4,10 @@ LsgBody.all.each do |lsg|
   end
 
   Facility.create!(
-    kind: "PHC",
-    name: Faker::Name.name,
-    state: "Kerala",
-    district: "Ernakulum",
-    lsg_body: lsg,
-    ward: lsg.wards.last.id,
+    kind: "CHC", name: Faker::Name.name, state: "Kerala", district: "Ernakulum", address: "Test CHC Address", phone: Faker::Number.number(digits: 10), pincode: Faker::Number.number(digits: 7), lsg_body_id: lsg.id, ward_id: lsg.wards.last.id,
+  )
+
+  Facility.create!(
+    kind: "PHC", name: Faker::Name.name, state: "Kerala", district: "Ernakulum", address: "Test PHC Address", phone: Faker::Number.number(digits: 10), pincode: Faker::Number.number(digits: 7), lsg_body_id: lsg.id, ward_id: lsg.wards.last.id, parent_id: Facility.first.id,
   )
 end
