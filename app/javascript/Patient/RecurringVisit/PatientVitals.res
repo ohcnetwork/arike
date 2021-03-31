@@ -1,6 +1,7 @@
 let s = React.string
 
 let general_options = [
+  "Not selected",
   "Not at all",
   "Slightly",
   "Moderately",
@@ -10,28 +11,29 @@ let general_options = [
 ]
 
 let general_questions = [
-  ("Is the patient feeling worried about illness/treatment?", "patient_worried"),
-  ("Does family/friends feel anxious about patient's illness/treatment", "family_anxious"),
+  ("Is the patient feeling worried about illness/treatment?", "patient_worried", true),
+  ("Does family/friends feel anxious about patient's illness/treatment", "family_anxious", true),
   (
     "Has the patient been able to share how he is feeling with his family/friends as much as he wanted?",
     "patient_feels",
+    true,
   ),
-  ("Is patient depressed", "patient_depressed"),
-  ("Has the patient had as much information as he wanted?", "patient_informed"),
-  ("Do you think patient feels at peace?", "patient_at_peace"),
-  ("Pain", "pain"),
-  ("Shortness of breath", "shortness_breath"),
-  ("Weakness/Lack of energy", "weakness"),
-  ("Poor mobility", "poor_mobility"),
-  ("Nausea", "nausea"),
-  ("Vomiting", "vomiting"),
-  ("Poor Appetite", "poor_Appetite"),
-  ("Constipation", "constipation"),
-  ("Sore/dry mouth", "sore"),
-  ("Drowsiness", "drowsiness"),
-  ("Wound", "wound"),
-  ("Lack of sleep", "lack_of_sleep"),
-  ("Micturition", "micturition"),
+  ("Is patient depressed", "patient_depressed", true),
+  ("Has the patient had as much information as he wanted?", "patient_informed", true),
+  ("Do you think patient feels at peace?", "patient_at_peace", true),
+  ("Pain", "pain", false),
+  ("Shortness of breath", "shortness_breath", false),
+  ("Weakness/Lack of energy", "weakness", false),
+  ("Poor mobility", "poor_mobility", false),
+  ("Nausea", "nausea", false),
+  ("Vomiting", "vomiting", false),
+  ("Poor Appetite", "poor_Appetite", false),
+  ("Constipation", "constipation", false),
+  ("Sore/dry mouth", "sore", false),
+  ("Drowsiness", "drowsiness", false),
+  ("Wound", "wound", false),
+  ("Lack of sleep", "lack_of_sleep", false),
+  ("Micturition", "micturition", false),
 ]
 
 /* Add State for capturing data */
@@ -59,25 +61,39 @@ module PatientVitals = {
                   minimum=Some(0)
                   maximum=Some(100)
                   divClass="sm:col-span-6 field sm:grid sm:grid-cols-2 sm:gap-4 sm:items-start  sm:pt-5"
+                  isRequired=true
                 />
+                // <RadioInput
+                //   question="Any changes in disease history?"
+                //   field=""
+                //   options=["Yes", "No"]
+                //   isRequired=true
+                // />
                 <TextInput
-                  question="Any change in disease history? If yes, enter details."
+                  question="Enter details."
                   field="disease_history_changed"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-6 field sm:grid sm:grid-cols-2 sm:gap-4 sm:items-start sm:pt-5"
+                  isRequired=true
                 />
                 <DropDownInput
                   question="Palliative phase of illness"
                   field="palliative_phase"
-                  options=["Stable", "Unstable", "Deteriorating", "Dying"]
+                  options=["Not selected", "Stable", "Unstable", "Deteriorating", "Dying"]
+                  isRequired=true
                 />
                 {general_questions
-                ->Belt.Array.map(((ques, field)) =>
-                  <DropDownInput question=ques field options=general_options />
+                ->Belt.Array.map(((ques, field, required)) =>
+                  <DropDownInput question=ques field options=general_options isRequired=required />
                 )
                 ->React.array}
                 <NumberInput
-                  question="BP" field="bp" minimum=None maximum=None divClass="sm:col-span-3 field"
+                  question="BP"
+                  field="bp"
+                  minimum=None
+                  maximum=None
+                  divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <NumberInput
                   question="GRBS"
@@ -85,9 +101,15 @@ module PatientVitals = {
                   minimum=None
                   maximum=None
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <NumberInput
-                  question="RR" field="rr" minimum=None maximum=None divClass="sm:col-span-3 field"
+                  question="RR"
+                  field="rr"
+                  minimum=None
+                  maximum=None
+                  divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <NumberInput
                   question="Pulse"
@@ -95,24 +117,28 @@ module PatientVitals = {
                   minimum=None
                   maximum=None
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <TextInput
                   question="Personal hygiene"
                   field="personal_hygiene"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <TextInput
                   question="Mouth hygiene"
                   field="mouth_hygiene"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <TextInput
                   question="Pubic hygiene"
                   field="pubic_hygiene"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <DropDownInput
                   question="Systematic examination"
@@ -124,18 +150,21 @@ module PatientVitals = {
                     "Respiratory",
                     "Genital-urinary",
                   ]
+                  isRequired=false
                 />
                 <TextInput
                   question="Systematic examination details"
                   field="systemic_examination_details"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-3 field"
+                  isRequired=false
                 />
                 <TextInput
-                  question="Visit done by: Dr./Volunteer/ASHA/Driver"
-                  field="done_bydone_by"
+                  question="Visit done by(Doctor/Nurse/Volunteer/ASHA/Driver):"
+                  field="done_by"
                   form_id="patientvitals-form"
                   divClass="sm:col-span-3 field"
+                  isRequired=true
                 />
               </div>
             </div>

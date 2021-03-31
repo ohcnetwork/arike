@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component
-let make = (~question, ~field, ~options) => {
+let make = (~question, ~field, ~options,~isRequired) => {
   let radioTags =
     options
     ->Belt.Array.map(op => {
@@ -9,6 +9,7 @@ let make = (~question, ~field, ~options) => {
         <input
           name=field
           type_="radio"
+          required=isRequired
           className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
         />
         <label className="ml-3 block text-sm font-medium text-gray-700"> {s(op)} </label>
