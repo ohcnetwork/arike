@@ -92,6 +92,9 @@
         max-height: 100vh;
         padding: 1em;
       }
+      .top-shadow {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+      }
       </style>
   </head>
   <body>
@@ -103,40 +106,33 @@
               <h3 class="text-lg leading-6 font-medium text-gray-900">
                 Patient Information
               </h3>
+              <hr/>
+              <div class="w-full bg-gray-800 my-1">
 
             </div>
-            <div class="grid">
-              <div class="w-1/2">
-                <div><%= link_to "Edit Personal Details",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-                </div>
-
-                <div><%= link_to "Edit Family Details",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-                </div>
-
-                <div><%= link_to "Add Health Information",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
+            <div class="flex mb-5">
+              <div class="w-3/4">
+                <div class="ml-5 w-10/12 bg-gray-100 px-10 py-3 h-full rounded mb-1 top-shadow" >
+                  <p class="text-2xl"> <%= @patient.full_name %> </p>
+                  <hr/>
+                  <p class="my-2 text-sm text-gray-800 py-1 font-mono"> <%= "#{@patient.facility.name},  #{@patient.facility.district}, #{@patient.facility.state}" %> </p>
+                  <br/>
+                  <p class="font-medium text-sm mb-1 text-gray-500"> Next Visit : <p class="ml-1 text-gray-900">11th April, 2021</p> </p>
+                  <p class="font-medium text-sm mt-1 text-gray-500"> Last Visit : <p class="ml-1 text-gray-900">1st March, 2021</p> </p>
                 </div>
               </div>
-              <div class="w-1/2">
-                <div><%= link_to "Edit Personal Details",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
+              <div class="w-1/4 my-auto">
+                <div><%= link_to "Edit Personal Details",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
                   shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
                   hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-                </div>
 
-                <div><%= link_to "Edit Family Details",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
+                <div><%= link_to "Edit Family Details",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
                   shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
                   hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-                </div>
 
-                <div><%= link_to "Add Health Information",{ action: "new" }, class: "inline-flex justify-center py-2 px-4 border border-transparent
+                <div><%= link_to "Add Health Information",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
                   shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
                   hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-                </div>
               </div>
             </div>
 
