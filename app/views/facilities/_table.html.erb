@@ -52,11 +52,11 @@
     <div>
       <p class="text-sm text-gray-700">
         Showing
-        <span class="font-medium"><%= @CARDS_PER_PAGE * (@page - 1) + 1 %></span>
+        <span class="font-medium"><%= (@facilities_count ==0 ? 0 : @CARDS_PER_PAGE * (@page-1) + 1) %></span>
         to
-        <span class="font-medium"><%= [@CARDS_PER_PAGE * @page, policy_scope(Facility).count].min %></span>
+        <span class="font-medium"><%= [@CARDS_PER_PAGE * @page, @facilities_count].min %></span>
         of
-        <span class="font-medium"><%= policy_scope(Facility).count %></span>
+        <span class="font-medium"><%= @facilities_count %></span>
         results
       </p>
     </div>

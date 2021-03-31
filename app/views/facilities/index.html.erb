@@ -1,9 +1,15 @@
-<div>
-  <div>
+<div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+  <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+    <div class="w-full">
     <%= form_tag facilities_path, method: :get do %>
-      <%= text_field_tag :search %>
-      <%= submit_tag %>
+      <div class="relative">
+        <%= text_field_tag :search, @search_text,placeholder: "Search", class: "block w-full bg-white border border-gray-300 rounded-md py-2 pl-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+          <button type="submit" class="focus:outline-none"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
     <% end %>
+    </div>
   </div>
 </div>
 <%= render "table", facilities: @secondary_facilities%>

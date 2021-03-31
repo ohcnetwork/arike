@@ -4,10 +4,9 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
-    @page = params.fetch(:page, 0).to_i
+    @page = params.fetch(:page, 1).to_i
     @search_text = params.fetch(:search, "")
-    @secondary_facilities = paginate_facilites(@page)
-
+    @secondary_facilities = filter_facilities(@search_text, @page)
     authorize Facility
   end
 
@@ -70,15 +69,13 @@ class FacilitiesController < ApplicationController
 
   private
 
-  def paginate_facilites(page)
+  def filter_facilities(search_text, page)
     @CARDS_PER_PAGE = 8
-    @total_pages = (policy_scope(Facility).count * 1.0 / @CARDS_PER_PAGE).ceil()
-    @secondary_facilities = policy_scope(Facility).offset(@CARDS_PER_PAGE * ((page == 0) ? 0 : page - 1)).limit(@CARDS_PER_PAGE)
+    filtered_facilities = Facility.where("name ILIKE :search_text", search_text: "%#{search_text}%")
+    @facilities_count = filtered_facilities.count
+    @total_pages = (filtered_facilities.count * 1.0 / @CARDS_PER_PAGE).ceil()
+    @secondary_facilities = filtered_facilities.offset(@CARDS_PER_PAGE * (page - 1)).limit(@CARDS_PER_PAGE)
     @secondary_facilities
-  end
-
-  def filter_facilities(search_text)
-    Facility.where("name LIKE :search_text", search_text: "%#{search_text}%")
   end
 end
 
