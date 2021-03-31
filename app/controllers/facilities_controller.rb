@@ -4,7 +4,7 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
-    @secondary_facilities = Facility.secondary_facilities
+    @secondary_facilities = Facility.secondary_facilities.offset(1).limit(12)
     authorize Facility
   end
 
