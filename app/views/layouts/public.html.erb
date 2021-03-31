@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arike</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
+    <%= stylesheet_pack_tag "application", "data-turbo-track": "reload" %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <div class="h-screen overflow-hidden bg-white">
+      <%= render partial: "/layouts/home-nav" %>
+      <main
+        class="flex-1 relative z-0 overflow-y-auto focus:outline-none"
+        tabindex="0"
+      >
+        <div class="py-6">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <%= yield %>
+          </div>
+        </div>
+      </main>
+      <%= yield :tail %>
+    </div>
+  </body>
+</html>

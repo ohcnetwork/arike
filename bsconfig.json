@@ -14,7 +14,12 @@
     }
   ],
 
-  "bs-dependencies": ["@rescript/react", "bs-fetch"],
+  "bs-dependencies": [
+    "@rescript/react",
+    "bs-fetch",
+    "bs-webapi",
+    "@glennsl/bs-json"
+  ],
   "suffix": ".bs.js",
   "namespace": true,
   "ppx-flags": [],

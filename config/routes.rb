@@ -1,13 +1,12 @@
-Rails.application.routes.draw do
+Rails
+  .application
+  .routes
+  .draw do
   resources :visit_details
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root "home#index", as: :home
-
-  get "/dashboard", to: "dashboard#index", as: :dashboard
-  get "/search", to: "search#index"
-  get "/schedule", to: "schedule#index", as: :schedule
-  post "/schedule", to: "schedule#schedule"
+  root "home#index"
 
   resources :patients
   resources :users
@@ -18,6 +17,25 @@ Rails.application.routes.draw do
   put "/unassign", to: "users#unassign_facility", as: :unassign_facility
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+  get "/dashboard", to: "dashboard#index", as: :dashboard
+  get "/search", to: "search#index"
+  get "/schedule", to: "schedule#index", as: :schedule
+  post "/schedule", to: "schedule#schedule"
+
+  get "logout", to: "sessions#logout"
+
+  resources :sessions
+  resources :facilities
+  # get users belonging to a facility
+  get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
+  get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
+  resources :lsg_bodies
+  resources :wards
+
+  resources :patients
+  resources :users
+
+  # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
 
   get "/signup", to: "users#signup", as: :signup
 
@@ -26,12 +44,8 @@ Rails.application.routes.draw do
   post "/password_reset/verify", to: "password_reset#verify"
   post "/password_reset/update", to: "password_reset#update"
 
-
   resources :sessions
   resources :facilities
-  # get users belonging to a facility
-  get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
-  get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
   resources :lsg_bodies
   resources :wards
 end

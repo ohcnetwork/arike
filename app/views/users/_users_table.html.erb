@@ -22,16 +22,17 @@
                   <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Role
                   </th>
-                  <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <% if current_user.superuser? %>
+                    <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody x-max="2">
                 <% users.each do |user| %>
                   <%= render partial: "table-row",
-                    locals: { full_name: user.full_name, first_name: user.first_name, phone: user.phone, email: user.email, role: user.role, id: user.id, verified: user.verified }
-                    %>
+                             locals: { full_name: user[:full_name], first_name: user[:first_name], phone: user[:phone], email: user[:email], role: user[:role], id: user[:id], verified: user[:verified], can_edit: user[:can_edit] } %>
                 <% end %>
               </tbody>
             </table>

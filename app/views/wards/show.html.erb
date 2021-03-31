@@ -3,10 +3,10 @@
     <ol class="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
       <li class="flex">
         <div class="flex items-center">
-          <a href="<%= dashboard_path %>" class="text-gray-400 hover:text-gray-500">
+          <%= link_to dashboard_path, class: 'text-gray-400 hover:text-gray-500' do %>
             <i class="fas fa-home text-xl"></i>
             <span class="sr-only">Home</span>
-          </a>
+          <% end %>
         </div>
       </li>
       <li class="flex">

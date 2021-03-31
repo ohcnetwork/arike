@@ -47,7 +47,7 @@ module Make = (Selectable: Selectable) => {
     event |> ReactEvent.Mouse.preventDefault
 
     onSelect(selection)
-    Domutils.focus(id)
+    DomUtils.focus(id)
   }
 
   let showOptions = (options, onSelect, id, labelSuffix) =>
@@ -171,13 +171,13 @@ module Make = (Selectable: Selectable) => {
       let curriedFunction = onWindowClick(showDropdown, setShowDropdown)
 
       let removeEventListener = () =>
-        Domutils.window["removeEventListener"]("click", curriedFunction, Domutils.window)
+        Webapi.Dom.Window.removeEventListener("click", curriedFunction, Webapi.Dom.window)
 
       if showDropdown {
-        Domutils.window["addEventListener"]("click", curriedFunction, Domutils.window)->ignore
+        Webapi.Dom.Window.addEventListener("click", curriedFunction, Webapi.Dom.window)
         Some(removeEventListener)
       } else {
-        removeEventListener()->ignore
+        removeEventListener()
         None
       }
     }, [showDropdown])
