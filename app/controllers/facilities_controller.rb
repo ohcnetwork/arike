@@ -4,10 +4,10 @@ class FacilitiesController < ApplicationController
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
   def index
-    @CARDS_PER_PAGE = 8
     @page = params.fetch(:page, 0).to_i
-    @total_pages = (policy_scope(Facility).count * 1.0 / @CARDS_PER_PAGE).ceil()
-    @secondary_facilities = policy_scope(Facility).offset(@CARDS_PER_PAGE * ((@page == 0) ? 0 : @page - 1)).limit(@CARDS_PER_PAGE)
+    @search_text = params.fetch(:search, "")
+    @secondary_facilities = paginate_facilites(@page)
+
     authorize Facility
   end
 
@@ -66,6 +66,19 @@ class FacilitiesController < ApplicationController
 
   def facilities_params
     params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
+  end
+
+  private
+
+  def paginate_facilites(page)
+    @CARDS_PER_PAGE = 8
+    @total_pages = (policy_scope(Facility).count * 1.0 / @CARDS_PER_PAGE).ceil()
+    @secondary_facilities = policy_scope(Facility).offset(@CARDS_PER_PAGE * ((page == 0) ? 0 : page - 1)).limit(@CARDS_PER_PAGE)
+    @secondary_facilities
+  end
+
+  def filter_facilities(search_text)
+    Facility.where("name LIKE :search_text", search_text: "%#{search_text}%")
   end
 end
 
