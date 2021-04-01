@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component
-let make = (~question, ~field, ~minimum, ~maximum, ~divClass) => {
+let make = (~question, ~field, ~minimum, ~maximum, ~divClass,~isRequired) => {
   let min_value = minimum->Belt.Option.map(limit => Belt.Int.toString(limit))
   let min_value = switch min_value {
   | Some(min_value) => min_value
@@ -21,6 +21,7 @@ let make = (~question, ~field, ~minimum, ~maximum, ~divClass) => {
         min=min_value
         max=max_value
         name=field
+        required=isRequired
         className="shadow-sm
           focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
       />

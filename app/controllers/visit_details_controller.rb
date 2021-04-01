@@ -4,6 +4,6 @@ class VisitDetailsController < ApplicationController
   end
 
   def new
-    
+
   end
 end
