@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
 import * as PatientVitals from "../Patient/RecurringVisit/PatientVitals.bs";
+import * as Schedule from "../schedule/Schedule.bs"
 
 import "stylesheets/application";
 import '@fortawesome/fontawesome-free/js/all';
@@ -19,3 +20,4 @@ ActiveStorage.start();
 
 window.PatientFormPage = PatientFormPage;
 window.PatientVitals=PatientVitals;
+window.Schedule = Schedule;

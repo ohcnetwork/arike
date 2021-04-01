@@ -1,3 +1,9 @@
-<%= render partial: "schedule", locals: {visits: @unscheduled_visits} %>
+<div id="schedule"></div>
+<%# <%= render partial: "schedule", locals: {visits: @unscheduled_visits} %>
 <div class="py-6"></div>
 <%= render partial: "agenda" %>
+
+<script>
+  var visits = <%= raw @unscheduled_visits.to_json %>;
+  window.Schedule.run(visits);
+</script>
