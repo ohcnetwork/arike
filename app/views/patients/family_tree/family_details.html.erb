@@ -5,14 +5,14 @@
     <% end %>
   </div>
 </div>
-<script type="text/json" id="data">
+<script type="text/json" id="family_data">
   {
     "relations": <%= FamilyDetail.relations.values %>,
     "educations":<%= FamilyDetail.educations.values %>,
     "occupations":<%= FamilyDetail.occupations.values %>,
-    "patients": <%= @patient.family_details.to_json %>
+    "members": <%= @patient.family_details.to_json %>
   }
 </script>
-<script  >
+<script>
 FamilyManager.start("family_form")
 </script>

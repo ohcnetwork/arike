@@ -7,28 +7,28 @@
         opacity: 0;
         z-index: -1;
       }
-      
+
       .row {
         display: flex;
       }
-      
+
       .row .col {
         flex: 1;
       }
-      
+
       /* Accordion styles */
       .tabs {
         border-radius: 0px;
         overflow: hidden;
         transition: all 0.3s ease-in-out;
       }
-      
+
       .tab {
         width: 100%;
         overflow: hidden;
         transition: all 0.35s;
       }
-      
+
       .tab-label {
         display: flex;
         justify-content: space-between;
@@ -36,12 +36,12 @@
         transition: all 0.2s ease-in-out;
         /* Icon */
       }
-      
+
       .tab-label:hover {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-      
+
       .tab-label::after {
         content: "\276F";
         width: 1em;
@@ -49,7 +49,7 @@
         text-align: center;
         transition: all 0.3s ease-in-out;
       }
-      
+
       .tab-content {
         max-height: 0;
         padding: 0 1em;
@@ -57,7 +57,7 @@
         background: white;
          transition: all 0.3s ease-in-out;
       }
-      
+
       .tab-close {
         display: flex;
         justify-content: flex-end;
@@ -65,20 +65,20 @@
         font-size: 0.75em;
         cursor: pointer;
       }
-      
+
       .tab-close:hover {
            background-color: rgba(79, 70, 229,1);
       }
-      
+
       input:checked+.tab-label {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-      
+
       input:checked+.tab-label::after {
         transform: rotate(90deg);
       }
-      
+
       input:checked~.tab-content {
         max-height: 100vh;
         padding: 1em;
@@ -206,8 +206,12 @@
               <div class="tab rounded-md border-b border-gray-200">
                 <input type="checkbox" id="family_details">
                 <label class="tab-label px-4 py-6 text-lg" for="family_details">Family Details</label>
-                <div class="tab-content">
-                  Random Content
+                <div class="tab-content inline">
+                  <div class="md:flex bg-gray-100">
+                  <% @patient.family_details.each do |member| %>
+                    <%= render partial: "family_member_detail_card", locals: {member: member} %>
+                  <% end %>
+                  </div>
                 </div>
               </div>
               <div class="tab rounded-md border-b border-gray-200">

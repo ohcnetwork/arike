@@ -1,0 +1,35 @@
+<div class="w-full md:w-1/2 p-2">
+    <div class="p-6 border rounded-md shadow-lg bg-white">
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Name</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.full_name ? member.full_name : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Phone</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.phone ? member.phone : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">DOB</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.dob ? member.dob : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Relation</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.relation ? member.relation : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Some Address</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.address ? member.address : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Education</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.education ? member.education : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Occupation</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.occupation ? member.occupation : "- - -" %></dd>
+      </div>
+      <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
+        <dt class="font-medium text-gray-500">Remark</dt>
+        <dd class="text-gray-900 col-span-2"><%= member.remarks ? member.remarks : "- - -" %></dd>
+      </div>
+    </div>
