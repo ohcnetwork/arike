@@ -39,6 +39,9 @@ let general_questions = [
 /* Add State for capturing data */
 @react.component
 let make = (~name, ~role) => {
+  let (isEnabled_diseaseHistory, changeEnabled_diseaseHistory) = React.useState(_ => false)
+  let (isEnabled_systemic, changeEnabled_systemic) = React.useState(_ => false)
+
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div className="max-w-3xl mx-auto">
       <form className="space-y-8 " id="patientvitals-form">
@@ -62,19 +65,21 @@ let make = (~name, ~role) => {
                 divClass="sm:col-span-6 field sm:grid sm:grid-cols-2 sm:gap-4 sm:items-start  sm:pt-5"
                 isRequired=true
               />
-              <RadioInput
+              <RadioInput.YesNoRadioInput
                 question="Any changes in disease history?"
                 field="disease_history_radio"
                 options=["Yes", "No"]
                 isRequired=true
+                changeTextEnabled=changeEnabled_diseaseHistory
               />
-              <TextInput
+              <TextInput.EnabledTextInput
                 question="Enter details."
                 field="disease_history_changed"
                 form_id="patientvitals-form"
                 divClass="sm:col-span-3 field"
                 isRequired=true
                 defaultValue=""
+                isEnabled=isEnabled_diseaseHistory
               />
               <DropDownInput
                 question="Palliative phase of illness"
@@ -145,10 +150,11 @@ let make = (~name, ~role) => {
                 isRequired=false
                 defaultValue=""
               />
-              <DropDownInput
+              <DropDownInput.SelectedDropDown
                 question="Systematic examination"
                 field="systemic_examination"
                 options=[
+                  "Not selected",
                   "Cardiovascular",
                   "Gastrointestinal",
                   "Central nervous system",
@@ -156,14 +162,16 @@ let make = (~name, ~role) => {
                   "Genital-urinary",
                 ]
                 isRequired=false
+                changeTextEnabled=changeEnabled_systemic
               />
-              <TextInput
+              <TextInput.EnabledTextInput
                 question="Systematic examination details"
                 field="systemic_examination_details"
                 form_id="patientvitals-form"
                 divClass="sm:col-span-3 field"
                 isRequired=false
                 defaultValue=""
+                isEnabled=isEnabled_systemic
               />
               <TextInput
                 question="Visit done by(Doctor/Nurse/Volunteer/ASHA/Driver):"
