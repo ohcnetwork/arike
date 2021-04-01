@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_122725) do
     t.string "poor_mobility"
     t.string "nausea"
     t.string "vomiting"
-    t.string "poor_Appetite"
+    t.string "poor_appetite"
     t.string "constipation"
     t.string "sore"
     t.string "drowsiness"

@@ -12,7 +12,7 @@ let decode = json => {
 }
 
 let props = DomUtils.parseJSONTag(~id="patient-vitals-data", ()) |> decode
-Js.log(props)
+
 
 switch ReactDOM.querySelector("#patient-vitals-form") {
 | Some(root) =>
