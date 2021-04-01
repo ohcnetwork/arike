@@ -1,258 +1,225 @@
 <html>
   <head>
-    <script
-      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js"
-      defer=""
-    ></script>
-
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer=""></script>
     <style>
-      body {
-        background: #ecf0f1;
-        padding: 0 1em 1em;
-      }
-      h1 {
-        margin: 0;
-        line-height: 2;
-        text-align: center;
-      }
-      h2 {
-        margin: 0 0 0.5em;
-        font-weight: normal;
-      }
       input {
         position: absolute;
         opacity: 0;
         z-index: -1;
       }
+      
       .row {
         display: flex;
       }
+      
       .row .col {
         flex: 1;
       }
+      
       /* Accordion styles */
       .tabs {
         border-radius: 0px;
         overflow: hidden;
-        box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease-in-out;
       }
+      
       .tab {
         width: 100%;
-        color: white;
         overflow: hidden;
+        transition: all 0.35s;
       }
+      
       .tab-label {
         display: flex;
         justify-content: space-between;
-        padding: 1em;
-        background: #5FA7FA;
-        font-weight: bold;
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
         /* Icon */
       }
+      
       .tab-label:hover {
-        background: #0963EF;
+        color:white;
+        background-color: rgba(79, 70, 229,1);
       }
+      
       .tab-label::after {
         content: "\276F";
         width: 1em;
         height: 1em;
         text-align: center;
-        transition: all 0.35s;
+        transition: all 0.3s ease-in-out;
       }
+      
       .tab-content {
         max-height: 0;
         padding: 0 1em;
         color: black;
         background: white;
-        transition: all 0.35s;
+         transition: all 0.3s ease-in-out;
       }
+      
       .tab-close {
         display: flex;
         justify-content: flex-end;
         padding: 1em;
         font-size: 0.75em;
-        background: #5FA7FA;
         cursor: pointer;
       }
+      
       .tab-close:hover {
-        background: #0963EF;
+           background-color: rgba(79, 70, 229,1);
       }
-      input:checked + .tab-label {
-        background: #0963EF;
+      
+      input:checked+.tab-label {
+        color:white;
+        background-color: rgba(79, 70, 229,1);
       }
-      input:checked + .tab-label::after {
+      
+      input:checked+.tab-label::after {
         transform: rotate(90deg);
       }
-      input:checked ~ .tab-content {
+      
+      input:checked~.tab-content {
         max-height: 100vh;
         padding: 1em;
       }
-      .top-shadow {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
-      }
-      </style>
+    </style>
   </head>
   <body>
-    <div class="bg-gray-100">
-      <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-          <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div class="px-4 py-5 sm:px-6">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Patient Information
-              </h3>
-              <hr/>
-              <div class="w-full bg-gray-800 my-1">
-
+    <div class="overflow-hidden sm:rounded-lg">
+      <div class="px-8 sm:px-6">
+        <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
+          Patient Information
+        </h3>
+        <div class="w-full bg-gray-800 my-1">
+        </div>
+        <div class="sm:flex mb-5 pb-12">
+          <div class="w-full sm:w-3/4 md:w-3/5" style="min-height:12rem;">
+            <div class="sm:mr-2 md:mr-4 bg-gray-50 p-4 sm:p-6 md:p-8 h-full rounded mb-8 sm:mb-4 border border-gray-200">
+              <p class="text-2xl capitalize mb-2">
+                <%= @patient.full_name %>
+              </p>
+              <hr />
+              <p class="my-2 text-gray-600 py-1 mb-4">
+                <%= "#{@patient.facility.name},  #{@patient.facility.district}, #{@patient.facility.state}" %>
+              </p>
+              <div class="flex justify-between mt-8" >
+                <p class="font-medium text-gray-500"> Last Visit :
+                  <span class="block font-normal text-xl text-gray-900">1st March, 2021</span>
+                </p>
+                <p class="font-medium text-gray-500"> Next Visit :
+                  <span class="text-xl block text-gray-900">11th April, 2021</span>
+                </p>
+              </div>
             </div>
-            <div class="flex mb-5">
-              <div class="w-3/4">
-                <div class="ml-5 w-10/12 bg-gray-100 px-10 py-3 h-full rounded mb-1 top-shadow" >
-                  <p class="text-2xl"> <%= @patient.full_name %> </p>
-                  <hr/>
-                  <p class="my-2 text-sm text-gray-800 py-1 font-mono"> <%= "#{@patient.facility.name},  #{@patient.facility.district}, #{@patient.facility.state}" %> </p>
-                  <br/>
-                  <p class="font-medium text-sm mb-1 text-gray-500"> Next Visit : <p class="ml-1 text-gray-900">11th April, 2021</p> </p>
-                  <p class="font-medium text-sm mt-1 text-gray-500"> Last Visit : <p class="ml-1 text-gray-900">1st March, 2021</p> </p>
+          </div>
+          <div class="w-full sm:w-1/4 md:w-2/5 flex flex-col justify-between">
+            <div>
+              <%= link_to "Add Health Information", { action: "new" },
+                        class: "w-full mx-1 mb-4 md:text-lg inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            </div>
+            <div>
+              <%= link_to "Edit Personal Details", { action: "new" },
+                        class: "text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
+            </div>
+            <div>
+              <%= link_to "Edit Family Details", { action: "new" },
+                        class: "text-indigo-800 md:text-lg w-full mx-1 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-8">
+          <div class="col">
+            <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
+              Additional Information
+            </h3>
+            <div class="tabs">
+              <div class="tab rounded-md border-b border-gray-200">
+                <input type="checkbox" id="personal_details">
+                <label class="tab-label px-4 py-6 text-lg" for="personal_details">Personal Information</label>
+                <div class="tab-content">
+                  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <dl class="sm:divide-y sm:divide-gray-200">
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Full name</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.full_name %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">
+                          Date of birth
+                        </dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.dob %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Phone No.</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.phone %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Address</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.address %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Route</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.route %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">
+                          Economic Status
+                        </dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.economic_status %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Notes</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.notes %>
+                        </dd>
+                      </div>
+                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Volunteers</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= @patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
+                        </dd>
+                      </div>
+                      <div
+                              class=" py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                        <dt class="font-medium text-gray-500">Reported By</dt>
+                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                          <%= User.find_by_id(@patient.reported_by).full_name %>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
                 </div>
               </div>
-              <div class="w-1/4 my-auto">
-                <div><%= link_to "Edit Personal Details",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-
-                <div><%= link_to "Edit Family Details",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
-
-                <div><%= link_to "Add Health Information",{ action: "new" }, class: "w-full mx-1 mb-4 inline-flex justify-center py-2 px-4 border border-transparent
-                  shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
-                  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %></div>
+              <div class="tab rounded-md border-b border-gray-200">
+                <input type="checkbox" id="family_details">
+                <label class="tab-label px-4 py-6 text-lg" for="family_details">Family Details</label>
+                <div class="tab-content">
+                  Random Content
+                </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div class="tabs">
-
-                    <div class="tab">
-                      <input type="checkbox" id="personal_details" >
-                      <label class="tab-label" for="personal_details" >Personal Information</label>
-                      <div class="tab-content">
-                        <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                          <dl class="sm:divide-y sm:divide-gray-200">
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.full_name %>
-                              </dd>
-                            </div>
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">
-                                Date of birth
-                              </dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.dob %>
-                              </dd>
-                            </div>
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Phone No.</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.phone %>
-                              </dd>
-                            </div>
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Address</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.address %>
-                              </dd>
-                            </div>
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Route</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.route %>
-                              </dd>
-                            </div>
-
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">
-                                Economic Status
-                              </dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.economic_status %>
-                              </dd>
-                            </div>
-
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Notes</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.notes %>
-                              </dd>
-                            </div>
-
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Volunteers</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= @patient.users.volunteers.to_a.map {|member| member.full_name}.join(", ") %>
-                              </dd>
-                            </div>
-
-                            <div
-                              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                              <dt class="text-sm font-medium text-gray-500">Reported By</dt>
-                              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <%= User.find_by_id(@patient.reported_by).full_name %>
-                              </dd>
-                            </div>
-
-                          </dl>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="tab">
-                      <input type="checkbox" id="family_details" >
-                      <label class="tab-label" for="family_details" >Family Details</label>
-                      <div class="tab-content">
-                        Random Content
-                      </div>
-                    </div>
-
-                    <div class="tab">
-                      <input type="checkbox" id="disease_history" >
-                      <label class="tab-label" for="disease_history" >Disease History</label>
-                      <div class="tab-content">
-                        Random Content
-                      </div>
-                    </div>
+              <div class="tab rounded-md border-b border-gray-200">
+                <input type="checkbox" id="disease_history">
+                <label class="tab-label px-4 py-6 text-lg" for="disease_history">Disease History</label>
+                <div class="tab-content">
+                  Random Content
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </body>
-</html>
+    </body>
+  </html>
