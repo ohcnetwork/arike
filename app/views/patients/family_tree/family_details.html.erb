@@ -1,11 +1,11 @@
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
     <%= form_with url: "/patients/#{@patient.id}/family_details", method: :put do |form| %>
-      <div id="family_form"  ></div>
+      <div id="family-form"  ></div>
     <% end %>
   </div>
 </div>
-<script type="text/json" id="data">
+<script type="text/json" id="family-form-data">
   {
     "relations": <%= FamilyDetail.relations.values %>,
     "educations":<%= FamilyDetail.educations.values %>,
@@ -14,5 +14,5 @@
   }
 </script>
 <script>
-FamilyManager.start("family_form")
+  FamilyManager.start("family-form", "family-form-data")
 </script>
