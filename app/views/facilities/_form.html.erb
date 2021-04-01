@@ -7,35 +7,35 @@
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :kind, "Type", class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("kind", ["PHC", "CHC"] , {}, onChange: "removeCHCSelect(event)", class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+                <%= form.select("kind", ["PHC", "CHC", "Hospital"] , {}, onChange: "removeCHCSelect(event)", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.text_field :name, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+                <%= form.text_field :name, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :state, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.text_field :state, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+                <%= form.text_field :state, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :district, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.text_field :district, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+                <%= form.text_field :district, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :lsg_body_id, class: "block text-sm font-medium text-gray-700" %>
                 <%= form.select("lsg_body_id", lsg_body.map{ |body| [body.name, body.id]}, {
-          }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
+          }, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
           %>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :ward_id, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("ward_id", ward.map{ |body| [body.name, body.id]}, {
-          }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
+                <%= form.select("ward_id", ward.map{ |body| [body.number, body.id]}, {
+          }, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
           %>
               </div>
               <div class="col-span-6">
                 <%= form.label :address, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.text_area :address, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"%>
+                <%= form.text_area :address, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :pincode, class: "block text-sm font-medium text-gray-700" %>
@@ -43,7 +43,7 @@
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :phone, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.telephone_field :phone, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+                <%= form.telephone_field :phone, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
               </div>
               <div class="col-span-6 sm:col-span-3" id="remove_this_div">
                 <%= form.label :parent_id, "Link CHC", class: "block text-sm font-medium text-gray-700" %>

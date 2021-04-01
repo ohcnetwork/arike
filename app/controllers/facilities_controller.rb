@@ -6,7 +6,7 @@ class FacilitiesController < ApplicationController
   def index
     @page = params.fetch(:page, 1).to_i
     @search_text = params.fetch(:search, "")
-    @secondary_facilities = filter_facilities(@search_text, @page)
+    @secondary_facilities = filter_facilities(@total_pages, @search_text, @page)
     authorize Facility
   end
 
@@ -69,13 +69,24 @@ class FacilitiesController < ApplicationController
 
   private
 
-  def filter_facilities(search_text, page)
+  def filter_facilities(total_pages, search_text, page)
     @CARDS_PER_PAGE = 8
     filtered_facilities = Facility.where("name ILIKE :search_text", search_text: "%#{search_text}%")
     @facilities_count = filtered_facilities.count
     @total_pages = (filtered_facilities.count * 1.0 / @CARDS_PER_PAGE).ceil()
-    @secondary_facilities = filtered_facilities.offset(@CARDS_PER_PAGE * (page - 1)).limit(@CARDS_PER_PAGE)
+    # keep the pages within a limit
+    @page = constraint(page, @total_pages, 1)
+    @secondary_facilities = filtered_facilities.offset(@CARDS_PER_PAGE * (@page - 1)).limit(@CARDS_PER_PAGE)
     @secondary_facilities
+  end
+
+  def constraint(number, upper_bound, lower_bound)
+    if number > upper_bound
+      number = upper_bound
+    elsif number < lower_bound
+      number = lower_bound
+    end
+    number
   end
 end
 

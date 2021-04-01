@@ -1,14 +1,19 @@
+<header>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <h1 class="text-3xl font-bold leading-tight text-gray-900">Facilities</h1>
+  </div>
+</header>
 <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
   <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
     <div class="w-full">
-    <%= form_tag facilities_path, method: :get do %>
-      <div class="relative">
-        <%= text_field_tag :search, @search_text,placeholder: "Search", class: "block w-full bg-white border border-gray-300 rounded-md py-2 pl-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-          <button type="submit" class="focus:outline-none"><i class="fas fa-search"></i></button>
+      <%= form_tag facilities_path, method: :get do %>
+        <div class="relative">
+          <%= text_field_tag :search, @search_text,placeholder: "Search for facility name", class: "block w-full bg-white border border-gray-300 rounded-md py-2 pl-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <button type="submit" class="focus:outline-none"><i class="fas fa-search"></i></button>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
     </div>
   </div>
 </div>
