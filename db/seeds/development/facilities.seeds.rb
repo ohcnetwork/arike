@@ -8,7 +8,7 @@ LsgBody.all.each do |lsg|
     name: Faker::Name.name,
     state: "Kerala",
     district: "Ernakulum",
-    lsg_body: lsg,
-    ward: lsg.wards.last.id,
+    lsg_body_id: lsg.id,
+    ward_id: lsg.wards.last.id,
   )
 end
