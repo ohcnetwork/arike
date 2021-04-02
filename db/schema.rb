@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_110245) do
+ActiveRecord::Schema.define(version: 2021_04_02_075716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 2021_03_31_110245) do
     t.string "district"
   end
 
+  create_table "patient_disease_summaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "patient_id"
+    t.uuid "name"
+    t.string "date_of_diagnosis"
+    t.string "investigation"
+    t.string "treatments"
+    t.string "remarks"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "patients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "full_name"
     t.date "dob"
@@ -73,18 +84,25 @@ ActiveRecord::Schema.define(version: 2021_03_31_110245) do
     t.string "notes"
     t.uuid "reported_by"
     t.uuid "created_by"
-    t.uuid "facility_id"
     t.string "sex"
     t.string "emergency_phone_no"
     t.string "disease"
     t.string "patient_views"
     t.string "family_views"
+    t.uuid "facility_id"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
 
   create_table "patients_users", force: :cascade do |t|
     t.uuid "patient_id"
     t.uuid "user_id"
+  end
+
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

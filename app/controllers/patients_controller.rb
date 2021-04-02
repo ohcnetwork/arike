@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
     @patient.update_users(volunteer_user_ids)
 
-    redirect_to patients_path
+    redirect_to patient_path
   end
 
   private
