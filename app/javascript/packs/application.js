@@ -9,6 +9,8 @@ import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
 import * as FamilyManager from "../Patient/FamilyManageForm/main.bs"
+import * as PatientDiseaseHistory from "../Patient/DiseaseHistory/disease.bs"
+
 
 Rails.start();
 Turbolinks.start();
@@ -18,3 +20,4 @@ import "stylesheets/application";
 
 window.PatientFormPage = PatientFormPage;
 window.FamilyManager = FamilyManager;
+window.PatientDiseaseHistory = PatientDiseaseHistory
