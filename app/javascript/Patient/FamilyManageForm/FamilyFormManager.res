@@ -17,7 +17,7 @@ let s = React.string
 
 open Belt
 
-let count = ref(0)
+let count = ref(1)
 
 type action =
   | AddFamilyMember
@@ -38,15 +38,28 @@ let reducer = (state, action) =>
     }
   }
 
+
+
 @react.component
 let make = (~dataId) => {
   let initialState = getData(dataId)
   let (state, dispatch) = React.useReducer(reducer, initialState)
+  let new_props = FamilyMemberForm.FamilyMember.make(~id="0")
+  let len = Js.Array.length(initialState.members)
 
-  count := count.contents + Js.Array.length(initialState.members)
+  if(len > 0)
+  {
+    count := count.contents + len - 1;
+  }
+  else
+  {
+    count := count.contents
+  }
+
+
 
   <div className="max-w-3xl mx-auto mt-8 relative">
-    {state.members
+    {Js.Array.length(state.members) > 0 ? (state.members
     ->Belt.Array.mapWithIndex((i, props) => {
       <FamilyMemberForm
         props
@@ -55,9 +68,18 @@ let make = (~dataId) => {
         relations={state.relations}
         educations={state.educations}
         occupations={state.occupations}
+      />})->React.array) : (
+        <FamilyMemberForm
+        props=new_props
+        key={"0"}
+        onClick={_mouseEvt => DeleteFamilyMember(new_props)->dispatch}
+        relations={state.relations}
+        educations={state.educations}
+        occupations={state.occupations}
       />
-    })
-    ->React.array}
+      )
+    }
+
     <button
       className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       onClick={mouseEvt => {

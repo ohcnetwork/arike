@@ -5,7 +5,7 @@ module PatientDisease = {
     patient_id: string,
     date_of_diagnosis: string,
     investigation: string,
-    treatements: string,
+    treatments: string,
     status: string,
     remarks: string,
   }
@@ -16,7 +16,7 @@ module PatientDisease = {
     patient_id: "",
     date_of_diagnosis: "",
     investigation: "",
-    treatements: "",
+    treatments: "",
     status: "",
     remarks: "",
   }
@@ -26,7 +26,7 @@ let s = React.string
 type props = PatientDisease.t
 
 @react.component
-let make = (~props: props, ~onClick) => {
+let make = (~props: props, ~onClick, ~list) => {
   let id = props.id
   <div
     className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6  rounded px-3 py-2">
@@ -36,13 +36,14 @@ let make = (~props: props, ~onClick) => {
         {s("Name of Disease")}
       </label>
       <div className="mt-1">
-        <input
-          type_="text"
+        <select
           name={`patientDiseases[${id}][name]`}
           defaultValue={props.name}
-          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-          required={true}
-        />
+          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+          {list
+           ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
+          ->React.array}
+        </select>
       </div>
     </div>
     <div className="sm:col-span-3 field">
@@ -80,7 +81,7 @@ let make = (~props: props, ~onClick) => {
       </label>
       <div className="mt-1">
         <textarea
-          defaultValue={props.remarks}
+          defaultValue={props.treatments}
           name={`patientDiseases[${id}][treatments]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
         />

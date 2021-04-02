@@ -7,7 +7,8 @@
 </div>
 <script type="text/json" id="patient-disease-form-data">
   {
-    "diseases": <%= @patient.patient_disease_summaries.to_json %>
+    "diseases": <%= @patient.patient_disease_summaries.to_json %>,
+    "list_of_diseases": <%= Disease.all.to_a.map {|body| ["#{body.icds_code} - #{body.name}", body.id]} %>
   }
 </script>
 <script>

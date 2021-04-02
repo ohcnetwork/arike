@@ -2,7 +2,7 @@
   <div class="p-6 border rounded-md shadow hover:shadow-lg bg-white">
     <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100 transition-shadow">
       <dt class="font-medium text-gray-500">Disease</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.name ? disease.name : "- - -" %></dd>
+      <dd class="text-gray-900 col-span-2"><%= disease.name ? Disease.find_by_id(disease.name).name : "- - -" %></dd>
     </div>
     <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
       <dt class="font-medium text-gray-500">Investigation</dt>

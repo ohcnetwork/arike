@@ -1,5 +1,6 @@
 type state = {
   diseases: array<DiseaseHistoryForm.PatientDisease.t>,
+  list_of_diseases: array<array<string>>,
 }
 open Belt
 
@@ -22,12 +23,15 @@ type action =
 let reducer = (state, action) =>
   switch action {
     | AddDisease => {
+      ...state,
       diseases: Belt.Array.concat(
+
         state.diseases,
         [DiseaseHistoryForm.PatientDisease.make(~id=Belt.Int.toString(count.contents))],
       )
     }
     | RemoveDisease(disease) => {
+      ...state,
       diseases: Js.Array.filter(m => m != disease, state.diseases),
     }
   }
@@ -54,6 +58,7 @@ let make = (~dataId) => {
     ->Belt.Array.mapWithIndex((i, props) => {
       <DiseaseHistoryForm
         props
+        list = {state.list_of_diseases}
         key={i->Belt.Int.toString}
         onClick={_mouseEvt => RemoveDisease(props)->dispatch}
 
@@ -62,6 +67,7 @@ let make = (~dataId) => {
 
     (<DiseaseHistoryForm
         props=new_props
+        list = {state.list_of_diseases}
         key={"0"}
         onClick={_mouseEvt => RemoveDisease(new_props)->dispatch}
 
