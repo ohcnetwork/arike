@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # skip_before_action :ensure_logged_in, only: [:signup, :create]
-  before_action :ensure_superuser, only: [:index, :new, :update, :verify]
+  #before_action :ensure_superuser, only: [:index, :new, :update, :verify]
 
   def index
   end
