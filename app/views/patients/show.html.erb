@@ -115,7 +115,7 @@
           </div>
           <div class="w-full sm:w-1/4 md:w-2/5 flex flex-col justify-between">
             <div>
-              <%= link_to "Add Health Information", { action: "new" },
+              <%= link_to "Add Health Information", disease_history_path ,
                         class: "w-full mx-1 mb-4 md:text-lg inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
             </div>
             <div>
@@ -218,7 +218,9 @@
                 <input type="checkbox" id="disease_history">
                 <label class="tab-label px-4 py-6 text-lg" for="disease_history">Disease History</label>
                 <div class="tab-content">
-                  Random Content
+                  <% @patient.patient_disease_summaries.each do |disease| %>
+                      <%= render partial: "disease-history", locals: {disease: disease} %>
+                    <% end %>
                 </div>
               </div>
             </div>

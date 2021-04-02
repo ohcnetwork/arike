@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get "/patients/:id/family_details", to: "family_details#index", as: :family_details
   get "patients/:id/family_details/all", to: "family_details#allMembers"
   get "/patients/:patient_id/family_details/edit", to: "family_details#edit"
-  get "/patients/:patient_id/disease_history", to: "patient_disease_summaries#index"
+  get "/patients/:id/disease_history", to: "patient_disease_summaries#index", as: :disease_history
+  put "/patients/:id/patient_disease_summary/", to: "patient_disease_summaries#update"
 
   put "/patients/:id/family_details/", to: "family_details#update"
   put "/users/:id/verify", to: "users#verify", as: :verify_user

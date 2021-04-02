@@ -1,6 +1,7 @@
 class Patient < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :family_details
+  has_many :patient_disease_summaries
   belongs_to :facility
 
   def add_users(user_ids)
@@ -26,7 +27,14 @@ class Patient < ApplicationRecord
     family_details_params.values.each { |details|
       details[:patient_id] = patient_id
       family_member = FamilyDetail.create!(details)
-      self.family_details << family_details
+    }
+  end
+
+  def update_disease_history(disease_history, patient_id)
+    self.patient_disease_summaries.destroy_all
+    disease_history.values.each { |details|
+      details[:patient_id] = patient_id
+      disease = PatientDiseaseSummary.create!(details)
     }
   end
 end

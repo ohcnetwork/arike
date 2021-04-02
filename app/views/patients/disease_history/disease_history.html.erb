@@ -1,13 +1,13 @@
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
-    <%= form_with url: "/patients/#{@patient.id}/patient_disease_summaries", method: :put do |form| %>
+    <%= form_with url: "/patients/#{@patient.id}/patient_disease_summary", method: :put do |form| %>
       <div id="patient-disease-form"  ></div>
     <% end %>
   </div>
 </div>
 <script type="text/json" id="patient-disease-form-data">
   {
-    "diseases": "[{}]"
+    "diseases": <%= @patient.patient_disease_summaries.to_json %>
   }
 </script>
 <script>
