@@ -4,15 +4,7 @@
         <div id="patient-form"></div>
         <script type="text/json" id="data">
           {
-            "full_name": "<%= patient[:full_name] %>",
-            "dob": "<%= patient[:dob] %>",
-            "sex": "<%= patient[:sex] %>",
-            "phone": "<%= patient[:phone] %>",
-            "address": "<%= patient[:address] %>",
-            "route": "<%= patient[:route] %>",
-            "notes": "<%= patient[:notes] %>",
-            "emergency_phone_no": "<%= patient[:emergency_phone_no] %>",
-            "economic_status": "<%= patient[:economic_status] %>",
+            "patient": <%= patient.to_json %>,
             "lsg": <%= LsgBody.all.to_a.map {|body| ["#{body.name} - #{body.kind}", body.id]} %>,
             <%# "lsg_selected": "<%= patient.lsg_body", %>
             "volunteers": <%= User.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,

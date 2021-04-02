@@ -1,4 +1,4 @@
-type data = {
+type patient = {
   full_name: string,
   dob: string,
   sex: string,
@@ -8,6 +8,15 @@ type data = {
   notes: string,
   emergency_phone_no: string,
   economic_status: string,
+  reported_by: string,
+  created_by: string,
+  facility_id: string,
+  disease: string,
+  patient_view: string,
+  family_view: string,
+}
+type data = {
+  patient: patient,
   lsg: array<array<string>>,
   lsg_selected: string,
   volunteers: array<array<string>>,
@@ -59,7 +68,7 @@ module PatientRegister = {
             <input
               type_="text"
               name="patient[full_name]"
-              defaultValue=state.full_name
+              defaultValue=state.patient.full_name
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -72,7 +81,7 @@ module PatientRegister = {
             <input
               name="patient[dob]"
               type_="date"
-              defaultValue=state.dob
+              defaultValue=state.patient.dob
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -85,7 +94,7 @@ module PatientRegister = {
             <select
               name="patient[sex]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-              defaultValue=state.sex>
+              defaultValue=state.patient.sex>
               <option> {s("Select")} </option>
               <option value="Male"> {s("Male")} </option>
               <option value="Female"> {s("Female")} </option>
@@ -101,7 +110,7 @@ module PatientRegister = {
             <input
               name="patient[phone]"
               type_="text"
-              defaultValue=state.phone
+              defaultValue=state.patient.phone
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
@@ -115,12 +124,11 @@ module PatientRegister = {
             <input
               name="patient[emergency_phone_no]"
               type_="text"
-              defaultValue=state.emergency_phone_no
+              defaultValue=state.patient.emergency_phone_no
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
         </div>
-
         <div className="sm:col-span-3 field">
           <label name="patient[address]" className="block text-sm font-medium text-gray-700">
             {s("Address")}
@@ -129,7 +137,7 @@ module PatientRegister = {
             <textarea
               name="patient[address]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-              defaultValue=state.address
+              defaultValue=state.patient.address
             />
           </div>
         </div>
@@ -141,7 +149,7 @@ module PatientRegister = {
             <textarea
               name="patient[route]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-              defaultValue=state.route
+              defaultValue=state.patient.route
             />
           </div>
         </div>
@@ -167,7 +175,7 @@ module PatientRegister = {
           <div className="mt-1">
             <textarea
               name="patient[notes]"
-              defaultValue=state.notes
+              defaultValue=state.patient.notes
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
             />
           </div>
@@ -210,7 +218,7 @@ module PatientRegister = {
           <div className="mt-1">
             <select
               name="patient[economic_status]"
-              defaultValue=state.economic_status
+              defaultValue=state.patient.economic_status
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
               <option> {s("Well Off")} </option>
               <option> {s("Middle Class")} </option>
