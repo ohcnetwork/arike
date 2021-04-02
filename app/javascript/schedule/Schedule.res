@@ -67,7 +67,7 @@ module Schedule = {
   let make = (~visits) => {
     Js.log(visits)
 
-    <div> <div className="space-y-4"> {patientList->React.array} </div> </div>
+    <div> <SearchSortFilter /> <div className="space-y-4"> {patientList->React.array} </div> </div>
   }
 }
 
