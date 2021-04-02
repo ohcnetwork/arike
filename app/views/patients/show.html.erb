@@ -217,10 +217,12 @@
               <div class="tab rounded-md border-b border-gray-200">
                 <input type="checkbox" id="disease_history">
                 <label class="tab-label px-4 py-6 text-lg" for="disease_history">Disease History</label>
-                <div class="tab-content">
-                  <% @patient.patient_disease_summaries.each do |disease| %>
+                <div class="tab-content overflow-hidden bg-gray-100">
+                  <div class="md:flex md:flex-wrap bg-gray-100">
+                    <% @patient.patient_disease_summaries.each do |disease| %>
                       <%= render partial: "disease-history", locals: {disease: disease} %>
                     <% end %>
+                  </div>
                 </div>
               </div>
             </div>

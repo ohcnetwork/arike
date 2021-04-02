@@ -43,6 +43,8 @@ let make = (~dataId) => {
   let initialState = getData(dataId)
   let (state, dispatch) = React.useReducer(reducer, initialState)
 
+  count := count.contents + Js.Array.length(initialState.members)
+
   <div className="max-w-3xl mx-auto mt-8 relative">
     {state.members
     ->Belt.Array.mapWithIndex((i, props) => {
