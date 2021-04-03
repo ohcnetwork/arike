@@ -1,6 +1,7 @@
 class FacilityPolicy < ApplicationPolicy
   def index?
-    user && user.superuser?
+    # also do for MO
+    user && (user.superuser? || user.secondary_nurse?)
   end
 
   def show?
@@ -19,6 +20,8 @@ class FacilityPolicy < ApplicationPolicy
     def resolve
       if user.superuser?
         Facility.all
+      elsif user.nurse?
+        Facility.where(id: user.facility_id)
       end
     end
   end

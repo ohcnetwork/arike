@@ -71,7 +71,7 @@ class FacilitiesController < ApplicationController
 
   def filter_facilities(total_pages, search_text, page)
     @CARDS_PER_PAGE = 8
-    filtered_facilities = Facility.where("name ILIKE :search_text", search_text: "%#{search_text}%")
+    filtered_facilities = policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%")
     @facilities_count = filtered_facilities.count
     @total_pages = (filtered_facilities.count * 1.0 / @CARDS_PER_PAGE).ceil()
     # keep the pages within a limit
