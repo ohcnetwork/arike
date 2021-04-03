@@ -35,7 +35,10 @@ Rails
     post '/password_reset/update', to: 'password_reset#update'
 
     # visit_details
-    get '/visit_details/decision', to: 'visit_details#decision', as: 'visit_details_decision'
+    get '/visit_details/decision', to: 'visit_details#decision'
+    post '/visit_details/assign_to', to: 'visit_details#assign_to'
+    post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit' 
+    post '/visit_details/expired', to: 'visit_details#expired'
 
     resources :visit_details
     resources :sessions

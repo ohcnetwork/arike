@@ -50,6 +50,15 @@ class VisitDetailsController < ApplicationController
   end
 
   def decision
-
   end
+
+  def expired
+  end
+
+  def assign_to
+  end
+
+  def schedule_revisit
+  end
+
 end
