@@ -65,10 +65,14 @@ let patientList = patients->Belt.Array.map(patient => <Patient patient />)
 module Schedule = {
   @react.component
   let make = (~visits) => {
-    Js.log(visits)
+    let (searchTerm, setSearchTerm) = React.useState(_ => "")
+    let (sortOption, setSortOption) = React.useState(_ => "")
+    let (filterOptions, setFilterOptions) = React.useState(_ => [])
+
+    Js.log4(visits, searchTerm, sortOption, filterOptions)
 
     <div>
-      <SearchSortFilter />
+      <SearchSortFilter setSearchTerm setSortOption setFilterOptions />
       <SelectedPatients />
       <div className="space-y-4"> {patientList->React.array} </div>
     </div>
