@@ -5,6 +5,7 @@ class User < ApplicationRecord
   belongs_to :facilities, class_name: "Facility", foreign_key: "facility_id", optional: true
   enum roles: {
                 superuser: "Superuser",
+                medical_officer: "Medical Officer",
                 primary_nurse: "Primary Nurse",
                 secondary_nurse: "Secondary Nurse",
                 asha: "ASHA",
@@ -72,6 +73,10 @@ class User < ApplicationRecord
 
   def nurse?
     self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
+  end
+
+  def medical_officer?
+    self[:role] == User.roles[:medical_officer]
   end
 
   def has_facility_access?
