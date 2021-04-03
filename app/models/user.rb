@@ -80,7 +80,7 @@ class User < ApplicationRecord
   end
 
   def has_facility_access?
-    [User.roles[:superuser], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
+    [User.roles[:superuser], User.roles[:medical_officer], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
   end
 
   def facility

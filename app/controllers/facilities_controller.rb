@@ -67,8 +67,6 @@ class FacilitiesController < ApplicationController
     params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
   end
 
-  private
-
   def filter_facilities(total_pages, search_text, page)
     @CARDS_PER_PAGE = 8
     filtered_facilities = policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%")
