@@ -52,9 +52,11 @@ class FacilitiesController < ApplicationController
   end
 
   def show_users
+    authorize @facility
   end
 
   def show_patients
+    authorize @facility
   end
 
   private

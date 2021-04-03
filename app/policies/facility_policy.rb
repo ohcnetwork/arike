@@ -1,19 +1,26 @@
 class FacilityPolicy < ApplicationPolicy
   def index?
-    # also do for MO
     user && (user.superuser? || user.secondary_nurse? || user.medical_officer?)
   end
 
   def show?
-    user && user.has_facility_access?
+    user && (user.superuser? || user.facility_id == record.id)
   end
 
   def new?
-    user && user.has_facility_access?
+    user && user.superuser?
   end
 
   def create?
-    user && user.has_facility_access?
+    user && user.superuser?
+  end
+
+  def show_users?
+    user && (user.superuser? || user.facility_id == record.id)
+  end
+
+  def show_patients?
+    user && (user.superuser? || user.facility_id == record.id)
   end
 
   def assign_facility?
@@ -51,7 +58,7 @@ class FacilityPolicy < ApplicationPolicy
       if (user.superuser? || user.medical_officer?)
         Facility.all
       elsif user.nurse?
-        Facility.where(id: user.facility_id)
+        Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id))
       end
     end
   end
