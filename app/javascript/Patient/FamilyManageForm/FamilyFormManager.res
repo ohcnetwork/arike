@@ -38,8 +38,6 @@ let reducer = (state, action) =>
     }
   }
 
-
-
 @react.component
 let make = (~dataId) => {
   let initialState = getData(dataId)
@@ -47,57 +45,55 @@ let make = (~dataId) => {
   let new_props = FamilyMemberForm.FamilyMember.make(~id="0")
   let len = Js.Array.length(initialState.members)
 
-  if(len > 0)
-  {
-    count := count.contents + len - 1;
-  }
-  else
-  {
+  if len > 0 {
+    count := count.contents + len - 1
+  } else {
     count := count.contents
   }
 
-
-
   <div className="max-w-3xl mx-auto mt-8 relative">
-    {Js.Array.length(state.members) > 0 ? (state.members
-    ->Belt.Array.mapWithIndex((i, props) => {
-      <FamilyMemberForm
-        props
-        key={i->Belt.Int.toString}
-        onClick={_mouseEvt => DeleteFamilyMember(props)->dispatch}
-        relations={state.relations}
-        educations={state.educations}
-        occupations={state.occupations}
-      />})->React.array) : (
-        <FamilyMemberForm
-        props=new_props
-        key={"0"}
-        onClick={_mouseEvt => DeleteFamilyMember(new_props)->dispatch}
-        relations={state.relations}
-        educations={state.educations}
-        occupations={state.occupations}
-      />
-      )
-    }
-
-    <button
-      className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      onClick={mouseEvt => {
-        count := count.contents + 1
-        mouseEvt->ReactEvent.Mouse.preventDefault
-        AddFamilyMember->dispatch
-      }}>
-      {s("Add Family Member")}
-    </button>
-    <div />
-    {if count.contents > 0 {
+    {Js.Array.length(state.members) > 0
+      ? state.members
+        ->Belt.Array.mapWithIndex((i, props) => {
+          <FamilyMemberForm
+            props
+            count={i}
+            key={i->Belt.Int.toString}
+            onClick={_mouseEvt => DeleteFamilyMember(props)->dispatch}
+            relations={state.relations}
+            educations={state.educations}
+            occupations={state.occupations}
+          />
+        })
+        ->React.array
+      : <FamilyMemberForm
+          props=new_props
+          count={0}
+          key={"0"}
+          onClick={_mouseEvt => DeleteFamilyMember(new_props)->dispatch}
+          relations={state.relations}
+          educations={state.educations}
+          occupations={state.occupations}
+        />}
+    <div className="flex">
       <button
-        type_="submit"
-        className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        {s("Save")}
+        className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={mouseEvt => {
+          count := count.contents + 1
+          mouseEvt->ReactEvent.Mouse.preventDefault
+          AddFamilyMember->dispatch
+        }}>
+        {s("Add Family Member")}
       </button>
-    } else {
-      React.null
-    }}
+      {if count.contents > 0 {
+        <button
+          type_="submit"
+          className="ml-4 mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+          {s("Save")}
+        </button>
+      } else {
+        React.null
+      }}
+    </div>
   </div>
 }

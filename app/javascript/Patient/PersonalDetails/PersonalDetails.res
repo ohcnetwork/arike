@@ -1,14 +1,13 @@
 type patient = {
   full_name: string,
   dob: string,
-  sex: string,
+  gender: string,
   phone: string,
   address: string,
   route: string,
   notes: string,
   emergency_phone_no: string,
   economic_status: string,
-  reported_by: string,
   created_by: string,
   facility_id: string,
   disease: string,
@@ -21,8 +20,6 @@ type data = {
   volunteers_selected: array<array<string>>,
   facility: array<array<string>>,
   facility_selected: string,
-  reported_by: array<array<string>>,
-  reported_by_selected: string,
 }
 @scope("JSON") @val
 external parseJson: string => data = "parse"
@@ -82,14 +79,14 @@ module PatientRegister = {
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label name="patient[sex]" className="block text-sm font-medium text-gray-700">
-            {s("Sex")}
+          <label name="patient[gender]" className="block text-sm font-medium text-gray-700">
+            {s("Gender")}
           </label>
           <div className="mt-1">
             <select
-              name="patient[sex]"
+              name="patient[gender]"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-              defaultValue=state.patient.sex>
+              defaultValue=state.patient.gender>
               <option> {s("Select")} </option>
               <option value="Male"> {s("Male")} </option>
               <option value="Female"> {s("Female")} </option>
@@ -125,15 +122,18 @@ module PatientRegister = {
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label name="patient[address]" className="block text-sm font-medium text-gray-700">
-            {s("Address")}
+          <label name="patient[facility_id]" className="block text-sm font-medium text-gray-700">
+            {s("Facility")}
           </label>
           <div className="mt-1">
-            <textarea
-              name="patient[address]"
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-              defaultValue=state.patient.address
-            />
+            <select
+              name="patient[facility_id]"
+              defaultValue=state.facility_selected
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+              {state.facility
+              ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
+              ->React.array}
+            </select>
           </div>
         </div>
         <div className="sm:col-span-3 field">
@@ -149,18 +149,15 @@ module PatientRegister = {
           </div>
         </div>
         <div className="sm:col-span-3 field">
-          <label name="patient[facility_id]" className="block text-sm font-medium text-gray-700">
-            {s("Facility")}
+          <label name="patient[address]" className="block text-sm font-medium text-gray-700">
+            {s("Address")}
           </label>
           <div className="mt-1">
-            <select
-              name="patient[facility_id]"
-              defaultValue=state.facility_selected
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              {state.facility
-              ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
-              ->React.array}
-            </select>
+            <textarea
+              name="patient[address]"
+              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
+              defaultValue=state.patient.address
+            />
           </div>
         </div>
         <div className="sm:col-span-3 field">
@@ -222,26 +219,11 @@ module PatientRegister = {
             </select>
           </div>
         </div>
-        <div className="sm:col-span-3 field">
-          <label name="patient[reported_by]" className="block text-sm font-medium text-gray-700">
-            {s("Reported By")}
-          </label>
-          <div className="mt-1">
-            <select
-              name="patient[reported_by]"
-              defaultValue=state.reported_by_selected
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-              {state.reported_by
-              ->Belt.Array.map(e => <option key={e[1]} value={e[1]}> {s(e[0])} </option>)
-              ->React.array}
-            </select>
-          </div>
-        </div>
       </div>
       <div className="actions">
         <input
           type_="submit"
-          className="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="mt-8 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         />
       </div>
     </div>

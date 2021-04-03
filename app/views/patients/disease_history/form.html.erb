@@ -1,7 +1,10 @@
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
+    <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
+      Disease History
+    </h3>
     <%= form_with url: "/patients/#{@patient.id}/patient_disease_summary", method: :put do |form| %>
-      <div id="patient-disease-form"  ></div>
+      <div id="patient-disease-form"></div>
     <% end %>
   </div>
 </div>

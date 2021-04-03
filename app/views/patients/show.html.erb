@@ -7,28 +7,28 @@
         opacity: 0;
         z-index: -1;
       }
-
+      
       .row {
         display: flex;
       }
-
+      
       .row .col {
         flex: 1;
       }
-
+      
       /* Accordion styles */
       .tabs {
         border-radius: 0px;
         overflow: hidden;
         transition: all 0.3s ease-in-out;
       }
-
+      
       .tab {
         width: 100%;
         overflow: hidden;
         transition: all 0.35s;
       }
-
+      
       .tab-label {
         display: flex;
         justify-content: space-between;
@@ -36,12 +36,12 @@
         transition: all 0.2s ease-in-out;
         /* Icon */
       }
-
+      
       .tab-label:hover {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-
+      
       .tab-label::after {
         content: "\276F";
         width: 1em;
@@ -49,7 +49,7 @@
         text-align: center;
         transition: all 0.3s ease-in-out;
       }
-
+      
       .tab-content {
         max-height: 0;
         padding: 0 1em;
@@ -57,7 +57,7 @@
         background: white;
          transition: all 0.3s ease-in-out;
       }
-
+      
       .tab-close {
         display: flex;
         justify-content: flex-end;
@@ -65,20 +65,20 @@
         font-size: 0.75em;
         cursor: pointer;
       }
-
+      
       .tab-close:hover {
            background-color: rgba(79, 70, 229,1);
       }
-
+      
       input:checked+.tab-label {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-
+      
       input:checked+.tab-label::after {
         transform: rotate(90deg);
       }
-
+      
       input:checked~.tab-content {
         max-height: 100vh;
         padding: 1em;
@@ -118,116 +118,114 @@
               <%= link_to "Add Health Information", disease_history_path ,
                         class: "w-full mx-1 mb-4 md:text-lg inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
             </div>
-            <div>
-              <%= link_to "Edit Personal Details", { action: "edit" },
+            <div></div>
+            <%= link_to "Edit Personal Details", { action: "edit" },
                         class: "text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
-            </div>
-            <div>
-              <%= link_to "Edit Family Details", family_details_path ,
+          </div>
+          <div>
+            <%= link_to "Edit Family Details", family_details_path ,
                         class: "text-indigo-800 md:text-lg w-full mx-1 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
-            </div>
           </div>
         </div>
-        <div class="row mt-8">
-          <div class="col">
-            <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
-              Additional Information
-            </h3>
-            <div class="tabs">
-              <div class="tab rounded-md border-b border-gray-200">
-                <input type="checkbox" id="personal_details">
-                <label class="tab-label px-4 py-6 text-lg" for="personal_details">Personal Information</label>
-                <div class="tab-content">
-                  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                    <dl class="sm:divide-y sm:divide-gray-200">
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Full name</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.full_name %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">
-                          Date of birth
-                        </dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.dob %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Phone No.</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.phone %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Address</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.address %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Route</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.route %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">
-                          Economic Status
-                        </dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.economic_status %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Notes</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.notes %>
-                        </dd>
-                      </div>
-                      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Volunteers</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= @patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
-                        </dd>
-                      </div>
-                      <div
-                              class=" py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                        <dt class="font-medium text-gray-500">Reported By</dt>
-                        <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                          <%= User.find_by_id(@patient.reported_by).full_name %>
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
+      </div>
+      <div class="row mt-8">
+        <div class="col">
+          <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
+            Additional Information
+          </h3>
+          <div class="tabs">
+            <div class="tab rounded-md border-b border-gray-200">
+              <input type="checkbox" id="personal_details">
+              <label class="tab-label px-4 py-6 text-lg" for="personal_details">Personal Information</label>
+              <div class="tab-content">
+                <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                  <dl class="sm:divide-y sm:divide-gray-200">
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Full name</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.full_name %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">
+                        Date of birth
+                      </dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.dob %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Phone No.</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.phone %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Address</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.address %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Route</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.route %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">
+                        Economic Status
+                      </dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.economic_status %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Notes</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.notes %>
+                      </dd>
+                    </div>
+                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
+                      <dt class="font-medium text-gray-500">Volunteers</dt>
+                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <%= @patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
-              <div class="tab rounded-md border-b border-gray-200">
-                <input type="checkbox" id="family_details">
-                <label class="tab-label px-4 py-6 text-lg" for="family_details">Family Details</label>
-                <div class="tab-content overflow-hidden bg-gray-100">
-                  <div class="md:flex md:flex-wrap bg-gray-100">
-                    <% @patient.family_details.each do |member| %>
-                      <%= render partial: "/patients/family_tree/info-card", locals: {member: member} %>
+            </div>
+            <div class="tab rounded-md border-b border-gray-200">
+              <input type="checkbox" id="family_details">
+              <label class="tab-label px-4 py-6 text-lg" for="family_details">Family Details</label>
+              <div class="tab-content overflow-hidden bg-gray-100">
+                <div class="md:flex md:flex-wrap bg-gray-100">
+                  <% @patient.family_details.each do |member| %>
+                    <%= render partial: "/patients/family_tree/info-card", locals: {member: member} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="tab rounded-md border-b border-gray-200">
+              <input type="checkbox" id="disease_history">
+              <label class="tab-label px-4 py-6 text-lg" for="disease_history">Disease History</label>
+              <div class="tab-content overflow-hidden bg-gray-100 p-0 sm:p-4">
+                <%# <div class="md:flex md:flex-wrap bg-gray-100"> %>
+                <div class="container bg-gray-200 mx-auto w-full h-full">
+                  <div class="relative wrap overflow-hidden px-4 sm:px-6 md:px-8 h-full py-8">
+                    <div class="absolute h-full"></div>
+                    <% @patient.patient_disease_summaries.order(date_of_diagnosis: :desc).each_with_index do |disease,i| %>
+                      <%= render partial: "/patients/disease_history/info-card", locals: {disease: disease,index:i+1} %>
                     <% end %>
                   </div>
                 </div>
-              </div>
-              <div class="tab rounded-md border-b border-gray-200">
-                <input type="checkbox" id="disease_history">
-                <label class="tab-label px-4 py-6 text-lg" for="disease_history">Disease History</label>
-                <div class="tab-content overflow-hidden bg-gray-100">
-                  <div class="md:flex md:flex-wrap bg-gray-100">
-                    <% @patient.patient_disease_summaries.each do |disease| %>
-                      <%= render partial: "/patients/disease_history/info-card", locals: {disease: disease} %>
-                    <% end %>
-                  </div>
-                </div>
+                <%# </div> %>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </body>
-  </html>
+    </div>
+  </body>
+</html>

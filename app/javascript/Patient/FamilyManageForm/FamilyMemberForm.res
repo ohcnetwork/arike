@@ -27,11 +27,12 @@ let s = React.string
 type props = FamilyMember.t
 
 @react.component
-let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
+let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupations) => {
   let id = props.id
+  let isGray = count->Belt.Int.toFloat /. 2.0 > 0.0 ? "bg-gray-100" : "bg-white"
   <div
-    className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 bg-gray-200 rounded px-3 py-2">
-    <div className="sm:col-span-3 field px-2">
+    className={`grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded px-3 border-b py-8 ${isGray}`}>
+    <div className="sm:col-span-3 field">
       <label
         name={`familyDetails[${id}][full_name]`}
         className="block text-sm font-medium text-gray-700">
@@ -134,7 +135,7 @@ let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
         </select>
       </div>
     </div>
-    <div className="sm:col-span-3 field">
+    <div className="sm:col-span-6 field">
       <label
         name={`familyDetails[${id}][remarks]`} className="block text-sm font-medium text-gray-700">
         {s("Remark")}
@@ -148,12 +149,9 @@ let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
       </div>
     </div>
     <div className="sm:col-span-3 field">
-      <label
-        name={`familyDetails[${id}][remarks]`} className="block text-sm font-medium text-gray-700">
-        {s("Action")}
-      </label>
       <div className="mt-1">
         <button
+          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           onClick={mouseEvt => {
             mouseEvt->ReactEvent.Mouse.preventDefault
             onClick()
