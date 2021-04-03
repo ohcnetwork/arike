@@ -58,7 +58,7 @@ let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
           name={`familyDetails[${id}][relation]`}
           defaultValue={props.relation}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-          <option> {s("Select")} </option>
+          <option value=""> {s("Select")} </option>
           {relations
           ->Belt.Array.map(relation =>
             <option key={relation} value={relation}> {s(relation)} </option>
@@ -91,7 +91,7 @@ let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
           defaultValue={props.education}
           name={`familyDetails[${id}][education]`}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-          <option> {s("Select")} </option>
+          <option value=""> {s("Select")} </option>
           {educations
           ->Belt.Array.map(education =>
             <option key={education} value={education}> {s(education)} </option>
@@ -125,7 +125,7 @@ let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
           name={`familyDetails[${id}][occupation]`}
           defaultValue={props.occupation}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-          <option> {s("Select")} </option>
+          <option value=""> {s("Select")} </option>
           {occupations
           ->Belt.Array.map(occupation =>
             <option key={occupation} value={occupation}> {s(occupation)} </option>

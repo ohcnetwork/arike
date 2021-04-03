@@ -6,6 +6,7 @@ class PatientsController < ApplicationController
 
   def new
     @patient = Patient.new
+    render "/patients/personal_details/form", locals: { patient: @patient }
   end
 
   def create
@@ -13,24 +14,15 @@ class PatientsController < ApplicationController
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
     patient.add_users(volunteer_user_ids)
-    # patient.add_family_members()
     redirect_to patients_path
   end
 
   def show
     @patient = Patient.find_by(id: params[:id])
-    respond_to do |format|
-      format.html
-      format.json { render json: @patient}
-    end
-  end
-
-  def family_details
-    @patient = Patient.find_by(id: params[:id])
-    render "patients/details/family_details"
   end
 
   def edit
+    render "/patients/personal_details/form", locals: { patient: Patient.find_by_id(params[:id]) }
   end
 
   def update
@@ -38,7 +30,6 @@ class PatientsController < ApplicationController
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
     @patient.update_users(volunteer_user_ids)
-
     redirect_to patient_path
   end
 

@@ -17,12 +17,8 @@ type patient = {
 }
 type data = {
   patient: patient,
-  lsg: array<array<string>>,
-  lsg_selected: string,
   volunteers: array<array<string>>,
   volunteers_selected: array<array<string>>,
-  ashas: array<array<string>>,
-  asha_selected: string,
   facility: array<array<string>>,
   facility_selected: string,
   reported_by: array<array<string>>,
@@ -52,7 +48,6 @@ module PatientRegister = {
   let make = () => {
     let (state, _setState) = React.useState(() => getData())
 
-    //Js.log(state.volunteers_selected->Belt.Array.map(x => x[0]))
     if state.volunteers->Belt.Array.length > 0 {
       Js.log(state.volunteers_selected)
       checkExistingVolunteers(state)

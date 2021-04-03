@@ -209,7 +209,7 @@
                 <div class="tab-content overflow-hidden bg-gray-100">
                   <div class="md:flex md:flex-wrap bg-gray-100">
                     <% @patient.family_details.each do |member| %>
-                      <%= render partial: "family_member_detail_card", locals: {member: member} %>
+                      <%= render partial: "/patients/family_tree/info-card", locals: {member: member} %>
                     <% end %>
                   </div>
                 </div>
@@ -220,7 +220,7 @@
                 <div class="tab-content overflow-hidden bg-gray-100">
                   <div class="md:flex md:flex-wrap bg-gray-100">
                     <% @patient.patient_disease_summaries.each do |disease| %>
-                      <%= render partial: "disease-history", locals: {disease: disease} %>
+                      <%= render partial: "/patients/disease_history/info-card", locals: {disease: disease} %>
                     <% end %>
                   </div>
                 </div>

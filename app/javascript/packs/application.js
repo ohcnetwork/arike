@@ -7,7 +7,7 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
-import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
+import * as PatientFormPage from "../Patient/PersonalDetails/PersonalDetails.bs";
 import * as FamilyManager from "../Patient/FamilyManageForm/main.bs"
 import * as PatientDiseaseHistory from "../Patient/DiseaseHistory/disease.bs"
 
