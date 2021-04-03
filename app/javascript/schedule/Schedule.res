@@ -9,7 +9,8 @@ let patients = [
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
-    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
+    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=08.0, ()),
+    "test": 5,
   },
   {
     "name": "Patient 2",
@@ -19,7 +20,8 @@ let patients = [
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
-    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
+    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=04.0, ()),
+    "test": 2,
   },
   {
     "name": "Patient 3",
@@ -36,7 +38,8 @@ let patients = [
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
-    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
+    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=10.0, ()),
+    "test": 4,
   },
   {
     "name": "Patient 4",
@@ -46,7 +49,8 @@ let patients = [
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
-    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
+    "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=09.0, ()),
+    "test": 1,
   },
   {
     "name": "Patient 5",
@@ -57,10 +61,15 @@ let patients = [
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
+    "test": 3,
   },
 ]
 
-let patientList = patients->Belt.Array.map(patient => <Patient patient />)
+let sort = %raw(`
+  function(arr, sortOption) {
+    return arr.sort((a, b) => a[sortOption] - b[sortOption])
+  }
+`)
 
 module Schedule = {
   @react.component
@@ -68,8 +77,18 @@ module Schedule = {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "")
     let (filterOptions, setFilterOptions) = React.useState(_ => [])
+    let (patientsD, setPatientsD) = React.useState(_ => [])
 
     Js.log4(visits, searchTerm, sortOption, filterOptions)
+
+    React.useEffect1(() => {
+      let arr = sort(patients, sortOption)
+      setPatientsD(_ => arr)
+      Js.log(patientsD)
+      None
+    }, [sortOption])
+
+    let patientList = patientsD->Belt.Array.map(patient => <Patient patient />)
 
     <div>
       <SearchSortFilter setSearchTerm setSortOption setFilterOptions />

@@ -61,15 +61,15 @@ module Sort = {
           <div className="py-1">
             <option
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              value="next-visit"
+              value="next_visit"
               onClick={onSortOptionChange}>
-              {s("next-visit")}
+              {s("next visit")}
             </option>
             <option
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              value="last-visit"
+              value="last_visit"
               onClick={onSortOptionChange}>
-              {s("last-visit")}
+              {s("last visit")}
             </option>
           </div>
         </div>
