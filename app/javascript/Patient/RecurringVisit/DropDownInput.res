@@ -6,10 +6,7 @@ let make = (~question, ~field, ~options, ~isRequired) => {
   let optionsTags =
     options
     ->Belt.Array.map(op =>
-
-        <option key=op value=op disabled={op->isDisabled} selected={op->isDisabled}>
-          {s(op)}
-        </option>
+      <option key=op value=op disabled={op->isDisabled} selected={op->isDisabled}> {s(op)} </option>
     )
     ->React.array
   <div className="sm:col-span-3 field">

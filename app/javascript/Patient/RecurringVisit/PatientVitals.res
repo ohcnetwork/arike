@@ -27,7 +27,7 @@ let general_questions = [
   ("Poor mobility", "poor_mobility", false),
   ("Nausea", "nausea", false),
   ("Vomiting", "vomiting", false),
-  ("Poor Appetite", "poor_Appetite", false),
+  ("Poor Appetite", "poor_appetite", false),
   ("Constipation", "constipation", false),
   ("Sore/dry mouth", "sore", false),
   ("Drowsiness", "drowsiness", false),
@@ -44,7 +44,7 @@ let make = (~name, ~role) => {
 
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div className="max-w-3xl mx-auto">
-      <form className="space-y-8 " id="patientvitals-form">
+      <form className="space-y-8" action="/visit_details" id="patientvitals-form" method="post">
         <div className="space-y-8 sm:space-y-5">
           <div>
             <div>
@@ -57,12 +57,16 @@ let make = (~name, ~role) => {
             </div>
             <div
               className="mt-6 sm:mt-5 space-y-6 sm:space-y-5 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-              <NumberInput
+              <DropDownInput
                 question="Patient's general health status(AKPS)"
-                field="AKPS"
-                minimum=Some(0)
-                maximum=Some(100)
-                divClass="sm:col-span-6 field sm:grid sm:grid-cols-2 sm:gap-4 sm:items-start  sm:pt-5"
+                field="akps"
+                options=["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
+                isRequired=true
+              />
+              <DropDownInput
+                question="Palliative phase of illness"
+                field="palliative_phase"
+                options=["Not selected", "Stable", "Unstable", "Deteriorating", "Dying"]
                 isRequired=true
               />
               <RadioInput.YesNoRadioInput
@@ -80,12 +84,6 @@ let make = (~name, ~role) => {
                 isRequired=true
                 defaultValue=""
                 isEnabled=isEnabled_diseaseHistory
-              />
-              <DropDownInput
-                question="Palliative phase of illness"
-                field="palliative_phase"
-                options=["Not selected", "Stable", "Unstable", "Deteriorating", "Dying"]
-                isRequired=true
               />
               {general_questions
               ->Belt.Array.map(((ques, field, required)) =>
