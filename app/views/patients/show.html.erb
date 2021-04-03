@@ -7,28 +7,28 @@
         opacity: 0;
         z-index: -1;
       }
-      
+
       .row {
         display: flex;
       }
-      
+
       .row .col {
         flex: 1;
       }
-      
+
       /* Accordion styles */
       .tabs {
         border-radius: 0px;
         overflow: hidden;
         transition: all 0.3s ease-in-out;
       }
-      
+
       .tab {
         width: 100%;
         overflow: hidden;
         transition: all 0.35s;
       }
-      
+
       .tab-label {
         display: flex;
         justify-content: space-between;
@@ -36,12 +36,12 @@
         transition: all 0.2s ease-in-out;
         /* Icon */
       }
-      
+
       .tab-label:hover {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-      
+
       .tab-label::after {
         content: "\276F";
         width: 1em;
@@ -49,7 +49,7 @@
         text-align: center;
         transition: all 0.3s ease-in-out;
       }
-      
+
       .tab-content {
         max-height: 0;
         padding: 0 1em;
@@ -57,7 +57,7 @@
         background: white;
          transition: all 0.3s ease-in-out;
       }
-      
+
       .tab-close {
         display: flex;
         justify-content: flex-end;
@@ -65,20 +65,20 @@
         font-size: 0.75em;
         cursor: pointer;
       }
-      
+
       .tab-close:hover {
            background-color: rgba(79, 70, 229,1);
       }
-      
+
       input:checked+.tab-label {
         color:white;
         background-color: rgba(79, 70, 229,1);
       }
-      
+
       input:checked+.tab-label::after {
         transform: rotate(90deg);
       }
-      
+
       input:checked~.tab-content {
         max-height: 100vh;
         padding: 1em;
@@ -113,18 +113,19 @@
               </div>
             </div>
           </div>
-          <div class="w-full sm:w-1/4 md:w-2/5 flex flex-col justify-between">
+          <div class="w-full sm:w-1/4 md:w-2/5 justify-between">
             <div>
               <%= link_to "Add Health Information", disease_history_path ,
                         class: "w-full mx-1 mb-4 md:text-lg inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
             </div>
-            <div></div>
-            <%= link_to "Edit Personal Details", { action: "edit" },
-                        class: "text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
-          </div>
-          <div>
+            <div class="text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+              <img src="<%= asset_path 'icons/edit.svg' %>" class="mx-5">
+              <%= link_to "Edit Personal Details", { action: "edit" } %>
+            </div>
+            <div>
             <%= link_to "Edit Family Details", family_details_path ,
                         class: "text-indigo-800 md:text-lg w-full mx-1 inline-flex justify-center py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200" %>
+            </div>
           </div>
         </div>
       </div>

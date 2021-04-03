@@ -33,7 +33,7 @@
         <h1 class="mx-auto font-semibold text-lg text-white"><%=index%></h1>
       </div>
       <div class="order-1 bg-gray-100 rounded-lg shadow-lg w-full ml-8 px-6 py-4">
-        <h3 class="mb-3 font-bold text-gray-800 text-xl"><%= disease.date_of_diagnosis ? Time.parse(disease.date_of_diagnosis).strftime("%d %B, %Y") : "- - -" %></h3>
+        <h3 class="mb-3 font-bold text-gray-800 text-xl"><%= is_empty?(disease.date_of_diagnosis) ? Time.parse(disease.date_of_diagnosis).strftime("%d %B, %Y") : "- - -" %></h3>
         <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100 transition-shadow">
           <dt class="font-medium text-gray-500">Disease</dt>
           <dd class="text-gray-900 col-span-2"><%= disease.name ? Disease.find_by_id(disease.name).name : "- - -" %></dd>
