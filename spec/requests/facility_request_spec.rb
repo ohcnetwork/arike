@@ -16,11 +16,12 @@ RSpec.describe "Facility as superuser", type: :request do
     name = Faker::Name.name
     state = "State"
     district = "District"
+    address = Faker::Address.full_address
     pincode = Faker::Number.number(digits: 7)
     phone = Faker::Number.number(digits: 10)
     lsg_body_id = LsgBody.first.id
     ward_id = Ward.first.id
-    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, lsg_body_id: lsg_body_id, ward_id: ward_id, phone: phone, pincode: pincode } }
+    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, address: address, lsg_body_id: lsg_body_id, ward_id: ward_id, phone: phone, pincode: pincode } }
     expect(Facility.count).to eq(1)
   end
   it "create an invalid PHC (without parent_id)" do
@@ -28,10 +29,11 @@ RSpec.describe "Facility as superuser", type: :request do
     name = Faker::Name.name
     state = "State"
     district = "District"
+    address = Faker::Address.full_address
     pincode = Faker::Number.number(digits: 7)
     phone = Faker::Number.number(digits: 10)
     lsg_body_id = LsgBody.first.id
-    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, lsg_body_id: lsg_body_id, phone: phone, pincode: pincode } }
+    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, address: address, lsg_body_id: lsg_body_id, phone: phone, pincode: pincode } }
     expect(Facility.count).to eq(0)
   end
   it "create an invalid CHC (with parent_id)" do
@@ -41,12 +43,13 @@ RSpec.describe "Facility as superuser", type: :request do
     name = Faker::Name.name
     state = "State"
     district = "District"
+    address = Faker::Address.full_address
     lsg_body_id = LsgBody.first.id
     ward_id = Ward.first.id
     pincode = Faker::Number.number(digits: 7)
     phone = Faker::Number.number(digits: 10)
     parent_id = Facility.last.id
-    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, lsg_body_id: lsg_body_id, ward_id: ward_id, parent_id: parent_id, phone: phone, pincode: pincode } }
+    post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, address: address, lsg_body_id: lsg_body_id, ward_id: ward_id, parent_id: parent_id, phone: phone, pincode: pincode } }
     expect(Facility.count).to eq(current_count + 1)
   end
 end

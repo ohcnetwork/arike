@@ -16,7 +16,7 @@
       </div>
       <div class="px-4 py-6 sm:px-6">
         <ul class="space-y-8 list-disc ml-4">
-          <% @facility.patients.map do |patient| %>
+          <% @facility.patients.each do |patient| %>
             <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
               <div class="w-0 flex-1 flex items-center">
                 <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

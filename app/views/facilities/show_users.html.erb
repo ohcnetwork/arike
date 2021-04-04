@@ -32,7 +32,7 @@
             </h3>
           </div>
           <ul class="divide-y divide-gray-200 h-64">
-            <% @facility.primary_nurses.map do |nurse| %>
+            <% @facility.primary_nurses.each do |nurse| %>
               <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2 mx-8">
                 <h1><%= nurse.full_name %></h1>
                 <% if policy(@facility).unassign_facility? %>
