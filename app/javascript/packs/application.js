@@ -8,8 +8,6 @@ import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
-import * as FamilyManager from "../Patient/FamilyManageForm/main.bs";
-import * as PatientVitals from "../Patient/RecurringVisit/PatientVitals.bs";
 
 import "stylesheets/application";
 import "@fortawesome/fontawesome-free/js/all";
@@ -19,5 +17,3 @@ Turbolinks.start();
 ActiveStorage.start();
 
 window.PatientFormPage = PatientFormPage;
-window.FamilyManager = FamilyManager;
-window.PatientVitals = PatientVitals;

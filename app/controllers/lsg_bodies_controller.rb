@@ -1,5 +1,5 @@
 class LsgBodiesController < ApplicationController
-  before_action :ensure_logged_in
+  before_action :ensure_superuser
 
   def index
     @lsg_body = LsgBody.all

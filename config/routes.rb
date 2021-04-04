@@ -2,8 +2,6 @@ Rails
   .application
   .routes
   .draw do
-  resources :visit_details
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "home#index"
@@ -44,6 +42,13 @@ Rails
   post "/password_reset/verify", to: "password_reset#verify"
   post "/password_reset/update", to: "password_reset#update"
 
+  # visit_details
+  get "/visit_details/decision", to: "visit_details#decision"
+  post "/visit_details/assign_to", to: "visit_details#assign_to"
+  post "/visit_details/schedule_revisit", to: "visit_details#schedule_revisit"
+  post "/visit_details/expired", to: "visit_details#expired"
+
+  resources :visit_details
   resources :sessions
   resources :facilities
   resources :lsg_bodies

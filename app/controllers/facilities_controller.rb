@@ -81,7 +81,9 @@ class FacilitiesController < ApplicationController
   end
 
   def constraint(number, upper_bound, lower_bound)
-    if number > upper_bound
+    if upper_bound < lower_bound
+      number = 1
+    elsif number > upper_bound
       number = upper_bound
     elsif number < lower_bound
       number = lower_bound
