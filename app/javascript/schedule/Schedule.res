@@ -3,6 +3,7 @@ let s = React.string
 let patients_original = [
   {
     "name": "Sam Parker",
+    "ward": 1,
     "diseases": ["Alzheimer", "Dementias"],
     "procedures": ["Simple Check", "Pregnency Checkup", "Dialysis", "Kidney Test"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -13,6 +14,7 @@ let patients_original = [
   },
   {
     "name": "Richard Brookfield",
+    "ward": 1,
     "diseases": ["Epilepsy", "Alzheimer"],
     "procedures": ["Simple Check", "Through Check"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -23,6 +25,7 @@ let patients_original = [
   },
   {
     "name": "Amy Lucivell",
+    "ward": 3,
     "diseases": ["Parkinson", "Stroke"],
     "procedures": [
       "Simple Check",
@@ -40,6 +43,7 @@ let patients_original = [
   },
   {
     "name": "David Jackson",
+    "ward": 2,
     "diseases": ["Parkinson", "Transient Ischemic Attack", "Epilepsy", "Dementias"],
     "procedures": ["Simple Check"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -50,6 +54,7 @@ let patients_original = [
   },
   {
     "name": "Sammy Norms",
+    "ward": 3,
     "diseases": ["Dementias"],
     "procedures": ["Simple Check", "Through Check", "Dialysis", "Kidney Test"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -123,7 +128,13 @@ module Schedule = {
               })
         : patients_original
 
-      setPatients(_ => procedure_filtered_patients)
+      let ward_filtered_patients = !(wardFilters->Js.Array2.length == 0)
+        ? procedure_filtered_patients->Js.Array2.filter(patient => {
+            wardFilters->Js.Array2.includes(patient["ward"]->Belt.Int.toString)
+          })
+        : procedure_filtered_patients
+
+      setPatients(_ => ward_filtered_patients)
       None
     }, (procedureFilters, andProcedures, wardFilters))
 
