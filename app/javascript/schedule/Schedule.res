@@ -4,7 +4,7 @@ let patients_original = [
   {
     "name": "Sam Parker",
     "diseases": ["Alzheimer", "Dementias"],
-    "procedures": ["Simple Check", "Through Check", "Dialysis", "Kidney Test"],
+    "procedures": ["Simple Check", "Pregnency Checkup", "Dialysis", "Kidney Test"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
@@ -72,10 +72,12 @@ module Schedule = {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "")
     let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
+    let (andProcedures, setAndProcedures) = React.useState(_ => false)
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => patients_original)
 
     Js.log3(visits, procedureFilters, wardFilters)
+
     let setFilter = (setBasisFilter, value, active) => {
       if active {
         setBasisFilter(filters => filters->Belt.Array.concat([value]))
@@ -93,25 +95,37 @@ module Schedule = {
     }
 
     let setFilterOptions = (basis, value, active) => {
-      switch basis {
-      | "procedure" => setFilter(setProcedureFilters, value, active)
-      | "ward" => setFilter(setWardFilters, value, active)
-      | _ => ()
+      if value == "and" {
+        if basis == "procedure" {
+          setAndProcedures(prev => !prev)
+        }
+      } else {
+        switch basis {
+        | "procedure" => setFilter(setProcedureFilters, value, active)
+        | "ward" => setFilter(setWardFilters, value, active)
+        | _ => ()
+        }
       }
     }
 
-    React.useEffect2(() => {
+    React.useEffect3(() => {
       let procedure_filtered_patients = !(procedureFilters->Js.Array2.length == 0)
-        ? patients_original->Js.Array2.filter(patient => {
-            procedureFilters->Js.Array2.some(filter =>
-              filter->Js.Array.includes(patient["procedures"])
-            )
-          })
+        ? andProcedures
+            ? patients_original->Js.Array2.filter(patient => {
+                procedureFilters->Js.Array2.every(filter =>
+                  filter->Js.Array.includes(patient["procedures"])
+                )
+              })
+            : patients_original->Js.Array2.filter(patient => {
+                procedureFilters->Js.Array2.some(filter =>
+                  filter->Js.Array.includes(patient["procedures"])
+                )
+              })
         : patients_original
 
       setPatients(_ => procedure_filtered_patients)
       None
-    }, (procedureFilters, wardFilters))
+    }, (procedureFilters, andProcedures, wardFilters))
 
     React.useEffect1(() => {
       let search_term = searchTerm->Js.String.toLowerCase
