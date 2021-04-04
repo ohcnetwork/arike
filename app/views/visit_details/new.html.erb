@@ -1,0 +1,11 @@
+<% presenter = ::VisitDetails::VisitDetailsPresenter.new(self) %>
+
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PatientVitalsPack' %>
+<% end %>
+
+<div id="patient-vitals-form"></div>
+
+<script type="application/json" id="patient-vitals-data">
+  <%= presenter.props.to_json.html_safe %>
+</script>

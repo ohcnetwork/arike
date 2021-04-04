@@ -30,4 +30,59 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  presenters:
+    dashboard:
+      index_presenter:
+        links:
+          schedule:
+            title: "Schedule"
+            text: "Schedule visits for patients. Field workers like nurses, doctors, and physiotherapists can see patients who need care in the next week and schedule their visits."
+            icon: "clock"
+          visit:
+            title: "Visit"
+            text: "Visit a patient and record their details."
+            icon: "bus-alt"
+          calendar:
+            title: "Calendar"
+            text: "See the current calendar for visits."
+            icon: "calendar"
+          enroll_patients:
+            title: "Enroll New Patients"
+            text: "Queue a new patient for visit when a volunteer or a health worker informs of a new patient. The patient data will be added to the core system only after the first visit."
+            icon: "plus"
+          patients:
+            title: "Patients"
+            text: "View Patient Details"
+            icon: "users"
+          new_users:
+            title: "Add new users"
+            text: "Add new users to the system. These users can belong to roles like nurses, doctors, junior health inspectors, and volunteers."
+            icon: "user"
+          users:
+            title: "Users"
+            text: "View Details of all Users"
+            icon: "users"
+          account_settings:
+            title: "Account settings"
+            text: "Change username, logout, and so on."
+            icon: "users"
+          facilities:
+            title: "Facilities"
+            text: "Display, Add or Edit Facility details"
+            icon: "hospital"
+          lsg_body:
+            title: "Manage LSGs"
+            text: "See the list of LSGs and manage them."
+            icon: "building"
+          wards:
+            title: "Manage Wards"
+            text: "See the list of Wards and manage them."
+            icon: "warehouse"
+
+    users:
+      index_presenter:
+        users_list:
+          verified:
+            title: "Verified Users"
+          unverified:
+            title: "Unverified Users"

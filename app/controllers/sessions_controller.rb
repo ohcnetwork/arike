@@ -1,10 +1,9 @@
 class SessionsController < ApplicationController
-  # skip_before_action :ensure_logged_in
+  skip_before_action :ensure_logged_in
+  layout 'public'
 
   def new
-    if current_user
-      redirect_to dashboard_path
-    end
+    redirect_to dashboard_path if current_user
     @user = User.new
   end
 
@@ -27,15 +26,15 @@ class SessionsController < ApplicationController
           session[:current_user_id] = user.id
           redirect_to dashboard_path
         else
-          flash[:error] = "Your account has not been verified yet!"
+          flash[:error] = 'Your account has not been verified yet!'
           redirect_to new_session_path
         end
       else
-        flash[:error] = "Invalid Credentials!"
+        flash[:error] = 'Invalid Credentials!'
         redirect_to new_session_path
       end
     else
-      flash[:error] = "Enter a Valid Login ID"
+      flash[:error] = 'Enter a Valid Login ID'
       redirect_to new_session_path
     end
   end
@@ -43,5 +42,11 @@ class SessionsController < ApplicationController
   def destroy
     session[:current_user_id] = nil
     redirect_to new_session_path
+  end
+
+  # ToDo: Replace with devise
+  def logout
+    session[:current_user_id] = nil
+    redirect_to root_path
   end
 end

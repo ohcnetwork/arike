@@ -1,18 +1,15 @@
+<% presenter = ::Dashboard::IndexPresenter.new(self) %>
 <header>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h1 class="text-3xl font-bold leading-tight text-gray-900">
-      Dashboard
-    </h1>
+    <h1 class="text-3xl font-bold leading-tight text-gray-900">Dashboard</h1>
   </div>
 </header>
-
 <div class="px-4 py-8 sm:px-0">
-  <div class="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">
-    <%= render partial: "action", locals: { title: "Schedule", text: "Schedule visits for patients. Field workers like nurses, doctors, and physiotherapists can see patients who need care in the next week and schedule their visits.", icon: "icon_outline_clock", link: schedule_path } %>
-    <%= render partial: "action", locals: { title: "Visit", text: "Visit a patient and record their details.", icon: "icon_outline_clock", link: "" } %>
-    <%= render partial: "action", locals: { title: "Enroll new patient", text: "Queue a new patient for visit when a volunteer or a health worker informs of a new patient. The patient data will be added to the core system only after the first visit.", icon: "icon_outline_clock", link: new_patient_path } %>
-    <%= render partial: "action", locals: { title: "Calendar", text: "See the current calendar for visits.", icon: "icon_outline_clock", link: "" } %>
-    <%= render partial: "action", locals: { title: "Add new users", text: "Add new users to the system. These users can belong to roles like nurses, doctors, junior health inspectors, and volunteers.", icon: "icon_outline_clock", link: new_user_path } %>
-    <%= render partial: "action", locals: { title: "Account Settings", text: "Change username, logout, and so on.", icon: "icon_outline_clock", link: "" } %>
+  <div
+    class="rounded-lg overflow-hidden shadow divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px"
+  >
+    <% presenter.links.each do |link| %>
+      <%= render partial: "action", locals: link %>
+    <% end %>
   </div>
 </div>

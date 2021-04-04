@@ -17,9 +17,10 @@ class User < ApplicationRecord
                    }
   scope :ashas, -> { where(role: roles[:asha]) }
   scope :volunteers, -> { where(role: roles[:volunteer]) }
-  scope :primary_nurses, -> { where(role: roles[:primary_nurse]) }
-  scope :secondary_nurses, -> { where(role: roles[:secondary_nurse]) }
-  scope :nurses, -> { primary_nurses.or(secondary_nurses) }
+  scope :primary_nurses, ->  { where(role: roles[:primary_nurse]) }
+  scope :secondary_nurses, -> {where(role: roles[:secondary_nurse])}
+  scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]]))}
+
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, :on => :create
   validates :email, uniqueness: true
@@ -67,6 +68,10 @@ class User < ApplicationRecord
 
   def secondary_nurse?
     self[:role] == User.roles[:secondary_nurse]
+  end
+
+  def nurse?
+    self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
   end
 
   def has_facility_access?

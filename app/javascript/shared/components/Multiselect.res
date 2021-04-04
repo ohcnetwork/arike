@@ -46,21 +46,23 @@ type state = {
   searchString: string,
 }
 
+// Bodhi: Use packs to load data. What happens if "Innertext" is not found?
+
 // JSON.parse
-@scope("JSON") @val
-external parseJson: string => array<Record.t> = "parse"
+// @scope("JSON") @val
+// external parseJson: string => array<Record.t> = "parse"
 
-// get the initial suggestions data
-let getJsonFromHtml = dataElem => {
-  let elem =
-    Domutils.doc->Domutils.getElementById(dataElem)->Belt.Option.getWithDefault(Js.Obj.empty())
+let getJsonFromHtml = _dataElem => {
+  // let elem =
+  // Domutils.doc->Domutils.getElementById(dataElem)->Belt.Option.getWithDefault(Js.Obj.empty())
 
-  elem["innerText"]
-  ->Domutils.replaceAll("&quot;", "\"")
-  ->parseJson
-  ->Belt.Array.map(optionsInfo =>
-    Selectable.makeVolunteer(~id=optionsInfo->Record.id, ~name=optionsInfo->Record.name)
-  )
+  // elem["innerText"]
+  // ->Domutils.replaceAll("&quot;", "\"")
+  // ->parseJson
+  // ->Belt.Array.map(optionsInfo =>
+  //   Selectable.makeVolunteer(~id=optionsInfo->Record.id, ~name=optionsInfo->Record.name)
+  // )
+  []
 }
 
 @react.component

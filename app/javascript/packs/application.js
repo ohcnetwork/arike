@@ -12,11 +12,12 @@ import * as FamilyManager from "../Patient/FamilyManageForm/main.bs"
 import * as PatientDiseaseHistory from "../Patient/DiseaseHistory/disease.bs"
 
 
+import "stylesheets/application";
+import '@fortawesome/fontawesome-free/js/all';
+
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
-
-import "stylesheets/application";
 
 window.PatientFormPage = PatientFormPage;
 window.FamilyManager = FamilyManager;

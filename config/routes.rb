@@ -3,9 +3,11 @@ Rails.application.routes.draw do
 
   root "home#index", as: :home
 
-  get "/dashboard", to: "dashboard#index", as: :dashboard
-  get "/search", to: "search#index"
-  get "/schedule", to: "schedule#index", as: :schedule
+   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+   get '/dashboard', to: 'dashboard#index', as: :dashboard
+   get '/search', to: 'search#index'
+   get '/schedule', to: 'schedule#index', as: :schedule
+   post '/schedule', to: 'schedule#schedule'
 
   # patients
   resources :patients
@@ -31,12 +33,21 @@ Rails.application.routes.draw do
 
   get "/signup", to: "users#signup", as: :signup
 
-  get "/password_reset", to: "password_reset#index", as: "password_reset_page"
-  post "/password_reset", to: "password_reset#options"
-  post "/password_reset/send_otp", to: "password_reset#send_otp"
-  post "/password_reset/verify", to: "password_reset#verify"
-  post "/password_reset/update", to: "password_reset#update"
+  get '/password_reset', to: 'password_reset#index', as: 'password_reset_page'
+  post '/password_reset/send_otp', to: 'password_reset#send_otp'
+  post '/password_reset/verify', to: 'password_reset#verify'
+  post '/password_reset/update', to: 'password_reset#update'
 
+  get 'logout', to: 'sessions#logout'
+
+
+    # visit_details
+    get '/visit_details/decision', to: 'visit_details#decision'
+    post '/visit_details/assign_to', to: 'visit_details#assign_to'
+    post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
+    post '/visit_details/expired', to: 'visit_details#expired'
+
+  resources :visit_details
   resources :sessions
   resources :facilities
   resources :lsg_bodies

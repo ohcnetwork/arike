@@ -1,4 +1,6 @@
 class WardsController < ApplicationController
+  before_action :ensure_superuser
+
   def index
     @wards = Ward.all
   end
