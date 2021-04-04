@@ -1,67 +1,62 @@
 let s = React.string
 
-let patients = [
+let patients_original = [
   {
-    "name": "Patient 1",
-    "diseases": ["disease1", "disease2"],
-    "procedures": ["procedure1", "procedure2", "procedure3", "procedure4"],
+    "name": "Sam Parker",
+    "diseases": ["Alzheimer", "Dementias"],
+    "procedures": ["Simple Check", "Through Check", "Dialysis", "Kidney Test"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
     "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=08.0, ()),
-    "test": 5,
   },
   {
-    "name": "Patient 2",
-    "diseases": ["disease1", "disease2"],
-    "procedures": ["procedure1", "procedure2"],
+    "name": "Richard Brookfield",
+    "diseases": ["Epilepsy", "Alzheimer"],
+    "procedures": ["Simple Check", "Through Check"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
-    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
+    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=14.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=04.0, ()),
-    "test": 2,
   },
   {
-    "name": "Patient 3",
-    "diseases": ["disease1", "disease2"],
+    "name": "Amy Lucivell",
+    "diseases": ["Parkinson", "Stroke"],
     "procedures": [
-      "procedure1",
-      "procedure2",
-      "procedure3",
-      "procedure4",
-      "procedure5",
-      "procedure6",
+      "Simple Check",
+      "Through Check",
+      "Dialysis",
+      "Kidney Test",
+      "Liver Test",
+      "Pregnency Checkup",
     ],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
-    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
+    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=09.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=10.0, ()),
-    "test": 4,
   },
   {
-    "name": "Patient 4",
-    "diseases": ["diseaseeeeeeeeeeeee1", "disease2", "disease3", "disease4"],
-    "procedures": ["procedure1"],
+    "name": "David Jackson",
+    "diseases": ["Parkinson", "Transient Ischemic Attack", "Epilepsy", "Dementias"],
+    "procedures": ["Simple Check"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
-    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
+    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=13.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=09.0, ()),
-    "test": 1,
   },
   {
-    "name": "Patient 5",
-    "diseases": ["disease1"],
-    "procedures": ["procedure1", "procedure2", "procedure3", "procedure4"],
+    "name": "Sammy Norms",
+    "diseases": ["Dementias"],
+    "procedures": ["Simple Check", "Through Check", "Dialysis", "Kidney Test"],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
-    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=01.0, ()),
+    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=10.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=07.0, ()),
-    "test": 3,
   },
 ]
 
@@ -76,19 +71,73 @@ module Schedule = {
   let make = (~visits) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "")
-    let (filterOptions, setFilterOptions) = React.useState(_ => [])
-    let (patientsD, setPatientsD) = React.useState(_ => [])
+    let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
+    let (wardFilters, setWardFilters) = React.useState(_ => [])
+    let (patients, setPatients) = React.useState(_ => patients_original)
 
-    Js.log4(visits, searchTerm, sortOption, filterOptions)
+    Js.log3(visits, procedureFilters, wardFilters)
+    let setFilter = (setBasisFilter, value, active) => {
+      if active {
+        setBasisFilter(filters => filters->Belt.Array.concat([value]))
+      } else {
+        setBasisFilter(filters =>
+          filters->Belt.Array.reduce([], (acc, filter) => {
+            if filter != value {
+              acc->Belt.Array.concat([filter])
+            } else {
+              acc
+            }
+          })
+        )
+      }
+    }
+
+    let setFilterOptions = (basis, value, active) => {
+      switch basis {
+      | "procedure" => setFilter(setProcedureFilters, value, active)
+      | "ward" => setFilter(setWardFilters, value, active)
+      | _ => ()
+      }
+    }
+
+    React.useEffect2(() => {
+      let procedure_filtered_patients = !(procedureFilters->Js.Array2.length == 0)
+        ? patients_original->Js.Array2.filter(patient => {
+            procedureFilters->Js.Array2.some(filter =>
+              filter->Js.Array.includes(patient["procedures"])
+            )
+          })
+        : patients_original
+
+      setPatients(_ => procedure_filtered_patients)
+      None
+    }, (procedureFilters, wardFilters))
 
     React.useEffect1(() => {
-      let arr = sort(patients, sortOption)
-      setPatientsD(_ => arr)
-      Js.log(patientsD)
+      let search_term = searchTerm->Js.String.toLowerCase
+      let filtered_patients =
+        patients->Js.Array2.filter(patient =>
+          search_term->Js.String.includes(patient["name"]->Js.String.toLowerCase) ||
+          patient["diseases"]->Js.Array2.some(disease =>
+            search_term->Js.String.includes(disease->Js.String.toLowerCase)
+          ) ||
+          patient["procedures"]->Js.Array2.some(procedure =>
+            search_term->Js.String.includes(procedure->Js.String.toLowerCase)
+          ) ||
+          search_term->Js.String.includes(patient["notes"]->Js.String.toLowerCase)
+        )
+
+      setPatients(_ => filtered_patients)
+      None
+    }, [searchTerm])
+
+    React.useEffect1(() => {
+      let sorted_patients = sort(patients, sortOption)
+      setPatients(_ => sorted_patients)
       None
     }, [sortOption])
 
-    let patientList = patientsD->Belt.Array.map(patient => <Patient patient />)
+    let patientList = patients->Belt.Array.map(patient => <Patient patient />)
 
     <div>
       <SearchSortFilter setSearchTerm setSortOption setFilterOptions />

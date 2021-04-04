@@ -84,7 +84,14 @@ module Sort = {
 
 module FilterOption = {
   @react.component
-  let make = (~name, ~onFilterOptionsChange) => {
+  let make = (~name, ~basis, ~setFilterOptions) => {
+    let onFilterOptionsChange = event => {
+      let checked = ReactEvent.Synthetic.currentTarget(event)["checked"]
+      let value = ReactEvent.Synthetic.currentTarget(event)["name"]
+
+      setFilterOptions(basis, value, checked)
+    }
+
     <div className="p-2 bg-white flex items-center justify-center">
       <span className="relative inline-flex items-center px-2 py-2">
         <input
@@ -108,25 +115,6 @@ module Filter = {
       setShowDropdown(isVisible => !isVisible)
     }
 
-    let onFilterOptionsChange = event => {
-      let checked = ReactEvent.Synthetic.currentTarget(event)["checked"]
-      let value = ReactEvent.Synthetic.currentTarget(event)["name"]
-
-      if checked {
-        setFilterOptions(filters => filters->Belt.Array.concat([value]))
-      } else {
-        setFilterOptions(filters =>
-          filters->Belt.Array.reduce([], (acc, filter) => {
-            if filter != value {
-              acc->Belt.Array.concat([filter])
-            } else {
-              acc
-            }
-          })
-        )
-      }
-    }
-
     <div className="relative inline-block text-left z-10">
       <div>
         <button
@@ -141,20 +129,27 @@ module Filter = {
         className={!showDropdown
           ? "hidden"
           : "origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
-        <div className="py-1 grid grid-cols-2">
-          <FilterOption onFilterOptionsChange name={"Procedure 1"} />
-          <FilterOption onFilterOptionsChange name={"Procedure 2"} />
-          <FilterOption onFilterOptionsChange name={"Procedure 3"} />
-          <FilterOption onFilterOptionsChange name={"Procedure 4"} />
-          <FilterOption onFilterOptionsChange name={"Procedure 5"} />
+        <div className="py-1">
+          <div className="text-center p-2 font-bold"> {s("Procedures")} </div>
+          <div className=" grid grid-cols-2 justify-items-start">
+            <FilterOption setFilterOptions name={"Simple Check"} basis="procedure" />
+            <FilterOption setFilterOptions name={"Through Check"} basis="procedure" />
+            <FilterOption setFilterOptions name={"Dialysis"} basis="procedure" />
+            <FilterOption setFilterOptions name={"Kidney Test"} basis="procedure" />
+            <FilterOption setFilterOptions name={"Liver Test"} basis="procedure" />
+            <FilterOption setFilterOptions name={"and"} basis="procedure" />
+          </div>
         </div>
-        <div className="py-1 grid grid-cols-2">
-          <FilterOption onFilterOptionsChange name={"Ward 1"} />
-          <FilterOption onFilterOptionsChange name={"Ward 2"} />
-          <FilterOption onFilterOptionsChange name={"Ward 3"} />
-          <FilterOption onFilterOptionsChange name={"Ward 4"} />
-          <FilterOption onFilterOptionsChange name={"Ward 5"} />
-          <FilterOption onFilterOptionsChange name={"Ward 6"} />
+        <div className="py-1">
+          <div className="text-center p-2 font-bold"> {s("Ward")} </div>
+          <div className=" grid grid-cols-2 justify-items-start">
+            <FilterOption setFilterOptions name={"1"} basis="ward" />
+            <FilterOption setFilterOptions name={"2"} basis="ward" />
+            <FilterOption setFilterOptions name={"3"} basis="ward" />
+            <FilterOption setFilterOptions name={"4"} basis="ward" />
+            <FilterOption setFilterOptions name={"5"} basis="ward" />
+            <FilterOption setFilterOptions name={"6"} basis="ward" />
+          </div>
         </div>
       </div>
     </div>
