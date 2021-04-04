@@ -25,10 +25,12 @@ type data = {
 external parseJson: string => data = "parse"
 
 let getData = () => {
+  let newElem = Webapi.Dom.Document.createElement("div", Webapi.Dom.document)
   let elem =
-    Domutils.doc->Domutils.getElementById("data")->Belt.Option.getWithDefault(Js.Obj.empty())
+    Webapi.Dom.Document.getElementById("data", Webapi.Dom.document)->Belt.Option.getWithDefault(newElem)
 
-  elem["innerText"]->Domutils.replaceAll("&quot;", "\"")->parseJson
+    elem->Webapi.Dom.Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
+
 }
 
 let checkExistingVolunteers = state => {
