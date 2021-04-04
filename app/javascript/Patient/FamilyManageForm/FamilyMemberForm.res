@@ -29,9 +29,9 @@ type props = FamilyMember.t
 @react.component
 let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupations) => {
   let id = props.id
-  let isGray = count->Belt.Int.toFloat /. 2.0 > 0.0 ? "bg-gray-100" : "bg-white"
+  let isGray = "bg-gray-100"
   <div
-    className={`grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded px-3 border-b py-8 ${isGray}`}>
+    className={`grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 rounded px-3 border-b py-8 my-8 ${isGray}`}>
     <div className="sm:col-span-3 field">
       <label
         name={`familyDetails[${id}][full_name]`}
@@ -160,5 +160,6 @@ let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupatio
         </button>
       </div>
     </div>
+    <hr />
   </div>
 }

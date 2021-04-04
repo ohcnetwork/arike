@@ -3,6 +3,7 @@ class Patient < ApplicationRecord
   has_many :family_details
   has_many :patient_disease_summaries
   belongs_to :facility
+  validates :full_name, presence: true, length: { minimum: 1 }
 
   def add_users(user_ids)
     user_ids.each do |user_id|
