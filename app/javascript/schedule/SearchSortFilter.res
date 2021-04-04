@@ -29,11 +29,15 @@ module Search = {
 
 module Sort = {
   @react.component
-  let make = (~setSortOption) => {
+  let make = (~setSortOption, ~sortAscending, ~setSortAscending) => {
     let (showDropdown, setShowDropdown) = React.useState(_ => false)
 
     let toggleDropDown = _evt => {
       setShowDropdown(isVisible => !isVisible)
+    }
+
+    let toggleSortOrder = _evt => {
+      setSortAscending(prev => !prev)
     }
 
     let onSortOptionChange = event => {
@@ -75,8 +79,10 @@ module Sort = {
         </div>
       </div>
       <button
-        className="-ml-px relative inline-flex items-center border shadow-sm px-4 py-2 border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
-        {s(".")} <i className="fas fa-sort-numeric-up" />
+        className="-ml-px relative inline-flex items-center border shadow-sm px-4 py-2 border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
+        onClick={toggleSortOrder}>
+        {s(".")}
+        <i className={sortAscending ? "fas fa-sort-numeric-down" : "fas fa-sort-numeric-up"} />
       </button>
     </div>
   }
@@ -157,10 +163,18 @@ module Filter = {
 }
 
 @react.component
-let make = (~setSearchTerm, ~setSortOption, ~setFilterOptions) => {
+let make = (
+  ~setSearchTerm,
+  ~setSortOption,
+  ~sortAscending,
+  ~setSortAscending,
+  ~setFilterOptions,
+) => {
   <div>
     <div className="p-8 flex items-center justify-center bg-white">
-      <Search setSearchTerm /> <Sort setSortOption /> <Filter setFilterOptions />
+      <Search setSearchTerm />
+      <Sort setSortOption sortAscending setSortAscending />
+      <Filter setFilterOptions />
     </div>
   </div>
 }

@@ -65,49 +65,44 @@ let patients_original = [
   },
 ]
 
-let sort = %raw(`
-  function(arr, sortOption) {
-    return arr.sort((a, b) => a[sortOption] - b[sortOption])
-  }
-`)
-
 module Schedule = {
   @react.component
   let make = (~visits) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "")
+    let (sortAscending, setSortAscending) = React.useState(_ => true)
     let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
     let (andProcedures, setAndProcedures) = React.useState(_ => false)
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => patients_original)
 
-    Js.log3(visits, procedureFilters, wardFilters)
-
-    let setFilter = (setBasisFilter, value, active) => {
-      if active {
-        setBasisFilter(filters => filters->Belt.Array.concat([value]))
-      } else {
-        setBasisFilter(filters =>
-          filters->Belt.Array.reduce([], (acc, filter) => {
-            if filter != value {
-              acc->Belt.Array.concat([filter])
-            } else {
-              acc
-            }
-          })
-        )
-      }
-    }
+    Js.log3(visits, sortAscending, sortOption)
 
     let setFilterOptions = (basis, value, active) => {
+      let setFilter = setBasisFilter => {
+        if active {
+          setBasisFilter(filters => filters->Belt.Array.concat([value]))
+        } else {
+          setBasisFilter(filters =>
+            filters->Belt.Array.reduce([], (acc, filter) => {
+              if filter != value {
+                acc->Belt.Array.concat([filter])
+              } else {
+                acc
+              }
+            })
+          )
+        }
+      }
+
       if value == "and" {
         if basis == "procedure" {
           setAndProcedures(prev => !prev)
         }
       } else {
         switch basis {
-        | "procedure" => setFilter(setProcedureFilters, value, active)
-        | "ward" => setFilter(setWardFilters, value, active)
+        | "procedure" => setFilter(setProcedureFilters)
+        | "ward" => setFilter(setWardFilters)
         | _ => ()
         }
       }
@@ -156,16 +151,24 @@ module Schedule = {
       None
     }, [searchTerm])
 
-    React.useEffect1(() => {
-      let sorted_patients = sort(patients, sortOption)
+    React.useEffect2(() => {
+      let sort = %raw(`
+        function(arr, sortOption, ascending) {
+          return arr.sort((a, b) => ascending ? a[sortOption] - b[sortOption] : b[sortOption] - a[sortOption])
+        }
+      `)
+
+      let sorted_patients = sort(patients, sortOption, sortAscending)
       setPatients(_ => sorted_patients)
       None
-    }, [sortOption])
+    }, (sortAscending, sortOption))
 
     let patientList = patients->Belt.Array.map(patient => <Patient patient />)
 
     <div>
-      <SearchSortFilter setSearchTerm setSortOption setFilterOptions />
+      <SearchSortFilter
+        setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions
+      />
       <SelectedPatients />
       <div className="space-y-4"> {patientList->React.array} </div>
     </div>

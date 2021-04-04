@@ -2,6 +2,13 @@ let s = React.string
 
 @react.component
 let make = (~patient) => {
+  let getDifferenceInDays = %raw(`
+  function getDifferenceInDays(date1, date2) {
+    const diffInMs = Math.abs(date2 - date1);
+    return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  }
+  `)
+
   <li
     id="radiogroup-option-1"
     className="group relative bg-white rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-indigo-500 list-none">
@@ -32,7 +39,11 @@ let make = (~patient) => {
       </div>
       <div className="text-gray-500 text-sm sm:ml-0"> {s(patient["notes"])} </div>
       <div className="mt-2 min-w-max text-sm sm:mt-0 sm:ml-4 sm:text-right">
-        <div className="font-extrabold text-xl text-gray-900"> {s("2 days")} </div>
+        <div className="font-extrabold text-xl text-gray-900">
+          {s(
+            `${getDifferenceInDays(Js.Date.now(), patient["next_visit"])->Belt.Int.toString} days`,
+          )}
+        </div>
         <div className="ml-1 text-gray-500 sm:ml-0">
           {s(Js.Date.toDateString(patient["next_visit"]))}
         </div>
