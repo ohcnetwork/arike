@@ -89,6 +89,6 @@ class User < ApplicationRecord
 
   # users that are currently not assigned to a facility
   def self.assignable_users
-    where.not(role: "Superuser").where(facility_id: nil)
+    where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil)
   end
 end

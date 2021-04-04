@@ -65,6 +65,8 @@
   let removeCHCSelect = (event) => {
     if (event.target.value === "CHC") {
       document.getElementById("remove_this_div").style.display = "none";
+    } else if (event.target.value === "Hospital") {
+      document.getElementById("remove_this_div").style.display = "none";
     } else {
       document.getElementById("remove_this_div").style.display = "block";
     }

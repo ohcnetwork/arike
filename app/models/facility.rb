@@ -4,22 +4,14 @@ class Facility < ApplicationRecord
   belongs_to :secondary_facility, class_name: "Facility", optional: true, foreign_key: "parent_id"
   has_many :primary_nurses, -> { where("role = ?", "Primary Nurse") }, class_name: "User", foreign_key: "facility_id"
   has_many :secondary_nurses, -> { where("role = ?", "Secondary Nurse") }, class_name: "User", foreign_key: "facility_id"
-  # has_many :volunteers, -> { where("role = ?", "Volunteer") }, class_name: "User", foreign_key: "facility_id"
-  # has_many :ashas, -> { where("role = ?", "ASHA") }, class_name: "User", foreign_key: "facility_id"
   belongs_to :lsg_body_info, class_name: "LsgBody", foreign_key: "lsg_body_id"
   belongs_to :ward_info, class_name: "Ward", foreign_key: "ward_id"
   scope :secondary_facilities, -> { where(parent_id: nil) }
   scope :primary_facilities, -> { where.not(parent_id: nil) }
   belongs_to :ward
 
-  # has_many :users, -> { where("role = ? OR role = ? OR role = ?", "Primary Nurse", "Secondary Nurse", "Superuser") }
-
   validates :parent_id, presence: true, if: -> { kind.in? ["PHC"] }
   validates :parent_id, absence: true, if: -> { kind.in? ["CHC"] }
-
-  # def self.secondary_facilities
-  #   Facility.where(parent_id: nil)
-  # end
 
   def secondary_facility?
     parent_id == nil
