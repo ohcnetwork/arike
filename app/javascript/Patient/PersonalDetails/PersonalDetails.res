@@ -21,15 +21,18 @@ type data = {
   facility: array<array<string>>,
   facility_selected: string,
 }
+
+open Webapi.Dom
+
 @scope("JSON") @val
 external parseJson: string => data = "parse"
 
 let getData = () => {
-  let newElem = Webapi.Dom.Document.createElement("div", Webapi.Dom.document)
+  let newElem = Document.createElement("div", document)
   let elem =
-    Webapi.Dom.Document.getElementById("data", Webapi.Dom.document)->Belt.Option.getWithDefault(newElem)
+    Document.getElementById("data", document)->Belt.Option.getWithDefault(newElem)
 
-    elem->Webapi.Dom.Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
+    elem->Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
 
 }
 

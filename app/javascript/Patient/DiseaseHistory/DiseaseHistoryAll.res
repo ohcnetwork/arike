@@ -3,15 +3,17 @@ type state = {
   list_of_diseases: array<array<string>>,
 }
 open Belt
+open Webapi.Dom
 
 @scope("JSON") @val
 external parseJson: string => state = "parse"
 
 let getData = dataId => {
+  let newElem = Document.createElement("div", document)
   let elem =
-    Domutils.doc->Domutils.getElementById(dataId)->Belt.Option.getWithDefault(Js.Obj.empty())
+    Document.getElementById(dataId, document)->Belt.Option.getWithDefault(newElem)
 
-  elem["innerText"]->Domutils.replaceAll("&quot;", "\"")->parseJson
+  elem->Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
 }
 let s = React.string
 
