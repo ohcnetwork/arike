@@ -32,6 +32,10 @@ rake db:setup
 bin/webpack-dev-server
 rails server
 
+### Gems
+Authorization - Pundit (https://github.com/varvet/pundit)
+Pagination - Kaminari (https://github.com/kaminari/kaminari)
+
 #to run the tests
 
 bundle exec rspec
