@@ -3,6 +3,7 @@ let s = React.string
 let patients_original = [
   {
     "name": "Sam Parker",
+    "id": "1",
     "ward": 1,
     "diseases": ["Alzheimer", "Dementias"],
     "procedures": ["Simple Check", "Pregnency Checkup", "Dialysis", "Kidney Test"],
@@ -14,6 +15,7 @@ let patients_original = [
   },
   {
     "name": "Richard Brookfield",
+    "id": "2",
     "ward": 1,
     "diseases": ["Epilepsy", "Alzheimer"],
     "procedures": ["Simple Check", "Through Check"],
@@ -25,6 +27,7 @@ let patients_original = [
   },
   {
     "name": "Amy Lucivell",
+    "id": "3",
     "ward": 3,
     "diseases": ["Parkinson", "Stroke"],
     "procedures": [
@@ -38,11 +41,12 @@ let patients_original = [
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
     Nulla consequat ",
-    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=09.0, ()),
+    "last_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=15.0, ()),
     "next_visit": Js.Date.makeWithYMD(~year=2021.0, ~month=04.0, ~date=10.0, ()),
   },
   {
     "name": "David Jackson",
+    "id": "4",
     "ward": 2,
     "diseases": ["Parkinson", "Transient Ischemic Attack", "Epilepsy", "Dementias"],
     "procedures": ["Simple Check"],
@@ -54,6 +58,7 @@ let patients_original = [
   },
   {
     "name": "Sammy Norms",
+    "id": "5",
     "ward": 3,
     "diseases": ["Dementias"],
     "procedures": ["Simple Check", "Through Check", "Dialysis", "Kidney Test"],
@@ -75,6 +80,7 @@ module Schedule = {
     let (andProcedures, setAndProcedures) = React.useState(_ => false)
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => patients_original)
+    let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
 
     Js.log3(visits, sortAscending, sortOption)
 
@@ -108,20 +114,41 @@ module Schedule = {
       }
     }
 
-    React.useEffect3(() => {
+    let selectPatient = patient => {
+      setSelectedPatients(patients => patients->Belt.Array.concat([patient]))
+    }
+
+    let unselectPatient = patient => {
+      setSelectedPatients(patients =>
+        patients->Belt.Array.reduce([], (acc, pat) => {
+          if pat["id"] != patient["id"] {
+            acc->Belt.Array.concat([pat])
+          } else {
+            acc
+          }
+        })
+      )
+    }
+
+    React.useEffect5(() => {
+      let unselectedPatients =
+        patients_original->Js.Array2.filter(patient =>
+          !(selectedPatients->Js.Array2.some(spatient => spatient["id"] == patient["id"]))
+        )
+
       let procedure_filtered_patients = !(procedureFilters->Js.Array2.length == 0)
         ? andProcedures
-            ? patients_original->Js.Array2.filter(patient => {
+            ? unselectedPatients->Js.Array2.filter(patient => {
                 procedureFilters->Js.Array2.every(filter =>
                   filter->Js.Array.includes(patient["procedures"])
                 )
               })
-            : patients_original->Js.Array2.filter(patient => {
+            : unselectedPatients->Js.Array2.filter(patient => {
                 procedureFilters->Js.Array2.some(filter =>
                   filter->Js.Array.includes(patient["procedures"])
                 )
               })
-        : patients_original
+        : unselectedPatients
 
       let ward_filtered_patients = !(wardFilters->Js.Array2.length == 0)
         ? procedure_filtered_patients->Js.Array2.filter(patient => {
@@ -129,14 +156,9 @@ module Schedule = {
           })
         : procedure_filtered_patients
 
-      setPatients(_ => ward_filtered_patients)
-      None
-    }, (procedureFilters, andProcedures, wardFilters))
-
-    React.useEffect1(() => {
       let search_term = searchTerm->Js.String.toLowerCase
       let filtered_patients =
-        patients->Js.Array2.filter(patient =>
+        ward_filtered_patients->Js.Array2.filter(patient =>
           search_term->Js.String.includes(patient["name"]->Js.String.toLowerCase) ||
           patient["diseases"]->Js.Array2.some(disease =>
             search_term->Js.String.includes(disease->Js.String.toLowerCase)
@@ -149,7 +171,7 @@ module Schedule = {
 
       setPatients(_ => filtered_patients)
       None
-    }, [searchTerm])
+    }, (selectedPatients, procedureFilters, andProcedures, wardFilters, searchTerm))
 
     React.useEffect2(() => {
       let sort = %raw(`
@@ -163,13 +185,14 @@ module Schedule = {
       None
     }, (sortAscending, sortOption))
 
-    let patientList = patients->Belt.Array.map(patient => <Patient patient />)
+    let patientList =
+      patients->Js.Array2.map(patient => <Patient key={patient["id"]} patient selectPatient />)
 
     <div>
       <SearchSortFilter
         setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions
       />
-      <SelectedPatients />
+      <SelectedPatients selectedPatients unselectPatient />
       <div className="space-y-4"> {patientList->React.array} </div>
     </div>
   }

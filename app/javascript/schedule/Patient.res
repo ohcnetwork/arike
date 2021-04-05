@@ -1,12 +1,12 @@
 let s = React.string
 
 @react.component
-let make = (~patient) => {
+let make = (~patient, ~selectPatient) => {
   let getDifferenceInDays = %raw(`
-  function getDifferenceInDays(date1, date2) {
-    const diffInMs = Math.abs(date2 - date1);
-    return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-  }
+    function getDifferenceInDays(date1, date2) {
+      const diffInMs = Math.abs(date2 - date1);
+      return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    }
   `)
 
   <li
@@ -15,12 +15,18 @@ let make = (~patient) => {
     <div
       className="rounded-lg border items-center border-gray-300 bg-white px-6 py-4 hover:border-gray-400 sm:flex sm:justify-between">
       <div>
+        <input
+          type_="checkbox"
+          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-500 rounded"
+          name={patient["id"]}
+          onChange={_ => selectPatient(patient)}
+        />
         <div className="flex items-center">
           <p className="font-extrabold text-xl text-gray-900"> {s(patient["name"])} </p>
           <div className="grid grid-cols-2 min-w-max">
             {patient["diseases"]
             ->Belt.Array.map(disease =>
-              <p className="text-gray-500 sm:inline sm:mx-1">
+              <p key={disease} className="text-gray-500 sm:inline sm:mx-1">
                 {s(Js.String.slice(~from=0, ~to_=10, disease))}
               </p>
             )
@@ -30,7 +36,7 @@ let make = (~patient) => {
         <div className="grid grid-cols-3 min-w-max">
           {patient["procedures"]
           ->Belt.Array.map(procedure =>
-            <p className="text-gray-500 sm:inline sm:mx-1">
+            <p key={procedure} className="text-gray-500 sm:inline sm:mx-1">
               {s(Js.String.slice(~from=0, ~to_=10, procedure))}
             </p>
           )

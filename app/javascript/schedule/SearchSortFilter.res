@@ -11,7 +11,7 @@ module Search = {
 
     <div className="w-full max-w-xs mx-auto">
       <div>
-        <div className="mt-1 relative rounded-md shadow-sm">
+        <div className="relative rounded-md shadow-sm">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i className="fas fa-search" />
           </div>
@@ -47,7 +47,7 @@ module Sort = {
       setShowDropdown(_ => false)
     }
 
-    <div className="mx-auto w-64 z-10">
+    <div className="mx-auto w-64 z-10 flex">
       <div className="relative inline-block text-left">
         <div>
           <button
@@ -79,10 +79,10 @@ module Sort = {
         </div>
       </div>
       <button
-        className="-ml-px relative inline-flex items-center border shadow-sm px-4 py-2 border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
+        className="-ml-px relative inline-flex items-center min-w-max space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
         onClick={toggleSortOrder}>
-        {s(".")}
-        <i className={sortAscending ? "fas fa-sort-numeric-down" : "fas fa-sort-numeric-up"} />
+        {sortAscending ? s("1 > 9") : s("1 < 9")}
+        // <i className={sortAscending ? "fas fa-sort-numeric-down" : "fas fa-sort-numeric-up"} />
       </button>
     </div>
   }
@@ -171,7 +171,7 @@ let make = (
   ~setFilterOptions,
 ) => {
   <div>
-    <div className="p-8 flex items-center justify-center bg-white">
+    <div className="p-8 sm:flex items-center justify-center bg-white">
       <Search setSearchTerm />
       <Sort setSortOption sortAscending setSortAscending />
       <Filter setFilterOptions />
