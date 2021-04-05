@@ -71,9 +71,8 @@ class UsersController < ApplicationController
 
   def assign_facility
     assignables = params.require(:facility).permit(:facility_id, :user_id)
-    @facility = Facility.find_by_id(assignables[:facility_id])
+    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
     authorize @facility
-    # authorize User, assign_facility?(assignables[:facility_id])
 
     user =
       User.add_to_facility(assignables[:user_id], assignables[:facility_id])
@@ -88,7 +87,7 @@ class UsersController < ApplicationController
 
   def unassign_facility
     assignables = params.require(:facility).permit(:facility_id, :nurse_id)
-    @facility = Facility.find_by_id(assignables[:facility_id])
+    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
     authorize @facility
 
     user =

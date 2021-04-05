@@ -1,8 +1,7 @@
 class FacilitiesController < ApplicationController
-  # before_action :ensure_facility_access, only: [:show, :new, :create]
-  # before_action :ensure_superuser, only: [:index]
   before_action :set_facility, only: [:edit, :update, :show_users, :show_patients]
 
+  # GET /facilities/
   def index
     @page = params.fetch(:page, 1).to_i
     @search_text = params.fetch(:search, "")
@@ -10,18 +9,20 @@ class FacilitiesController < ApplicationController
     authorize Facility
   end
 
+  # GET /facilities/:id
   def show
-    @facility = Facility.find_by(id: params[:id])
+    @facility = policy_scope(Facility).find(params[:id])
     authorize @facility
   end
 
+  # GET /facilities/new
   def new
     @facility = Facility.new
     authorize @facility
   end
 
+  # POST /facilities
   def create
-    # facility
     if facilities_params[:kind] == "CHC"
       facilities_params[:parent_id] = nil
     end
@@ -42,18 +43,22 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  # GET /facilities/:id/edit
   def edit
   end
 
+  # PATCH /facilities/:id
   def update
     result = @facility.update!(facilities_params)
     redirect_to facility_path(@facility.id)
   end
 
+  # GET /facilities/:id/users
   def show_users
     authorize @facility
   end
 
+  # GET /facilities/:id/patients
   def show_patients
     authorize @facility
   end
@@ -61,7 +66,7 @@ class FacilitiesController < ApplicationController
   private
 
   def set_facility
-    @facility = Facility.find(params[:id])
+    @facility = policy_scope(Facility).find(params[:id])
   end
 
   def facilities_params
@@ -90,7 +95,3 @@ class FacilitiesController < ApplicationController
     number
   end
 end
-
-# see all the secondary facilites -> superuser #index
-# details of a single seconda facility, and all PFs under it -> secondary, superuser #show
-# details of a primary facility -> primary, secondary user of that PF, superuser
