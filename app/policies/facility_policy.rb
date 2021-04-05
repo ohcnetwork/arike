@@ -20,7 +20,7 @@ class FacilityPolicy < ApplicationPolicy
   alias show_patients? show_users?
 
   def assign_facility?
-    return if user.blank?
+    return false if user.blank?
     return true if user.superuser?
     return false unless user.medical_officer?
     user.facility.id == record.id
@@ -34,6 +34,7 @@ class FacilityPolicy < ApplicationPolicy
         Facility.all
       elsif user.nurse?
         Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id))
+      else
       end
     end
   end

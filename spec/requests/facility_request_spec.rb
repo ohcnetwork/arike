@@ -52,7 +52,16 @@ RSpec.describe "Facility as superuser", type: :request do
     post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, address: address, lsg_body_id: lsg_body_id, ward_id: ward_id, parent_id: parent_id, phone: phone, pincode: pincode } }
     expect(Facility.count).to eq(current_count)
   end
+  it "assigning a user to a facility" do
+    FactoryBot.create(:user, role: User.roles[:secondary_nurse])
+    FactoryBot.create(:facility, kind: Facility.kinds[:secondary])
+    user_id = User.last.id
+    facility_id = Facility.last.id
+    put assign_facility_path, params: { facility: { facility_id: facility_id, user_id: user_id } }
+    expect(User.last.facility_id).to eq(facility_id)
+  end
 end
+
 # Tests when not logged in
 RSpec.describe "Facility as normal user", type: :request do
   before :each do
@@ -86,5 +95,15 @@ RSpec.describe "Facility as normal user", type: :request do
     ward_id = Ward.first.id
     post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, lsg_body_id: lsg_body_id, ward_id: ward_id } }
     expect(Facility.count).to eq(0)
+  end
+
+  it "assigning a user to a facility" do
+    FactoryBot.create(:user, role: User.roles[:secondary_nurse])
+    FactoryBot.create(:facility, kind: Facility.kinds[:secondary])
+    user_id = User.last.id
+    facility_id = Facility.last.id
+    put assign_facility_path, params: { facility: { facility_id: facility_id, user_id: user_id } }
+    expect(response).to redirect_to(root_path)
+    expect(User.last.facility_id).to eq(nil)
   end
 end
