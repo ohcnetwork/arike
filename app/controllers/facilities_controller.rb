@@ -11,8 +11,8 @@ class FacilitiesController < ApplicationController
 
   # GET /facilities/:id
   def show
-    @facility = policy_scope(Facility).find(params[:id])
-    authorize @facility
+    @facility = policy_scope(Facility).find_by_id(params[:id])
+    authorize @facility, :show?
   end
 
   # GET /facilities/new
@@ -66,7 +66,7 @@ class FacilitiesController < ApplicationController
   private
 
   def set_facility
-    @facility = policy_scope(Facility).find(params[:id])
+    @facility = policy_scope(Facility).find_by_id(params[:id])
   end
 
   def facilities_params

@@ -4,7 +4,11 @@ class FacilityPolicy < ApplicationPolicy
   end
 
   def show?
-    user && (user.superuser? || user.facility_id == record.id)
+    user && record && (user.superuser? || user.facility_id == record.id)
+  end
+
+  def test
+    false
   end
 
   def new?
@@ -32,9 +36,12 @@ class FacilityPolicy < ApplicationPolicy
     def resolve
       if (user.superuser? || user.medical_officer?)
         Facility.all
-      elsif user.nurse?
+      elsif user.secondary_nurse?
         Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id))
+      elsif user.primary_nurse?
+        Facility.where(id: user.facility_id)
       else
+        Facility.none
       end
     end
   end
