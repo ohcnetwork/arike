@@ -34,15 +34,10 @@ class FacilityPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if (user.superuser? || user.medical_officer?)
-        Facility.all
-      elsif user.secondary_nurse?
-        Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id))
-      elsif user.primary_nurse?
-        Facility.where(id: user.facility_id)
-      else
-        Facility.none
-      end
+      return Facility.all if (user.superuser? || user.medical_officer?)
+      return Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id)) if user.secondary_nurse?
+      return user.facility user.primary_nurse?
+      Facility.none
     end
   end
 end
