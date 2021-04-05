@@ -1,20 +1,10 @@
 type state = {
   diseases: array<DiseaseHistoryForm.PatientDisease.t>,
-  list_of_diseases: array<array<string>>,
+  list_of_diseases: array<array<option<string>>>,
 }
-open Belt
+type props = state
 open Webapi.Dom
 
-@scope("JSON") @val
-external parseJson: string => state = "parse"
-
-let getData = dataId => {
-  let newElem = Document.createElement("div", document)
-  let elem =
-    Document.getElementById(dataId, document)->Belt.Option.getWithDefault(newElem)
-
-  elem->Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
-}
 let s = React.string
 
 let count = ref(1)
@@ -29,7 +19,7 @@ let reducer = (state, action) =>
       ...state,
       diseases: Belt.Array.concat(
         state.diseases,
-        [DiseaseHistoryForm.PatientDisease.make(~id=Belt.Int.toString(count.contents))],
+        [DiseaseHistoryForm.PatientDisease.make(~id=Some(Belt.Int.toString(count.contents)))],
       ),
     }
   | RemoveDisease(disease) => {
@@ -39,8 +29,8 @@ let reducer = (state, action) =>
   }
 
 @react.component
-let make = (~dataId) => {
-  let initialState = getData(dataId)
+let make = (~props) => {
+  let initialState = props
   let (state, dispatch) = React.useReducer(reducer, initialState)
   let len = Js.Array.length(initialState.diseases)
 
@@ -50,7 +40,7 @@ let make = (~dataId) => {
     count := count.contents
   }
 
-  let new_props = DiseaseHistoryForm.PatientDisease.make(~id="0")
+  let new_props = DiseaseHistoryForm.PatientDisease.make(~id=Some("0"))
 
   <div className="max-w-3xl mx-auto mt-8 relative">
     {Js.Array.length(state.diseases) > 0
