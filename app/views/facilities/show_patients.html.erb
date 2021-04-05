@@ -1,0 +1,36 @@
+<div class="bg-white">
+  <div class="px-4 py-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="pb-5 border-b border-gray-200">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <%= "Patients under #{@facility.name} facility" %>
+      </h3>
+      <p class="mt-2 max-w-4xl text-sm text-gray-500">Click on More Info to see more details about the patient.</p>
+    </div>
+  </div>
+</div>
+<section aria-labelledby="notes-title">
+  <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
+    <div class="divide-y divide-gray-200">
+      <div class="px-4 py-5 sm:px-6">
+        <h2 id="notes-title" class="text-lg font-medium text-gray-900">Patients</h2>
+      </div>
+      <div class="px-4 py-6 sm:px-6">
+        <ul class="space-y-8 list-disc ml-4">
+          <% @facility.patients.each do |patient| %>
+            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+              <div class="w-0 flex-1 flex items-center">
+                <div class="text-gray-400 h-5 w-5"><i class="fas fa-paperclip"></i></div>
+                <span class="ml-2 flex-1 w-0 truncate">
+                  <%= patient.full_name %>
+                </span>
+              </div>
+              <div class="ml-4 flex-shrink-0">
+                <%= link_to "More Info", patient_path(patient.id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

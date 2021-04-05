@@ -4,7 +4,7 @@
     full_name: Faker::Name.name,
     role: User.roles.values.sample,
     password: "0",
-    email: "user#{index}@example.com",
+    email: Faker::Internet.email,
     phone: rand(10 ** 10),
   )
 end

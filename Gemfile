@@ -29,7 +29,9 @@ gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "twilio-ruby", "~> 5.48"
 
-gem 'active_model_otp', '~> 2.1.1'
+gem "active_model_otp", "~> 2.1.1"
+# Authorization using policy classes
+gem "pundit", "~> 2.1"
 
 gem "roo", "~> 2.8"
 # Better organized seed data.

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @user = User.new
     @user[:verified] = false
 
-    render layout: 'public'
+    render layout: "public"
   end
 
   def edit
@@ -55,14 +55,14 @@ class UsersController < ApplicationController
     user[:verified] = false
 
     if !user[:password] || user[:password].strip.empty?
-      user[:password] = 'arike'
+      user[:password] = "arike"
     end
 
     user = User.new(user)
 
     if user.valid?
       user.save
-      redirect_to new_session_path, notice: 'You have successfully signed up!'
+      redirect_to new_session_path, notice: "You have successfully signed up!"
     else
       flash[:error] = user.errors.full_messages.to_sentence
       redirect_to signup_path
@@ -71,21 +71,24 @@ class UsersController < ApplicationController
 
   def assign_facility
     assignables = params.require(:facility).permit(:facility_id, :user_id)
+    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
+    authorize @facility
 
     user =
       User.add_to_facility(assignables[:user_id], assignables[:facility_id])
     if user.save
-      flash[:success] =
-        "Successfully assigned #{user.full_name} to this facility!"
-      redirect_to facility_path(assignables[:facility_id])
+      flash[:success] = "Successfully assigned #{user.full_name} to this facility!"
+      redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
 
   def unassign_facility
     assignables = params.require(:facility).permit(:facility_id, :nurse_id)
+    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
+    authorize @facility
 
     user =
       User.remove_from_facility(
@@ -93,12 +96,11 @@ class UsersController < ApplicationController
         assignables[:facility_id],
       )
     if user.save
-      flash[:success] =
-        "Successfully removed #{user.full_name} to this facility!"
-      redirect_to facility_path(assignables[:facility_id])
+      flash[:success] = "Successfully removed #{user.full_name} to this facility!"
+      redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to facility_path(assignables[:facility_id])
+      redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
 
