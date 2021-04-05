@@ -3,10 +3,10 @@
 <% end %>
 <script type="text/json" id="family-form-data">
   {
-    "relations": <%= FamilyDetail.relations.values %>,
-    "educations":<%= FamilyDetail.educations.values %>,
-    "occupations":<%= FamilyDetail.occupations.values %>,
-    "members": <%= @patient.family_details.to_json %>
+    "relations": <%= FamilyDetail.relations.values.to_json.html_safe %>,
+    "educations":<%= FamilyDetail.educations.values.to_json.html_safe %>,
+    "occupations":<%= FamilyDetail.occupations.values.to_json.html_safe %>,
+    "members": <%= @patient.family_details.to_json.html_safe %>
   }
 </script>
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
