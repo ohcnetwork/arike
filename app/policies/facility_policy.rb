@@ -11,47 +11,22 @@ class FacilityPolicy < ApplicationPolicy
     user && user.superuser?
   end
 
-  def create?
-    user && user.superuser?
-  end
+  alias create? new?
 
   def show_users?
     user && (user.superuser? || user.facility_id == record.id)
   end
 
-  def show_patients?
-    user && (user.superuser? || user.facility_id == record.id)
-  end
+  alias show_patients? show_users?
 
   def assign_facility?
-    if user
-      if user.superuser?
-        return true
-      elsif user.medical_officer?
-        return user.facility.id == record.id
-      else
-        return false
-      end
-    else
-      return false
-    end
-    # binding.pry
-    # return true
+    return if user.blank?
+    return true if user.superuser?
+    return false unless user.medical_officer?
+    user.facility.id == record.id
   end
 
-  def unassign_facility?
-    if user
-      if user.superuser?
-        return true
-      elsif user.medical_officer?
-        return user.facility.id == record.id
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
+  alias unassign_facility? assign_facility?
 
   class Scope < Scope
     def resolve
