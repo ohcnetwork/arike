@@ -32,8 +32,12 @@ class FacilityPolicy < ApplicationPolicy
     def resolve
       if (user.superuser? || user.medical_officer?)
         Facility.all
-      elsif user.nurse?
+      elsif user.secondary_nurse?
         Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id))
+      elsif user.primary_nurse?
+        user.facility
+      else
+        Facility.none
       end
     end
   end
