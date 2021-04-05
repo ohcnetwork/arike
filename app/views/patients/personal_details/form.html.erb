@@ -1,3 +1,15 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PatientFormPack', "data-turbo-track": "reload", nonce: true %>
+<% end %>
+<script type="text/json" id="patient-form-data">
+  {
+    "patient": <%= patient.to_json %>,
+    "volunteers": <%= User.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
+    "volunteers_selected": <%= patient.users.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
+    "facility": <%= Facility.all.to_a.map {|facility| [facility.name, facility.id]} %>,
+    "facility_selected": "<%= patient.facility %>"
+  }
+</script>
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
     <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
@@ -5,18 +17,6 @@
     </h3>
     <%= form_with(model: patient) do |form| %>
       <div id="patient-form"></div>
-      <script type="text/json" id="data">
-        {
-          "patient": <%= patient.to_json %>,
-          "volunteers": <%= User.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
-          "volunteers_selected": <%= patient.users.volunteers.to_a.map {|v| [v.full_name, v.id]} %>,
-          "facility": <%= Facility.all.to_a.map {|facility| [facility.name, facility.id]} %>,
-          "facility_selected": "<%= patient.facility %>"
-        }
-      </script>
-      <script>
-        window.PatientFormPage.run()
-      </script>
     <% end %>
   </div>
 </div>
