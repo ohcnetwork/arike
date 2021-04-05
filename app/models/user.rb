@@ -21,6 +21,7 @@ class User < ApplicationRecord
   scope :primary_nurses, -> { where(role: roles[:primary_nurse]) }
   scope :secondary_nurses, -> { where(role: roles[:secondary_nurse]) }
   scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]])) }
+  scope :assignable_users, -> { where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil) }
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, :on => :create
@@ -85,10 +86,5 @@ class User < ApplicationRecord
 
   def facility
     Facility.where(id: facility_id).first
-  end
-
-  # users that are currently not assigned to a facility
-  def self.assignable_users
-    where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil)
   end
 end

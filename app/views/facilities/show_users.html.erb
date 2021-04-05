@@ -10,13 +10,13 @@
 </div>
 <% if policy(@facility).assign_facility? %>
   <div class="mt-6 flex flex-col justify-stretch mb-6">
-    <%= form_with url: assign_facility_path, class: "flex items-center justify-center", method: :put do |form| %>
+    <%= form_with scope: :facility, url: assign_facility_path, class: "flex items-center justify-center", method: :put do |form| %>
       <div class="col-span-6 sm:col-span-3 w-2/3">
-        <%= form.select("facility[user_id]", User.assignable_users.map{ |body| ["#{body.full_name} - #{body.role}", body.id]}, {
+        <%= form.select("user_id", User.assignable_users.map{ |body| ["#{body.full_name} - #{body.role}", body.id]}, {
             }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
             %>
       </div>
-      <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
+      <%= form.hidden_field "facility_id", value: @facility.id %>
       <%= form.submit "Assign New Nurse", class: "cursor-pointer ml-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
     <% end %>
   </div>
@@ -36,9 +36,9 @@
               <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2 mx-8">
                 <h1><%= nurse.full_name %></h1>
                 <% if policy(@facility).unassign_facility? %>
-                  <%= form_with url: unassign_facility_path, method: :put do |form| %>
-                    <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
-                    <%= form.hidden_field "facility[nurse_id]", value:nurse.id %>
+                  <%= form_with scope: :facility, url: unassign_facility_path, method: :put do |form| %>
+                    <%= form.hidden_field "facility_id", value: @facility.id %>
+                    <%= form.hidden_field "nurse_id", value:nurse.id %>
                     <%= button_tag "", {
                       class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
                       onClick: "this.form.submit()"

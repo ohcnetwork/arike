@@ -21,13 +21,12 @@ class FacilitiesController < ApplicationController
   end
 
   def create
-    facility_params = params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body_id, :ward_id, :address, :pincode, :phone, :parent_id)
     # facility
-    if facility_params[:kind] == "CHC"
-      facility_params[:parent_id] = nil
+    if facilities_params[:kind] == "CHC"
+      facilities_params[:parent_id] = nil
     end
 
-    facility = Facility.create(facility_params)
+    facility = Facility.create(facilities_params)
     user_saved = if !current_user.superuser?
         user = User.add_to_facility(current_user.id, facility.id)
         user.save
@@ -66,7 +65,7 @@ class FacilitiesController < ApplicationController
   end
 
   def facilities_params
-    params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body, :ward, :address, :pincode, :phone, :parent_id)
+    params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body_id, :ward_id, :address, :pincode, :phone, :parent_id)
   end
 
   def filter_facilities(total_pages, search_text, page)
