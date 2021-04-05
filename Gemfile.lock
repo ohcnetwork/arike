@@ -275,7 +275,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  active_model_otp
+  active_model_otp (~> 2.1.1)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
