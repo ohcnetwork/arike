@@ -1,13 +1,97 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
+    <%= stylesheet_link_tag 'mailer' %>
+    <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body width="100%">
+    <center
+      style="width: 100%; background: #f5f5f5; text-align: left; padding-top: 30px;"
+    >
+      <table class="mailer-table">
+        <tbody>
+          <tr>
+            <td>
+              <table class="mailer-head__table">
+                <tbody>
+                  <tr>
+                    <td class="mailer-head__data">
+                      <a
+                        class="mailer-head__logo"
+                        href="arike.coronasafe.network"
+                        title="Arike"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        Arike
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="mailer-body__table">
+                <tbody>
+                  <% if content_for?(:title) || content_for?(:subtitle) || content_for?(:title_button_text) %>
+                    <tr>
+                      <td
+                        class="mailer-body__hero-title mailer-body__hero-title--dark"
+                      >
+                        <% if content_for?(:title) %>
+                          <h1 class="mailer-body__hero mailer-body__hero--dark">
+                            <%= yield :title %>
+                          </h1>
+                        <% end %>
+                        <% if content_for?(:subtitle) %>
+                          <p class="mailer-body__hero-subtitle">
+                            <%= yield :subtitle %>
+                          </p>
+                        <% end %>
+                        <% if content_for?(:title_button_text) %>
+                          <a
+                            class="mailer-button mailer-button--dark"
+                            href="<%= yield(:title_button_link) %>"
+                            title="Arike"
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            <%= yield :title_button_text %>
+                          </a>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+
+                  <tr>
+                    <td class="mailer-body__content">
+                      <p class="mailer-body__salutation">
+                        <%= yield :salutation %>
+                      </p>
+
+                      <%= yield :body %>
+                      <% if content_for?(:signature) %>
+                        <%= yield :signature %>
+                      <% else %>
+                        <p class="mailer-body__signature">Team Arike</p>
+                      <% end %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="mail-footer__table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>This email has been sent to you by Arike</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
   </body>
 </html>
