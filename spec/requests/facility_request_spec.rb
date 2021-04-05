@@ -50,7 +50,7 @@ RSpec.describe "Facility as superuser", type: :request do
     phone = Faker::Number.number(digits: 10)
     parent_id = Facility.last.id
     post facilities_path, params: { facility: { kind: kind, name: name, state: state, district: district, address: address, lsg_body_id: lsg_body_id, ward_id: ward_id, parent_id: parent_id, phone: phone, pincode: pincode } }
-    expect(Facility.count).to eq(current_count + 1)
+    expect(Facility.count).to eq(current_count)
   end
 end
 # Tests when not logged in
