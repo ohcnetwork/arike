@@ -80,11 +80,11 @@ class User < ApplicationRecord
     self[:role] == User.roles[:medical_officer]
   end
 
-  def has_facility_access?
+  def facility_access?
     [User.roles[:superuser], User.roles[:medical_officer], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
   end
 
   def facility
-    Facility.where(id: facility_id).first
+    Facility.find_by(id: facility_id)
   end
 end

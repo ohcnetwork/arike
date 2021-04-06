@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_facility_access
-    unless current_user && current_user.has_facility_access?
+    unless current_user && current_user.facility_access?
       redirect_to root_path
     end
   end

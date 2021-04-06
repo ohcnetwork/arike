@@ -22,18 +22,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    newUser =
+    new_user =
       params
         .require(:user)
         .permit(:full_name, :first_name, :role, :email, :phone)
     user = User.find(params[:id])
     if user
       user.update(
-        full_name: newUser[:full_name],
-        first_name: newUser[:first_name],
-        role: newUser[:role],
-        email: newUser[:email],
-        phone: newUser[:phone],
+        full_name: new_user[:full_name],
+        first_name: new_user[:first_name],
+        role: new_user[:role],
+        email: new_user[:email],
+        phone: new_user[:phone],
       )
     end
     redirect_to users_path
