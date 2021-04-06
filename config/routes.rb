@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root "home#index", as: :home
+  root "home#index"
 
-   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
-   get '/dashboard', to: 'dashboard#index', as: :dashboard
-   get '/search', to: 'search#index'
-   get '/schedule', to: 'schedule#index', as: :schedule
-   post '/schedule', to: 'schedule#schedule'
+  # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+  get "/dashboard", to: "dashboard#index", as: :dashboard
+  get "/search", to: "search#index"
+  get "/schedule", to: "schedule#index", as: :schedule
+  post "/schedule", to: "schedule#schedule"
 
   # patients
   resources :patients
@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get "/patients/:patient_id/family_details/edit", to: "family_details#edit"
   put "/patients/:id/family_details/", to: "family_details#update"
 
-
   resources :users
   put "/users/:id/verify", to: "users#verify", as: :verify_user
   # for assigning a nurse to a facility
@@ -33,19 +32,26 @@ Rails.application.routes.draw do
 
   get "/signup", to: "users#signup", as: :signup
 
-  get '/password_reset', to: 'password_reset#index', as: 'password_reset_page'
-  post '/password_reset/send_otp', to: 'password_reset#send_otp'
-  post '/password_reset/verify', to: 'password_reset#verify'
-  post '/password_reset/update', to: 'password_reset#update'
+  get "/password_reset", to: "password_reset#index", as: "password_reset_page"
+  post "/password_reset/send_otp", to: "password_reset#send_otp"
+  post "/password_reset/verify", to: "password_reset#verify"
+  post "/password_reset/update", to: "password_reset#update"
 
-  get 'logout', to: 'sessions#logout'
+  get "logout", to: "sessions#logout"
 
+  # visit_details
+  get "/visit_details/decision", to: "visit_details#decision"
+  post "/visit_details/assign_to", to: "visit_details#assign_to"
+  post "/visit_details/schedule_revisit", to: "visit_details#schedule_revisit"
+  post "/visit_details/expired", to: "visit_details#expired"
 
-    # visit_details
-    get '/visit_details/decision', to: 'visit_details#decision'
-    post '/visit_details/assign_to', to: 'visit_details#assign_to'
-    post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
-    post '/visit_details/expired', to: 'visit_details#expired'
+  resources :sessions
+  resources :facilities
+  # get users belonging to a facility
+  get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
+  get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
+  resources :lsg_bodies
+  resources :wards
 
   resources :visit_details
   resources :sessions

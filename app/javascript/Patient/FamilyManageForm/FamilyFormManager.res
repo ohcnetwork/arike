@@ -1,22 +1,12 @@
 type state = {
-  relations: array<string>,
-  educations: array<string>,
-  occupations: array<string>,
+  relations: array<option<string>>,
+  educations: array<option<string>>,
+  occupations: array<option<string>>,
   members: array<FamilyMemberForm.FamilyMember.t>,
 }
-
+type props = state
 open Webapi.Dom
 
-@scope("JSON") @val
-external parseJson: string => state = "parse"
-
-let getData = dataId => {
-   let newElem = Document.createElement("div", document)
-  let elem =
-    Document.getElementById(dataId, document)->Belt.Option.getWithDefault(newElem)
-
-  elem->Element.innerText->DomUtils.replaceAll("&quot;", "\"")->parseJson
-}
 let s = React.string
 
 open Belt
@@ -43,8 +33,8 @@ let reducer = (state, action) =>
   }
 
 @react.component
-let make = (~dataId) => {
-  let initialState = getData(dataId)
+let make = (~props) => {
+  let initialState = props
   let (state, dispatch) = React.useReducer(reducer, initialState)
   let new_props = FamilyMemberForm.FamilyMember.make(~id="0")
   let len = Js.Array.length(initialState.members)

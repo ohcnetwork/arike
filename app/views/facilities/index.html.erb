@@ -1,1 +1,23 @@
+<header>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 flex items-center justify-between">
+    <h1 class="text-3xl font-bold leading-tight text-gray-900">Facilities</h1>
+    <% if policy(Facility).new? %>
+      <%= link_to "New Facility", new_facility_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
+    <% end %>
+  </div>
+</header>
+<div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+  <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+    <div class="w-full">
+      <%= form_tag facilities_path, method: :get do %>
+        <div class="relative">
+          <%= text_field_tag :search, @search_text,placeholder: "Search for facility name", class: "block w-full bg-white border border-gray-300 rounded-md py-2 pl-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <button type="submit" class="focus:outline-none"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 <%= render "table", facilities: @secondary_facilities%>

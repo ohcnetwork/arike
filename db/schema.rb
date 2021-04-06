@@ -24,19 +24,20 @@ ActiveRecord::Schema.define(version: 2021_04_03_121647) do
   end
 
   create_table "facilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "kind"
-    t.string "name"
-    t.string "state"
-    t.string "district"
-    t.uuid "lsg_body_id"
-    t.uuid "ward_id"
-    t.string "address"
-    t.bigint "pincode"
-    t.bigint "phone"
+    t.string "kind", null: false
+    t.string "name", null: false
+    t.string "state", null: false
+    t.string "district", null: false
+    t.uuid "lsg_body_id", null: false
+    t.uuid "ward_id", null: false
+    t.string "address", null: false
+    t.bigint "pincode", null: false
+    t.bigint "phone", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
+    t.index ["phone"], name: "index_facilities_on_phone", unique: true
   end
 
   create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -84,12 +85,12 @@ ActiveRecord::Schema.define(version: 2021_04_03_121647) do
     t.string "economic_status"
     t.string "notes"
     t.uuid "created_by"
+    t.uuid "facility_id"
     t.string "gender"
     t.string "emergency_phone_no"
     t.string "disease"
     t.string "patient_views"
     t.string "family_views"
-    t.uuid "facility_id"
     t.datetime "expired"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
