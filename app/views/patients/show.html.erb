@@ -97,7 +97,7 @@
                 >
                     <dt class="text-sm font-medium text-gray-500">ASHA Member</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      <%= User.find_by_id(@patient.asha_member).full_name %>
+                      <%= User.find(@patient.asha_member).full_name %>
                     </dd>
                   </div>
                   <div
@@ -105,7 +105,7 @@
                 >
                     <dt class="text-sm font-medium text-gray-500">Facility</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      <%= Facility.find_by_id(@patient.facility_id).name %>
+                      <%= Facility.find(@patient.facility_id).name %>
                     </dd>
                   </div>
                   <div
@@ -113,7 +113,7 @@
                 >
                     <dt class="text-sm font-medium text-gray-500">Reported By</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      <%= User.find_by_id(@patient.reported_by).full_name %>
+                      <%= User.find(@patient.reported_by).full_name %>
                     </dd>
                   </div>
                   <div
@@ -121,7 +121,7 @@
                 >
                     <dt class="text-sm font-medium text-gray-500">LSG Body</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      <% lsg_body = LsgBody.find_by_id(@patient.lsg_body) %>
+                      <% lsg_body = LsgBody.find(@patient.lsg_body) %>
                       <%= "#{lsg_body.name} - #{lsg_body.kind}" %>
                     </dd>
                   </div>

@@ -104,7 +104,7 @@
               user_id: member.id,
               user_name: member.full_name,
               form: form,
-              checked: !@patient.users.volunteers.find_by_id(member.id).nil?,
+              checked: !@patient.users.volunteers.find(member.id).nil?,
             } %>
             <% end %>
           </div>

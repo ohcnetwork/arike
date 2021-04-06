@@ -4,7 +4,7 @@ class ScheduleController < ApplicationController
   end
 
   def schedule
-    visit = Visit.find_by_id(params[:visit_id])
+    visit = Visit.find(params[:visit_id])
     visit.next_visit = params[:next_visit]
     visit.save
     redirect_to schedule_path

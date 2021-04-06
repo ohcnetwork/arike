@@ -27,8 +27,8 @@
               <tbody x-max="2">
                  <% Patient.all.each do |patient| %>
                   <%= render partial: "table-row",
-                    locals: { full_name: patient.full_name, asha_member: User.all.find_by_id(patient.asha_member),
-                            phone: patient.phone, lsg_body: LsgBody.all.find_by_id(patient.lsg_body), id: patient.id }
+                    locals: { full_name: patient.full_name, asha_member: User.all.find(patient.asha_member),
+                            phone: patient.phone, lsg_body: LsgBody.all.find(patient.lsg_body), id: patient.id }
                     %>
                   <% end %>
               </tbody>

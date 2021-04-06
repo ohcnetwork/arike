@@ -5,7 +5,7 @@ class Patient < ApplicationRecord
 
   def add_users(user_ids)
     user_ids.each do |user_id|
-      self.users << User.find_by_id(user_id)
+      self.users << User.find(user_id)
     end
   end
 end
