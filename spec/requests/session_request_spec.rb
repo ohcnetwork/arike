@@ -11,9 +11,9 @@ RSpec.describe "Sessions", type: :request do
   end
 
   it "validates the password" do
-    INVALID_PASSWORD = "something"
+    invalid_password = "something"
     user = FactoryBot.create(:volunteer)
-    post "/sessions", params: { user: { login_id: user.email, password: INVALID_PASSWORD } }
+    post "/sessions", params: { user: { login_id: user.email, password: invalid_password } }
     expect(response).to redirect_to("/sessions/new")
     follow_redirect!
     expect(response.body).to include("Invalid Credentials!")
