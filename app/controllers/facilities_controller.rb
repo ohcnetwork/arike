@@ -5,7 +5,7 @@ class FacilitiesController < ApplicationController
   def index
     @page = params.fetch(:page, 1).to_i
     @search_text = params.fetch(:search, "")
-    @secondary_facilities = filter_facilities(@total_pages, @search_text, @page)
+    @secondary_facilities = filter_facilities(@search_text, @page)
     authorize Facility
   end
 
@@ -23,11 +23,13 @@ class FacilitiesController < ApplicationController
 
   # POST /facilities
   def create
-    if facilities_params[:kind] == "CHC"
-      facilities_params[:parent_id] = nil
+    facility_params = facilities_params
+    if facility_params[:kind] == "CHC"
+      facility_params[:parent_id] = nil
     end
 
-    facility = Facility.create(facilities_params)
+    binding.pry
+    facility = Facility.create(facility_params)
     user_saved = if !current_user.superuser?
         user = User.add_to_facility(current_user.id, facility.id)
         user.save
@@ -73,15 +75,8 @@ class FacilitiesController < ApplicationController
     params.require(:facility).permit(:kind, :name, :state, :district, :lsg_body_id, :ward_id, :address, :pincode, :phone, :parent_id)
   end
 
-  def filter_facilities(total_pages, search_text, page)
-    @CARDS_PER_PAGE = 8
-    filtered_facilities = policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%")
-    @facilities_count = filtered_facilities.count
-    @total_pages = (filtered_facilities.count * 1.0 / @CARDS_PER_PAGE).ceil()
-    # keep the pages within a limit
-    @page = constraint(page, @total_pages, 1)
-    @secondary_facilities = filtered_facilities.offset(@CARDS_PER_PAGE * (@page - 1)).limit(@CARDS_PER_PAGE)
-    @secondary_facilities
+  def filter_facilities(search_text, page)
+    filtered_facilities = policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%").page(page)
   end
 
   def constraint(number, upper_bound, lower_bound)
