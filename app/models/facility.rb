@@ -4,8 +4,8 @@ class Facility < ApplicationRecord
   belongs_to :secondary_facility, class_name: "Facility", optional: true, foreign_key: "parent_id", inverse_of: :facility
   has_many :primary_nurses, -> { where(role: User.roles[:primary_nurse]) }, class_name: "User", foreign_key: "facility_id", inverse_of: :facility
   has_many :secondary_nurses, -> { where(role: User.roles[:secondary_nurse]) }, class_name: "User", foreign_key: "facility_id", inverse_of: :facility
-  belongs_to :lsg_body_info, class_name: "LsgBody", foreign_key: "lsg_body_id"
-  belongs_to :ward_info, class_name: "Ward", foreign_key: "ward_id"
+  belongs_to :lsg_body_info, class_name: "LsgBody", foreign_key: "lsg_body_id", inverse_of: :facilities
+  belongs_to :ward_info, class_name: "Ward", foreign_key: "ward_id", inverse_of: :facilities
 
   scope :secondary_facilities, -> { where(parent_id: nil) }
   scope :primary_facilities, -> { where.not(parent_id: nil) }
