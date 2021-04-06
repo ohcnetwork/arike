@@ -70,11 +70,17 @@ let patients_original = [
   },
 ]
 
+let jssort = %raw(`
+  function(arr, sortOption, ascending) {
+    return arr.sort((a, b) => ascending ? a[sortOption] - b[sortOption] : b[sortOption] - a[sortOption])
+  }
+`)
+
 module Schedule = {
   @react.component
   let make = (~visits) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
-    let (sortOption, setSortOption) = React.useState(_ => "")
+    let (sortOption, setSortOption) = React.useState(_ => "next_visit")
     let (sortAscending, setSortAscending) = React.useState(_ => true)
     let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
     let (andProcedures, setAndProcedures) = React.useState(_ => false)
@@ -130,7 +136,7 @@ module Schedule = {
       )
     }
 
-    React.useEffect5(() => {
+    React.useEffect7(() => {
       let unselectedPatients =
         patients_original->Js.Array2.filter(patient =>
           !(selectedPatients->Js.Array2.some(spatient => spatient["id"] == patient["id"]))
@@ -169,21 +175,19 @@ module Schedule = {
           search_term->Js.String.includes(patient["notes"]->Js.String.toLowerCase)
         )
 
-      setPatients(_ => filtered_patients)
-      None
-    }, (selectedPatients, procedureFilters, andProcedures, wardFilters, searchTerm))
+      let sorted_patients = filtered_patients->jssort(sortOption, sortAscending)
 
-    React.useEffect2(() => {
-      let sort = %raw(`
-        function(arr, sortOption, ascending) {
-          return arr.sort((a, b) => ascending ? a[sortOption] - b[sortOption] : b[sortOption] - a[sortOption])
-        }
-      `)
-
-      let sorted_patients = sort(patients, sortOption, sortAscending)
       setPatients(_ => sorted_patients)
       None
-    }, (sortAscending, sortOption))
+    }, (
+      selectedPatients,
+      searchTerm,
+      sortOption,
+      sortAscending,
+      procedureFilters,
+      andProcedures,
+      wardFilters,
+    ))
 
     let patientList =
       patients->Js.Array2.map(patient => <Patient key={patient["id"]} patient selectPatient />)
