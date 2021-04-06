@@ -28,7 +28,6 @@ class FacilitiesController < ApplicationController
       facility_params[:parent_id] = nil
     end
 
-    binding.pry
     facility = Facility.create(facility_params)
     user_saved = if !current_user.superuser?
         user = User.add_to_facility(current_user.id, facility.id)
@@ -51,7 +50,11 @@ class FacilitiesController < ApplicationController
 
   # PATCH /facilities/:id
   def update
-    result = @facility.update!(facilities_params)
+    facility_params = facilities_params
+    if facility_params[:kind] == "CHC"
+      facility_params[:parent_id] = nil
+    end
+    @facility.update!(facility_params)
     redirect_to facility_path(@facility.id)
   end
 
@@ -76,7 +79,7 @@ class FacilitiesController < ApplicationController
   end
 
   def filter_facilities(search_text, page)
-    filtered_facilities = policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%").page(page)
+    policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%").page(page)
   end
 
   def constraint(number, upper_bound, lower_bound)
