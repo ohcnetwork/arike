@@ -197,7 +197,9 @@ module Schedule = {
         setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions
       />
       <SelectedPatients selectedPatients unselectPatient />
-      <div className="space-y-4"> {patientList->React.array} </div>
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {patientList->React.array}
+      </ul>
     </div>
   }
 }
