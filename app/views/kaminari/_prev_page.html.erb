@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="prev">
-  <%= link_to_unless current_page.first?, t('views.pagination.previous').html_safe, url, rel: 'prev', remote: remote %>
+  <%= link_to_unless current_page.first?, t('views.pagination.previous').html_safe, url, rel: 'prev', remote: remote, class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium hover:bg-blue-300" %>
 </span>
