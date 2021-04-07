@@ -1,6 +1,6 @@
 class PatientsController < ApplicationController
   skip_before_action :ensure_logged_in
-  before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  before_action :set_patient, only: [:show, :edit, :update]
 
 
   def index
@@ -14,7 +14,7 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
     patient.add_users(volunteer_user_ids)
     # Get /patients
     redirect_to patients_path
@@ -25,13 +25,13 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    render "/patients/personal_details/form", locals: { patient: Patient.find_by_id(params[:id]) }
+    render "/patients/personal_details/form", locals: { patient: Patient.find_by(id: params[:id]) }
   end
 
   def update
     @patient.update!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |key, value| value == "on" }.map { |key, value| key }
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
     @patient.update_users(volunteer_user_ids)
     # Get patients/:id
     redirect_to patient_path
