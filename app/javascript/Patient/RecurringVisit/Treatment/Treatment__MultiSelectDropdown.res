@@ -22,18 +22,19 @@ let search = (searchString, options) => {
 
 module DropDown = {
   @react.component
-  let make = (~options, ~show, ~id) => {
+  let make = (~options, ~show, ~id, ~onClick) => {
     let options =
       options->Belt.Array.map(option =>
         <button
           key=option.id
           className="flex text-xs px-4 py-1 items-center w-full hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-          onClick={e => Js.log(ReactDOM.querySelector(`#${id}-question`))}>
+          onClick={e => onClick(option.id, option.name)}>
           {s(option.name)}
         </button>
       )
     if show {
-      <div className=" w-full border border-gray-400 bg-white mt-1 rounded-lg shadow-lg py-2 z-50">
+      <div
+        className="absolute left-0 right-0 w-full border border-gray-400 bg-white mt-1 rounded-lg shadow-lg py-2 z-50">
         {React.array(options)}
       </div>
     } else {
@@ -43,7 +44,7 @@ module DropDown = {
 }
 
 @react.component
-let make = (~id, ~className, ~name, ~options, ~label) => {
+let make = (~id, ~className, ~name, ~options, ~label, ~onClick) => {
   let (showDropdown, setShowDropdown) = React.useState(() => false)
   let (results, setResults) = React.useState(() => options)
 
@@ -63,8 +64,8 @@ let make = (~id, ~className, ~name, ~options, ~label) => {
   }, [showDropdown])
 
   <div className id>
-    <label className="block text-sm font-medium text-gray-700"> {s(label)} </label>
-    <div className="mt-1 w-full">
+    <label className="block text-lg font-medium text-gray-700"> {s(label)} </label>
+    <div className="relative mt-1 w-full">
       <input
         type_="text"
         onClick={_ => setShowDropdown(s => !s)}
@@ -77,7 +78,7 @@ let make = (~id, ~className, ~name, ~options, ~label) => {
         className="shadow-sm
           focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md "
       />
-      <DropDown options=results show=showDropdown id />
+      <DropDown options=results show=showDropdown id onClick />
     </div>
     <div className="" id={id ++ "-question"} />
   </div>
