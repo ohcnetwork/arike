@@ -139,62 +139,7 @@
               <input type="checkbox" id="personal_details">
               <label class="tab-label px-4 py-6 text-lg" for="personal_details">Personal Information</label>
               <div class="tab-content">
-                <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                  <dl class="sm:divide-y sm:divide-gray-200">
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Full name</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.full_name %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">
-                        Date of birth
-                      </dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.dob %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Phone No.</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.phone %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Address</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.address %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Route</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.route %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">
-                        Economic Status
-                      </dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.economic_status %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Notes</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.notes %>
-                      </dd>
-                    </div>
-                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 hover:bg-gray-100">
-                      <dt class="font-medium text-gray-500">Volunteers</dt>
-                      <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-                        <%= @patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
+                <%= render partial: "/patients/personal_details/info-card", locals: {patient: @patient} %>
               </div>
             </div>
             <div class="tab rounded-md border-b border-gray-200">
