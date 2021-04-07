@@ -5,7 +5,8 @@ class FacilitiesController < ApplicationController
   def index
     @page = params.fetch(:page, 1).to_i
     @search_text = params.fetch(:search, "")
-    @secondary_facilities = filter_facilities(@search_text, @page)
+    # filter and paginate
+    @facilities = filter_facilities(@search_text, @page)
     authorize Facility
   end
 
@@ -80,16 +81,5 @@ class FacilitiesController < ApplicationController
 
   def filter_facilities(search_text, page)
     policy_scope(Facility).where("name ILIKE :search_text", search_text: "%#{search_text}%").page(page)
-  end
-
-  def constraint(number, upper_bound, lower_bound)
-    if upper_bound < lower_bound
-      number = 1
-    elsif number > upper_bound
-      number = upper_bound
-    elsif number < lower_bound
-      number = lower_bound
-    end
-    number
   end
 end
