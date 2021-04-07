@@ -78,7 +78,7 @@ let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupatio
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           <option value=""> {s("Select")} </option>
           {relations
-          ->Belt.Array.map(relation =>
+          ->Js.Array2.map(relation =>
             <option
               key={""->Js.Option.getWithDefault(relation)}
               value={""->Js.Option.getWithDefault(relation)}>
@@ -117,7 +117,7 @@ let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupatio
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           <option value=""> {s("Select")} </option>
           {educations
-          ->Belt.Array.map(education =>
+          ->Js.Array2.map(education =>
             <option
               key={""->Js.Option.getWithDefault(education)}
               value={""->Js.Option.getWithDefault(education)}>
@@ -156,7 +156,7 @@ let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupatio
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           <option value=""> {s("Select")} </option>
           {occupations
-          ->Belt.Array.map(occupation =>
+          ->Js.Array2.map(occupation =>
             <option
               key={""->Js.Option.getWithDefault(occupation)}
               value={""->Js.Option.getWithDefault(occupation)}>

@@ -43,7 +43,6 @@ type props = {
   facility_selected: option<string>,
 }
 
-open Webapi.Dom
 let s = React.string
 
 /* Add State for capturing data */
@@ -132,7 +131,7 @@ let make = (~props) => {
             defaultValue={""->Js.Option.getWithDefault(state.facility_selected)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
             {state.facility
-            ->Belt.Array.map(e =>
+            ->Js.Array2.map(e =>
               <option
                 key={""->Js.Option.getWithDefault(e[1])} value={""->Js.Option.getWithDefault(e[1])}>
                 {s(""->Js.Option.getWithDefault(e[0]))}
@@ -184,16 +183,15 @@ let make = (~props) => {
         </label>
         <div className="mt-1 overflow-y-scroll h-24 py-3 px-2">
           {state.volunteers
-          ->Belt.Array.map(e => {
+          ->Js.Array2.map(e => {
             <div className="flex items-start" key={""->Js.Option.getWithDefault(e[1])}>
               <div className="flex items-center h-5">
                 <input
                   type_="checkbox"
                   name={`patient[volunteer[${""->Js.Option.getWithDefault(e[1])}]]`}
                   id={""->Js.Option.getWithDefault(e[1])}
-                  // checked=state.volunteers_selected->Belt.Array.map(x => Js.Array.includes(e[0], x))
                   defaultChecked={e[0]->Js.Array.includes(
-                    state.volunteers_selected->Belt.Array.map(x => x[0]),
+                    state.volunteers_selected->Js.Array2.map(x => x[0]),
                   )}
                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                 />

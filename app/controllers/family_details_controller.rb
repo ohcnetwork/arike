@@ -10,6 +10,7 @@ class FamilyDetailsController < ApplicationController
   def update
     @patient = Patient.find_by_id(params[:id])
     @patient.update_family_member(params[:familyDetails], params[:id])
+    # Get /patients/:id
     redirect_to patient_path
   end
 end

@@ -5,11 +5,8 @@ type state = {
   members: array<FamilyMemberForm.FamilyMember.t>,
 }
 type props = state
-open Webapi.Dom
 
 let s = React.string
-
-open Belt
 
 let count = ref(1)
 
