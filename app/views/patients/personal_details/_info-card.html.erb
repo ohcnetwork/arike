@@ -45,7 +45,7 @@
     >
       <dt class="font-medium text-gray-500">Economic Status</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= @patient.economic_status %>
+        <%= Patient.economic_statuses[@patient.economic_status] %>
       </dd>
     </div>
     <div

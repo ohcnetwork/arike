@@ -29,8 +29,7 @@ class Patient < ApplicationRecord
   end
 
   def self.get_ward(patient)
-    facility = Facility.all.find_by(id: patient.facility_id)
-    Ward.find(facility.ward)
+    patient.facility.ward
   end
 
   def update_family_member(family_details_params, patient_id)
