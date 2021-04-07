@@ -32,15 +32,15 @@ rake db:setup
 bin/webpack-dev-server
 rails server
 
-### Gems
-Authorization - Pundit (https://github.com/varvet/pundit)
-Pagination - Kaminari (https://github.com/kaminari/kaminari)
-
 #to run the tests
-
 bundle exec rspec
 ```
 
 ## General Notes
 
 - We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
+
+## Gems Used
+
+- Authorization - Pundit (https://github.com/varvet/pundit)
+- Pagination - Kaminari (https://github.com/kaminari/kaminari)
