@@ -1,33 +1,6 @@
-<!--<div class="w-full md:w-1/2 p-2">
-  <div class="p-6 border rounded-md shadow hover:shadow-lg bg-white">
-    <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100 transition-shadow">
-      <dt class="font-medium text-gray-500">Disease</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.name ? Disease.find_by_id(disease.name).name : "- - -" %></dd>
-    </div>
-    <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
-      <dt class="font-medium text-gray-500">Investigation</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.investigation ? disease.investigation : "- - -" %></dd>
-    </div>
-    <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
-      <dt class="font-medium text-gray-500">Treatments</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.treatments ? disease.treatments : "- - -" %></dd>
-    </div>
-    <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
-      <dt class="font-medium text-gray-500">Date of Diagnosis</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.date_of_diagnosis ? disease.date_of_diagnosis : "- - -" %></dd>
-    </div>
-    <div class="py-2 grid grid-cols-3 gap-4 px-6 hover:bg-gray-100">
-      <dt class="font-medium text-gray-500">Remarks</dt>
-      <dd class="text-gray-900 col-span-2"><%= disease.remarks ? disease.remarks : "- - -" %></dd>
-    </div>
-  </div>
-</div>
--->
-<!-- component -->
 <div class="container mx-auto w-full h-full">
   <div class="relative wrap overflow-hidden pl-4 sm:px-4 md:px-10 h-full pt-0">
     <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border"></div>
-    <!-- right timeline -->
     <div class="mb-8 flex justify-between items-center w-full">
       <div class="-mx-4 z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
         <h1 class="mx-auto font-semibold text-lg text-white"><%=index%></h1>

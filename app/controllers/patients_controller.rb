@@ -1,14 +1,17 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: [:show, :edit, :update]
 
+  # GET /patients/
   def index
   end
 
+  # GET /patients/new
   def new
     @patient = Patient.new
     render "/patients/personal_details/form", locals: { patient: @patient }
   end
 
+  # POST /patients
   def create
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
@@ -18,14 +21,17 @@ class PatientsController < ApplicationController
     redirect_to patients_path
   end
 
+  # GET /patients/:id
   def show
     @patient = Patient.find_by(id: params[:id])
   end
 
+  # GET /patients/:id/edit
   def edit
     render "/patients/personal_details/form", locals: { patient: Patient.find_by(id: params[:id]) }
   end
 
+  # PUT /patients/:id/
   def update
     @patient.update!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
