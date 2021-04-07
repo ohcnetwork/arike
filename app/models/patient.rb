@@ -4,9 +4,16 @@ class Patient < ApplicationRecord
   has_many :patient_disease_summaries, dependent: :destroy
   belongs_to :facility
   validates :full_name, presence: true, length: { minimum: 1 }
-  validates :phone, :emergency_phone_no , :presence => {:message => 'Invalid Phone Number'},
-  :numericality => true,
-  :length => { :minimum => 10, :maximum => 15 }
+  validates :phone, :emergency_phone_no, :presence => { :message => "Invalid Phone Number" },
+                                         :numericality => true,
+                                         :length => { :minimum => 10, :maximum => 15 }
+
+  enum economic_status: {
+    well_of: "Well Off",
+    middle_class: "Middle Class",
+    poor: "Poor",
+    very_poor: "Very Poor",
+  }
 
   def add_users(user_ids)
     user_ids.each do |user_id|
