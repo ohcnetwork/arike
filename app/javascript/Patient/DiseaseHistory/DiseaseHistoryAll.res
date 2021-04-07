@@ -3,7 +3,6 @@ type state = {
   list_of_diseases: array<array<option<string>>>,
 }
 type props = state
-open Webapi.Dom
 
 let s = React.string
 

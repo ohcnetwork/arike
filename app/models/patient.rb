@@ -4,6 +4,9 @@ class Patient < ApplicationRecord
   has_many :patient_disease_summaries
   belongs_to :facility
   validates :full_name, presence: true, length: { minimum: 1 }
+  validates :phone, :emergency_phone_no , :presence => {:message => 'Invalid Phone Number'},
+  :numericality => true,
+  :length => { :minimum => 10, :maximum => 15 }
 
   def add_users(user_ids)
     user_ids.each do |user_id|

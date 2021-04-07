@@ -35,6 +35,7 @@ module FamilyMember = {
       remarks: field("remarks", optional(string), json),
     }
   }
+  let getId = (member) => { Js.log2("Member id is ",member.id); member.id }
 }
 let toString = str => {
   Js.Option.getWithDefault("", str)
@@ -43,7 +44,7 @@ let s = React.string
 type props = FamilyMember.t
 
 @react.component
-let make = (~props: props, ~count, ~onClick, ~relations, ~educations, ~occupations) => {
+let make = (~props: props, ~onClick, ~relations, ~educations, ~occupations) => {
   let id = props.id
   let isGray = "bg-gray-100"
   <div

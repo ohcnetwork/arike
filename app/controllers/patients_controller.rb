@@ -2,6 +2,7 @@ class PatientsController < ApplicationController
   skip_before_action :ensure_logged_in
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
 
+
   def index
   end
 
