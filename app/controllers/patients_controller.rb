@@ -28,7 +28,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/:id/edit
   def edit
-    render "/patients/personal_details/form", locals: { patient: Patient.find_by(id: params[:id]) }
+    render "/patients/personal_details/form"
   end
 
   # PUT /patients/:id/

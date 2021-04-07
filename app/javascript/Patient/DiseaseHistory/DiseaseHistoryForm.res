@@ -30,6 +30,7 @@ module PatientDisease = {
       remarks: field("remarks", optional(string), json),
     }
   }
+  let getId = disease => disease.id
 }
 let toString = str => {
   Js.Option.getWithDefault("", str)
