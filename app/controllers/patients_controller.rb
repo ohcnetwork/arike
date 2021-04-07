@@ -13,10 +13,15 @@ class PatientsController < ApplicationController
 
   # POST /patients
   def create
-    patient = Patient.create!(patient_params)
+    @patient = Patient.create(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_key, value| value.to_i == 1 }.map { |key, _value| key }
-    patient.add_users(volunteer_user_ids)
+    @patient.add_users(volunteer_user_ids)
+    if !@patient.valid?
+      flash[:error] = @patient.errors.full_messages.join(", ")
+      redirect_to new_patient_path
+      return
+    end
     # Get /patients
     redirect_to patients_path
   end
@@ -33,10 +38,15 @@ class PatientsController < ApplicationController
 
   # PUT /patients/:id/
   def update
-    @patient.update!(patient_params)
+    @patient.update(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
     @patient.update_users(volunteer_user_ids)
+    if !@patient.valid?
+      flash[:error] = @patient.errors.full_messages.join(", ")
+      redirect_to edit_patient_path
+      return
+    end
     # Get patients/:id
     redirect_to patient_path
   end
