@@ -21,7 +21,7 @@ RSpec.describe "Patients", type: :request do
     facility = Facility.last
     post "/patients", params: { patient: { full_name: "Test123", volunteer: {}, facility_id: facility.id } }
   end
-    # it "renders the list of patients" do
+  # it "renders the list of patients" do
   #   lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
   #   asha = User.create!(full_name: "Asha", role: User.roles[:asha], password: "01", email: "test@test.com")
   #   patient = Patient.create!(full_name: "Mogambe khush hua", lsg_body: lsg_body.id, asha_member: asha.id)
@@ -32,15 +32,14 @@ RSpec.describe "Patients", type: :request do
 
   it "adds a family member to the patient" do
     patient = Patient.last
-    put "/patients/#{patient.id}/family_details", params: {patient_id: patient.id, familyDetails: {"1" => {full_name: Faker::Name.name, relation: "Brother"}}}
+    put "/patients/#{patient.id}/family_details", params: { patient_id: patient.id, familyDetails: { "1" => { full_name: Faker::Name.name, relation: "Brother" } } }
     family_members = patient.family_details
     expect(family_members.count).to eq(1)
   end
 
   it "adds a disease to patient" do
-
     patient = Patient.last
-    put "/patients/#{patient.id}/patient_disease_summary", params: {patient_id: patient.id, patientDiseases: {"1" => {name: Disease.last.id}}}
+    put "/patients/#{patient.id}/patient_disease_summary", params: { patient_id: patient.id, patientDiseases: { "1" => { name: Disease.last.id } } }
     expect(PatientDiseaseSummary.count).to eq(1)
   end
 
