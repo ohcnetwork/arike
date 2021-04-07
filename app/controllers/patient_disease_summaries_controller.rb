@@ -9,7 +9,6 @@ class PatientDiseaseSummariesController < ApplicationController
   def update
     @patient = Patient.find_by(id: params[:id])
     @patient.update_disease_history(params[:patientDiseases], params[:id])
-    # Get patients/:id
     redirect_to patient_path
   end
 end

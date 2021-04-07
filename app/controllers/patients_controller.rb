@@ -8,7 +8,7 @@ class PatientsController < ApplicationController
   # GET /patients/new
   def new
     @patient = Patient.new
-    render "/patients/personal_details/form", locals: { patient: @patient }
+    render "/patients/personal_details/form"
   end
 
   # POST /patients
@@ -22,7 +22,6 @@ class PatientsController < ApplicationController
       redirect_to new_patient_path
       return
     end
-    # Get /patients
     redirect_to patients_path
   end
 
@@ -47,7 +46,6 @@ class PatientsController < ApplicationController
       redirect_to edit_patient_path
       return
     end
-    # Get patients/:id
     redirect_to patient_path
   end
 
