@@ -1,21 +1,21 @@
 <tr class="bg-white" x-description="Odd row">
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-    <%= full_name %>
+    <%= patient.full_name %>
   </td>
 
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= dob %>
+    <%= patient.dob %>
   </td>
 
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= phone %>
+    <%= patient.phone %>
   </td>
 
   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= address %>
+    <%= patient.address %>
   </td>
 
   <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-    <%= link_to "View", patient_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+    <%= link_to "View", patient_path(patient.id), class: "text-indigo-600 hover:text-indigo-900"  %>
   </td>
 </tr>

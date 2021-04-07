@@ -5,7 +5,7 @@
     >
       <dt class="font-medium text-gray-500">Full name</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.full_name %>
+        <%= @patient.full_name %>
       </dd>
     </div>
     <div
@@ -13,7 +13,7 @@
     >
       <dt class="font-medium text-gray-500">Date of birth</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.dob %>
+        <%= @patient.dob %>
       </dd>
     </div>
     <div
@@ -21,7 +21,7 @@
     >
       <dt class="font-medium text-gray-500">Phone No.</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.phone %>
+        <%= @patient.phone %>
       </dd>
     </div>
     <div
@@ -29,7 +29,7 @@
     >
       <dt class="font-medium text-gray-500">Address</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.address %>
+        <%= @patient.address %>
       </dd>
     </div>
     <div
@@ -37,7 +37,7 @@
     >
       <dt class="font-medium text-gray-500">Route</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.route %>
+        <%= @patient.route %>
       </dd>
     </div>
     <div
@@ -45,7 +45,7 @@
     >
       <dt class="font-medium text-gray-500">Economic Status</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.economic_status %>
+        <%= @patient.economic_status %>
       </dd>
     </div>
     <div
@@ -53,7 +53,7 @@
     >
       <dt class="font-medium text-gray-500">Notes</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.notes %>
+        <%= @patient.notes %>
       </dd>
     </div>
     <div
@@ -61,7 +61,7 @@
     >
       <dt class="font-medium text-gray-500">Volunteers</dt>
       <dd class="mt-1 text-gray-900 sm:mt-0 sm:col-span-2">
-        <%= patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
+        <%= @patient.users.volunteers.to_a.map { |member| member.full_name }.join(", ") %>
       </dd>
     </div>
   </dl>
