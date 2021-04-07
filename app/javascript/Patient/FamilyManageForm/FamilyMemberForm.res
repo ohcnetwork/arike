@@ -35,7 +35,7 @@ module FamilyMember = {
       remarks: field("remarks", optional(string), json),
     }
   }
-  let getId = (member) => { Js.log2("Member id is ",member.id); member.id }
+  let getId = member => {member.id}
 }
 let toString = str => {
   Js.Option.getWithDefault("", str)
