@@ -55,7 +55,7 @@ let make = (~props: props, ~onClick, ~list) => {
           defaultValue={toString(props.name)}
           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
           {list
-          ->Belt.Array.map(e =>
+          ->Js.Array2.map(e =>
             <option key={toString(e[1])} value={toString(e[1])}> {s(toString(e[0]))} </option>
           )
           ->React.array}

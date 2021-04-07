@@ -18,7 +18,7 @@ let reducer = (state, action) =>
   switch action {
   | AddFamilyMember => {
       ...state,
-      members: Belt.Array.concat(
+      members: Js.Array2.concat(
         state.members,
         [FamilyMemberForm.FamilyMember.make(~id=Belt.Int.toString(count.contents))],
       ),
@@ -47,7 +47,7 @@ let make = (~props) => {
 
   <div className="max-w-3xl mx-auto mt-8 relative">
     {state.members
-    ->Belt.Array.map(props => {
+    ->Js.Array2.map(props => {
       <FamilyMemberForm
         props
         key={Js.Option.getWithDefault("", props.id)}

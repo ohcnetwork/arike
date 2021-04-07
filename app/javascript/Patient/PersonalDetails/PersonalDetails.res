@@ -42,7 +42,7 @@ type props = {
   facility: array<array<option<string>>>,
   facility_selected: option<string>,
 }
-
+let toString = optionStr => ""->Js.Option.getWithDefault(optionStr)
 let s = React.string
 
 /* Add State for capturing data */
@@ -60,7 +60,7 @@ let make = (~props) => {
           <input
             type_="text"
             name="patient[full_name]"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.full_name)}
+            defaultValue={toString(state.patient.full_name)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -73,7 +73,7 @@ let make = (~props) => {
           <input
             name="patient[dob]"
             type_="date"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.dob)}
+            defaultValue={toString(state.patient.dob)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -86,7 +86,7 @@ let make = (~props) => {
           <select
             name="patient[gender]"
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.gender)}>
+            defaultValue={toString(state.patient.gender)}>
             <option> {s("Select")} </option>
             <option value="Male"> {s("Male")} </option>
             <option value="Female"> {s("Female")} </option>
@@ -102,7 +102,7 @@ let make = (~props) => {
           <input
             name="patient[phone]"
             type_="text"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.phone)}
+            defaultValue={toString(state.patient.phone)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -116,7 +116,7 @@ let make = (~props) => {
           <input
             name="patient[emergency_phone_no]"
             type_="text"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.emergency_phone_no)}
+            defaultValue={toString(state.patient.emergency_phone_no)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
           />
         </div>
@@ -128,14 +128,11 @@ let make = (~props) => {
         <div className="mt-1">
           <select
             name="patient[facility_id]"
-            defaultValue={""->Js.Option.getWithDefault(state.facility_selected)}
+            defaultValue={toString(state.facility_selected)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
             {state.facility
             ->Js.Array2.map(e =>
-              <option
-                key={""->Js.Option.getWithDefault(e[1])} value={""->Js.Option.getWithDefault(e[1])}>
-                {s(""->Js.Option.getWithDefault(e[0]))}
-              </option>
+              <option key={toString(e[1])} value={toString(e[1])}> {s(toString(e[0]))} </option>
             )
             ->React.array}
           </select>
@@ -149,7 +146,7 @@ let make = (~props) => {
           <textarea
             name="patient[route]"
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.route)}
+            defaultValue={toString(state.patient.route)}
           />
         </div>
       </div>
@@ -161,7 +158,7 @@ let make = (~props) => {
           <textarea
             name="patient[address]"
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.address)}
+            defaultValue={toString(state.patient.address)}
           />
         </div>
       </div>
@@ -172,7 +169,7 @@ let make = (~props) => {
         <div className="mt-1">
           <textarea
             name="patient[notes]"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.notes)}
+            defaultValue={toString(state.patient.notes)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
           />
         </div>
@@ -184,12 +181,12 @@ let make = (~props) => {
         <div className="mt-1 overflow-y-scroll h-24 py-3 px-2">
           {state.volunteers
           ->Js.Array2.map(e => {
-            <div className="flex items-start" key={""->Js.Option.getWithDefault(e[1])}>
+            <div className="flex items-start" key={toString(e[1])}>
               <div className="flex items-center h-5">
                 <input
                   type_="checkbox"
-                  name={`patient[volunteer[${""->Js.Option.getWithDefault(e[1])}]]`}
-                  id={""->Js.Option.getWithDefault(e[1])}
+                  name={`patient[volunteer[${toString(e[1])}]]`}
+                  id={toString(e[1])}
                   defaultChecked={e[0]->Js.Array.includes(
                     state.volunteers_selected->Js.Array2.map(x => x[0]),
                   )}
@@ -198,7 +195,7 @@ let make = (~props) => {
               </div>
               <div className="ml-3 text-sm">
                 <label name="patient[volunteer[${e[1]}]]" className="font-medium text-gray-700">
-                  {s(""->Js.Option.getWithDefault(e[0]))}
+                  {s(toString(e[0]))}
                 </label>
               </div>
             </div>
@@ -213,7 +210,7 @@ let make = (~props) => {
         <div className="mt-1">
           <select
             name="patient[economic_status]"
-            defaultValue={""->Js.Option.getWithDefault(state.patient.economic_status)}
+            defaultValue={toString(state.patient.economic_status)}
             className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
             <option> {s("Well Off")} </option>
             <option> {s("Middle Class")} </option>

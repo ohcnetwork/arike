@@ -16,7 +16,7 @@ let reducer = (state, action) =>
   switch action {
   | AddDisease => {
       ...state,
-      diseases: Belt.Array.concat(
+      diseases: Js.Array2.concat(
         state.diseases,
         [DiseaseHistoryForm.PatientDisease.make(~id=Some(Belt.Int.toString(count.contents)))],
       ),
@@ -38,7 +38,7 @@ let make = (~props) => {
 
   <div className="max-w-3xl mx-auto mt-8 relative">
     {state.diseases
-    ->Belt.Array.map(props => {
+    ->Js.Array2.map(props => {
       <DiseaseHistoryForm
         props
         list={state.list_of_diseases}
