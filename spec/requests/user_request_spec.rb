@@ -26,7 +26,7 @@ RSpec.describe "Users", type: :request do
   it "verify access of a unverified user without superuser privilidges" do
     user = FactoryBot.create(:user, verified: false)
     put "/users/:id/verify", params: { id: user.id }
-    expect(User.find_by_id(user.id).verified).to eq(false)
+    expect(User.find(user.id).verified).to eq(false)
     expect(response).to redirect_to("/")
   end
 end

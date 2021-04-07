@@ -18,22 +18,22 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-    newUser =
+    new_user =
       params
         .require(:user)
         .permit(:full_name, :first_name, :role, :email, :phone)
-    user = User.find_by_id(params[:id])
+    user = User.find(params[:id])
     if user
       user.update(
-        full_name: newUser[:full_name],
-        first_name: newUser[:first_name],
-        role: newUser[:role],
-        email: newUser[:email],
-        phone: newUser[:phone],
+        full_name: new_user[:full_name],
+        first_name: new_user[:first_name],
+        role: new_user[:role],
+        email: new_user[:email],
+        phone: new_user[:phone],
       )
     end
     redirect_to users_path
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
   def assign_facility
     assignables = params.require(:facility).permit(:facility_id, :user_id)
-    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
+    @facility = policy_scope(Facility).find(assignables[:facility_id])
     authorize @facility
 
     user =
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 
   def unassign_facility
     assignables = params.require(:facility).permit(:facility_id, :nurse_id)
-    @facility = policy_scope(Facility).find_by_id(assignables[:facility_id])
+    @facility = policy_scope(Facility).find(assignables[:facility_id])
     authorize @facility
 
     user =
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
   end
 
   def verify
-    user = User.find_by_id(params[:id])
+    user = User.find(params[:id])
     user.update(verified: true) if user
     redirect_to users_path
   end

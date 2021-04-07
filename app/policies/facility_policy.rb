@@ -25,8 +25,11 @@ class FacilityPolicy < ApplicationPolicy
 
   def assign_facility?
     return false if user.blank?
+
     return true if user.superuser?
+
     return false unless user.medical_officer?
+
     user.facility.id == record.id
   end
 
@@ -35,8 +38,11 @@ class FacilityPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       return Facility.all if (user.superuser? || user.medical_officer?)
+
       return Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id)) if user.secondary_nurse?
-      return user.facility user.primary_nurse?
+
+      return user.facility if user.primary_nurse?
+
       Facility.none
     end
   end

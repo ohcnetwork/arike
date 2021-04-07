@@ -1,7 +1,5 @@
 class PatientsController < ApplicationController
-  skip_before_action :ensure_logged_in
   before_action :set_patient, only: [:show, :edit, :update]
-
 
   def index
   end
@@ -14,7 +12,7 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.create!(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_key, value| value.to_i == 1 }.map { |key, _value| key }
     patient.add_users(volunteer_user_ids)
     # Get /patients
     redirect_to patients_path
