@@ -116,10 +116,23 @@ module Filter = {
   @react.component
   let make = (~setFilterOptions, ~procedures) => {
     let (showDropdown, setShowDropdown) = React.useState(_ => false)
+    let (searchTerm, setSearchTerm) = React.useState(_ => "")
+    let (options, setOptions) = React.useState(_ => procedures)
 
     let toggleDropDown = _evt => {
       setShowDropdown(isVisible => !isVisible)
     }
+
+    React.useEffect1(() => {
+      let search_term = searchTerm->Js.String.toLowerCase
+      let filtered_procedures =
+        procedures->Js.Array2.filter(procedure =>
+          search_term->Js.String.includes(procedure->Js.String.toLowerCase)
+        )
+
+      setOptions(_ => filtered_procedures)
+      None
+    }, [searchTerm])
 
     <div className="relative inline-block text-left z-10">
       <div>
@@ -137,8 +150,9 @@ module Filter = {
           : "origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
         <div className="py-1">
           <div className="text-center p-2 font-bold"> {s("Procedures")} </div>
+          <Search setSearchTerm />
           <div className=" grid grid-cols-2 justify-items-start">
-            {procedures
+            {options
             ->Belt.Array.map(procedure =>
               <FilterOption setFilterOptions name={procedure} basis="procedure" key={procedure} />
             )
