@@ -68,11 +68,13 @@ RSpec.describe "Facility as normal user", type: :request do
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
   end
+
   it "accessing /facilities without perms" do
     get facilities_path
     expect(response.status).to eq(302)
     expect(response).to redirect_to(root_path)
   end
+
   it "accessing /facilities/new without perms" do
     get new_facility_path
     expect(response.status).to eq(302)
@@ -84,6 +86,7 @@ RSpec.describe "Facility as normal user", type: :request do
     expect(response.status).to eq(302)
     expect(response).to redirect_to(root_path)
   end
+
   it "create a valid CHC without perms" do
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)

@@ -24,12 +24,7 @@ class FacilitiesController < ApplicationController
 
   # POST /facilities
   def create
-    facility_params = facilities_params
-    if facility_params[:kind] == "CHC"
-      facility_params[:parent_id] = nil
-    end
-
-    facility = Facility.create(facility_params)
+    facility = Facility.create(facilities_params)
     user_saved = if !current_user.superuser?
         user = User.add_to_facility(current_user.id, facility.id)
         user.save
@@ -51,11 +46,7 @@ class FacilitiesController < ApplicationController
 
   # PATCH /facilities/:id
   def update
-    facility_params = facilities_params
-    if facility_params[:kind] == "CHC"
-      facility_params[:parent_id] = nil
-    end
-    @facility.update!(facility_params)
+    @facility.update!(facilities_params)
     redirect_to facility_path(@facility.id)
   end
 

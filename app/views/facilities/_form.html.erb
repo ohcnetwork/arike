@@ -7,7 +7,7 @@
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :kind, "Type", class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("kind", Facility.kinds.values , {}, onChange: "removeCHCSelect(event)", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+                <%= form.select("kind", Facility.kinds.values , {}, onChange: "removeCHCSelect()", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
@@ -62,13 +62,18 @@
   </div>
 </div>
 <script>
-  let removeCHCSelect = (event) => {
-    if (event.target.value === "CHC") {
+  let removeCHCSelect = () => {
+    let value = document.getElementById("facility_kind").value;
+    if (value === "CHC") {
       document.getElementById("remove_this_div").style.display = "none";
-    } else if (event.target.value === "Hospital") {
+      document.getElementById("facility_parent_id").setAttribute("disabled", "disabled");
+    } else if (value === "Hospital") {
+      document.getElementById("facility_parent_id").setAttribute("disabled", "disabled");
       document.getElementById("remove_this_div").style.display = "none";
     } else {
+      document.getElementById("facility_parent_id").removeAttribute("disabled");
       document.getElementById("remove_this_div").style.display = "block";
     }
   }
+  removeCHCSelect()
 </script>
