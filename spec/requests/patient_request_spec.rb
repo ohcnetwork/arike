@@ -1,34 +1,51 @@
 require "rails_helper"
 
 RSpec.describe "Patients", type: :request do
+  before :each do
+    LsgBody.create(district: "Kerale")
+    Ward.create(name: "ward", lsg_body_id: LsgBody.last.id)
+    Facility.create(kind: Facility.kinds.values[1], name: Faker::Name.name,
+      state: "Kerale", district: "ABC",
+      lsg_body_id: LsgBody.last.id, ward_id: Ward.last.id, address: "Address", pincode: "121321", phone: "43287423647")
+    Patient.create(full_name: Faker::Name.name, phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
+    Disease.create(name: "Corona")
+    @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+    post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
+  end
+
   it "renders the list of patients" do
-    lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
-    asha = User.create!(full_name: "Asha", role: User.roles[:asha], password: "01", email: "test@test.com")
-    patient = Patient.create!(full_name: "Mogambe khush hua", lsg_body: lsg_body.id, asha_member: asha.id)
+    patient = Patient.create!(full_name: "Mogambe khush hua", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
     get "/patients"
     expect(response).to render_template(:index)
     expect(response.body).to include(patient.full_name)
   end
 
-  it "creates a new patient with correct full name" do
-    post "/patients", params: { patient: { full_name: "Test123", volunteer: {} } }
-    expect(Patient.first.full_name).to eq("Test123")
+  it "adds a family member to the patient" do
+    patient = Patient.last
+    put "/patients/#{patient.id}/family_details", params: { patient_id: patient.id, familyDetails: { "1" => { full_name: Faker::Name.name, relation: "Brother" } } }
+    family_members = patient.family_details
+    expect(family_members.count).to eq(1)
+  end
+
+  it "adds a disease to patient" do
+    disease = Disease.last
+    patient = Patient.last
+    put "/patients/#{patient.id}/patient_disease_summary", params: { patient_id: patient.id, patientDiseases: { "1" => { name: Disease.last.id } } }
+    expect(PatientDiseaseSummary.count).to eq(1)
   end
 
   it "assigns volunteers to the patient" do
     v1 = FactoryBot.create(:volunteer)
     v2 = FactoryBot.create(:volunteer)
-    post "/patients", params: { patient: { full_name: "Test123", volunteer: { v1.id => 1, v2.id => 1 } } }
+    patient = Patient.last
+    put "/patients/#{patient.id}", params: { patient: { full_name: "Test123", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id, volunteer: { v1.id => 1, v2.id => 1 } } }
     patient = Patient.last
     expect(patient.users.volunteers).to include(v1, v2)
   end
 
   it "see single patient" do
-    lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
-    asha = User.create!(full_name: "Asha", role: User.roles[:asha], password: "01", email: "test@test.com")
-    patient = Patient.create!(full_name: "Mogambe khush hua", lsg_body: lsg_body.id, asha_member: asha.id, reported_by: asha.id)
-    get "/patients/#{patient.id}"
-    expect(response).to render_template("patients/show")
+    patient = Patient.last
+    get "/patients/#{patient.id}/show/personal_details"
     expect(response.body).to include(patient.full_name)
   end
 end

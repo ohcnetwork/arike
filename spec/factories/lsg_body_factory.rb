@@ -5,10 +5,4 @@ FactoryBot.define do
     code { "101" }
     district { "district" }
   end
-
-  factory :ward, class: "Ward" do
-    name { generate(:name) }
-    number { Faker::Number.number(digits: 2) }
-    lsg_body_id { LsgBody.last.id }
-  end
 end
