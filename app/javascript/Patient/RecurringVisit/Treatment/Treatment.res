@@ -2,12 +2,56 @@ let s = React.string
 
 module MultiSelectDropdown = Treatment__MultiSelectDropdown
 
-type option = MultiSelectDropdown.option
-
 type treatment = {
   id: string,
   name: string,
 }
+
+let treatmentOptions: array<MultiSelectDropdown.option> = [
+  {id: "1", name: "Mouth care"},
+  {id: "2", name: "Bath"},
+  {id: "3", name: "Nail cutting"},
+  {id: "4", name: "Shaving"},
+  {id: "5", name: "Condom catheterization & training"},
+  {id: "6", name: "Nelcath catheterization & training"},
+  {id: "7", name: "Foley's catheterization"},
+  {id: "8", name: "Foley's catheter care"},
+  {id: "9", name: "Suprapubic catheterization"},
+  {id: "10", name: "Suprapubic catheter care"},
+  {id: "11", name: "Perennial care"},
+  {id: "12", name: "Bladder wash with normal saline"},
+  {id: "13", name: "Bladder wash with soda bicarbonate"},
+  {id: "14", name: "Enema"},
+  {id: "15", name: "High enema"},
+  {id: "16", name: "Suppository"},
+  {id: "17", name: "Digital evacuation"},
+  {id: "18", name: "Ryles tube insertion"},
+  {id: "19", name: "Ryles tube care"},
+  {id: "20", name: "Ryles tube feeding & training"},
+  {id: "21", name: "PEG care"},
+  {id: "22", name: "Wound care"},
+  {id: "23", name: "Wound care training to family"},
+  {id: "24", name: "Suture removal"},
+  {id: "25", name: "Vacuum dressing"},
+  {id: "26", name: "Tracheostomy care"},
+  {id: "27", name: "Colostomy care"},
+  {id: "28", name: "Colostomy irrigation care"},
+  {id: "29", name: "ileostomy care"},
+  {id: "30", name: "Urostomy care"},
+  {id: "31", name: "Upper limb lymphedema bandaging"},
+  {id: "32", name: "Lower limb lymphedema bandaging"},
+  {id: "33", name: "Upper limb lymphedema hosiery"},
+  {id: "34", name: "IV fluid infusion"},
+  {id: "35", name: "IV medicine bolus administration"},
+  {id: "36", name: "IV cannula care"},
+  {id: "37", name: "S/C fluid infusion (subcutaneous)"},
+  {id: "38", name: "S/C medicine bolus administration"},
+  {id: "39", name: "S/C cannula care"},
+  {id: "40", name: "Ascites tapping"},
+  {id: "41", name: "Ascitic catheter care"},
+]
+
+let initialTreatments = []
 
 module TreatmentDiv = {
   @react.component
@@ -37,29 +81,36 @@ module TreatmentDiv = {
   }
 }
 
-let parseTreatment = (treatment, removeTreatmentHandler) => {
-  <TreatmentDiv
-    key=treatment.id id=treatment.id name=treatment.name onClick=removeTreatmentHandler
-  />
+let decode = json => {
+  open Json.Decode
+  let item = {
+    id: field("id", string, json),
+    name: field("name", string, json),
+  }
+  item
 }
 
 @react.component
 let make = () => {
-  let options: array<MultiSelectDropdown.option> = [
-    {id: "1", name: "bed sore"},
-    {id: "2", name: "wound"},
-    {id: "3", name: "catheterisation"},
-    {id: "4", name: "Enema"},
-    {id: "5", name: "Lymphedema "},
-    {
-      id: "6",
-      name: "IV fluid infusion",
-    },
-  ]
-
-  let initialTreatments = []
+  let initialOptions: array<MultiSelectDropdown.option> = [{id: "sdd", name: "asslkfj"}]
 
   let (treatments, setTreatments) = React.useState(() => initialTreatments)
+  let (options, setOptions) = React.useState(() => initialOptions)
+
+  React.useEffect0(() => {
+    open Js.Promise
+    Fetch.fetch("/treatment")
+    |> then_(Fetch.Response.json)
+    |> then_(json => Js.Json.decodeArray(json) |> resolve)
+    |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
+    |> then_(items => {
+      let items = items->Belt.Array.map(item => item->decode)
+      setTreatments(_ => items)
+      items->resolve
+    })
+    |> ignore
+    None
+  })
 
   let handleClick = (id, name) => {
     setTreatments(state => {
@@ -105,7 +156,11 @@ let make = () => {
             <h4> {s("No treatments added")} </h4>
           } else {
             treatments
-            ->Belt.Array.map(treatment => parseTreatment(treatment, removeItem))
+            ->Belt.Array.map(treatment =>
+              <TreatmentDiv
+                key=treatment.id id=treatment.id name=treatment.name onClick=removeItem
+              />
+            )
             ->React.array
           }}
         </ul>

@@ -22,23 +22,28 @@ let search = (searchString, options) => {
 
 module DropDown = {
   @react.component
-  let make = (~options, ~show, ~id, ~onClick) => {
+  let make = (~options, ~show, ~onClick) => {
     let options =
       options->Belt.Array.map(option =>
         <button
           key=option.id
-          className="flex text-xs px-4 py-1 items-center w-full hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+          className="-m-3 p-3 block rounded-md hover:bg-gray-50 transition ease-in-out duration-150"
           onClick={e => onClick(option.id, option.name)}>
-          {s(option.name)}
+          <p className="text-base font-medium text-gray-900"> {s(option.name)} </p>
         </button>
       )
+
     if show {
       <div
-        className="absolute left-0 right-0 w-full border border-gray-400 bg-white mt-1 rounded-lg shadow-lg py-2 z-50">
-        {React.array(options)}
+        className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-full sm:px-0 max-h-80 overflow-auto">
+        <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+            {options->React.array}
+          </div>
+        </div>
       </div>
     } else {
-      <div className="hidden" />
+      <div />
     }
   }
 }
@@ -68,18 +73,16 @@ let make = (~id, ~className, ~name, ~options, ~label, ~onClick) => {
     <div className="relative mt-1 w-full">
       <input
         type_="text"
-        onClick={_ => setShowDropdown(s => !s)}
+        onClick={_ => setShowDropdown(_ => true)}
         onChange={e => {
           let value = ReactEvent.Form.target(e)["value"]
-          // Js.log(value)
           setResults(_ => search(value, options))
         }}
         name
         className="shadow-sm
           focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md "
       />
-      <DropDown options=results show=showDropdown id onClick />
+      <DropDown options=results show=showDropdown onClick />
     </div>
-    <div className="" id={id ++ "-question"} />
   </div>
 }
