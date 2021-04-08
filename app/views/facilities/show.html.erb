@@ -11,10 +11,11 @@
       </div>
     </div>
     <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-      <% if @facility.secondary_facility? %>
-        <%= link_to "PHC", "#", class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
+      <%= link_to "Patients", show_facility_patients_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
+      <%= link_to "Members", show_facility_users_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
+      <% if policy(@facility).new? %>
+        <%= link_to "New Facility", new_facility_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
       <% end %>
-      <%= link_to "New Facility", new_facility_path, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
     </div>
   </div>
   <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
@@ -25,7 +26,7 @@
           <div class="flex justify-between items-center mr-4">
             <div class="px-4 py-5 sm:px-6">
               <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-                <%= @facility.secondary_facility? ? "Seconday" : "Primary" %> Facility Information
+                <%= @facility.kind %> Facility Information
               </h2>
               <p class="mt-1 max-w-2xl text-sm text-gray-500">
                 Details
@@ -58,7 +59,7 @@
                   Phone
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  <%= @facility.phone %>
+                  +91 <%= @facility.phone %>
                 </dd>
               </div>
               <div class="sm:col-span-1">
@@ -93,7 +94,7 @@
                         </span>
                       </div>
                       <div class="ml-4 flex-shrink-0">
-                        <%= link_to "See more", lsg_body_path(@facility.lsg_body), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                        <%= link_to "See more", lsg_body_path(@facility.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
                       </div>
                     </li>
                     <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
@@ -106,7 +107,7 @@
                         </span>
                       </div>
                       <div class="ml-4 flex-shrink-0">
-                        <%= link_to "See more", ward_path(@facility.ward), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                        <%= link_to "See more", ward_path(@facility.ward_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
                       </div>
                     </li>
                   </ul>
@@ -116,128 +117,6 @@
           </div>
         </div>
       </section>
-      <section aria-labelledby="notes-title">
-        <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
-          <div class="divide-y divide-gray-200">
-            <div class="px-4 py-5 sm:px-6">
-              <h2 id="notes-title" class="text-lg font-medium text-gray-900">Patients</h2>
-            </div>
-            <div class="px-4 py-6 sm:px-6">
-              <ul class="space-y-8 list-disc ml-4">
-                <% @facility.patients.map do |patient| %>
-                  <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                    <div class="w-0 flex-1 flex items-center">
-                      <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="ml-2 flex-1 w-0 truncate">
-                        <%= patient.full_name %>
-                      </span>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                      <%= link_to "More Info", patient_path(patient.id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
-    <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1">
-      <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-        <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Nurses Assigned</h2>
-        <!-- Activity Feed -->
-        <div class="mt-6 flow-root">
-          <h1 class="my-2">Primary</h1>
-          <ul class="mb-8">
-            <% @facility.primary_nurses.map do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2">
-                <h1><%= nurse.full_name %></h1>
-                <%= form_with url: unassign_facility_path, method: :put do |form| %>
-                  <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
-                  <%= form.hidden_field "facility[nurse_id]", value:nurse.id %>
-                  <%= button_tag "", {
-                    class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
-                    onClick: "this.form.submit()"
-                    } do %>
-                    <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                  <% end %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <h1 class="my-2">Secondary</h1>
-          <ul class="mb-8">
-            <% @facility.secondary_nurses.map do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2">
-                <h1><%= nurse.full_name %></h1>
-                <%= form_with url: unassign_facility_path, method: :put do |form| %>
-                  <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
-                  <%= form.hidden_field "facility[nurse_id]", value:nurse.id %>
-                  <%= button_tag "", {
-                    class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
-                    onClick: "this.form.submit()"
-                    } do %>
-                    <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                  <% end %>
-                <% end %>
-        <div class="sm:col-span-2">
-          <%# <dt class="text-sm font-medium text-gray-500">
-            Attachments
-          </dt> %>
-          <dd class="mt-1 text-sm text-gray-900">
-            <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
-              <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                <div class="w-0 flex-1 flex items-center">
-                  <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-  <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
-</svg>
-                  <span class="ml-2 flex-1 w-0 truncate">
-                    Lsg Body: <%= @facility.ward.lsg_body_id %>
-                  </span>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <%= link_to "See more", lsg_body_path(@facility.ward.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                </div>
-              </li>
-              <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                <div class="w-0 flex-1 flex items-center">
-                  <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-  <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
-</svg>
-                  <span class="ml-2 flex-1 w-0 truncate">
-                    Ward Body: <%= @facility.ward_id %>
-                  </span>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                   <%= link_to "See more", ward_path(@facility.ward_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="mt-6 flex flex-col justify-stretch">
-          <%= form_with url: assign_facility_path, method: :put do |form| %>
-            <div class="col-span-6 sm:col-span-3 my-4">
-              <%= form.label :nurses, "Assign Nurses", class: "block text-sm font-medium text-gray-700" %>
-              <%= form.select("facility[user_id]", User.where("facility_id IS ? AND (role = ? OR role = ?)", nil, "Primary Nurse", "Secondary Nurse").map{ |body| ["#{body.full_name} - #{body.role}", body.id]}, {
-          }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
-          %>
-            </div>
-            <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
-            <%= form.submit "Assign New Nurse", class: "cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
-          <% end %>
-        </div>
-      </div>
-    </section>
   </div>
 </main>
-<% if @facility.secondary_facility? %>
-  <%= render "table", facilities: @facility.primary_facilities%>
-<% end %>

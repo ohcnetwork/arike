@@ -1,0 +1,21 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'FamilyFormPack', "data-turbo-track": "reload", nonce: true %>
+<% end %>
+<script type="text/json" id="family-form-data">
+  {
+    "relations": <%= FamilyDetail.relations.values.to_json.html_safe %>,
+    "educations":<%= FamilyDetail.educations.values.to_json.html_safe %>,
+    "occupations":<%= FamilyDetail.occupations.values.to_json.html_safe %>,
+    "members": <%= @patient.family_details.to_json.html_safe %>
+  }
+</script>
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-3xl mx-auto">
+    <h3 class="text-3xl leading-6 font-medium text-gray-800 mb-8 pb-8 border-b">
+      Family Details
+    </h3>
+    <%= form_with url: "/patients/#{@patient.id}/family_details", method: :put do |form| %>
+      <div id="family-form"></div>
+    <% end %>
+  </div>
+</div>

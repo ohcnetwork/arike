@@ -32,4 +32,9 @@ class FamilyDetail < ApplicationRecord
     private_job: "Private Job",
     business: "Business"
   }
+  validates :relation, inclusion: {
+    in: relations.values,
+    message: "%{value} is not a valid relation",
+  }
+  validates :full_name, presence: true, length: { minimum: 1 }
 end

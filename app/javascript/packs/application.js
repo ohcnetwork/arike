@@ -7,13 +7,10 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
-import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
 
 import "stylesheets/application";
-import '@fortawesome/fontawesome-free/js/all';
+import "@fortawesome/fontawesome-free/js/all";
 
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
-
-window.PatientFormPage = PatientFormPage;

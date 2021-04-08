@@ -9,7 +9,7 @@
 <%= content_tag(:div,"" ,id: uniq_id) %>
 <%= javascript_pack_tag "MultiSelectPack", 'data-turbolinks-track': "reload" %>
 <script type="text/json" id="<%= dataElem %>">
-  <%= User.volunteers.select(:id, :full_name).to_json %>
+  <%= User.volunteers.select(:id, :full_name).to_json  %>
 </script>
 <script>
   runReact("<%= uniq_id %>", "<%= name %>", "<%= id %>", "<%= label %>", "<%= placeholder %>", "<%= dataElem %>")

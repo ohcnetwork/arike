@@ -2,9 +2,11 @@ class User < ApplicationRecord
   has_secure_password
   # has_one_time_password
   has_and_belongs_to_many :patients # how can user has many patients?
-  belongs_to :facilities, class_name: "Facility", foreign_key: "facility_id", optional: true
+  belongs_to :facility, class_name: "Facility", foreign_key: "facility_id", optional: true, inverse_of: :primary_nurses
+  belongs_to :facility, class_name: "Facility", foreign_key: "facility_id", optional: true, inverse_of: :secondary_nurses
   enum roles: {
                 superuser: "Superuser",
+                medical_officer: "Medical Officer",
                 primary_nurse: "Primary Nurse",
                 secondary_nurse: "Secondary Nurse",
                 asha: "ASHA",
@@ -17,9 +19,10 @@ class User < ApplicationRecord
                    }
   scope :ashas, -> { where(role: roles[:asha]) }
   scope :volunteers, -> { where(role: roles[:volunteer]) }
-  scope :primary_nurses, ->  { where(role: roles[:primary_nurse]) }
-  scope :secondary_nurses, -> {where(role: roles[:secondary_nurse])}
-  scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]]))}
+  scope :primary_nurses, -> { where(role: roles[:primary_nurse]) }
+  scope :secondary_nurses, -> { where(role: roles[:secondary_nurse]) }
+  scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]])) }
+  scope :assignable_users, -> { where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil) }
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, :on => :create
@@ -74,11 +77,15 @@ class User < ApplicationRecord
     self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
   end
 
-  def has_facility_access?
-    [User.roles[:superuser], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
+  def medical_officer?
+    self[:role] == User.roles[:medical_officer]
+  end
+
+  def facility_access?
+    [User.roles[:superuser], User.roles[:medical_officer], User.roles[:primary_nurse], User.roles[:secondary_nurse]].include? self[:role]
   end
 
   def facility
-    Facility.where(id: facility_id).first
+    Facility.find_by(id: facility_id)
   end
 end

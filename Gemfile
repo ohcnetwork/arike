@@ -29,7 +29,12 @@ gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "twilio-ruby", "~> 5.48"
 
-gem 'active_model_otp', '~> 2.1.1'
+gem "active_model_otp", "~> 2.1.1"
+# Authorization using policy classes
+gem "pundit", "~> 2.1"
+
+# Add pagination
+gem "kaminari", "~> 1.2"
 
 gem "roo", "~> 2.8"
 # Better organized seed data.
@@ -57,8 +62,8 @@ group :development do
   gem "spring"
   gem "pry", "~> 0.14.0"
   gem "htmlbeautifier"
-  gem 'rubocop', '~> 1.2', require: false # Ruby Style Guide.
-  gem 'rubocop-rails', '~> 2.8', require: false # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
+  gem "rubocop", "~> 1.2", require: false # Ruby Style Guide.
+  gem "rubocop-rails", "~> 2.8", require: false # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
 end
 
 group :test do

@@ -8,6 +8,9 @@ FactoryBot.define do
   sequence :name do |n|
     "name_#{n}"
   end
+  sequence :address do |n|
+    "address_#{n}"
+  end
 
   factory :volunteer, class: "User" do
     first_name { generate(:first_name) }
@@ -26,12 +29,5 @@ FactoryBot.define do
     verified { true }
     password { "password123" }
     role { User.roles[:asha] }
-  end
-
-  factory :lsg_body, class: "LsgBody" do
-    name { generate(:name) }
-    kind { "Panchayat" }
-    code { "101" }
-    district { "district" }
   end
 end
