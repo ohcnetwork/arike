@@ -28,7 +28,6 @@ RSpec.describe "Patients", type: :request do
   end
 
   it "adds a disease to patient" do
-    disease = Disease.last
     patient = Patient.last
     put "/patients/#{patient.id}/patient_disease_summary", params: { patient_id: patient.id, patientDiseases: { "1" => { name: Disease.last.id } } }
     expect(PatientDiseaseSummary.count).to eq(1)
