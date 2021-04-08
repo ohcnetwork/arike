@@ -38,7 +38,7 @@ RSpec.describe "Patients", type: :request do
     v1 = FactoryBot.create(:volunteer)
     v2 = FactoryBot.create(:volunteer)
     patient = Patient.last
-    put "/patients/#{patient.id}", params: { patient: { full_name: "Test123", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id, volunteer: { v1.id => 1, v2.id => 1 } } }
+    put "/patients/#{patient.id}", params: { patient: { full_name: "Test123", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id, volunteer: { v1.id => "on", v2.id => "on" } } }
     patient = Patient.last
     expect(patient.users.volunteers).to include(v1, v2)
   end
