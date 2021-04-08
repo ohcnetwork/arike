@@ -114,7 +114,7 @@ module FilterOption = {
 
 module Filter = {
   @react.component
-  let make = (~setFilterOptions) => {
+  let make = (~setFilterOptions, ~procedures) => {
     let (showDropdown, setShowDropdown) = React.useState(_ => false)
 
     let toggleDropDown = _evt => {
@@ -138,12 +138,11 @@ module Filter = {
         <div className="py-1">
           <div className="text-center p-2 font-bold"> {s("Procedures")} </div>
           <div className=" grid grid-cols-2 justify-items-start">
-            <FilterOption setFilterOptions name={"Simple Check"} basis="procedure" />
-            <FilterOption setFilterOptions name={"Through Check"} basis="procedure" />
-            <FilterOption setFilterOptions name={"Dialysis"} basis="procedure" />
-            <FilterOption setFilterOptions name={"Kidney Test"} basis="procedure" />
-            <FilterOption setFilterOptions name={"Liver Test"} basis="procedure" />
-            <FilterOption setFilterOptions name={"and"} basis="procedure" />
+            {procedures
+            ->Belt.Array.map(procedure =>
+              <FilterOption setFilterOptions name={procedure} basis="procedure" key={procedure} />
+            )
+            ->React.array}
           </div>
         </div>
         <div className="py-1">
@@ -169,12 +168,13 @@ let make = (
   ~sortAscending,
   ~setSortAscending,
   ~setFilterOptions,
+  ~procedures,
 ) => {
   <div>
     <div className="p-8 sm:flex items-center justify-center bg-white">
       <Search setSearchTerm />
       <Sort setSortOption sortAscending setSortAscending />
-      <Filter setFilterOptions />
+      <Filter setFilterOptions procedures />
     </div>
   </div>
 }

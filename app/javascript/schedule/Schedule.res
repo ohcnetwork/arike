@@ -76,6 +76,13 @@ let jssort = %raw(`
   }
 `)
 
+let procedures = patients_original->Belt.Array.reduce([], (acc, patient) => {
+  let s0 = Belt.Set.String.fromArray(acc)
+  let s1 = Belt.Set.String.fromArray(patient["procedures"])
+  let acc = Belt.Set.String.union(s0, s1)
+  acc->Belt.Set.String.toArray /* ["apple", "banana", "carrot", "orange", "strawberry"] */
+})
+
 module Schedule = {
   @react.component
   let make = (~visits) => {
@@ -83,12 +90,11 @@ module Schedule = {
     let (sortOption, setSortOption) = React.useState(_ => "next_visit")
     let (sortAscending, setSortAscending) = React.useState(_ => true)
     let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
-    let (andProcedures, setAndProcedures) = React.useState(_ => false)
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => patients_original)
     let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
 
-    Js.log3(visits, sortAscending, sortOption)
+    Js.log4(visits, sortAscending, sortOption, procedures)
 
     let setFilterOptions = (basis, value, active) => {
       let setFilter = setBasisFilter => {
@@ -107,16 +113,10 @@ module Schedule = {
         }
       }
 
-      if value == "and" {
-        if basis == "procedure" {
-          setAndProcedures(prev => !prev)
-        }
-      } else {
-        switch basis {
-        | "procedure" => setFilter(setProcedureFilters)
-        | "ward" => setFilter(setWardFilters)
-        | _ => ()
-        }
+      switch basis {
+      | "procedure" => setFilter(setProcedureFilters)
+      | "ward" => setFilter(setWardFilters)
+      | _ => ()
       }
     }
 
@@ -136,24 +136,18 @@ module Schedule = {
       )
     }
 
-    React.useEffect7(() => {
+    React.useEffect6(() => {
       let unselectedPatients =
         patients_original->Js.Array2.filter(patient =>
           !(selectedPatients->Js.Array2.some(spatient => spatient["id"] == patient["id"]))
         )
 
       let procedure_filtered_patients = !(procedureFilters->Js.Array2.length == 0)
-        ? andProcedures
-            ? unselectedPatients->Js.Array2.filter(patient => {
-                procedureFilters->Js.Array2.every(filter =>
-                  filter->Js.Array.includes(patient["procedures"])
-                )
-              })
-            : unselectedPatients->Js.Array2.filter(patient => {
-                procedureFilters->Js.Array2.some(filter =>
-                  filter->Js.Array.includes(patient["procedures"])
-                )
-              })
+        ? unselectedPatients->Js.Array2.filter(patient => {
+            procedureFilters->Js.Array2.every(filter =>
+              filter->Js.Array.includes(patient["procedures"])
+            )
+          })
         : unselectedPatients
 
       let ward_filtered_patients = !(wardFilters->Js.Array2.length == 0)
@@ -179,22 +173,14 @@ module Schedule = {
 
       setPatients(_ => sorted_patients)
       None
-    }, (
-      selectedPatients,
-      searchTerm,
-      sortOption,
-      sortAscending,
-      procedureFilters,
-      andProcedures,
-      wardFilters,
-    ))
+    }, (selectedPatients, searchTerm, sortOption, sortAscending, procedureFilters, wardFilters))
 
     let patientList =
       patients->Js.Array2.map(patient => <Patient key={patient["id"]} patient selectPatient />)
 
     <div>
       <SearchSortFilter
-        setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions
+        setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions procedures
       />
       <SelectedPatients selectedPatients unselectPatient />
       <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
