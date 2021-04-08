@@ -8,6 +8,9 @@ FactoryBot.define do
   sequence :name do |n|
     "name_#{n}"
   end
+  sequence :address do |n|
+    "address_#{n}"
+  end
 
   factory :volunteer, class: "User" do
     first_name { generate(:first_name) }
