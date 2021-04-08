@@ -41,7 +41,7 @@ class FacilityPolicy < ApplicationPolicy
 
       return Facility.where(id: user.facility_id).or(Facility.where(parent_id: user.facility_id)) if user.secondary_nurse?
 
-      return user.facility if user.primary_nurse?
+      return Facility.where(id: user.facility_id) if user.primary_nurse?
 
       Facility.none
     end

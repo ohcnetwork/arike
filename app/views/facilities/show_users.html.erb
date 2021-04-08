@@ -39,7 +39,7 @@
                   <%= form_with scope: :facility, url: unassign_facility_path, method: :put do |form| %>
                     <%= form.hidden_field "facility_id", value: @facility.id %>
                     <%= form.hidden_field "nurse_id", value:nurse.id %>
-                    <%= button_tag "", {
+                    <%= form.submit "", {
                       class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
                       onClick: "this.form.submit()"
                       } do %>
@@ -73,7 +73,7 @@
                   <%= form_with url: unassign_facility_path, method: :put do |form| %>
                     <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
                     <%= form.hidden_field "facility[nurse_id]", value:nurse.id %>
-                    <%= button_tag "", {
+                    <%= form.submit "", {
                       class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
                       onClick: "this.form.submit()"
                       } do %>
