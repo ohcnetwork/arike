@@ -48,10 +48,10 @@
         Additional Information
       </h3>
 
-      <div class="flex justify-between mb-8 bg-indigo-100 px-8 py-4 rounded-md">
-        <%= link_to "Personal Information", show_personal_details_path, class: "text-sm tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
-        <%= link_to "Family Details", show_family_details_path, class: "text-sm tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
-        <%= link_to "Disease History", show_disease_history_path, class: "text-sm tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
+      <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md">
+        <%= link_to "Personal Details", show_personal_details_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 w-3/12 lg:mr-0 text-center" %>
+        <%= link_to "Family Details", show_family_details_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
+        <%= link_to "Disease History", show_disease_history_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
       </div>
 
           <% if request.path == show_personal_details_path %>
