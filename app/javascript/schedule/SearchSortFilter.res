@@ -81,8 +81,7 @@ module Sort = {
       <button
         className="-ml-px relative inline-flex items-center min-w-max space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
         onClick={toggleSortOrder}>
-        {sortAscending ? s("1 > 9") : s("1 < 9")}
-        // <i className={sortAscending ? "fas fa-sort-numeric-down" : "fas fa-sort-numeric-up"} />
+        {sortAscending ? s("^") : s("v")}
       </button>
     </div>
   }
