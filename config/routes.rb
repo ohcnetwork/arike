@@ -17,8 +17,6 @@ Rails.application.routes.draw do
   put "/patients/:id/patient_disease_summary/", to: "patient_disease_summaries#update"
   # family_details
   get "/patients/:id/family_details", to: "family_details#index", as: :family_details
-  get "patients/:id/family_details/all", to: "family_details#allMembers"
-  get "/patients/:patient_id/family_details/edit", to: "family_details#edit"
   put "/patients/:id/family_details/", to: "family_details#update"
   # patient information
   get "/patients/:id/show/family_details", to: "patients#show", as: :show_family_details

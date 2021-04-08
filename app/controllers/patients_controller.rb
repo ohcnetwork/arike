@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
   def update
     @patient.update(patient_params)
     volunteer = params[:patient].permit(:volunteer => {})
-    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
+    volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_key, value| value.to_i == 1 }.map { |key, _value| key }
     @patient.update_users(volunteer_user_ids)
     if !@patient.valid?
       flash[:error] = @patient.errors.full_messages.join(", ")

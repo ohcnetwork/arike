@@ -9,10 +9,11 @@ RSpec.describe "Patients", type: :request do
       lsg_body_id: LsgBody.last.id, ward_id: Ward.last.id, address: "Address", pincode: "121321", phone: "43287423647")
     Patient.create(full_name: Faker::Name.name, phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
     Disease.create(name: "Corona")
+    @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+    post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
 
   it "renders the list of patients" do
-    lsg_body = LsgBody.create!(name: "Test", kind: "Municipality")
     patient = Patient.create!(full_name: "Mogambe khush hua", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
     get "/patients"
     expect(response).to render_template(:index)
@@ -37,7 +38,9 @@ RSpec.describe "Patients", type: :request do
     v1 = FactoryBot.create(:volunteer)
     v2 = FactoryBot.create(:volunteer)
     patient = Patient.last
-    put "/patients/#{patient.id}", params: { patient: { full_name: "Test123", phone: rand(10**11), emergency_phone_no: rand(10**11), volunteer: { v1.id => 1, v2.id => 1 } } }
+    put "/patients/#{patient.id}", params: { patient: { full_name: "Test123", phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id, volunteer: { v1.id => 1, v2.id => 1 } } }
+    patient = Patient.last
+    puts Patient.last.users
     expect(patient.users.volunteers).to include(v1, v2)
   end
 
