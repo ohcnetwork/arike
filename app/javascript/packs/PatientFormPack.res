@@ -1,5 +1,6 @@
-module Patient = PersonalDetails.Patient
-type props = PersonalDetails.props
+module Patient = Patient__Type
+type props = PersonalDetailsForm.props
+
 let decode: Js.Json.t => props = json => {
   open Json.Decode
   {
@@ -14,6 +15,6 @@ let decode: Js.Json.t => props = json => {
 let props = DomUtils.parseJSONTag(~id="patient-form-data", ()) |> decode
 
 switch ReactDOM.querySelector("#patient-form") {
-| Some(root) => ReactDOM.render(<div> <PersonalDetails props /> </div>, root)
+| Some(root) => ReactDOM.render(<div> <PersonalDetailsForm props /> </div>, root)
 | None => ()
 }

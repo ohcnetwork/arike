@@ -2,7 +2,7 @@ type state = {
   relations: array<option<string>>,
   educations: array<option<string>>,
   occupations: array<option<string>>,
-  members: array<FamilyMemberForm.FamilyMember.t>,
+  members: array<FamilyDetails__Type.t>,
 }
 type props = state
 
@@ -12,7 +12,7 @@ let count = ref(1)
 
 type action =
   | AddFamilyMember
-  | DeleteFamilyMember(FamilyMemberForm.FamilyMember.t)
+  | DeleteFamilyMember(FamilyDetails__Type.t)
 
 let reducer = (state, action) =>
   switch action {
@@ -20,15 +20,12 @@ let reducer = (state, action) =>
       ...state,
       members: Js.Array2.concat(
         state.members,
-        [FamilyMemberForm.FamilyMember.make(~id=Belt.Int.toString(count.contents))],
+        [FamilyDetails__Type.make(~id=Belt.Int.toString(count.contents))],
       ),
     }
   | DeleteFamilyMember(member) => {
       ...state,
-      members: Js.Array.filter(
-        m => FamilyMemberForm.FamilyMember.getId(m) != member.id,
-        state.members,
-      ),
+      members: Js.Array.filter(m => FamilyDetails__Type.getId(m) != member.id, state.members),
     }
   }
 

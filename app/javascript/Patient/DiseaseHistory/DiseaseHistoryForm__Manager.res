@@ -1,5 +1,5 @@
 type state = {
-  diseases: array<DiseaseHistoryForm.PatientDisease.t>,
+  diseases: array<DiseaseHistory__Type.t>,
   list_of_diseases: array<array<option<string>>>,
 }
 type props = state
@@ -10,7 +10,7 @@ let count = ref(1)
 
 type action =
   | AddDisease
-  | RemoveDisease(DiseaseHistoryForm.PatientDisease.t)
+  | RemoveDisease(DiseaseHistory__Type.t)
 
 let reducer = (state, action) =>
   switch action {
@@ -18,7 +18,7 @@ let reducer = (state, action) =>
       ...state,
       diseases: Js.Array2.concat(
         state.diseases,
-        [DiseaseHistoryForm.PatientDisease.make(~id=Some(Belt.Int.toString(count.contents)))],
+        [DiseaseHistory__Type.make(~id=Some(Belt.Int.toString(count.contents)))],
       ),
     }
   | RemoveDisease(disease) => {
@@ -42,7 +42,7 @@ let make = (~props) => {
       <DiseaseHistoryForm
         props
         list={state.list_of_diseases}
-        key={Js.Option.getWithDefault("", props->DiseaseHistoryForm.PatientDisease.getId)}
+        key={Js.Option.getWithDefault("", props->DiseaseHistory__Type.getId)}
         onClick={_mouseEvt => RemoveDisease(props)->dispatch}
       />
     })
