@@ -21,10 +21,7 @@
         >
           <div class="py-6">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 mt-10 md:mt-0">
-              <% if flash[:error] %>
-                <%= render partial: "/layouts/flash-message" %>
-              <% end %>
-              <% if flash[:notice] %>
+              <% if flash[:error] || flash[:notice] %>
                 <%= render partial: "/layouts/flash-message" %>
               <% end %>
               <%= yield %>
