@@ -3,8 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_secure_password
-  # has_one_time_password
+
   has_and_belongs_to_many :patients # how can user has many patients?
   belongs_to :facility, class_name: "Facility", foreign_key: "facility_id", optional: true, inverse_of: :primary_nurses
   belongs_to :facility, class_name: "Facility", foreign_key: "facility_id", optional: true, inverse_of: :secondary_nurses
@@ -28,9 +27,6 @@ class User < ApplicationRecord
   scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]])) }
   scope :assignable_users, -> { where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil) }
 
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, :on => :create
-  validates :email, uniqueness: true
   validates :phone, uniqueness: true
 
   def send_sms(to, message)

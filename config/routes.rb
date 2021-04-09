@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   get "/patients/:id/show/disease_history", to: "patients#show", as: :show_disease_history
 
 
-  resources :users
   put "/users/:id/verify", to: "users#verify", as: :verify_user
   # for assigning a nurse to a facility
   put "/assign", to: "users#assign_facility", as: :assign_facility
@@ -66,4 +65,5 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  resources :users
 end

@@ -1,27 +1,35 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    @user = User.new
+    render "sessions/new", layout: "public"
+  end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    login_id = params[:user][:login_id]
+    password = params[:user][:password]
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+    is_email = URI::MailTo::EMAIL_REGEXP
+    is_phone = /^(\+\d{1,3}[- ]?)?\d{10}$/
 
-  # protected
+    user = nil
+    if login_id =~ is_email
+      user = User.find_by(email: login_id)
+    elsif login_id =~ is_phone
+      user = User.find_by(phone: login_id)
+    end
+
+    sign_in(:user, user)
+  end
+
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def configure_sign_in_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login_id])
+  end
 end
