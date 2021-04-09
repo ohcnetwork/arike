@@ -2,7 +2,7 @@ let s = React.string
 
 module Search = {
   @react.component
-  let make = (~setSearchTerm) => {
+  let make = (~setSearchTerm, ~placeholder="Search") => {
     let onSearchTermChange = event => {
       let value = ReactEvent.Form.currentTarget(event)["value"]
 
@@ -18,7 +18,7 @@ module Search = {
           <input
             type_="text"
             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-            placeholder="Search Patients"
+            placeholder={placeholder}
             onChange={onSearchTermChange}
           />
         </div>
@@ -81,7 +81,9 @@ module Sort = {
       <button
         className="-ml-px relative inline-flex items-center min-w-max space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none"
         onClick={toggleSortOrder}>
-        {sortAscending ? s("^") : s("v")}
+        {sortAscending
+          ? <div key="sort-alpha-down"> <i className="fas fa-sort-alpha-down" /> </div>
+          : <div key="sort-alpha-up"> <i className="fas fa-sort-alpha-up" /> </div>}
       </button>
     </div>
   }
@@ -149,7 +151,7 @@ module Filter = {
           : "origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
         <div className="py-1">
           <div className="text-center p-2 font-bold"> {s("Procedures")} </div>
-          <Search setSearchTerm />
+          <Search setSearchTerm placeholder="Search Procedures" />
           <div className=" grid grid-cols-2 justify-items-start">
             {options
             ->Belt.Array.map(procedure =>
@@ -185,7 +187,7 @@ let make = (
 ) => {
   <div>
     <div className="p-8 sm:flex items-center justify-center bg-white">
-      <Search setSearchTerm />
+      <Search setSearchTerm placeholder="Search Patients" />
       <Sort setSortOption sortAscending setSortAscending />
       <Filter setFilterOptions procedures />
     </div>
