@@ -27,12 +27,16 @@ class PatientsController < ApplicationController
 
   # GET /patients/:id
   def show
-    @patient = Patient.find_by(id: params[:id])
   end
 
   # GET /patients/:id/edit
   def edit
     render "/patients/personal_details/form"
+  end
+
+  def show_detail
+    @patient = Patient.find_by(id: params[:patient_id])
+    render "show"
   end
 
   # PUT /patients/:id/
@@ -52,7 +56,7 @@ class PatientsController < ApplicationController
   private
 
   def set_patient
-    @patient = Patient.find(params[:id])
+    @patient = Patient.find_by(id: params[:id])
   end
 
   def patient_params
