@@ -95,7 +95,6 @@ module FilterOption = {
     let onFilterOptionsChange = event => {
       let checked = ReactEvent.Synthetic.currentTarget(event)["checked"]
       let value = ReactEvent.Synthetic.currentTarget(event)["name"]
-
       setFilterOptions(basis, value, checked)
     }
 
@@ -113,27 +112,47 @@ module FilterOption = {
   }
 }
 
+module FilterSection = {
+  @react.component
+  let make = (~name, ~filters, ~searchbar=false, ~setFilterOptions) => {
+    let (searchTerm, setSearchTerm) = React.useState(_ => "")
+    let (options, setOptions) = React.useState(_ => filters)
+
+    React.useEffect1(() => {
+      let search_term = searchTerm->Js.String.toLowerCase
+      let filtered_options =
+        filters->Js.Array2.filter(filter =>
+          search_term->Js.String.includes(filter->Js.String.toLowerCase)
+        )
+
+      setOptions(_ => filtered_options)
+      None
+    }, [searchTerm])
+
+    <div className="py-1">
+      <div className="text-center p-2 font-bold"> {s(name ++ "(s)")} </div>
+      {searchbar ? <Search setSearchTerm placeholder="Search Procedures" /> : <div />}
+      <div className=" grid grid-cols-2 justify-items-start">
+        {options
+        ->Belt.Array.map(option =>
+          <FilterOption
+            setFilterOptions name={option} basis={name->Js.String.toLowerCase} key={option}
+          />
+        )
+        ->React.array}
+      </div>
+    </div>
+  }
+}
+
 module Filter = {
   @react.component
   let make = (~setFilterOptions, ~procedures) => {
     let (showDropdown, setShowDropdown) = React.useState(_ => false)
-    let (searchTerm, setSearchTerm) = React.useState(_ => "")
-    let (options, setOptions) = React.useState(_ => procedures)
 
     let toggleDropDown = _evt => {
       setShowDropdown(isVisible => !isVisible)
     }
-
-    React.useEffect1(() => {
-      let search_term = searchTerm->Js.String.toLowerCase
-      let filtered_procedures =
-        procedures->Js.Array2.filter(procedure =>
-          search_term->Js.String.includes(procedure->Js.String.toLowerCase)
-        )
-
-      setOptions(_ => filtered_procedures)
-      None
-    }, [searchTerm])
 
     <div className="relative inline-block text-left z-10">
       <div>
@@ -149,28 +168,8 @@ module Filter = {
         className={!showDropdown
           ? "hidden"
           : "origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
-        <div className="py-1">
-          <div className="text-center p-2 font-bold"> {s("Procedures")} </div>
-          <Search setSearchTerm placeholder="Search Procedures" />
-          <div className=" grid grid-cols-2 justify-items-start">
-            {options
-            ->Belt.Array.map(procedure =>
-              <FilterOption setFilterOptions name={procedure} basis="procedure" key={procedure} />
-            )
-            ->React.array}
-          </div>
-        </div>
-        <div className="py-1">
-          <div className="text-center p-2 font-bold"> {s("Ward")} </div>
-          <div className=" grid grid-cols-2 justify-items-start">
-            <FilterOption setFilterOptions name={"1"} basis="ward" />
-            <FilterOption setFilterOptions name={"2"} basis="ward" />
-            <FilterOption setFilterOptions name={"3"} basis="ward" />
-            <FilterOption setFilterOptions name={"4"} basis="ward" />
-            <FilterOption setFilterOptions name={"5"} basis="ward" />
-            <FilterOption setFilterOptions name={"6"} basis="ward" />
-          </div>
-        </div>
+        <FilterSection name="Procedure" filters={procedures} searchbar={true} setFilterOptions />
+        <FilterSection name="Ward" filters={["1", "2", "3", "4", "5"]} setFilterOptions />
       </div>
     </div>
   }
