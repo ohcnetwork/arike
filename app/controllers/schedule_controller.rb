@@ -1,4 +1,5 @@
 class ScheduleController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def index
     @unscheduled_visits = Visit.unscheduled_visits
   end
