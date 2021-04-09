@@ -131,7 +131,7 @@ module FilterSection = {
 
     <div className="py-1">
       <div className="text-center p-2 font-bold"> {s(name ++ "(s)")} </div>
-      {searchbar ? <Search setSearchTerm placeholder="Search Procedures" /> : <div />}
+      {searchbar ? <Search setSearchTerm placeholder={"Search " ++ name ++ "(s)"} /> : <div />}
       <div className=" grid grid-cols-2 justify-items-start">
         {options
         ->Belt.Array.map(option =>
