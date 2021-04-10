@@ -5,13 +5,11 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @user = User.new
     render "sessions/new", layout: "public"
   end
 
   def create
-    login_id = params[:user][:login_id]
-    password = params[:user][:password]
+    login_id = params[:login_id]
 
     is_email = URI::MailTo::EMAIL_REGEXP
     is_phone = /^(\+\d{1,3}[- ]?)?\d{10}$/
@@ -30,6 +28,12 @@ class Users::SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:login_id])
+    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+      user_params.permit(:login_id, :password)
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    redirect_to dashboard_path
   end
 end
