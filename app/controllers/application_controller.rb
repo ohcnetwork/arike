@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :authenticate_user!
-  helper_method :current_user
 
   def ensure_superuser
     redirect_to root_path unless current_user && current_user.superuser?
@@ -12,16 +11,6 @@ class ApplicationController < ActionController::Base
   def ensure_facility_access
     unless current_user && current_user.facility_access?
       redirect_to root_path
-    end
-  end
-
-  def current_user
-    return @current_user if @current_user
-    current_user_id = session[:current_user_id]
-    if current_user_id
-      @current_user = User.find(current_user_id)
-    else
-      nil
     end
   end
 
