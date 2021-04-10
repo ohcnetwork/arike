@@ -1,6 +1,6 @@
 class FacilityPolicy < ApplicationPolicy
   def index?
-    user && (user.superuser? || user.secondary_nurse? || user.medical_officer?)
+    user && (user.superuser? || user.secondary_nurse? || user.medical_officer? || user.primary_nurse?)
   end
 
   def show?
@@ -31,6 +31,12 @@ class FacilityPolicy < ApplicationPolicy
     return false unless user.medical_officer?
 
     user.facility.id == record.id
+  end
+
+  def facility_owner?
+    return true if user.superuser?
+
+    record.id == user.facility_id
   end
 
   alias unassign_facility? assign_facility?
