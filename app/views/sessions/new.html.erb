@@ -7,7 +7,7 @@
           Sign in to your account
         </h2>
       </div>
-      <%= form_with model: @user, :url => sessions_path(@user), class: "mt-8 space-y-6" do |form| %>
+      <%= form_with url: new_user_session_path, method: :POST, class: "mt-8 space-y-6" do |form| %>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <%=
