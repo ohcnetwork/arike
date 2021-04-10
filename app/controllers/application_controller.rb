@@ -1,14 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  # Commenting for the time being to avoid problems in other workflows
-  # before_action :ensure_logged_in
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  # before_action :ensure_logged_in
-  helper_method :current_user
 
-  def ensure_logged_in
-    redirect_to root_path unless current_user
-  end
+  before_action :authenticate_user!
+  helper_method :current_user
 
   def ensure_superuser
     redirect_to root_path unless current_user && current_user.superuser?
