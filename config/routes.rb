@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   end
   # get '/stories', to: redirect('/articles')
 
-  put "/users/:id/verify", to: "users#verify", as: :verify_user
   # for assigning a nurse to a facility
   put "/assign", to: "users#assign_facility", as: :assign_facility
   # for removing a nurse from a facility
@@ -30,14 +29,10 @@ Rails.application.routes.draw do
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
 
-  get "/signup", to: "users#signup", as: :signup
-
   get "/password_reset", to: "password_reset#index", as: "password_reset_page"
   post "/password_reset/send_otp", to: "password_reset#send_otp"
   post "/password_reset/verify", to: "password_reset#verify"
   post "/password_reset/update", to: "password_reset#update"
-
-  get "logout", to: "sessions#logout"
 
   # visit_details
   get "/visit_details/decision", to: "visit_details#decision"
