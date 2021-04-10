@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="h-screen flex overflow-hidden bg-white">
-      <% if session[:current_user_id] %>
+      <% if user_signed_in? %>
         <%= render  partial: "/layouts/sidebar" %>
       <% end %>
       <% if flash[:error] %>
