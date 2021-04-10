@@ -5,9 +5,10 @@ class ScheduleController < ApplicationController
   end
 
   def schedule
-    visit = Visit.find_by_id(params[:visit_id])
-    visit.next_visit = params[:next_visit]
-    visit.save
+    puts params
+    # visit = Visit.find_by_id(params[:visit_id])
+    # visit.next_visit = params[:next_visit]
+    # visit.save
     redirect_to schedule_path
   end
 end
