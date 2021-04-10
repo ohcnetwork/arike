@@ -30,9 +30,22 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # Rewrite required.
-  # Will be used only to add new users by an already logged in user
-  def create; end
+  def create_custom
+    data = params.require(:user).permit(
+      :full_name, :first_name, :role,
+      :email, :password, :phone, :verified
+    )
+
+    user = User.new(data)
+
+    if user.save
+      flash[:notice] = "Created user #{data[:full_name]} successfully with role #{data[:role]}"
+    else
+      flash[:error] = user.errors.full_messages.to_sentence
+    end
+
+    redirect_back fallback_location: new_user_path
+  end
 
   def assign_facility
     assignables = params.require(:facility).permit(:facility_id, :user_id)
