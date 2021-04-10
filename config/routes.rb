@@ -8,20 +8,20 @@ Rails.application.routes.draw do
   get "/search", to: "search#index"
   get "/schedule", to: "schedule#index", as: :schedule
   post "/schedule", to: "schedule#schedule"
-
   # patients
-  resources :patients
-  # disease summary
-  resources :patient_disease_summaries
-  get "/patients/:id/disease_history", to: "patient_disease_summaries#index", as: :disease_history
-  put "/patients/:id/patient_disease_summary/", to: "patient_disease_summaries#update"
-  # family_details
-  get "/patients/:id/family_details", to: "family_details#index", as: :family_details
-  put "/patients/:id/family_details/", to: "family_details#update"
-  # patient information
-  get "/patients/:id/show/family_details", to: "patients#show", as: :show_family_details
-  get "patients/:id/show/personal_details", to: "patients#show", as: :show_personal_details
-  get "/patients/:id/show/disease_history", to: "patients#show", as: :show_disease_history
+  resources :patients do
+    get "/disease_history", to: "patient_disease_summaries#index", as: :disease_history
+    put "/patient_disease_summary/", to: "patient_disease_summaries#update"
+    # family_details
+    get "/family_details", to: "family_details#index", as: :family_details
+    put "/family_details/", to: "family_details#update"
+    # patient information
+    get "/show/family_details", to: "patients#show_detail", as: :show_family_details
+    get "/show/personal_details", to: "patients#show_detail", as: :show_personal_details
+    get "/show/disease_history", to: "patients#show_detail", as: :show_disease_history
+  end
+  # get '/stories', to: redirect('/articles')
+
 
 
   put "/users/:id/verify", to: "users#verify", as: :verify_user

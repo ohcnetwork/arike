@@ -1,4 +1,4 @@
-after "development:facilities" do
+after "development:users" do
   (1..20).each do |index|
     Patient.create!(
       full_name: Faker::Name.name,
