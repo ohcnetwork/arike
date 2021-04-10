@@ -4,6 +4,6 @@
 <%= render partial: "agenda" %>
 
 <script>
-  var visits = <%= raw @unscheduled_visits.to_json %>;
-  window.Schedule.run(visits);
+  var unscheduled_patients = <%= raw @unscheduled_patients.to_json %>;
+  window.Schedule.run(unscheduled_patients);
 </script>

@@ -17,8 +17,24 @@ class Visit < ApplicationRecord
     initial_date+inc
   end
 
-  def self.unscheduled_visits
-    all.where(next_visit: nil)
+  def self.unscheduled_patients
+    unscheduled_visits = all.where(next_visit: nil)
+    unscheduled_visits.map do |visit|
+      {
+        name: visit.patient.full_name,
+        id: visit.patient_id,
+        ward: visit.patient.facility.ward.number,
+        procedures: ["Wound Care", "Nail Cut", "Simple Check"],
+        last_visit: Date.parse(visit.last_visit.to_s),
+        next_visit: Date.parse(visit.expected_visit.to_s),
+      }
+    end
+  end
+
+  def self.schedule(patient_id, date)
+    visit = all.where(patient_id: patient_id)[0]
+    visit.next_visit = date
+    visit.save
   end
 
   def self.scheduled_visits_on(date)

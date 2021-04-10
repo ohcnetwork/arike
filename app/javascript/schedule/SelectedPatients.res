@@ -1,3 +1,5 @@
+@val external window: {..} = "window"
+
 let s = React.string
 
 module SelectedPatient = {
@@ -47,6 +49,8 @@ let make = (~selectedPatients, ~unselectPatient) => {
           ),
         )
       }->ignore
+
+      Js.Global.setInterval(() => window["location"]["reload"](true), 100)->ignore
     }
   }
 

@@ -85,16 +85,16 @@ let procedures = patients_original->Belt.Array.reduce([], (acc, patient) => {
 
 module Schedule = {
   @react.component
-  let make = (~visits) => {
+  let make = (~unscheduled_patients) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "next_visit")
     let (sortAscending, setSortAscending) = React.useState(_ => true)
     let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
     let (wardFilters, setWardFilters) = React.useState(_ => [])
-    let (patients, setPatients) = React.useState(_ => patients_original)
+    let (patients, setPatients) = React.useState(_ => unscheduled_patients)
     let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
 
-    Js.log4(visits, sortAscending, sortOption, procedures)
+    Js.log4(unscheduled_patients, sortAscending, sortOption, procedures)
 
     let setFilterOptions = (basis, value, active) => {
       let setFilter = setBasisFilter => {
@@ -138,7 +138,7 @@ module Schedule = {
 
     React.useEffect6(() => {
       let unselectedPatients =
-        patients_original->Js.Array2.filter(patient =>
+        unscheduled_patients->Js.Array2.filter(patient =>
           !(selectedPatients->Js.Array2.some(spatient => spatient["id"] == patient["id"]))
         )
 
@@ -190,9 +190,9 @@ module Schedule = {
   }
 }
 
-let run = visits => {
+let run = unscheduled_patients => {
   switch ReactDOM.querySelector("#schedule") {
-  | Some(root) => ReactDOM.render(<div> <Schedule visits /> </div>, root)
+  | Some(root) => ReactDOM.render(<div> <Schedule unscheduled_patients /> </div>, root)
   | None => ()
   }
 }

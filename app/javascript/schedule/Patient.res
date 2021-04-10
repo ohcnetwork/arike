@@ -4,7 +4,7 @@ let s = React.string
 let make = (~patient, ~selectPatient) => {
   let getDifferenceInDays = %raw(`
     function getDifferenceInDays(date1, date2) {
-      const diffInMs = Math.abs(date2 - date1);
+      const diffInMs = date2 - date1;
       return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
     }
   `)
@@ -34,15 +34,14 @@ let make = (~patient, ~selectPatient) => {
         </span>
         <div className="font-bold text-sm text-red-400">
           {s(
-            `${getDifferenceInDays(Js.Date.now(), patient["next_visit"])->Belt.Int.toString} days`,
+            `${getDifferenceInDays(
+                Js.Date.now(),
+                Js.Date.fromString(patient["next_visit"]),
+              )->Belt.Int.toString} days`,
           )}
         </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
-          {s(Js.Date.toDateString(patient["next_visit"]))}
-        </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
-          {s(Js.Date.toDateString(patient["last_visit"]))}
-        </div>
+        <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["next_visit"])} </div>
+        <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["last_visit"])} </div>
       </div>
     </div>
   </li>
