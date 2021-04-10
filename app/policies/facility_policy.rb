@@ -1,6 +1,6 @@
 class FacilityPolicy < ApplicationPolicy
   def index?
-    user && (user.superuser? || user.secondary_nurse? || user.medical_officer? || user.primary_nurse?)
+    user && (user.role.in? [User.roles[:superuser], User.roles[:secondary_nurse], User.roles[:primary_nurse], User.roles[:medical_officer]])
   end
 
   def show?
