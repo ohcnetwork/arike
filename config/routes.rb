@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   end
   # get '/stories', to: redirect('/articles')
 
-
-
   put "/users/:id/verify", to: "users#verify", as: :verify_user
   # for assigning a nurse to a facility
   put "/assign", to: "users#assign_facility", as: :assign_facility
@@ -47,16 +45,11 @@ Rails.application.routes.draw do
   post "/visit_details/schedule_revisit", to: "visit_details#schedule_revisit"
   post "/visit_details/expired", to: "visit_details#expired"
 
-  resources :sessions
-  resources :facilities
   # get users belonging to a facility
   get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
   get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
-  resources :lsg_bodies
-  resources :wards
 
   resources :visit_details
-  resources :sessions
   resources :facilities
   resources :lsg_bodies
   resources :wards
