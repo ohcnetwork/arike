@@ -9,22 +9,14 @@
       </div>
       <%= form_with url: new_user_session_path, method: :POST, class: "mt-8 space-y-6" do |form| %>
         <div class="rounded-md shadow-sm -space-y-px">
-          <div>
-            <%=
-              form.text_field :login_id,
-                              placeholder: 'Email or Phone Number',
-                              class:
-                                'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-            %>
-          </div>
-          <div>
-            <%=
-              form.password_field :password,
-                                  placeholder: 'Password',
-                                  class:
-                                    'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-            %>
-          </div>
+          <%= form.text_field :login_id, {
+            placeholder: 'Email or Phone Number',
+            class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+          } %>
+          <%= form.password_field :password, {
+            placeholder: 'Password',
+            class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+          } %>
         </div>
 
         <div class="text-right">
