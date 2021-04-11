@@ -11,7 +11,12 @@ class LsgBodiesController < ApplicationController
 
   def create
     p = params[:lsg_body]
-    LsgBody.create!(name: p[:name], kind: p[:kind], code: p[:code], district: p[:district])
+    LsgBody.create!(
+      name: p[:name],
+      kind: p[:kind],
+      code: p[:code],
+      district_id: p[:district_id],
+    )
     redirect_to lsg_bodies_path
   end
 
@@ -30,7 +35,13 @@ class LsgBodiesController < ApplicationController
     id = params[:id]
     p = params[:lsg_body]
 
-    LsgBody.update(id, name: p[:name], kind: p[:kind], code: p[:code], district: p[:district])
+    LsgBody.update(
+      id,
+      name: p[:name],
+      kind: p[:kind],
+      code: p[:code],
+      district_id: p[:district_id],
+    )
     redirect_to lsg_body_path(id)
   end
 
