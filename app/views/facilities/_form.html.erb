@@ -23,15 +23,29 @@
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :lsg_body_id, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("lsg_body_id", lsg_body.map{ |body| [body.name, body.id]}, {
-          }, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
-          %>
+                <%=
+                  form.select(
+                    'lsg_body_id',
+                    lsg_body.map { |body| [body.name, body.id] },
+                    {},
+                    required: true,
+                    class:
+                      'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
+                  )
+                %>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :ward_id, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("ward_id", ward.map{ |body| [body.number, body.id]}, {
-          }, required: true, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
-          %>
+                <%=
+                  form.select(
+                    'ward_id',
+                    ward.map { |body| [body.number, body.id] },
+                    {},
+                    required: true,
+                    class:
+                      'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
+                  )
+                %>
               </div>
               <div class="col-span-6">
                 <%= form.label :address, class: "block text-sm font-medium text-gray-700" %>
@@ -47,9 +61,15 @@
               </div>
               <div class="col-span-6 sm:col-span-3" id="remove_this_div">
                 <%= form.label :parent_id, "Link CHC", class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("parent_id", secondary_facilities.map{ |body| [body.name, body.id]}, {
-          }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
-          %>
+                <%=
+                  form.select(
+                    'parent_id',
+                    secondary_facilities.map { |body| [body.name, body.id] },
+                    {},
+                    class:
+                      'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
+                  )
+                %>
               </div>
             </div>
           </div>
@@ -66,14 +86,18 @@
     let value = document.getElementById("facility_kind").value;
     if (value === "CHC") {
       document.getElementById("remove_this_div").style.display = "none";
-      document.getElementById("facility_parent_id").setAttribute("disabled", "disabled");
+      document
+        .getElementById("facility_parent_id")
+        .setAttribute("disabled", "disabled");
     } else if (value === "Hospital") {
-      document.getElementById("facility_parent_id").setAttribute("disabled", "disabled");
+      document
+        .getElementById("facility_parent_id")
+        .setAttribute("disabled", "disabled");
       document.getElementById("remove_this_div").style.display = "none";
     } else {
       document.getElementById("facility_parent_id").removeAttribute("disabled");
       document.getElementById("remove_this_div").style.display = "block";
     }
-  }
-  removeCHCSelect()
+  };
+  removeCHCSelect();
 </script>

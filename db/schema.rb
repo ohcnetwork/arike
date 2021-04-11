@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_070110) do
+ActiveRecord::Schema.define(version: 2021_04_11_101207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 2021_04_11_070110) do
   create_table "facilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "kind", null: false
     t.string "name", null: false
-    t.string "state", null: false
-    t.string "district", null: false
     t.uuid "lsg_body_id", null: false
     t.uuid "ward_id", null: false
     t.string "address"
@@ -44,8 +42,12 @@ ActiveRecord::Schema.define(version: 2021_04_11_070110) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
+    t.uuid "state_id"
+    t.uuid "district_id"
+    t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
+    t.index ["state_id"], name: "index_facilities_on_state_id"
   end
 
   create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -196,7 +198,9 @@ ActiveRecord::Schema.define(version: 2021_04_11_070110) do
   end
 
   add_foreign_key "districts", "states"
+  add_foreign_key "facilities", "districts"
   add_foreign_key "facilities", "facilities", column: "parent_id"
+  add_foreign_key "facilities", "states"
   add_foreign_key "lsg_bodies", "districts"
   add_foreign_key "wards", "lsg_bodies"
 end
