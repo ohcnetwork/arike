@@ -3,11 +3,6 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
-  # GET /resource/sign_in
-  def new
-    render "sessions/new", layout: "public"
-  end
-
   def create
     login_id = params[:login_id]
 
