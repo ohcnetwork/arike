@@ -5,7 +5,7 @@ RSpec.describe "Facility as superuser", type: :request do
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
     @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
-    post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
+    post user_session_path, params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
   it "accessing /facilities as super user" do
     get facilities_path
