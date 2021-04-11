@@ -8,7 +8,7 @@
           Reset Your Password
         </h2>
       </div>
-      <%= form_with :url => password_reset_update_path, method: :PUT, class: "mt-8 space-y-6" do |form| %>
+      <%= form_with :url => user_password_path, method: :PUT, class: "mt-8 space-y-6" do |form| %>
         <%= form.hidden_field :reset_password_token, value: @reset_password_token %>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>

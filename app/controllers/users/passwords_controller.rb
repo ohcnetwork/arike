@@ -33,12 +33,23 @@ class Users::PasswordsController < Devise::PasswordsController
   # GET /users/password/edit?reset_password_token=abcdef
   def edit
     @reset_password_token = params[:reset_password_token]
-    render "password_reset/update"
+    render "password_reset/update", layout: "public"
   end
 
-  protected
+  # PUT /users/password
+  def update
+    user = User.reset_password_by_token({
+     :reset_password_token => params[:reset_password_token],
+     :password => params[:password],
+     :password_confirmation => params[:password_confirmation]
+    })
 
-  def after_resetting_password_path_for(resource)
-    dashboard_path
+    if user.errors.empty?
+      flash[:notice] = "Password reset successfully performed"
+      redirect_to new_user_session_path
+    else
+      flash[:error] = user.errors.full_messages.to_sentence
+      redirect_back fallback_location: edit_user_password_path
+    end
   end
 end
