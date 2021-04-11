@@ -29,11 +29,6 @@ Rails.application.routes.draw do
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
 
-  get "/password_reset", to: "password_reset#index", as: "password_reset_page"
-  post "/password_reset/send_otp", to: "password_reset#send_otp"
-  post "/password_reset/verify", to: "password_reset#verify"
-  post "/password_reset/update", to: "password_reset#update"
-
   # visit_details
   get "/visit_details/decision", to: "visit_details#decision"
   post "/visit_details/assign_to", to: "visit_details#assign_to"
