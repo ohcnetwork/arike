@@ -42,5 +42,6 @@ bundle exec rspec
 
 ## Gems Used
 
+- Authentication - Devise (https://github.com/heartcombo/devise)
 - Authorization - Pundit (https://github.com/varvet/pundit)
 - Pagination - Kaminari (https://github.com/kaminari/kaminari)
