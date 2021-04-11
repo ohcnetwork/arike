@@ -9,8 +9,6 @@ type treatment = {
   deleted_at: option<Js.Date.t>,
 }
 
-let initialTreatments = []
-
 module TreatmentCard = {
   @react.component
   let make = (~id, ~name, ~onClick) => {
@@ -39,13 +37,13 @@ module TreatmentCard = {
 }
 
 let saveChanges = state => {
-  // open Json.Encode
+  let treatments = state->Js.Json.stringifyAny->Belt.Option.getWithDefault("")
 
-  let stateJson = Js.Json.stringifyAny(state)
-  let stateJson = Belt.Option.getWithDefault(stateJson, "")
+  let csrfMetaTag = ReactDOM.querySelector("meta[name=csrf-token]")->Belt.Option.getUnsafe
+  let csrfToken = Webapi.Dom.Element.getAttribute("content", csrfMetaTag)->Belt.Option.getUnsafe
 
-  let soem = %raw(`
-    async function(stateJson) {
+  let makeRequest = %raw(`
+    async function(treatments, csrfToken) {
       const response = await fetch(
       "/treatment",
       {
@@ -53,20 +51,22 @@ let saveChanges = state => {
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
         },
         body: JSON.stringify({
           id: "a7142391-bffd-4296-910d-7e362347fa36",
-          treatment: stateJson
+          treatment: treatments
         }),
       })
 
       const content = await response;
-      console.log(content);
     }
   `)
 
-  soem(stateJson)
+  makeRequest(treatments, csrfToken)
 }
+
+let initialTreatments = []
 
 @react.component
 let make = () => {
@@ -83,7 +83,7 @@ let make = () => {
 
       let treatmentElement = state->Js.Array2.find(i => i.id == item.id)
       if treatmentElement->Belt.Option.isNone {
-        Belt.Array.concat(state, [item])
+        Belt.Array.concat([item], state)
       } else {
         state
       }

@@ -1,19 +1,5 @@
 let s = React.string
 
-module Option = {
-  type t = {
-    id: string,
-    name: string,
-  }
-
-  let make = (id, word) => {
-    id: id,
-    name: word,
-  }
-  let id = t => t.id
-  let name = t => t.name
-}
-
 type option = {
   id: string,
   name: string,
