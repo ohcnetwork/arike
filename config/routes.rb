@@ -47,7 +47,8 @@ Rails.application.routes.draw do
   post "/users", to: "users#create_custom", as: :create_custom_user
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
   }
   resources :users
 end

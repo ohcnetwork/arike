@@ -8,15 +8,15 @@
           Reset Your Password
         </h2>
       </div>
-      <%= form_with :url => password_reset_update_path, method: "post", class: "mt-8 space-y-6" do |form| %>
-        
+      <%= form_with :url => password_reset_update_path, method: :PUT, class: "mt-8 space-y-6" do |form| %>
+        <%= form.hidden_field :reset_password_token, value: @reset_password_token %>
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <%= form.password_field :new_password, placeholder: "Enter New Password",
+            <%= form.password_field :password, placeholder: "Enter New Password",
                                                    class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
           </div>
           <div>
-            <%= form.password_field :confirm_password, placeholder: "Re-Enter New Password",
+            <%= form.password_field :password_confirmation, placeholder: "Re-Enter New Password",
                                                        class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" %>
           </div>
         </div>
