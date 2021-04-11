@@ -11,7 +11,7 @@
         </h2>
       </div>
       <%= form_with model: @user, :url => user_password_path, method: :POST, class: "mt-8 space-y-6" do |form| %>
-        <%= devise_error_messages! %>
+        <%= render "devise/shared/error_messages", resource: resource %>
         <div class="my-2">
           <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
@@ -20,8 +20,10 @@
         </div>
         <div>
           <%= form.button value: "Next", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400", data: { :disable_with => "Please wait..." } do %>
-              <span class="absolute left-0 inset-y-0 flex items-center pl-3"> <%= render partial: "layouts/icon-lock" %> </span>
-              <span>Next</span>
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <%= render partial: "layouts/icon-lock" %>
+            </span>
+            <span>Next</span>
           <% end %>
         </div>
       <% end %>

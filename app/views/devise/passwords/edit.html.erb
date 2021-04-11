@@ -11,7 +11,7 @@
         </h2>
       </div>
       <%= form_with model: @user, url: user_password_path, method: :PUT, class: "mt-8 space-y-6" do |form| %>
-        <%= devise_error_messages! %>
+        <%= render "devise/shared/error_messages", resource: resource %>
         <%= form.hidden_field :reset_password_token %>
         <div class="my-2">
           <%= form.label :password, "New password", class: "block text-sm font-medium text-gray-700" %>
