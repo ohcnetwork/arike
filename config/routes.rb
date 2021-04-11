@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resources :wards
 
   post "/users/custom", to: "users#create_custom", as: :create_custom_user
+  put "/users/:id/verify", to: "users#verify", as: :verify_user
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',

@@ -81,4 +81,10 @@ class UsersController < ApplicationController
       redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
+
+  def verify
+    user = User.find_by(id: params[:id])
+    user.update(verified: true) if user
+    redirect_to users_path
+  end
 end
