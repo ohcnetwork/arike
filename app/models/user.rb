@@ -29,6 +29,17 @@ class User < ApplicationRecord
 
   validates :phone, uniqueness: true
 
+  attr_accessor :login_id
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login_id)
+      where(conditions.to_h).where(["phone = :phone OR lower(email) = :email", { :phone => login.to_i, :email => login.downcase }]).first
+    elsif conditions.has_key?(:email) || conditions.has_key?(:phone)
+      where(conditions.to_h).first
+    end
+  end
+
   def send_sms(to, message)
     phone_num = ENV["TWILIO_SENDER_NUMBER"]
     client = Twilio::REST::Client.new()

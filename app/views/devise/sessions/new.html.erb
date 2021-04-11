@@ -1,7 +1,6 @@
 <%=content_for(:head) do %>
   <%= render partial: "layouts/home-nav" %>
 <% end %>
-
 <div class="mt-2">
   <div class="flex justify-center py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
@@ -11,7 +10,7 @@
           Sign in to your account
         </h2>
       </div>
-      <%= form_with url: new_user_session_path, method: :POST, class: "mt-8 space-y-6" do |form| %>
+      <%= form_with model: @user, url: user_session_path, method: :POST, class: "mt-8 space-y-6" do |form| %>
         
         <div class="space-y-1">
           <%= form.label :login_id, "Email or Phone", class: "block text-sm font-medium text-gray-700" %>

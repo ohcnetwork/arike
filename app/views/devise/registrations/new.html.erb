@@ -1,7 +1,6 @@
 <%=content_for(:head) do %>
   <%= render partial: "layouts/home-nav" %>
 <% end %>
-
 <div class="mt-2">
   <div class="flex justify-center py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
@@ -13,6 +12,7 @@
       </div>
       
       <%= form_with model: @user do |form| %>
+        <%= devise_error_messages! %>
         <div class="my-2">
           <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
