@@ -42,7 +42,7 @@ module Dashboard
     end
 
     def account_settings
-      [link("account_settings", view.password_reset_page_path)]
+      [link("account_settings", view.new_user_password_path)]
     end
 
     def facilities
