@@ -1,16 +1,22 @@
 <%# starts %>
 <main class="py-10">
   <!-- Page header -->
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+  <div
+    class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8"
+  >
     <div class="flex items-center space-x-5">
       <div>
         <h1 class="text-2xl font-bold text-gray-900">
           <%= @facility.name %>
         </h1>
-        <p class="text-sm font-medium text-gray-500">Last modified on <time><%= @facility.updated_at.to_s(:short) %></time></p>
+        <p class="text-sm font-medium text-gray-500">
+          Last modified on <time><%= @facility.updated_at.to_s(:short) %></time>
+        </p>
       </div>
     </div>
-    <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+    <div
+      class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3"
+    >
       <%= link_to "Patients", show_facility_patients_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
       <%= link_to "Members", show_facility_users_path(@facility.id), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"%>
       <% if policy(@facility).new? %>
@@ -18,19 +24,22 @@
       <% end %>
     </div>
   </div>
-  <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+  <div
+    class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3"
+  >
     <div class="space-y-6 lg:col-start-1 lg:col-span-2">
       <!-- Description list-->
       <section aria-labelledby="applicant-information-title">
         <div class="bg-white shadow sm:rounded-lg">
           <div class="flex justify-between items-center mr-4">
             <div class="px-4 py-5 sm:px-6">
-              <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+              <h2
+                id="applicant-information-title"
+                class="text-lg leading-6 font-medium text-gray-900"
+              >
                 <%= @facility.kind %> Facility Information
               </h2>
-              <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                Details
-              </p>
+              <p class="mt-1 max-w-2xl text-sm text-gray-500">Details</p>
             </div>
             <div>
               <%= link_to "Edit Facility", edit_facility_path(@facility.id), class: "px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
@@ -39,41 +48,31 @@
           <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
               <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">
-                  State
-                </dt>
+                <dt class="text-sm font-medium text-gray-500">State</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  <%= @facility.state %>
+                  <%= @facility.state.name %>
                 </dd>
               </div>
               <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">
-                  District
-                </dt>
+                <dt class="text-sm font-medium text-gray-500">District</dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  <%= @facility.district %>
+                  <%= @facility.district.name %>
                 </dd>
               </div>
               <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">
-                  Phone
-                </dt>
+                <dt class="text-sm font-medium text-gray-500">Phone</dt>
                 <dd class="mt-1 text-sm text-gray-900">
                   +91 <%= @facility.phone %>
                 </dd>
               </div>
               <div class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">
-                  Pincode
-                </dt>
+                <dt class="text-sm font-medium text-gray-500">Pincode</dt>
                 <dd class="mt-1 text-sm text-gray-900">
                   <%= @facility.pincode %>
                 </dd>
               </div>
               <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">
-                  Address
-                </dt>
+                <dt class="text-sm font-medium text-gray-500">Address</dt>
                 <dd class="mt-1 text-sm text-gray-900">
                   <%= @facility.address %>
                 </dd>
@@ -83,11 +82,26 @@
                   Local Body and Ward Information
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                  <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                  <ul
+                    class="border border-gray-200 rounded-md divide-y divide-gray-200"
+                  >
+                    <li
+                      class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                    >
                       <div class="w-0 flex-1 flex items-center">
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
+                        <svg
+                          class="flex-shrink-0 h-5 w-5 text-gray-400"
+                          x-description="Heroicon name: solid/paper-clip"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                            clip-rule="evenodd"
+                          ></path>
                         </svg>
                         <span class="ml-2 flex-1 w-0 truncate">
                           <%= "Local Body: " + @facility.lsg_body_info.name %>
@@ -97,10 +111,23 @@
                         <%= link_to "See more", lsg_body_path(@facility.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
                       </div>
                     </li>
-                    <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                    <li
+                      class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                    >
                       <div class="w-0 flex-1 flex items-center">
-                        <svg class="flex-shrink-0 h-5 w-5 text-gray-400" x-description="Heroicon name: solid/paper-clip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
+                        <svg
+                          class="flex-shrink-0 h-5 w-5 text-gray-400"
+                          x-description="Heroicon name: solid/paper-clip"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                            clip-rule="evenodd"
+                          ></path>
                         </svg>
                         <span class="ml-2 flex-1 w-0 truncate">
                           <%= "Ward: " + @facility.ward_info.name %>
