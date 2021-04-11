@@ -16,21 +16,15 @@ class PasswordResetController < ApplicationController
     elsif user_id =~ is_phone
       @user = User.find_by(phone: user_id)
     end
-    if @user
-      session[:password_reset_user_id] = @user.id
-      otp = @user.otp_code
-      send_otp_mail(@user.email, otp)
-      flash.now[:notice] = 'OTP has been sent to your email!'
-      render 'verify'
-    else
-      session[:password_reset_user_id] = nil
-      flash[:error] = 'Invalid Email or Phone Number!'
-      redirect_to password_reset_page_path
-    end
-  end
 
-  def send_otp_mail(email, otp)
-    SessionMailer.with(email: email, otp: otp).password_reset.deliver_later
+    if @user
+      @user.send_reset_password_instructions
+      flash[:notice] = 'OTP has been sent to your email! Click on it to reset your password'
+    else
+      flash[:error] = 'Invalid Email or Phone Number!'
+    end
+
+    redirect_to password_reset_page_path
   end
 
   def verify
