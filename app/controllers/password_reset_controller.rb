@@ -27,26 +27,6 @@ class PasswordResetController < ApplicationController
     redirect_to password_reset_page_path
   end
 
-  def verify
-    user_id = session[:password_reset_user_id]
-    otp = params[:otp]
-    @user = User.find_by(id: user_id)
-    if @user
-      # Default: 30 secs | Drift: 270 secs
-      is_verified = @user.authenticate_otp(otp, drift: 270)
-      if is_verified
-        flash.now[:notice] = 'OTP Verification Successful!'
-        render 'update'
-      else
-        flash.now[:error] = 'Invalid OTP!'
-        render 'verify'
-      end
-    else
-      session[:password_reset_user_id] = nil
-      redirect_to root_path
-    end
-  end
-
   def update
     @user = User.find_by(id: session[:password_reset_user_id])
     new_password = params[:new_password]
