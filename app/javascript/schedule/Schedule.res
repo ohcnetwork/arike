@@ -72,7 +72,15 @@ let patients_original = [
 
 let jssort = %raw(`
   function(arr, sortOption, ascending) {
-    return arr.sort((a, b) => ascending ? a[sortOption] - b[sortOption] : b[sortOption] - a[sortOption])
+    return arr.sort((a, b) => {
+      let c = a[sortOption];
+      let d = b[sortOption];
+      if(sortOption.includes("visit")) {
+        c = Date.parse(c);
+        d = Date.parse(d);
+      }
+      return ascending ? c - d : d - c;
+    })
   }
 `)
 
