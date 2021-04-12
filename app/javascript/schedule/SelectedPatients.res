@@ -47,10 +47,8 @@ let make = (~selectedPatients, ~unselectPatient) => {
             ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
             (),
           ),
-        )
+        ) |> Js.Promise.then_(_ => window["location"]["reload"](true)->ignore |> Js.Promise.resolve)
       }->ignore
-
-      Js.Global.setInterval(() => window["location"]["reload"](true), 100)->ignore
     }
   }
 
