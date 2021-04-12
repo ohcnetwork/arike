@@ -66,11 +66,59 @@ let saveChanges = state => {
   makeRequest(treatments, csrfToken)
 }
 
+let getValue = (item, index) => {
+  switch item->Belt.Array.get(index) {
+  | Some(value) => {
+      let (_, value) = value
+      value->Js.Json.decodeString->Belt.Option.getWithDefault("")
+    }
+  | None => ""
+  }
+}
+
+let decode = json => {
+  let item =
+    json->Js.Json.decodeObject->Belt.Option.getWithDefault(Js.Dict.empty())->Js.Dict.entries
+
+  let idValue = item->getValue(0)
+  let nameValue = item->getValue(1)
+  let createdAtValue = item->getValue(2)
+  let deletedAtValue = item->getValue(3)
+
+  {
+    id: idValue,
+    name: nameValue,
+    created_at: Js.Date.fromString(createdAtValue),
+    deleted_at: switch deletedAtValue {
+    | "" => None
+    | _ => Some(Js.Date.fromString(deletedAtValue))
+    },
+  }
+}
+
 let initialTreatments = []
 
 @react.component
 let make = () => {
   let (treatments, setTreatments) = React.useState(() => initialTreatments)
+
+  React.useEffect0(() => {
+    // Fetch the data([{id: string, name: string}]) from the provided api
+    open Js.Promise
+    Fetch.fetch("/patients/a7142391-bffd-4296-910d-7e362347fa36/treatment/details")
+    |> then_(Fetch.Response.json)
+    |> then_(json => Js.Json.decodeArray(json) |> resolve)
+    |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
+    |> then_(items => {
+      Js.log(items)
+      let items = items->Belt.Array.map(item => item->decode)
+      setTreatments(_ => items)
+      items |> resolve
+    })
+    |> ignore
+
+    None
+  })
 
   let handleClick = (id, name) => {
     setTreatments(state => {
