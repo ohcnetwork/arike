@@ -28,6 +28,7 @@
                     'lsg_body_id',
                     lsg_body.map { |body| [body.name, body.id] },
                     {},
+                    onChange: 'getWardOptionsAndEnableSelect()',
                     required: true,
                     class:
                       'mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
@@ -103,7 +104,7 @@
 
   let getDistrictOptionsAndEnableSelect = () => {
     let value = document.getElementById("facility_state_id").value;
-    district = document.getElementById("facility_district_id");
+    let district = document.getElementById("facility_district_id");
     if (value) {
       district.removeAttribute("disabled");
       district.className =
@@ -129,4 +130,32 @@
     }
   };
   getDistrictOptionsAndEnableSelect();
+
+  let getWardOptionsAndEnableSelect = () => {
+    let value = document.getElementById("facility_lsg_body_id").value;
+    let ward = document.getElementById("facility_ward_id");
+    if (value) {
+      ward.removeAttribute("disabled");
+      ward.className =
+        "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+      Rails.ajax({
+        type: "GET",
+        url: `get_wards_of_lsg_body/${value}`,
+        success: function (wards) {
+          ward.innerHTML = "";
+          const wardHTML = wards.map(
+            (ward) => `<option value=${ward.id}>${ward.number}</option>`
+          );
+          const wardOptions = wardHTML.join("\n");
+          ward.innerHTML = wardOptions;
+        },
+      });
+    } else {
+      ward.setAttribute("disabled", "disabled");
+      ward.value = "";
+      ward.className =
+        "mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+    }
+  };
+  getWardOptionsAndEnableSelect();
 </script>
