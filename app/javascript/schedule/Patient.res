@@ -33,12 +33,12 @@ let make = (~patient, ~selectPatient) => {
           {s(`ward ` ++ patient["ward"]->Belt.Int.toString)}
         </span>
         <div className="font-bold text-sm text-red-400">
-          {s(
-            `${getDifferenceInDays(
-                Js.Date.now(),
-                Js.Date.fromString(patient["next_visit"]),
-              )->Belt.Int.toString} days`,
-          )}
+          {
+            let diff = getDifferenceInDays(Js.Date.now(), Js.Date.fromString(patient["next_visit"]))
+            diff >= 0
+              ? s(` ${diff->Belt.Int.toString} days`)
+              : s(` Overdue by ${-diff->Belt.Int.toString} days`)
+          }
         </div>
         <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["next_visit"])} </div>
         <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["last_visit"])} </div>
