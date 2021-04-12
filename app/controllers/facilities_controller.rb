@@ -62,6 +62,7 @@ class FacilitiesController < ApplicationController
     authorize @facility
   end
 
+  # GET /facilities/get_districts_of_state/:state_id
   def get_districts_of_state
     state_id = params[:state_id]
     @districts = state_id ? State.find(state_id).districts : []
