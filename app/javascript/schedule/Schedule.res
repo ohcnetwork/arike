@@ -160,13 +160,9 @@ module Schedule = {
       let filtered_patients =
         ward_filtered_patients->Js.Array2.filter(patient =>
           search_term->Js.String.includes(patient["name"]->Js.String.toLowerCase) ||
-          patient["diseases"]->Js.Array2.some(disease =>
-            search_term->Js.String.includes(disease->Js.String.toLowerCase)
-          ) ||
-          patient["procedures"]->Js.Array2.some(procedure =>
-            search_term->Js.String.includes(procedure->Js.String.toLowerCase)
-          ) ||
-          search_term->Js.String.includes(patient["notes"]->Js.String.toLowerCase)
+            patient["procedures"]->Js.Array2.some(procedure =>
+              search_term->Js.String.includes(procedure->Js.String.toLowerCase)
+            )
         )
 
       let sorted_patients = filtered_patients->jssort(sortOption, sortAscending)
