@@ -62,6 +62,12 @@ class FacilitiesController < ApplicationController
     authorize @facility
   end
 
+  def get_districts_of_state
+    state_id = params[:state_id]
+    @districts = state_id ? State.find(state_id).districts : []
+    respond_to { |format| format.json { render json: @districts } }
+  end
+
   private
 
   def set_facility

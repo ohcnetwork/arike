@@ -4,6 +4,8 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs";
+window.Rails = Rails;
+
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
@@ -11,6 +13,9 @@ import "channels";
 import "stylesheets/application";
 import "@fortawesome/fontawesome-free/js/all";
 
-Rails.start();
+if (Rails.fire(document, "rails:attachBindings")) {
+  Rails.start();
+}
+
 Turbolinks.start();
 ActiveStorage.start();

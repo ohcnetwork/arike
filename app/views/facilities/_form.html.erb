@@ -15,11 +15,11 @@
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :state, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("state_id", State.all.map { |state| [state.name, state.id] } , {}, onChange: "enableDistrictSelect()", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+                <%= form.select("state_id", State.all.map { |state| [state.name, state.id] } , {}, onChange: "getDistrictOptionsAndEnableSelect()", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :district, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("district_id", District.all.map { |district| [district.name, district.id] } , {}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", disabled: true)%>
+                <%= form.select("district_id", [] , {}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :lsg_body_id, class: "block text-sm font-medium text-gray-700" %>
@@ -101,13 +101,26 @@
   };
   removeCHCSelect();
 
-  let enableDistrictSelect = () => {
+  let getDistrictOptionsAndEnableSelect = () => {
     let value = document.getElementById("facility_state_id").value;
     district = document.getElementById("facility_district_id");
     if (value) {
       district.removeAttribute("disabled");
       district.className =
         "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
+      Rails.ajax({
+        type: "GET",
+        url: `get_districts_of_state/${value}`,
+        success: function (districts) {
+          district.innerHTML = "";
+          const districtHTML = districts.map(
+            (district) =>
+              `<option value=${district.id}>${district.name}</option>`
+          );
+          const districtOptions = districtHTML.join("\n");
+          district.innerHTML = districtOptions;
+        },
+      });
     } else {
       district.setAttribute("disabled", "disabled");
       district.value = "";
@@ -115,5 +128,5 @@
         "mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
     }
   };
-  enableDistrictSelect();
+  getDistrictOptionsAndEnableSelect();
 </script>
