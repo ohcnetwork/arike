@@ -76,13 +76,6 @@ let jssort = %raw(`
   }
 `)
 
-let procedures = patients_original->Belt.Array.reduce([], (acc, patient) => {
-  let s0 = Belt.Set.String.fromArray(acc)
-  let s1 = Belt.Set.String.fromArray(patient["procedures"])
-  let acc = Belt.Set.String.union(s0, s1)
-  acc->Belt.Set.String.toArray /* ["apple", "banana", "carrot", "orange", "strawberry"] */
-})
-
 module Schedule = {
   @react.component
   let make = (~unscheduled_patients) => {
@@ -93,6 +86,13 @@ module Schedule = {
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => unscheduled_patients)
     let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
+
+    let procedures = unscheduled_patients->Belt.Array.reduce([], (acc, patient) => {
+      let s0 = Belt.Set.String.fromArray(acc)
+      let s1 = Belt.Set.String.fromArray(patient["procedures"])
+      let acc = Belt.Set.String.union(s0, s1)
+      acc->Belt.Set.String.toArray
+    })
 
     Js.log4(unscheduled_patients, sortAscending, sortOption, procedures)
 
