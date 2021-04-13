@@ -69,6 +69,6 @@ class PatientsController < ApplicationController
   end
 
   def filter_patients(search_text)
-    Patient.where("full_name ILIKE :search_text", search_text: "%#{search_text}%")
+    policy_scope(Patient).where("full_name ILIKE :search_text", search_text: "%#{search_text}%")
   end
 end

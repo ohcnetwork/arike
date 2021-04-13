@@ -2,9 +2,7 @@ class Facility < ApplicationRecord
   has_many :patients, dependent: :restrict_with_error
   has_many :primary_facilities,
            class_name: 'Facility',
-           foreign_key: 'parent_id',
-           inverse_of: :facility,
-           dependent: :restrict_with_error
+           foreign_key: 'parent_id'
   belongs_to :secondary_facility,
              class_name: 'Facility',
              optional: true,
