@@ -1,0 +1,3 @@
+category: Use one of 'feature', 'performance', 'content', 'ui', 'bugfix', 'operations', or leave empty.
+image: Just the filename of the image uploaded to Cloudinary. Leave empty to exclude.
+video: Just the filename of the video uploaded to Cloudinary. Leave empty to exclude.
