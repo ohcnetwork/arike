@@ -49,6 +49,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.2"
   gem "rails-controller-testing"
   gem "faker"
+  gem 'logchange', '~> 1.0'
 end
 
 group :development do
