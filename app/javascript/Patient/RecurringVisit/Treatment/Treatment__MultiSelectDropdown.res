@@ -3,6 +3,7 @@ let s = React.string
 type option = {
   id: string,
   name: string,
+  category: string,
 }
 
 let onWindowClick = (showDropdown, setShowDropdown, _event) =>
@@ -20,26 +21,53 @@ let search = (searchString, options) => {
   ))->Belt.SortArray.stableSortBy((x, y) => String.compare(x.name, y.name))
 }
 
+type optionGroup = {
+  categoryName: string,
+  options: array<option>,
+}
+
 module DropDown = {
   @react.component
   let make = (~options, ~show, ~clickHandler) => {
-    let options =
-      options->Belt.Array.map(option =>
-        <button
-          key=option.id
-          className="-m-3 p-3 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
-          onClick={e => clickHandler(option.id, option.name)}>
-          <p className="text-base font-medium text-gray-900 text-left"> {s(option.name)} </p>
-        </button>
-      )
+    let categoryList = []
+    options->Belt.Array.forEach(op => {
+      if !Js.Array2.includes(categoryList, op.category) {
+        Js.Array2.push(categoryList, op.category)->ignore
+      }
+    })
+    let optionGroupList = categoryList->Belt.Array.map(el => {
+      {
+        categoryName: el,
+        options: options->Js.Array2.filter(e => e.category == el),
+      }
+    })
+    Js.log(optionGroupList)
+    let options = optionGroupList->Belt.Array.map(option => {
+      <div className="relative grid  bg-white px-5 py-6 sm:gap-8 sm:p-8">
+        <p className="text-lg font-bold  text-gray-900 mb-1 text-left">
+          {s(option.categoryName)}
+          <span className="text-base ml-2">
+            {s("(" ++ Belt.Int.toString(Js.Array2.length(option.options)) ++ ")")}
+          </span>
+        </p>
+        {option.options
+        ->Belt.Array.map(el => {
+          <button
+            key=el.id
+            className="-m-3 p-3 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
+            onClick={e => clickHandler(el.id, el.name)}>
+            <p className="text-base font-medium text-gray-900 text-left"> {s(el.name)} </p>
+          </button>
+        })
+        ->React.array}
+      </div>
+    })
 
     if show {
       <div className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-full sm:px-0">
         <div
           className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 max-h-80 overflow-auto">
-          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-            {options->React.array}
-          </div>
+          <div className="relative grid bg-white "> {options->React.array} </div>
         </div>
       </div>
     } else {
@@ -53,6 +81,7 @@ let decode = json => {
   let item = {
     id: field("id", string, json),
     name: field("name", string, json),
+    category: field("category", string, json),
   }
   item
 }
