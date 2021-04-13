@@ -19,7 +19,7 @@
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :district, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("district_id", District.all.map { |district| [district.name, district.id] }, {selected: District.find_by(name: "Ernakulam").id}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+                <%= form.select("district_id", State.find_by(name: "Kerala").districts.map { |district| [district.name, district.id] }, {selected: District.find_by(name: "Ernakulam").id}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :lsg_body_id, class: "block text-sm font-medium text-gray-700" %>
@@ -111,7 +111,7 @@
         "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
       Rails.ajax({
         type: "GET",
-        url: `get_districts_of_state/${value}`,
+        url: `districts_of_state/${value}`,
         success: function (districts) {
           district.innerHTML = "";
           const districtHTML = districts.map(
@@ -140,7 +140,7 @@
         "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
       Rails.ajax({
         type: "GET",
-        url: `get_wards_of_lsg_body/${value}`,
+        url: `wards_of_lsg_body/${value}`,
         success: function (wards) {
           ward.innerHTML = "";
           const wardHTML = wards.map(

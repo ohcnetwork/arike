@@ -70,10 +70,10 @@ Rails
 
     resources :sessions
 
-    get 'facilities/get_districts_of_state/:state_id',
-        to: 'facilities#get_districts_of_state'
-    get 'facilities/get_wards_of_lsg_body/:lsg_body_id',
-        to: 'facilities#get_wards_of_lsg_body'
+    get 'facilities/districts_of_state/:state_id',
+        to: 'facilities#districts_of_state'
+    get 'facilities/wards_of_lsg_body/:lsg_body_id',
+        to: 'facilities#wards_of_lsg_body'
     resources :facilities
 
     # get users belonging to a facility
