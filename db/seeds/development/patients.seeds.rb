@@ -1,4 +1,4 @@
-after 'development:facilities', 'development:users' do
+after 'development:facilities', 'development:users', 'development:diseases' do
   (1..20).each do |index|
     Patient.create!(
       full_name: Faker::Name.name,
@@ -15,7 +15,7 @@ after 'development:facilities', 'development:users' do
       facility_id: Facility.all[rand(Facility.count)].id,
       gender: %w[Male Female Others][rand(3)],
       emergency_phone_no: rand((10**10)..(10**11 - 1)),
-      disease: Faker::Name.name,
+      disease: Disease.all[rand(Disease.count)].name,
       patient_views: Faker::Name.name,
       family_views: Faker::Name.name,
       expired: nil,
