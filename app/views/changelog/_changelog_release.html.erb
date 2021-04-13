@@ -1,0 +1,29 @@
+<h3><%= release[:week_title] %></h3>
+
+<% release[:categories].each do |category, changes| %>
+  <h4><%= category %></h4>
+
+  <ul class="ml-4 my-2">
+    <% changes.each do |change| %>
+      <li class="changelog__title ml-4">
+        <%= Kramdown::Document.new(change[:title]).to_html.html_safe %>
+        <% if change.key?(:image_url) %>
+          <% width_class = change[:image_class] || 'max-w-3xl' %>
+          <%= link_to change[:image_url], class: 'block my-4 flex justify-center' do %>
+            <div class="<%= width_class %>">
+              <%= image_tag change[:image_url] %>
+            </div>
+          <% end %>
+        <% end %>
+        <% if change.key?(:video_url) %>
+          <div class="my-4 flex justify-center">
+            <video class="h-full" width="768" autoplay muted loop>
+              <source src="<%= change[:video_url] %>" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
