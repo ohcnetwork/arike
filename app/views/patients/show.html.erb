@@ -29,15 +29,15 @@
       <div class="w-full sm:w-1/4 md:w-2/5 justify-between">
         <div class="w-full mx-1 mb-4 md:text-lg inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           <i class="fas fa-plus-square w-32 ml-16 mr-3 my-1 align-middle"></i>
-          <%= link_to 'Add Health Information', disease_history_path %>
+          <%= link_to 'Add Health Information', patient_disease_history_path(@patient) %>
         </div>
         <div class="text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
           <i class="fas fa-user-edit ml-16 mr-3 my-1 align-middle"></i>
-          <%= link_to "Edit Personal Details", { action: "edit" } %>
+          <%= link_to "Edit Personal Details", edit_patient_path(@patient) %>
         </div>
         <div class="text-indigo-800 md:text-lg w-full mx-1 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
           <i class="far fa-edit ml-16 mr-3 my-1 align-middle"></i>
-          <%= link_to 'Edit Family Details', family_details_path %>
+          <%= link_to 'Edit Family Details', patient_family_details_path(@patient) %>
         </div>
       </div>
     </div>
@@ -49,17 +49,17 @@
       </h3>
 
       <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md">
-        <%= link_to "Personal Details", show_personal_details_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 w-3/12 lg:mr-0 text-center" %>
-        <%= link_to "Family Details", show_family_details_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
-        <%= link_to "Disease History", show_disease_history_path, class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
+        <%= link_to "Personal Details", patient_show_personal_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 w-3/12 lg:mr-0 text-center" %>
+        <%= link_to "Family Details", patient_show_family_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
+        <%= link_to "Disease History", patient_show_disease_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
       </div>
 
-          <% if request.path == show_personal_details_path %>
+          <% if request.path == patient_show_personal_details_path(@patient) %>
             <div class="tab-content">
               <%= render partial: "/patients/personal_details/info-card" %>
             </div>
 
-          <% elsif request.path == show_family_details_path %>
+          <% elsif request.path == patient_show_family_details_path(@patient) %>
             <div class="tab-content overflow-hidden bg-gray-100">
               <div class="md:flex md:flex-wrap bg-gray-100">
                 <% @patient.family_details.each do |member| %>

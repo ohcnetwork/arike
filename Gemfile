@@ -41,6 +41,8 @@ gem "roo", "~> 2.8"
 gem "seedbank", "~> 0.5.0"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
+# kramdown is a fast, pure Ruby Markdown superset converter, using a strict syntax definition and supporting several common extensions. http://kramdown.gettalong.org
+gem 'kramdown', '~> 2.3'
 
 # REST Client
 gem "rest-client"
@@ -52,6 +54,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.2"
   gem "rails-controller-testing"
   gem "faker"
+  gem 'logchange', '~> 1.0'
 end
 
 group :development do

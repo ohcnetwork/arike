@@ -6,6 +6,11 @@ Rails
 
     root 'home#index'
 
+    # Public change log
+    scope 'changelog', as: 'changelog', controller: 'changelog' do
+      get '(/:year)', action: 'index'
+    end
+
     # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
     get '/dashboard', to: 'dashboard#index', as: :dashboard
     get '/search', to: 'search#index'
@@ -13,32 +18,29 @@ Rails
     post '/schedule', to: 'schedule#schedule'
 
     # patients
-    resources :patients
+    resources :patients do
+      get '/disease_history',
+          to: 'patient_disease_summaries#index',
+          as: :disease_history
+      put '/patient_disease_summary/', to: 'patient_disease_summaries#update'
 
-    # disease summary
-    resources :patient_disease_summaries
-    get '/patients/:id/disease_history',
-        to: 'patient_disease_summaries#index',
-        as: :disease_history
-    put '/patients/:id/patient_disease_summary/',
-        to: 'patient_disease_summaries#update'
+      # family_details
+      get '/family_details', to: 'family_details#index', as: :family_details
+      put '/family_details/', to: 'family_details#update'
 
-    # family_details
-    get '/patients/:id/family_details',
-        to: 'family_details#index',
-        as: :family_details
-    put '/patients/:id/family_details/', to: 'family_details#update'
+      # patient information
+      get '/show/family_details',
+          to: 'patients#show_detail',
+          as: :show_family_details
+      get '/show/personal_details',
+          to: 'patients#show_detail',
+          as: :show_personal_details
+      get '/show/disease_history',
+          to: 'patients#show_detail',
+          as: :show_disease_history
+    end
 
-    # patient information
-    get '/patients/:id/show/family_details',
-        to: 'patients#show',
-        as: :show_family_details
-    get 'patients/:id/show/personal_details',
-        to: 'patients#show',
-        as: :show_personal_details
-    get '/patients/:id/show/disease_history',
-        to: 'patients#show',
-        as: :show_disease_history
+    # get '/stories', to: redirect('/articles')
 
     resources :users
     put '/users/:id/verify', to: 'users#verify', as: :verify_user
@@ -81,7 +83,6 @@ Rails
     get '/facilities/:id/patients',
         to: 'facilities#show_patients',
         as: :show_facility_patients
-
     resources :lsg_bodies
     resources :wards
 

@@ -1,4 +1,4 @@
-after "development:facilities" do
+after "development:superuser" do
   (1..20).each do |index|
     User.create!(
       first_name: Faker::Name.first_name,

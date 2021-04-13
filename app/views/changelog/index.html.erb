@@ -1,0 +1,55 @@
+<% presenter = Changelog::IndexPresenter.new(self, @year) %>
+
+<div class="p-4 shadow rounded-lg">
+  <div class="secondary-banner ">
+    <div class="max-w-6xl w-full mx-auto px-4">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="banner-head">
+            <h1 class="text-3xl font-bold">Changelog</h1>
+            <p class="mt-2">
+              Arike is constantly evolving, and these are our notes on the most
+              important recent changes.
+            </p>
+            <p class="mt-2">
+              To learn what we're working on <em>right now</em>, and what's
+              coming up, check out
+              <a
+                class="text-blue-600 underline"
+                href="https://github.com/coronasafe/arike/projects/3"
+              >
+                our project board on Github.
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl w-full mx-auto px-4">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="content-box changelog-section mt-4 mb-3">
+          <% @changelog_releases.each do |release| %>
+            <%= render 'changelog_release', release: release %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mb-3 clearfix">
+      <div class="col-4">
+        <div class="float-left">
+          <%= presenter.reverse_link %>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="float-right">
+          <%= presenter.forward_link %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
