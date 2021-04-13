@@ -15,11 +15,11 @@
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :state, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("state_id", State.all.map { |state| [state.name, state.id] }, {selected: State.find_by(name: "Kerela").id}, { onChange: "getDistrictOptionsAndEnableSelect()", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"})%>
+                <%= form.select("state_id", State.all.map { |state| [state.name, state.id] }, {selected: State.find_by(name: "Kerala").id}, { onChange: "getDistrictOptionsAndEnableSelect()", required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"})%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :district, class: "block text-sm font-medium text-gray-700" %>
-                <%= form.select("district_id", [] , {selected: District.find_by(name: "Ernakulum").id}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
+                <%= form.select("district_id", District.all.map { |district| [district.name, district.id] }, {selected: District.find_by(name: "Ernakulam").id}, required: true, class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm")%>
               </div>
               <div class="col-span-6 sm:col-span-3">
                 <%= form.label :lsg_body_id, class: "block text-sm font-medium text-gray-700" %>
