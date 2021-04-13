@@ -1,6 +1,6 @@
 class Facility < ApplicationRecord
   has_many :patients, dependent: :restrict_with_error
-  has_many :primary_facilities, class_name: "Facility", foreign_key: "parent_id", inverse_of: :facility, dependent: :restrict_with_error
+  has_many :primary_facilities, class_name: "Facility", foreign_key: "parent_id" # inverse_of: :facility, dependent: :restrict_with_error
   belongs_to :secondary_facility, class_name: "Facility", optional: true, foreign_key: "parent_id", inverse_of: :facility
   has_many :primary_nurses, -> { where(role: User.roles[:primary_nurse]) }, class_name: "User", foreign_key: "facility_id", inverse_of: :facility
   has_many :secondary_nurses, -> { where(role: User.roles[:secondary_nurse]) }, class_name: "User", foreign_key: "facility_id", inverse_of: :facility
