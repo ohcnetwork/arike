@@ -6,6 +6,11 @@ type option = {
   category: string,
 }
 
+type optionGroup = {
+  categoryName: string,
+  options: array<option>,
+}
+
 let onWindowClick = (showDropdown, setShowDropdown, _event) =>
   if showDropdown {
     setShowDropdown(_ => false)
@@ -21,45 +26,43 @@ let search = (searchString, options) => {
   ))->Belt.SortArray.stableSortBy((x, y) => String.compare(x.name, y.name))
 }
 
-type optionGroup = {
-  categoryName: string,
-  options: array<option>,
-}
-
 module DropDown = {
   @react.component
   let make = (~options, ~show, ~clickHandler) => {
-    let categoryList = []
-    options->Belt.Array.forEach(op => {
-      if !Js.Array2.includes(categoryList, op.category) {
-        Js.Array2.push(categoryList, op.category)->ignore
-      }
+    let categories = options->Belt.Array.map(option => {
+      option.category
     })
-    let optionGroupList = categoryList->Belt.Array.map(el => {
+
+    // Removing duplicates of the category names
+    let categories = categories->Js.Array2.filteri((category, index) => {
+      categories->Js.Array2.indexOf(category) == index
+    })
+
+    let optionGroups = categories->Belt.Array.map(category => {
       {
-        categoryName: el,
-        options: options->Js.Array2.filter(e => e.category == el),
+        categoryName: category,
+        options: options->Js.Array2.filter(op => op.category == category),
       }
     })
-    Js.log(optionGroupList)
-    let options = optionGroupList->Belt.Array.map(option => {
-      <div className="relative grid  bg-white px-5 py-6 sm:gap-8 sm:p-8">
-        <p className="text-lg font-bold  text-gray-900 mb-1 text-left">
-          {s(option.categoryName)}
-          <span className="text-base ml-2">
-            {s("(" ++ Belt.Int.toString(Js.Array2.length(option.options)) ++ ")")}
-          </span>
-        </p>
-        {option.options
-        ->Belt.Array.map(el => {
-          <button
-            key=el.id
-            className="-m-3 p-3 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
-            onClick={e => clickHandler(el.id, el.name)}>
-            <p className="text-base font-medium text-gray-900 text-left"> {s(el.name)} </p>
-          </button>
-        })
-        ->React.array}
+
+    let optionGroups = optionGroups->Belt.Array.map(optionGroup => {
+      <div key=optionGroup.categoryName className="bg-white">
+        <div
+          className="z-10 border-t border-b border-white sticky top-0 bg-indigo-600 px-6 py-5 text-base font-medium text-white flex">
+          <h3> {s(optionGroup.categoryName)} </h3>
+        </div>
+        <div className="relative grid gap-8 px-5 py-8 sm:p-8 sm:gap-8">
+          {optionGroup.options
+          ->Belt.Array.map(option => {
+            <button
+              key=option.id
+              className="-m-3 p-3 px-4 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
+              onClick={e => clickHandler(option.id, option.name)}>
+              <p className="text-base font-medium text-gray-900 text-left"> {s(option.name)} </p>
+            </button>
+          })
+          ->React.array}
+        </div>
       </div>
     })
 
@@ -67,7 +70,7 @@ module DropDown = {
       <div className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-full sm:px-0">
         <div
           className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 max-h-80 overflow-auto">
-          <div className="relative grid bg-white "> {options->React.array} </div>
+          <div className="relative grid bg-white"> {optionGroups->React.array} </div>
         </div>
       </div>
     } else {
@@ -78,12 +81,11 @@ module DropDown = {
 
 let decode = json => {
   open Json.Decode
-  let item = {
+  {
     id: field("id", string, json),
     name: field("name", string, json),
     category: field("category", string, json),
   }
-  item
 }
 
 @react.component

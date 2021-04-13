@@ -1,6 +1,4 @@
-hash = { "a" => ["a", "b", "c"], "b" => ["b", "c"] }
-
-treatments = {
+treatment_groups = {
   "General care" => [
     "Mouth care",
     "Bath",
@@ -31,7 +29,7 @@ treatments = {
     "Colostomy care",
     "Colostomy irrigation care",
     "ileostomy care",
-  ], 
+  ],
   "Wound care" => [
     "Wound care training given to family",
     "Wound dressing",
@@ -60,7 +58,7 @@ treatments = {
     "S/C medicine bolus administration",
     "S/C cannula care",
     "Ascites tapping",
-    "Ascitic catheter care"
+    "Ascitic catheter care",
   ],
   "Physiotherapy" => [
     "Passive Movement",
@@ -73,20 +71,14 @@ treatments = {
     "Balance & Coordination exercises",
     "Stretching",
     "Postural correction",
-  ]
+  ],
 }
 
-treatments.each do | key , val | 
-  val.each do |it|
+treatment_groups.each do |category, treatments|
+  treatments.each do |treatment|
     Treatment.create!(
-      name: it,
-      category: key
+      name: treatment,
+      category: category,
     )
   end
 end
-
-# treatments.each do |t|
-#   Treatment.create!(
-#     name: t,
-#   )
-# end
