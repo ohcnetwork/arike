@@ -24,7 +24,7 @@ class Visit < ApplicationRecord
         name: visit.patient.full_name,
         id: visit.patient_id,
         ward: visit.patient.facility.ward.number,
-        procedures: ["Wound Care", "Nail Cut", "Simple Check"],
+        procedures: ["Wound Care", "Nail Cut", "Simple Check", "Through Check", "Foley’s catheterisation", "Urostomy care", "PEG care", "Colostomy care"].sample(rand(5)+1),
         last_visit: Date.parse(visit.last_visit.to_s),
         next_visit: Date.parse(visit.expected_visit.to_s),
       }
