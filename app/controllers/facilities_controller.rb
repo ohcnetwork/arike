@@ -41,8 +41,7 @@ class FacilitiesController < ApplicationController
   end
 
   # GET /facilities/:id/edit
-  def edit
-  end
+  def edit; end
 
   # PATCH /facilities/:id
   def update

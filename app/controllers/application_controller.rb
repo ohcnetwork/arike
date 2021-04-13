@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # before_action :ensure_logged_in
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # before_action :ensure_logged_in
+  before_action :ensure_logged_in
   helper_method :current_user
 
   def ensure_logged_in
