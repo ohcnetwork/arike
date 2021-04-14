@@ -3,6 +3,9 @@ class PatientsController < ApplicationController
 
   # GET /patients/
   def index
+    @search_text = params.fetch(:search, "")
+    # filter and paginate
+    @patients = filter_patients(@search_text)
   end
 
   # GET /patients/new
@@ -63,5 +66,9 @@ class PatientsController < ApplicationController
     params.require(:patient).permit(:full_name, :dob, :address, :route, :phone, :economic_status,
                                     :notes, :gender,
                                     :emergency_phone_no, :disease, :facility_id)
+  end
+
+  def filter_patients(search_text)
+    policy_scope(Patient).where("full_name ILIKE :search_text", search_text: "%#{search_text}%")
   end
 end
