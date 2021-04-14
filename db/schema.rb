@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_094646) do
+ActiveRecord::Schema.define(version: 2021_04_14_091037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
-    t.uuid "state_id"
-    t.uuid "district_id"
+    t.uuid "state_id", null: false
+    t.uuid "district_id", null: false
     t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
-    t.uuid "district_id"
+    t.uuid "district_id", null: false
     t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 
