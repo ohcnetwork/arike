@@ -4,4 +4,10 @@ class LsgBody < ApplicationRecord
            inverse_of: :lsg_body_info,
            dependent: :restrict_with_error
   belongs_to :district
+
+  enum kinds: {
+         municipality: 'Municipality',
+         corporation: 'Corporation',
+         panchayat: 'Panchayat',
+       }
 end
