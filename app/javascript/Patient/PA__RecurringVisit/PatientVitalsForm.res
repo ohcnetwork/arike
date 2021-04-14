@@ -17,12 +17,12 @@ let formToS = (form: state) => {
   | PhysicalExaminationForm => "Physical Examination"
   }
 }
-let formToForm = (form: state) => {
+let formToForm = (~form: state, ~name, ~role) => {
   switch form {
   | GeneralHealthInfoForm => <GeneralHealthInfo__Form />
   | PsychologicalReviewForm => <PsychologicalReview__Form />
-  | PhysicalSymptomsForm => <GeneralHealthInfo__Form />
-  | PhysicalExaminationForm => <GeneralHealthInfo__Form />
+  | PhysicalSymptomsForm => <PhysicalSymptoms__Form />
+  | PhysicalExaminationForm => <PhysicalExamination__Form name role />
   }
 }
 type action =
@@ -34,7 +34,7 @@ let reducer = (state, action) =>
   switch action {
   | Next => {
       let i = forms->Js.Array2.findIndex(e => e == state)
-      if i < Js.Array.length(forms) {
+      if i >= 0 && i < Js.Array.length(forms) - 1 {
         forms[i + 1]
       } else {
         state
@@ -114,15 +114,18 @@ let make = (~name, ~role) => {
               </p>
             </div>
             <div className="mt-6 sm:mt-5 space-y-6 sm:space-y-5 gap-y-6 gap-x-4">
-              {state->formToForm}
+              {formToForm(~form=state, ~name, ~role)}
             </div>
           </div>
         </div>
-        <div className="pt-5 z-50 fixed mr-3 mb-3 w-screen">
+        <div className="pt-5">
           <div className="flex justify-end">
             <button
               type_="button"
-              onClick={mousEvt => Back->dispatch}
+              onClick={mouseEvt => {
+                mouseEvt->ReactEvent.Mouse.preventDefault
+                Back->dispatch
+              }}
               className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               {s("Back")}
             </button>

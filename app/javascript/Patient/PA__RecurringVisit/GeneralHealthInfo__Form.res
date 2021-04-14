@@ -1,10 +1,9 @@
 let s = React.string
 let health_statuses = ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
 let phases_of_illness = ["Not selected", "Stable", "Unstable", "Deteriorating", "Dying"]
+
 @react.component
 let make = () => {
-  let (_isEnabled_diseaseHistory, changeEnabled_diseaseHistory) = React.useState(_ => false)
-  let (_isEnabled_systemic, _changeEnabled_systemic) = React.useState(_ => false)
   <div className="w-full">
     <div className="sm:col-span-3 field py-2">
       <label
