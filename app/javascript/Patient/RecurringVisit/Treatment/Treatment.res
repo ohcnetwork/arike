@@ -11,13 +11,13 @@ type treatment = {
 
 module TreatmentCard = {
   @react.component
-  let make = (~id, ~name, ~onClick) => {
+  let make = (~treatment, ~removeClickHandler) => {
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="w-full flex justify-between p-6 space-x-6">
         <div className="flex-1">
-          <div className="text-sm align-top"> {s("April 7th, 2021")} </div>
+          <div className="text-sm align-top"> {s(treatment.created_at->Js.Date.toDateString)} </div>
           <div className="flex items-center space-x-3">
-            <h3 className="text-gray-900 text-lg font-semibold"> {s(name)} </h3>
+            <h3 className="text-gray-900 text-lg font-semibold"> {s(treatment.name)} </h3>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@ module TreatmentCard = {
         <div className="-mt-px flex divide-x divide-gray-200">
           <div className="w-0 flex-1 flex">
             <button
-              onClick={_ => onClick(id)}
+              onClick={_ => removeClickHandler(treatment.id)}
               className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
               <span className="ml-3"> {s("Remove")} </span>
             </button>
@@ -110,7 +110,6 @@ let make = () => {
     |> then_(json => Js.Json.decodeArray(json) |> resolve)
     |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
     |> then_(items => {
-      Js.log(items)
       let items = items->Belt.Array.map(item => item->decode)
       setTreatments(_ => items)
       items |> resolve
@@ -120,7 +119,7 @@ let make = () => {
     None
   })
 
-  let handleClick = (id, name) => {
+  let optionClickHandler = (id, name) => {
     setTreatments(state => {
       let item = {
         id: id,
@@ -137,7 +136,7 @@ let make = () => {
       }
     })
   }
-  let removeItem = id => {
+  let removeClickHandler = id => {
     setTreatments(state =>
       state->Js.Array2.filter(treatment => {
         treatment.id != id
@@ -153,7 +152,7 @@ let make = () => {
         label="Add new treatment"
         placeholder="Search"
         api="/treatment"
-        optionClickHandler=handleClick
+        optionClickHandler
       />
     </div>
     <h3 className="text-2xl leading-6 font-medium text-gray-900 p-4 mb-8">
@@ -167,9 +166,7 @@ let make = () => {
           } else {
             treatments
             ->Belt.Array.map(treatment =>
-              <TreatmentCard
-                key=treatment.id id=treatment.id name=treatment.name onClick=removeItem
-              />
+              <TreatmentCard key=treatment.id treatment removeClickHandler />
             )
             ->React.array
           }}
@@ -186,8 +183,3 @@ let make = () => {
     </div>
   </div>
 }
-
-/*
-Adding CSRF Tokens
-document.getElementsByName('csrf-token')[0].content
-*/
