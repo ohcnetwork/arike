@@ -1,5 +1,5 @@
 class VisitDetailsController < ApplicationController
-  skip_before_action :verify_authenticity_token 
+  skip_before_action :verify_authenticity_token
   def create
     visit = VisitDetail.new(
       akps: Integer(params[:akps]),
@@ -46,7 +46,10 @@ class VisitDetailsController < ApplicationController
   end
 
   def new
+  end
 
+  def pa_new
+    render "pa_new"
   end
 
   def decision
