@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  # Commenting for the time being to avoid problems in other workflows
-  # before_action :ensure_logged_in
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :ensure_logged_in
