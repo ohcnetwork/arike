@@ -28,9 +28,12 @@ let getDistrictOptionsAndEnableSelect = () => {
       url: `districts_of_state/${value}`,
       success: function (districts) {
         district.innerHTML = "";
-        const districtHTML = districts.map(
-          (district) => `<option value=${district.id}>${district.name}</option>`
-        );
+        const districtHTML = districts.map((district) => {
+          if (district.name == "Ernakulam") {
+            return `<option value=${district.id} selected>${district.name}</option>`;
+          }
+          return `<option value=${district.id}>${district.name}</option>`;
+        });
         const districtOptions = districtHTML.join("\n");
         district.innerHTML = districtOptions;
       },
@@ -85,4 +88,8 @@ document.addEventListener("turbolinks:load", () => {
   facilityLsgBodyInput.addEventListener("click", (event) => {
     getWardOptionsAndEnableSelect();
   });
+
+  removeCHCSelect();
+  getDistrictOptionsAndEnableSelect();
+  getWardOptionsAndEnableSelect();
 });
