@@ -1,0 +1,44 @@
+<div class="px-3 md:px-8">
+  <div class="flex flex-wrap md:-mx-4">
+    <% facilities.each do |facility| %>
+      <div class="w-full md:w-1/2 mt-6 md:px-4">
+        <div class="block rounded-lg bg-white shadow h-full hover:shadow-lg hover:border-2 hover:border-primary-500 overflow-hidden <%= 'border-2 border-green-200' if policy(facility).facility_owner? %>">
+          <div class="h-full flex flex-col justify-between">
+            <div class="px-6 py-4">
+              <div class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 <%= policy(facility).facility_owner? ? 'text-green-800 bg-green-100' : 'text-blue-800 bg-blue-100' %>"><%= facility.kind %></div>
+              <div class="font-black text-2xl capitalize mt-2"><%= facility.name %></div>
+              <div class="mt-2 flex justify-between">
+                <div class="flex flex-col">
+                  <div class="text-gray-500 leading-relaxed font-light">Location:</div>
+                  <div class="font-semibold"><%= facility.address %></div>
+                </div>
+                <div class="flex flex-col">
+                  <div class="text-gray-500 leading-relaxed font-light">Ward No:</div>
+                  <div class="font-semibold"><%= facility.ward_info.number %></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 bg-gray-50 border-t px-6 py-2">
+              <div class="flex py-4 justify-between">
+                <div>
+                  <div class="text-gray-500 leading-relaxed">Phone:</div>
+                  <a href=<%= "tel:" + facility.phone.to_s %> class="font-semibold">+91 <%= facility.phone %></a></div>
+                <% if policy(facility).facility_owner? %>
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <%= link_to "View Facility", facility_path(facility.id), class: "inline-flex items-center px-3 py-2 border text-sm leading-4 font-medium rounded-md bg-white focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-blue-800 active:bg-gray-50 transition ease-in-out duration-150 hover:shadow" + (policy(facility).facility_owner? ? ' border-green-500 text-green-700 hover:text-green-500' : ' border-blue-500 text-blue-700 hover:text-blue-500') %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="bg-white px-4 py-3 flex items-center justify-center border-t border-gray-200 sm:px-6 mt-6">
+  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
+    <%= paginate @facilities %>
+  </div>
+</div>
+</div>

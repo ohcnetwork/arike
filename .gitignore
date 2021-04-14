@@ -45,6 +45,14 @@ yarn-debug.log*
 # Ignore dotenv files.
 .env*
 lib/bs
-.bsb.lock
 
+# Ignore these associated with reason-react and bsb
 .merlin
+lib/bs/
+npm-debug.log
+.DS_Store
+.bsb.lock
+*.bs.js
+
+#Ignore vendor files
+/vendor

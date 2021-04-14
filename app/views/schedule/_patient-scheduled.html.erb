@@ -1,0 +1,39 @@
+<li
+  id="radiogroup-option-1"
+  :tabindex="active === 1 || active === null ? '0' : '-1'"
+  tabindex="-1"
+  @click="select(1)"
+  @keydown.space.stop.prevent="select(1)"
+  role="radio"
+  aria-checked="false"
+  :aria-checked="active === 1"
+  @keydown.arrow-up.stop.prevent="onArrowUp(1)"
+  @keydown.arrow-down.stop.prevent="onArrowDown(1)"
+  class="p-2 group relative bg-white rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-indigo-500"
+>
+  <div
+    class="rounded-lg border border-gray-300 bg-white px-6 py-4 hover:border-gray-400 sm:flex sm:justify-between"
+  >
+    <div class="flex items-center">
+      <div class="text-sm">
+        <p class="font-medium text-gray-900">
+          <%= visit.patient.full_name %>
+        </p>
+        <div class="text-gray-500">
+          <p class="sm:inline"><%= visit.patient.disease %></p>
+        </div>
+        <div class="text-gray-500">
+          <% visit.latest_record["procedures"].each do |procedure| %>
+            <p class="sm:inline"><%= procedure %></p>
+            <span class="hidden sm:inline sm:mx-1" aria-hidden="true">.</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    :class="{ 'border-indigo-500': active === 1, 'border-transparent': !(active === 1) }"
+    class="border-transparent absolute inset-0 rounded-lg border-2 pointer-events-none"
+    aria-hidden="true"
+  ></div>
+</li>

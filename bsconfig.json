@@ -17,7 +17,8 @@
   "bs-dependencies": [
     "@rescript/react",
     "bs-fetch",
-    "@pupilfirst/multiselect-dropdown"
+    "bs-webapi",
+    "@glennsl/bs-json"
   ],
   "suffix": ".bs.js",
   "namespace": true,

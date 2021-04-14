@@ -1,3 +1,5 @@
+<% presenter = ::Users::FormPresenter.new(self) %>
+
 <div class="max-w-3xl mx-auto">
   <%= form_with(model: user) do |form| %>
     <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -16,9 +18,7 @@
       <div class="sm:col-span-3">
         <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
         <div class="mt-1">
-          <%= form.select("role", User::ROLES.map { |role| [User.get_role(role) , role] }, {
-          }, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md")
-          %>
+          <%= form.select("role", presenter.user_access.map { |role| [role, role] }, {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md") %>
         </div>
       </div>
       <div class="sm:col-span-3">

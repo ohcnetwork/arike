@@ -1,0 +1,59 @@
+<tr>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="flex items-center">
+      <div class="ml-4">
+        <div class="text-sm text-gray-500">
+          <%= ward %>
+        </div>
+      </div>
+    </div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <div class="text-sm text-gray-900">
+      <%= name %>
+    </div>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap">
+    <%= due_date %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= review_due_in %>
+  </td>
+
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= last_visited %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <% procedures.each do |procedure| %>
+      <div class="text-sm text-gray-500">
+        <%= procedure %>
+      </div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= referred_by %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <% diseases.each do |disease| %>
+      <div class="text-sm text-gray-500">
+        <%= disease %>
+      </div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <% notes.each do |note| %>
+      <div class="text-sm text-gray-500">
+        <%= note %>
+      </div>
+    <% end %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+
+  <%= form_with url: schedule_path(visit_id: visit_id), method: :post do |form| %>
+    <%= form.date_field :next_visit ,class: "max-h-8 rounded-md mr-4" %>
+    <%= form.submit "Schedule", class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"%>
+  <% end %>
+
+
+  </td>
+</tr>

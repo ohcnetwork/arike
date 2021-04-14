@@ -1,0 +1,17 @@
+<tr class="bg-white" x-description="Odd row">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= kind %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= name  %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= state %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= district %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+    <%= link_to "See more", facility_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+  </td>
+</tr>
