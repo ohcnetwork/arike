@@ -2,6 +2,8 @@ require 'rails_helper'
 # Tests when logged in as superuser
 RSpec.describe 'Facility as superuser', type: :request do
   before :each do
+    FactoryBot.create(:state)
+    FactoryBot.create(:district)
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
     @superuser =
@@ -21,8 +23,8 @@ RSpec.describe 'Facility as superuser', type: :request do
   it 'create a valid CHC' do
     kind = 'CHC'
     name = Faker::Name.name
-    state_id = State.first
-    district_id = District.first
+    state_id = State.first.id
+    district_id = District.first.id
     address = Faker::Address.full_address
     pincode = Faker::Number.number(digits: 7)
     phone = Faker::Number.number(digits: 10)
@@ -47,8 +49,8 @@ RSpec.describe 'Facility as superuser', type: :request do
   it 'create an invalid PHC (without parent_id)' do
     kind = 'PHC'
     name = Faker::Name.name
-    state_id = State.first
-    district_id = District.first
+    state_id = State.first.id
+    district_id = District.first.id
     address = Faker::Address.full_address
     pincode = Faker::Number.number(digits: 7)
     phone = Faker::Number.number(digits: 10)
@@ -73,8 +75,8 @@ RSpec.describe 'Facility as superuser', type: :request do
     current_count = Facility.count
     kind = 'CHC'
     name = Faker::Name.name
-    state_id = State.first
-    district_id = District.first
+    state_id = State.first.id
+    district_id = District.first.id
     address = Faker::Address.full_address
     lsg_body_id = LsgBody.first.id
     ward_id = Ward.first.id
@@ -117,6 +119,8 @@ end
 # Tests when not logged in
 RSpec.describe 'Facility as normal user', type: :request do
   before :each do
+    FactoryBot.create(:state)
+    FactoryBot.create(:district)
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
   end
@@ -140,12 +144,14 @@ RSpec.describe 'Facility as normal user', type: :request do
   end
 
   it 'create a valid CHC without perms' do
+    FactoryBot.create(:state)
+    FactoryBot.create(:district)
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
     kind = 'CHC'
     name = Faker::Name.name
-    state_id = State.first
-    district_id = District.first
+    state_id = State.first.id
+    district_id = District.first.id
     lsg_body_id = LsgBody.first.id
     ward_id = Ward.first.id
     post facilities_path,
