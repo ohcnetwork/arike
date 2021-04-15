@@ -45,3 +45,20 @@ bundle exec rspec
 - Authentication - Devise (https://github.com/heartcombo/devise)
 - Authorization - Pundit (https://github.com/varvet/pundit)
 - Pagination - Kaminari (https://github.com/kaminari/kaminari)
+
+## Changelog
+
+Using the following command to log a new change
+
+```
+$ bundle exec logchange new
+title: A cool new feature has been added.
+
+github_issue_link: Add link to related Github issue.
+https://github.com/harigopal/logchange/issues/1
+
+private: Hide this change from the public? Set to true or false.
+false
+
+Created [..]/changelog/unreleased/20170521-a-cool-new-feature-has-been-added.yml
+```
