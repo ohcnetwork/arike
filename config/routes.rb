@@ -65,7 +65,6 @@ Rails
   resources :facilities
   resources :lsg_bodies
   resources :wards
-  put "/users/:id/verify", to: "users#verify", as: :verify_user
   post "/users/custom", to: "users#create_custom", as: :create_custom_user
   put "/users/:id/verify", to: "users#verify", as: :verify_user
   devise_for :users, controllers: {
