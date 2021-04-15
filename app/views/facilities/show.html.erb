@@ -41,9 +41,11 @@
               </h2>
               <p class="mt-1 max-w-2xl text-sm text-gray-500">Details</p>
             </div>
-            <div>
-              <%= link_to "Edit Facility", edit_facility_path(@facility.id), class: "px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" %>
-            </div>
+            <% if policy(@facility).edit? %>
+              <div>
+                <%= link_to "Edit", edit_facility_path(@facility.id), class: "px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500 sm:text-md" %>
+              </div>
+            <% end %>
           </div>
           <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
             <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
@@ -107,9 +109,15 @@
                           <%= "Local Body: " + @facility.lsg_body_info.name %>
                         </span>
                       </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <%= link_to "See more", lsg_body_path(@facility.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                      </div>
+                      <% if current_user.superuser? %>
+                        <div class="ml-4 flex-shrink-0">
+                          <%= link_to "See more", lsg_body_path(@facility.lsg_body_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                        </div>
+                      <% else %>
+                        <div class="ml-4 flex-shrink-0">
+                          <%= @facility.lsg_body_info.kind %>
+                        </div>
+                      <% end %>
                     </li>
                     <li
                       class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
@@ -133,9 +141,15 @@
                           <%= "Ward: " + @facility.ward_info.name %>
                         </span>
                       </div>
-                      <div class="ml-4 flex-shrink-0">
-                        <%= link_to "See more", ward_path(@facility.ward_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
-                      </div>
+                      <% if current_user.superuser? %>
+                        <div class="ml-4 flex-shrink-0">
+                          <%= link_to "See more", ward_path(@facility.ward_id), class: "font-medium text-indigo-600 hover:text-indigo-500"%>
+                        </div>
+                      <% else %>
+                        <div class="ml-4 flex-shrink-0">
+                          <%= @facility.ward_info.number %>
+                        </div>
+                      <% end %>
                     </li>
                   </ul>
                 </dd>

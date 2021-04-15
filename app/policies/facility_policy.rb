@@ -4,11 +4,7 @@ class FacilityPolicy < ApplicationPolicy
   end
 
   def show?
-    user && record && (user.superuser? || user.facility_id == record.id)
-  end
-
-  def test
-    false
+    user && record && (user.superuser? || user.facility_id == record.id || (record.id.in? user.facility.primary_facilities.map { |f| f.id }.to_a))
   end
 
   def new?
@@ -17,8 +13,14 @@ class FacilityPolicy < ApplicationPolicy
 
   alias create? new?
 
+  def edit?
+    user && (user.superuser? || (user.medical_officer? && user.facility_id == record.id))
+  end
+
+  alias update? edit?
+
   def show_users?
-    user && (user.superuser? || user.facility_id == record.id)
+    user && (user.superuser? || user.facility_id == record.id || (record.id.in? user.facility.primary_facilities.map { |f| f.id }.to_a))
   end
 
   alias show_patients? show_users?
