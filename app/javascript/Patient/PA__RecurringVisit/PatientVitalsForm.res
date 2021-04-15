@@ -111,7 +111,15 @@ let make = (~name, ~role) => {
               </h3>
             </div>
             <div className="mt-6 sm:mt-5 space-y-6 sm:space-y-5 gap-y-6 gap-x-4">
-              {formToForm(~form=state, ~name, ~role)}
+              {forms
+              ->Js.Array2.map(form => {
+                if state == form {
+                  formToForm(~form, ~name, ~role)
+                } else {
+                  <div className="hidden"> {formToForm(~form, ~name, ~role)} </div>
+                }
+              })
+              ->React.array}
             </div>
           </div>
         </div>
