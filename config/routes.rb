@@ -69,6 +69,11 @@ Rails
     post '/visit_details/expired', to: 'visit_details#expired'
 
     resources :sessions
+
+    get 'facilities/districts_of_state/:state_id',
+        to: 'facilities#districts_of_state'
+    get 'facilities/wards_of_lsg_body/:lsg_body_id',
+        to: 'facilities#wards_of_lsg_body'
     resources :facilities
 
     # get users belonging to a facility

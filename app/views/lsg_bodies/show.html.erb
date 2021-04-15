@@ -8,7 +8,9 @@
 
 <div class="py-5">
   <nav class="bg-white border-b border-gray-200 flex" aria-label="Breadcrumb">
-    <ol class="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
+    <ol
+      class="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8"
+    >
       <li class="flex">
         <div class="flex items-center">
           <%= link_to dashboard_path, class: 'text-gray-400 hover:text-gray-500' do %>
@@ -19,8 +21,14 @@
       </li>
       <li class="flex">
         <div class="flex items-center">
-          <svg class="flex-shrink-0 w-6 h-full text-gray-200" viewBox="0 0 24 44" preserveAspectRatio="none"
-               fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg
+            class="flex-shrink-0 w-6 h-full text-gray-200"
+            viewBox="0 0 24 44"
+            preserveAspectRatio="none"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z"></path>
           </svg>
           <%= link_to "LSG Bodies", lsg_bodies_path, class: "ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" %>
@@ -28,8 +36,14 @@
       </li>
       <li class="flex">
         <div class="flex items-center">
-          <svg class="flex-shrink-0 w-6 h-full text-gray-200" viewBox="0 0 24 44" preserveAspectRatio="none"
-               fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg
+            class="flex-shrink-0 w-6 h-full text-gray-200"
+            viewBox="0 0 24 44"
+            preserveAspectRatio="none"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z"></path>
           </svg>
           <%= link_to @lsg_body.name, lsg_body_path(@lsg_body.id), class: "ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" %>
@@ -49,38 +63,28 @@
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
           <dl class="sm:divide-y sm:divide-gray-200">
-            <div
-              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-medium text-gray-500">Name</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <%= @lsg_body.name %>
               </dd>
             </div>
-            <div
-              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
-              <dt class="text-sm font-medium text-gray-500">
-                Type
-              </dt>
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">Type</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <%= @lsg_body.kind %>
               </dd>
             </div>
-            <div
-              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-medium text-gray-500">Code</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 <%= @lsg_body.code %>
               </dd>
             </div>
-            <div
-              class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-            >
+            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-sm font-medium text-gray-500">District</dt>
               <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @lsg_body.district %>
+                <%= @lsg_body.district.name %>
               </dd>
             </div>
           </dl>
@@ -92,51 +96,76 @@
 <div class="bg-gray-100 py-6 mt-5">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="flex flex-col">
-    <% if @wards.length.positive? %>
-      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Number
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  LSG Body
-                </th>
-                <th scope="col" colspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-                <% @wards.each do |ward| %>
-                  <tr class="bg-white">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      <%= ward.name %>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <%= ward.number %>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      <%= link_to ward.lsg_body.name, lsg_body_path(ward.lsg_body.id), class: "text-indigo-600 hover:text-indigo-900" %>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                      <%= link_to "View", ward_path(ward.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
-                      <%= link_to "Edit", edit_ward_path(ward.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
-                      <%= link_to "Delete", ward_path(ward.id), class: "px-2 text-red-600 hover:text-red-900", method: :delete %>
-                    </td>
+      <% if @wards.length.positive? %>
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div
+            class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+          >
+            <div
+              class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+            >
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Number
+                    </th>
+                    <th
+                      scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      LSG Body
+                    </th>
+                    <th
+                      scope="col"
+                      colspan="2"
+                      class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
                   </tr>
-                <% end %>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <% @wards.each do |ward| %>
+                    <tr class="bg-white">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                      >
+                        <%= ward.name %>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        <%= ward.number %>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        <%= link_to ward.lsg_body.name, lsg_body_path(ward.lsg_body.id), class: "text-indigo-600 hover:text-indigo-900" %>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium"
+                      >
+                        <%= link_to "View", ward_path(ward.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
+                        <%= link_to "Edit", edit_ward_path(ward.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
+                        <%= link_to "Delete", ward_path(ward.id), class: "px-2 text-red-600 hover:text-red-900", method: :delete %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
       <% else %>
         <div class="text-center text-2xl font-bold">
           No Wards Found For <%= @lsg_body.name %>
