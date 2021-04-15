@@ -5,6 +5,7 @@ module MultiSelectDropdown = Treatment__MultiSelectDropdown
 type treatment = {
   id: string,
   name: string,
+  category: string,
   created_at: Js.Date.t,
   deleted_at: option<Js.Date.t>,
 }
@@ -33,6 +34,98 @@ module TreatmentCard = {
         </div>
       </div>
     </li>
+  }
+}
+
+type deletedTreatments = {
+  date: Js.Date.t,
+  treatments: array<treatment>,
+}
+
+module TreatmentHistory = {
+  @react.component
+  let make = (~treatments) => {
+    let treatments = treatments->Js.Array2.filter(treatment => treatment.deleted_at != None)
+
+    let deletedDates =
+      treatments->Belt.Array.map(treatment =>
+        treatment.deleted_at->Belt.Option.getUnsafe->Js.Date.toDateString
+      )
+
+    let deletedDates = deletedDates->Js.Array2.filteri((date, index) => {
+      deletedDates->Js.Array2.indexOf(date) == index
+    })
+
+    let deletedDates = deletedDates->Belt.Array.map(deletedDate => {
+      {
+        date: deletedDate->Js.Date.fromString,
+        treatments: treatments->Js.Array2.filter(tr =>
+          tr.deleted_at == Some(deletedDate->Js.Date.fromString)
+        ),
+      }
+    })
+
+    let deletedDates = deletedDates->Belt.Array.map(d => {
+      <div key={d.date->Js.Date.getUTCMilliseconds->Belt.Float.toString}>
+        <details>
+          <summary className="font-bold mb-4 p-8 bg-gray-300 rounded-lg">
+            {s(d.date->Js.Date.toDateString)}
+          </summary>
+          <div className="flex flex-col">
+            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {s("Treatment Name")}
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          {s("Category")}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {d.treatments
+                      ->Belt.Array.map(treatment => {
+                        <tr
+                          key={`${d.date
+                            ->Js.Date.getUTCMilliseconds
+                            ->Belt.Float.toString}-${treatment.id}`}>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">
+                                  {s(treatment.name)}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900"> {s(treatment.category)} </div>
+                            <div className="text-sm text-gray-500">
+                              {s(treatment.created_at->Js.Date.toDateString)}
+                            </div>
+                          </td>
+                        </tr>
+                      })
+                      ->React.array}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    })
+
+    <div> {deletedDates->React.array} </div>
   }
 }
 
@@ -81,12 +174,14 @@ let decode = json => {
 
   let idValue = item->getValue(0)
   let nameValue = item->getValue(1)
-  let createdAtValue = item->getValue(2)
-  let deletedAtValue = item->getValue(3)
+  let categoryValue = item->getValue(2)
+  let createdAtValue = item->getValue(3)
+  let deletedAtValue = item->getValue(4)
 
   {
     id: idValue,
     name: nameValue,
+    category: categoryValue,
     created_at: Js.Date.fromString(createdAtValue),
     deleted_at: switch deletedAtValue {
     | "" => None
@@ -118,12 +213,13 @@ let make = () => {
     None
   })
 
-  let optionClickHandler = (id, name) => {
+  let optionClickHandler = (id, name, category) => {
     setTreatments(state => {
       let item = {
         id: id,
         name: name,
-        created_at: Js.Date.fromFloat(Js.Date.now()),
+        category: category,
+        created_at: Js.Date.now()->Js.Date.fromFloat->Js.Date.toDateString->Js.Date.fromString,
         deleted_at: None,
       }
 
@@ -136,9 +232,18 @@ let make = () => {
     })
   }
   let removeClickHandler = id => {
-    setTreatments(state =>
-      state->Js.Array2.filter(treatment => {
-        treatment.id != id
+    setTreatments(treatments =>
+      treatments->Belt.Array.map(treatment => {
+        if treatment.id == id {
+          {
+            ...treatment,
+            deleted_at: Some(
+              Js.Date.now()->Js.Date.fromFloat->Js.Date.toDateString->Js.Date.fromString,
+            ),
+          }
+        } else {
+          treatment
+        }
       })
     )
   }
@@ -164,6 +269,7 @@ let make = () => {
             <h4> {s("No treatments added")} </h4>
           } else {
             treatments
+            ->Js.Array2.filter(treatment => treatment.deleted_at == None)
             ->Belt.Array.map(treatment =>
               <TreatmentCard key=treatment.id treatment removeClickHandler />
             )
@@ -180,5 +286,9 @@ let make = () => {
         {s("Save Changes")}
       </button>
     </div>
+    <h3 className="text-2xl leading-6 font-medium text-gray-900 p-4 mb-8">
+      {s("Treatment History")}
+    </h3>
+    <div className="bg-gray-100 p-8"> <TreatmentHistory treatments /> </div>
   </div>
 }

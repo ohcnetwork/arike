@@ -57,7 +57,7 @@ module DropDown = {
             <button
               key=option.id
               className="-m-3 p-3 px-4 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
-              onClick={e => clickHandler(option.id, option.name)}>
+              onClick={e => clickHandler(option.id, option.name, option.category)}>
               <p className="text-base font-medium text-gray-900 text-left"> {s(option.name)} </p>
             </button>
           })
