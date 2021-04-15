@@ -9,7 +9,7 @@ let make = (~question, ~field, ~options, ~isRequired) => {
       <option key=op value=op disabled={op->isDisabled} selected={op->isDisabled}> {s(op)} </option>
     )
     ->React.array
-  <div className="sm:col-span-3 field">
+  <div className="sm:col-span-3 col-span-4 field my-8">
     <label
       className="block text-sm font-medium
         text-gray-700">

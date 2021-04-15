@@ -1,20 +1,32 @@
 let s = React.string
+let general_options = [
+  "Not selected",
+  "Not at all",
+  "Slightly",
+  "Moderately",
+  "Severely",
+  "Overwhelmingly",
+  "Cannot assess",
+]
+
+let general_questions = [
+  ("Is the patient feeling worried about illness/treatment?", "patient_worried", true),
+  ("Does family/friends feel anxious about patient's illness/treatment", "family_anxious", true),
+  (
+    "Has the patient been able to share how he is feeling with his family/friends as much as he wanted?",
+    "patient_feels",
+    true,
+  ),
+  ("Is patient depressed", "patient_depressed", true),
+  ("Has the patient had as much information as he wanted?", "patient_informed", true),
+]
 @react.component
 let make = () => {
-  <div className="grid grid-cols-1 sm:grid-cols-6">
-    <div className="sm:col-span-3 field">
-      <label className="block text-sm font-medium text-gray-700"> {s("Enter details.")} </label>
-      <div className="mt-1">
-        <textarea
-          type_="text"
-          name="disease_history_changed"
-          cols=50
-          rows=1
-          id="patientvitals-form"
-          required=true
-          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
-        />
-      </div>
-    </div>
+    <div className="grid grid-cols-2 sm:grid-cols-6">
+    {general_questions
+    ->Belt.Array.map(((ques, field, required)) =>
+      <DropDownInput question=ques field options=general_options isRequired=required key=field />
+    )
+    ->React.array}
   </div>
 }

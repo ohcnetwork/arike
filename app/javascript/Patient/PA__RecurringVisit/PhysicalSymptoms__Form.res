@@ -9,15 +9,6 @@ let general_options = [
 ]
 
 let general_questions = [
-  ("Is the patient feeling worried about illness/treatment?", "patient_worried", true),
-  ("Does family/friends feel anxious about patient's illness/treatment", "family_anxious", true),
-  (
-    "Has the patient been able to share how he is feeling with his family/friends as much as he wanted?",
-    "patient_feels",
-    true,
-  ),
-  ("Is patient depressed", "patient_depressed", true),
-  ("Has the patient had as much information as he wanted?", "patient_informed", true),
   ("Do you think patient feels at peace?", "patient_at_peace", true),
   ("Pain", "pain", false),
   ("Shortness of breath", "shortness_breath", false),
