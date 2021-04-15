@@ -42,28 +42,27 @@ let saveChanges = state => {
   let csrfMetaTag = ReactDOM.querySelector("meta[name=csrf-token]")->Belt.Option.getUnsafe
   let csrfToken = Webapi.Dom.Element.getAttribute("content", csrfMetaTag)->Belt.Option.getUnsafe
 
-  let makeRequest = %raw(`
-    async function(treatments, csrfToken) {
-      const response = await fetch(
-      "/treatment",
-      {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken,
-        },
-        body: JSON.stringify({
-          id: "a7142391-bffd-4296-910d-7e362347fa36",
-          treatment: treatments
-        }),
-      })
+  let requestBody = Js.Dict.empty()
+  requestBody->Js.Dict.set("patient_id", Js.Json.string("a7142391-bffd-4296-910d-7e362347fa36"))
+  requestBody->Js.Dict.set("treatment", treatments->Js.Json.string)
 
-      const content = await response;
-    }
-  `)
-
-  makeRequest(treatments, csrfToken)
+  open Js.Promise
+  Fetch.fetchWithInit(
+    "/treatment",
+    Fetch.RequestInit.make(
+      ~method_=Post,
+      ~body=Fetch.BodyInit.make(Js.Json.stringify(Js.Json.object_(requestBody))),
+      ~headers=Fetch.HeadersInit.make({
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken,
+      }),
+      (),
+    ),
+  )
+  |> then_(Fetch.Response.text)
+  |> then_(text => text->Js.log |> resolve)
+  |> ignore
 }
 
 let getValue = (item, index) => {

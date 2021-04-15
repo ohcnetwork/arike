@@ -8,13 +8,15 @@ class TreatmentController < ApplicationController
   end
 
   def create
-    patient = Patient.find(params[:id])
+    patient = Patient.find(params[:patient_id])
     patient.update(
       treatment: params[:treatment],
     )
 
     if patient.save
-      render plain: "Treatments added"
+      render plain: "Treatments Updated Successfully"
+    else
+      render plain: patient.errors.full_messages.to_sentence
     end
   end
 end
