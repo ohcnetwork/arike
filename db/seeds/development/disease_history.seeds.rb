@@ -1,4 +1,4 @@
-after "development:users" do
+after "development:patients" do
   Patient.all.each do |patient|
     diseases_names = Disease.all.map {|d| d.id}
     (1..5).each do |i|
