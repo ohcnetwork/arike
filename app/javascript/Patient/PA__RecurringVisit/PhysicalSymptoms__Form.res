@@ -34,5 +34,6 @@ let make = () => {
       <DropDownInput question=ques field options=general_options isRequired=required key=field />
     )
     ->React.array}
+    <WoundPushScore key="PushScore" />
   </div>
 }
