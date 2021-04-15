@@ -67,6 +67,7 @@ Rails
     post '/visit_details/assign_to', to: 'visit_details#assign_to'
     post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
     post '/visit_details/expired', to: 'visit_details#expired'
+    get '/visit_details/pa_new', to: 'visit_details#pa_new'
 
     resources :sessions
 
