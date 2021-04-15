@@ -9,7 +9,7 @@ module Search = {
       setSearchTerm(_ => value)
     }
 
-    <div className="w-full max-w-xs mx-auto">
+    <div className="w-full max-w-xs mx-auto p-2">
       <div>
         <div className="relative rounded-md shadow-sm">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -47,7 +47,7 @@ module Sort = {
       setShowDropdown(_ => false)
     }
 
-    <div className="mx-auto w-64 z-10 flex">
+    <div className="mx-auto z-10 inline-flex p-2">
       <div className="relative inline-block text-left">
         <div>
           <button
@@ -61,7 +61,7 @@ module Sort = {
         <div
           className={!showDropdown
             ? "hidden"
-            : "origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"}>
+            : "origin-top-right absolute md:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"}>
           <div className="py-1">
             <option
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -132,7 +132,7 @@ module FilterSection = {
     <div className="py-1">
       <div className="text-center p-2 font-bold"> {s(name ++ "(s)")} </div>
       {searchbar ? <Search setSearchTerm placeholder={"Search " ++ name ++ "(s)"} /> : <div />}
-      <div className=" grid grid-cols-2 justify-items-start">
+      <div className="grid grid-cols-1 justify-items-start md:grid-cols-2">
         {options
         ->Belt.Array.map(option =>
           <FilterOption
@@ -154,12 +154,11 @@ module Filter = {
       setShowDropdown(isVisible => !isVisible)
     }
 
-    <div className="relative inline-block text-left z-10">
+    <div className="vs:relative inline-block text-left p-2">
       <div>
         <button
           type_="button"
           className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none"
-          id="sort-menu"
           onClick={toggleDropDown}>
           {s("Filter")} <div className="px-2" /> <i className="fas fa-sort-down" />
         </button>
@@ -167,7 +166,7 @@ module Filter = {
       <div
         className={!showDropdown
           ? "hidden"
-          : "origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
+          : "m-2 origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
         <FilterSection name="Procedure" filters={procedures} searchbar={true} setFilterOptions />
         <FilterSection name="Ward" filters={["1", "2", "3", "4", "5"]} setFilterOptions />
       </div>
@@ -185,7 +184,7 @@ let make = (
   ~procedures,
 ) => {
   <div>
-    <div className="p-8 sm:flex items-center justify-center bg-white">
+    <div className="p-8 sm:flex items-center justify-center self-center text-center bg-white">
       <Search setSearchTerm placeholder="Search Patients" />
       <Sort setSortOption sortAscending setSortAscending />
       <Filter setFilterOptions procedures />
