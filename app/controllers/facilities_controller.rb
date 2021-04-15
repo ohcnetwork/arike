@@ -24,10 +24,11 @@ class FacilitiesController < ApplicationController
 
   # POST /facilities
   def create
+    authorize Facility
     facility = Facility.create(facilities_params)
     user_saved = if !current_user.superuser?
-        user = User.add_to_facility(current_user.id, facility.id)
-        user.save
+        save_user_in_facility = User.add_to_facility(current_user.id, facility.id)
+        save_user_in_facility.save
       else
         true
       end
@@ -42,10 +43,12 @@ class FacilitiesController < ApplicationController
 
   # GET /facilities/:id/edit
   def edit
+    authorize @facility
   end
 
   # PATCH /facilities/:id
   def update
+    authorize @facility
     @facility.update!(facilities_params)
     redirect_to facility_path(@facility.id)
   end
