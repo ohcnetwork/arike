@@ -25,18 +25,20 @@ class User < ApplicationRecord
   scope :primary_nurses, -> { where(role: roles[:primary_nurse]) }
   scope :secondary_nurses, -> { where(role: roles[:secondary_nurse]) }
   scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]])) }
-  scope :assignable_users, -> { where("role = ? OR role = ?", "Primary Nurse", "Secondary Nurse").where(facility_id: nil) }
-
+  scope :assignable_users, -> { where(role: roles[:primary_nurse]).or(where(role: roles[:secondary_nurse])).where(facility_id: nil) }
+  scope :verified, -> { where(verified: true) }
+  scope :unverified, -> { where(verified: true) }
+  
   validates :phone, uniqueness: true
 
   attr_accessor :login_id
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login_id)
-      where(conditions.to_h).where(["phone = :phone OR lower(email) = :email", { :phone => login.to_i, :email => login.downcase }]).first
+    if  login = conditions.delete(:login_id)
+      where(conditions.to_h).where(phone: login.to_i).or(where(email: login.downcase)).first
     elsif conditions.has_key?(:email) || conditions.has_key?(:phone)
-      where(conditions.to_h).first
+      find_by(conditions.to_h)
     end
   end
 
@@ -64,32 +66,8 @@ class User < ApplicationRecord
     user
   end
 
-  def self.verified
-    User.where(verified: true)
-  end
-
-  def self.unverified
-    User.where(verified: false)
-  end
-
-  def superuser?
-    self[:role] == User.roles[:superuser]
-  end
-
-  def primary_nurse?
-    self[:role] == User.roles[:primary_nurse]
-  end
-
-  def secondary_nurse?
-    self[:role] == User.roles[:secondary_nurse]
-  end
-
   def nurse?
-    self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
-  end
-
-  def medical_officer?
-    self[:role] == User.roles[:medical_officer]
+    primary_nurse? || secondary_nurse?
   end
 
   def facility_access?

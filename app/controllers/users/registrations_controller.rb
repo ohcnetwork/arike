@@ -3,6 +3,9 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
 
+  def sign_up(_name, _resource)
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
