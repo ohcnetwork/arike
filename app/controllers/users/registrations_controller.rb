@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-
-  def create
-    super
-  end
+  before_action :configure_sign_up_params
 
   def sign_up(_name, _resource)
   end
