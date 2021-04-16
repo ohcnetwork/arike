@@ -30,6 +30,10 @@ gem "tailwindcss-rails", "~> 0.3.3"
 gem "twilio-ruby", "~> 5.48"
 
 gem "active_model_otp", "~> 2.1.1"
+
+# Flexible Authentication solution
+gem "devise", "~> 4.7"
+
 # Authorization using policy classes
 gem "pundit", "~> 2.1"
 

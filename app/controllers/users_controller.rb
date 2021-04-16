@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  skip_before_action :ensure_logged_in, only: %i[signup create]
   before_action :ensure_superuser, only: %i[update verify]
   before_action :ensure_facility_access, only: %i[index new]
 
@@ -7,14 +6,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-  end
-
-  def signup
-    redirect_to dashboard_path if current_user
-    @user = User.new
-    @user[:verified] = false
-
-    render layout: "public"
   end
 
   def edit
@@ -39,34 +30,21 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def create
-    user =
-      params
-        .require(:user)
-        .permit(
-          :full_name,
-          :first_name,
-          :role,
-          :email,
-          :phone,
-          :password,
-          :verified,
-        )
-    user[:verified] = false
+  def create_custom
+    data = params.require(:user).permit(
+      :full_name, :first_name, :role,
+      :email, :password, :phone, :verified
+    )
 
-    if !user[:password] || user[:password].strip.empty?
-      user[:password] = "arike"
-    end
+    user = User.new(data)
 
-    user = User.new(user)
-
-    if user.valid?
-      user.save
-      redirect_to new_session_path, notice: "You have successfully signed up!"
+    if user.save
+      flash[:notice] = "Created user #{data[:full_name]} successfully with role #{data[:role]}"
     else
       flash[:error] = user.errors.full_messages.to_sentence
-      redirect_to signup_path
     end
+
+    redirect_back fallback_location: new_user_path
   end
 
   def assign_facility
@@ -105,7 +83,7 @@ class UsersController < ApplicationController
   end
 
   def verify
-    user = User.find(params[:id])
+    user = User.find_by(id: params[:id])
     user.update(verified: true) if user
     redirect_to users_path
   end
