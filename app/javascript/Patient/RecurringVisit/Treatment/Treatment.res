@@ -158,43 +158,20 @@ let saveChanges = state => {
   |> ignore
 }
 
-let getValue = (item, index) => {
-  switch item->Belt.Array.get(index) {
-  | Some(value) => {
-      let (_, value) = value
-      value->Js.Json.decodeString->Belt.Option.getWithDefault("")
-    }
-  | None => ""
-  }
-}
-
 let decode = json => {
-  let item =
-    json->Js.Json.decodeObject->Belt.Option.getWithDefault(Js.Dict.empty())->Js.Dict.entries
-
-  let idValue = item->getValue(0)
-  let nameValue = item->getValue(1)
-  let categoryValue = item->getValue(2)
-  let createdAtValue = item->getValue(3)
-  let deletedAtValue = item->getValue(4)
-
+  open Json.Decode
   {
-    id: idValue,
-    name: nameValue,
-    category: categoryValue,
-    created_at: Js.Date.fromString(createdAtValue),
-    deleted_at: switch deletedAtValue {
-    | "" => None
-    | _ => Some(Js.Date.fromString(deletedAtValue))
-    },
+    id: field("id", string, json),
+    name: field("name", string, json),
+    category: field("category", string, json),
+    created_at: field("created_at", string, json)->Js.Date.fromString,
+    deleted_at: optional(field("deleted_at", string), json)->Belt.Option.map(Js.Date.fromString),
   }
 }
-
-let initialTreatments = []
 
 @react.component
 let make = () => {
-  let (treatments, setTreatments) = React.useState(() => initialTreatments)
+  let (treatments, setTreatments) = React.useState(() => [])
 
   React.useEffect0(() => {
     // Fetch the data([{id: string, name: string}]) from the provided api
