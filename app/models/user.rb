@@ -28,14 +28,14 @@ class User < ApplicationRecord
   scope :assignable_users, -> { where(role: roles[:primary_nurse]).or(where(role: roles[:secondary_nurse])).where(facility_id: nil) }
   scope :verified, -> { where(verified: true) }
   scope :unverified, -> { where(verified: true) }
-  
+
   validates :phone, uniqueness: true
 
   attr_accessor :login_id
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if  login = conditions.delete(:login_id)
+    if (login = conditions.delete(:login_id))
       where(conditions.to_h).where(phone: login.to_i).or(where(email: login.downcase)).first
     elsif conditions.has_key?(:email) || conditions.has_key?(:phone)
       find_by(conditions.to_h)

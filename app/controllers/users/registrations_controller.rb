@@ -3,6 +3,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
 
+  def create
+    super
+  end
+
   def sign_up(_name, _resource)
   end
 
@@ -14,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     dashboard_path
   end
 end

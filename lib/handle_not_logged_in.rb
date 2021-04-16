@@ -1,5 +1,5 @@
 class HandleNotLoggedIn < Devise::FailureApp
-  def route(scope)
+  def route(_scope)
     :root_path
   end
 end
