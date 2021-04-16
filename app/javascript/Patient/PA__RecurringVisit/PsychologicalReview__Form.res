@@ -22,9 +22,9 @@ let general_questions = [
 ]
 @react.component
 let make = () => {
-    <div>
-    <div className="font-bold text-xl mb-5">{s("Psychological Review")}</div>
-      <div className="grid grid-cols-6 ">
+  <div>
+    <div className="font-bold text-xl mb-5"> {s("Psychological Review")} </div>
+    <div className="grid lg:grid-cols-2">
       {general_questions
       ->Belt.Array.map(((ques, field, required)) =>
         <DropDownInput question=ques field options=general_options isRequired=required key=field />
@@ -37,6 +37,6 @@ let make = () => {
         value="Next"
         className="mt-4 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       />
-      </div>
+    </div>
   </div>
 }

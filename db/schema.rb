@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
-    t.uuid "state_id", null: false
-    t.uuid "district_id", null: false
+    t.uuid "state_id"
+    t.uuid "district_id"
     t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
-    t.uuid "district_id", null: false
+    t.uuid "district_id"
     t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 
@@ -171,6 +171,13 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
 
   create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
