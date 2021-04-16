@@ -30,6 +30,10 @@ gem "tailwindcss-rails", "~> 0.3.3"
 gem "twilio-ruby", "~> 5.48"
 
 gem "active_model_otp", "~> 2.1.1"
+
+# Flexible Authentication solution
+gem "devise", "~> 4.7"
+
 # Authorization using policy classes
 gem "pundit", "~> 2.1"
 
@@ -43,6 +47,9 @@ gem "seedbank", "~> 0.5.0"
 gem "bootsnap", ">= 1.4.4", require: false
 # kramdown is a fast, pure Ruby Markdown superset converter, using a strict syntax definition and supporting several common extensions. http://kramdown.gettalong.org
 gem 'kramdown', '~> 2.3'
+
+# REST Client
+gem "rest-client"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

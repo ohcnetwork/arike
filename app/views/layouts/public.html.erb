@@ -12,6 +12,12 @@
   <body>
     <div class="h-screen overflow-hidden bg-white">
       <%= render partial: "/layouts/home-nav" %>
+      <% if flash[:error] %>
+        <%= render partial: "/layouts/flash-message" %>
+      <% end %>
+      <% if flash[:notice] %>
+        <%= render partial: "/layouts/flash-message" %>
+      <% end %>
       <main
         class="flex-1 relative z-0 overflow-y-auto focus:outline-none"
         tabindex="0"

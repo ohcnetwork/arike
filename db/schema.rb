@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_094646) do
+ActiveRecord::Schema.define(version: 2021_04_15_185010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,21 +23,31 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.string "icds_code"
   end
 
+  create_table "districts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "state_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["state_id"], name: "index_districts_on_state_id"
+  end
+
   create_table "facilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "kind", null: false
     t.string "name", null: false
-    t.string "state", null: false
-    t.string "district", null: false
     t.uuid "lsg_body_id", null: false
     t.uuid "ward_id", null: false
-    t.string "address", null: false
+    t.string "address"
     t.bigint "pincode", null: false
     t.bigint "phone", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
+    t.uuid "state_id", null: false
+    t.uuid "district_id", null: false
+    t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
+    t.index ["state_id"], name: "index_facilities_on_state_id"
   end
 
   create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -60,7 +70,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
-    t.string "district"
+    t.uuid "district_id", null: false
+    t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 
   create_table "patient_disease_summaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -102,13 +113,15 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.uuid "user_id"
   end
 
-  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+<<<<<<< HEAD
+=======
+  create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.integer "age"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+>>>>>>> 23e61ccad0e1a5a4a3c199ac55463fb5b9627f8c
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
@@ -117,12 +130,17 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.bigint "phone"
-    t.string "password_digest"
-    t.boolean "verified", default: true
+    t.boolean "verified", default: false
     t.uuid "facility_id"
     t.string "otp_secret_key"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["facility_id"], name: "index_users_on_facility_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "visit_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -189,6 +207,10 @@ ActiveRecord::Schema.define(version: 2021_04_13_094646) do
     t.index ["lsg_body_id"], name: "index_wards_on_lsg_body_id"
   end
 
+  add_foreign_key "districts", "states"
+  add_foreign_key "facilities", "districts"
   add_foreign_key "facilities", "facilities", column: "parent_id"
+  add_foreign_key "facilities", "states"
+  add_foreign_key "lsg_bodies", "districts"
   add_foreign_key "wards", "lsg_bodies"
 end
