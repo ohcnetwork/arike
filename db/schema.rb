@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.string "name", null: false
     t.uuid "lsg_body_id", null: false
     t.uuid "ward_id", null: false
-    t.string "address"
+    t.string "address", null: false
     t.bigint "pincode", null: false
     t.bigint "phone", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -113,15 +113,19 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.uuid "user_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
->>>>>>> 23e61ccad0e1a5a4a3c199ac55463fb5b9627f8c
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
