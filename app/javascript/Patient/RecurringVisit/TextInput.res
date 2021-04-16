@@ -13,7 +13,7 @@ let make = (~question, ~field, ~form_id, ~divClass, ~isRequired, ~defaultValue) 
         id=form_id
         required=isRequired
         className="shadow-sm
-          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24">
+          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-16">
         {s(defaultValue)}
       </textarea>
     </div>
@@ -35,7 +35,7 @@ module EnabledTextInput = {
           required=isRequired
           disabled={!isEnabled}
           className="shadow-sm
-          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24">
+          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-16">
           {s(defaultValue)}
         </textarea>
       </div>
