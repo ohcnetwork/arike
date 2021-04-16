@@ -66,8 +66,24 @@ class User < ApplicationRecord
     user
   end
 
+  def superuser?
+    self[:role] == User.roles[:superuser]
+  end
+
+  def primary_nurse?
+    self[:role] == User.roles[:primary_nurse]
+  end
+
+  def secondary_nurse?
+    self[:role] == User.roles[:secondary_nurse]
+  end
+
   def nurse?
-    primary_nurse? || secondary_nurse?
+    self[:role] == User.roles[:primary_nurse] || self[:role] == User.roles[:secondary_nurse]
+  end
+
+  def medical_officer?
+    self[:role] == User.roles[:medical_officer]
   end
 
   def facility_access?
