@@ -1,0 +1,7 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'GeneralHealthInfoPack' %>
+<% end %>
+
+<%= form_with url: new_visit_general_information_path(visit), method: :post do |form| %>
+  <div id="general-health-information-form"></div>
+<% end %>

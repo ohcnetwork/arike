@@ -22,7 +22,7 @@ let formToForm = (~form: state, ~name, ~role) => {
   | GeneralHealthInfoForm => <GeneralHealthInfo__Form />
   | PsychologicalReviewForm => <PsychologicalReview__Form />
   | PhysicalSymptomsForm => <PhysicalSymptoms__Form />
-  | PhysicalExaminationForm => <PhysicalExamination__Form name role />
+  | PhysicalExaminationForm => <PhysicalExamination__Form />
   }
 }
 type action =

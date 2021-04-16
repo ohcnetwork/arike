@@ -1,0 +1,2 @@
+class PsychologicalReview < ApplicationRecord
+end

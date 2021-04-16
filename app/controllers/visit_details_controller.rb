@@ -49,7 +49,10 @@ class VisitDetailsController < ApplicationController
   end
 
   def pa_new
-    render "pa_new"
+    @visit = VisitDetail.create!(bp: "")
+    puts "New Visit is "
+    puts @visit
+    redirect_to visit_general_information_path(@visit)
   end
 
   def decision
@@ -63,5 +66,4 @@ class VisitDetailsController < ApplicationController
 
   def schedule_revisit
   end
-
 end

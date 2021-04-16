@@ -1,11 +1,19 @@
-<% presenter = ::VisitDetails::VisitDetailsPresenter.new(self) %>
-
-<%=content_for(:tail) do %>
-  <%= javascript_pack_tag 'PA__PatientVitalsPack' %>
-<% end %>
-
-<div id="patient-vitals-form"></div>
-
-<script type="application/json" id="patient-vitals-data">
-  <%= presenter.props.to_json.html_safe %>
-</script>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <h3>Visit Details</h3>
+      <%= render partial: "visit_details/ruby_new", locals: {visit: @visit} %>
+      <div class="mt-10">
+        <% if request.path == visit_general_information_path(@visit) %>
+          <%= render partial: "visit_details/form-general-health-information", locals: {visit: @visit} %>
+        <% elsif request.path == visit_psychological_review_path(@visit) %>
+          <%= render partial: "visit_details/form-psychological-review", locals: {visit: @visit} %>
+        <% elsif request.path == visit_physical_symptom_path(@visit) %>
+          <%= render partial: "visit_details/form-physical-symptoms", locals: {visit: @visit} %>
+        <% elsif request.path == visit_physical_examination_path(@visit) %>
+          <%= render partial: "visit_details/form-physical-examination", locals: {visit: @visit} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

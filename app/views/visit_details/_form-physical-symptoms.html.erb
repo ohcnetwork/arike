@@ -1,0 +1,7 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PhysicalSymptomPack' %>
+<% end %>
+
+<%= form_with url: new_visit_physical_symptom_path(visit), method: :post do |form| %>
+  <div id="physical-symptoms-form"></div>
+<% end %>

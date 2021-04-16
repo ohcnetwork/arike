@@ -1,0 +1,2 @@
+class PhysicalSymptom < ApplicationRecord
+end

@@ -1,0 +1,7 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PsychologicalReviewPack' %>
+<% end %>
+
+<%= form_with url: new_visit_psychological_review_path(visit), method: :post do |form| %>
+  <div id="psychological-review-form"></div>
+<% end %>
