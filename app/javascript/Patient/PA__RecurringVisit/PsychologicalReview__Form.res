@@ -24,7 +24,7 @@ let general_questions = [
 let make = () => {
     <div>
     <div className="font-bold text-xl mb-5">{s("Psychological Review")}</div>
-      <div className="grid grid-cols-2 sm:grid-cols-6">
+      <div className="grid grid-cols-6 ">
       {general_questions
       ->Belt.Array.map(((ques, field, required)) =>
         <DropDownInput question=ques field options=general_options isRequired=required key=field />
@@ -35,7 +35,7 @@ let make = () => {
       <input
         type_="submit"
         value="Next"
-        className="mt-8 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="mt-4 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       />
       </div>
   </div>

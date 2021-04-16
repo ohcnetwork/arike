@@ -1,8 +1,15 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-7xl mx-auto">
-      <h3>Visit Details</h3>
-      <%= render partial: "visit_details/ruby_new", locals: {visit: @visit} %>
+      <div>
+        <h3 class="text-2xl leading-6 font-bold text-gray-900">
+          Current Disease Status and Patient Vitals
+        </h3>
+        <p class="mt-1 mb-5 max-w-2xl text-sm text-gray-500">
+          Captured during every visit
+        </p>
+      </div>
+      <%= render partial: "visit_details/nav-bar", locals: {visit: @visit} %>
       <div class="mt-10">
         <% if request.path == visit_general_information_path(@visit) %>
           <%= render partial: "visit_details/form-general-health-information", locals: {visit: @visit} %>

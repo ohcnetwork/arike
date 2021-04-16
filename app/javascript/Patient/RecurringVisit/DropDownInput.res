@@ -39,7 +39,7 @@ module SelectedDropDown = {
         </option>
       )
       ->React.array
-    <div className="sm:col-span-3 field">
+    <div className="field">
       <label
         className="block text-sm font-medium
         text-gray-700">
