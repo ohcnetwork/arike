@@ -10,14 +10,14 @@ let systematic_examination_options = [
 @react.component
 let make = () => {
   <div>
-    <div className="font-bold text-xl mb-5">{s("Physical Examination")}</div>
+    <div className="font-bold text-xl mb-5"> {s("Physical Examination")} </div>
     <div className="grid grid-cols-1 sm:grid-cols-6">
       <NumberInput
         question="BP"
         field="bp"
         minimum=None
         maximum=None
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
       />
       <NumberInput
@@ -25,7 +25,7 @@ let make = () => {
         field="grbs"
         minimum=None
         maximum=None
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
       />
       <NumberInput
@@ -33,7 +33,7 @@ let make = () => {
         field="rr"
         minimum=None
         maximum=None
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
       />
       <NumberInput
@@ -41,14 +41,14 @@ let make = () => {
         field="pulse"
         minimum=None
         maximum=None
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
       />
       <TextInput
         question="Personal hygiene"
         field="personal_hygiene"
         form_id="patientvitals-form"
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
         defaultValue=""
       />
@@ -56,7 +56,7 @@ let make = () => {
         question="Mouth hygiene"
         field="mouth_hygiene"
         form_id="patientvitals-form"
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
         defaultValue=""
       />
@@ -64,11 +64,11 @@ let make = () => {
         question="Pubic hygiene"
         field="pubic_hygiene"
         form_id="patientvitals-form"
-        divClass="sm:col-span-3 field"
+        divClass="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1"
         isRequired=false
         defaultValue=""
       />
-      <div className="sm:col-span-3 field">
+      <div className="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1">
         <label
           className="block text-sm font-medium
           text-gray-700">
@@ -85,7 +85,7 @@ let make = () => {
           </select>
         </div>
       </div>
-      <div className="sm:col-span-3 field">
+      <div className="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1">
         <label className="block text-sm font-medium text-gray-700">
           {s("Systematic examination details")}
         </label>
@@ -102,7 +102,7 @@ let make = () => {
           />
         </div>
       </div>
-      <div className="sm:col-span-3 field">
+      <div className="sm:col-span-3 field my-2 lg:mx-10 sm:mx-1">
         <label className="block text-sm font-medium text-gray-700">
           {s("Visit done by(Doctor/Nurse/Volunteer/ASHA/Driver):")}
         </label>
@@ -115,8 +115,8 @@ let make = () => {
             id="patientvitals-form"
             required=true
             className="shadow-sm
-            focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24">
-          </textarea>
+            focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-24"
+          />
         </div>
       </div>
     </div>
@@ -125,6 +125,6 @@ let make = () => {
         type_="submit"
         className="mt-8 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       />
-      </div>
+    </div>
   </div>
 }
