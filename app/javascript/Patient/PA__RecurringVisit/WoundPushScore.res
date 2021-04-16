@@ -51,7 +51,7 @@ let make = () => {
         {s("Length x Width (cm")} <sup> {s("2")} </sup> {s(")")}
       </label>
       <select
-        className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+        className="mt-1 mb-5 max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
         onChange={e =>
           setScores(prevState => {
             pushScore: prevState.pushScore -
@@ -72,7 +72,7 @@ let make = () => {
         {s("Exudate Amount")}
       </label>
       <select
-        className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+        className="mt-1 mb-5 max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
         onChange={e =>
           setScores(prevState => {
             pushScore: prevState.pushScore -
@@ -93,7 +93,7 @@ let make = () => {
         {s("Tissue Type")}
       </label>
       <select
-        className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+        className="mt-1 mb-5 max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
         onChange={e =>
           setScores(prevState => {
             pushScore: prevState.pushScore -
@@ -109,6 +109,6 @@ let make = () => {
         {renderOptions(tissueArray)}
       </select>
     </div>
-    <PushScoreBar value={scores.pushScore} />
+    <div className="lg:w-80 sm:w-full"> <PushScoreBar value={scores.pushScore} /> </div>
   </div>
 }
