@@ -17,6 +17,8 @@ let jssort = %raw(`
 module Schedule = {
   @react.component
   let make = (~unscheduled_patients) => {
+    let perPage = 1
+
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "next_visit")
     let (sortAscending, setSortAscending) = React.useState(_ => true)
@@ -24,6 +26,7 @@ module Schedule = {
     let (wardFilters, setWardFilters) = React.useState(_ => [])
     let (patients, setPatients) = React.useState(_ => unscheduled_patients)
     let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
+    let (pageNumber, setPageNumber) = React.useState(_ => 1)
 
     let procedures = unscheduled_patients->Belt.Array.reduce([], (acc, patient) => {
       let s0 = Belt.Set.String.fromArray(acc)
@@ -32,7 +35,7 @@ module Schedule = {
       acc->Belt.Set.String.toArray
     })
 
-    Js.log4(unscheduled_patients, sortAscending, sortOption, procedures)
+    Js.log(pageNumber)
 
     let setFilterOptions = (basis, value, active) => {
       let setFilter = setBasisFilter => {
@@ -110,7 +113,9 @@ module Schedule = {
     }, (selectedPatients, searchTerm, sortOption, sortAscending, procedureFilters, wardFilters))
 
     let patientList =
-      patients->Js.Array2.map(patient => <Patient key={patient["id"]} patient selectPatient />)
+      patients
+      ->Js.Array2.slice(~start=(pageNumber - 1) * perPage, ~end_=pageNumber * perPage)
+      ->Js.Array2.map(patient => <Patient key={patient["id"]} patient selectPatient />)
 
     <div>
       <SearchSortFilter
@@ -120,6 +125,7 @@ module Schedule = {
       <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {patientList->React.array}
       </ul>
+      <Pagination pageNumber setPageNumber maxPages={patients->Js.Array2.length / perPage} />
     </div>
   }
 }
