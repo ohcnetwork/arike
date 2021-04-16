@@ -23,11 +23,17 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.string "icds_code"
   end
 
+  create_table "districts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "state_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["state_id"], name: "index_districts_on_state_id"
+  end
+
   create_table "facilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "kind", null: false
     t.string "name", null: false
-    t.string "state", null: false
-    t.string "district", null: false
     t.uuid "lsg_body_id", null: false
     t.uuid "ward_id", null: false
     t.string "address"
@@ -36,8 +42,12 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
+    t.uuid "state_id", null: false
+    t.uuid "district_id", null: false
+    t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
+    t.index ["state_id"], name: "index_facilities_on_state_id"
   end
 
   create_table "family_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -60,7 +70,8 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
-    t.string "district"
+    t.uuid "district_id", null: false
+    t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 
   create_table "patient_disease_summaries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -102,6 +113,15 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.uuid "user_id"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+>>>>>>> 23e61ccad0e1a5a4a3c199ac55463fb5b9627f8c
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
@@ -187,6 +207,10 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.index ["lsg_body_id"], name: "index_wards_on_lsg_body_id"
   end
 
+  add_foreign_key "districts", "states"
+  add_foreign_key "facilities", "districts"
   add_foreign_key "facilities", "facilities", column: "parent_id"
+  add_foreign_key "facilities", "states"
+  add_foreign_key "lsg_bodies", "districts"
   add_foreign_key "wards", "lsg_bodies"
 end

@@ -1,4 +1,4 @@
-after "development:users" do
+after "development:patients" do
   Patient.all.each do |patient|
     (1..5).each do |i|
       FamilyDetail.create(

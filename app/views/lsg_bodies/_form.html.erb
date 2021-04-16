@@ -12,9 +12,7 @@
         <div class="sm:col-span-3">
           <div>
             <%= form.label :kind, "Type", class: "block text-sm font-medium text-gray-700" %>
-            <%= form.select :kind, ["Municipality", "Corporation", "Panchayat"], {}, {
-              class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-            } %>
+            <%= form.select("kind", LsgBody.kinds.values , {}, required: true, class: 'mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md')%>
           </div>
         </div>
       </div>
@@ -28,9 +26,16 @@
 
         <div class="sm:col-span-3">
           <%= form.label :district, "District of LSG Body", class: "block text-sm font-medium text-gray-700" %>
-          <div class="mt-1">
-            <%= form.text_field :district, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
-          </div>
+          <%=
+            form.select(
+              'district_id',
+              District.all.map { |district| [district.name, district.id] },
+              { selected: District.find_by(name: 'Ernakulam').id },
+              required: true,
+              class:
+                'mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md',
+            )
+          %>
         </div>
       </div>
       <%= form.submit "Submit", class: "mt-8 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
