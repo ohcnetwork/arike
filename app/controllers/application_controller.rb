@@ -1,16 +1,18 @@
 class ApplicationController < ActionController::Base
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  
+
   protect_from_forgery
   before_action :authenticate_user!
   before_action :ensure_verified_user!
 
-
   def ensure_verified_user!
-    unless current_user && current_user.verified
-      flash[:error] = "Your account is not verified!"
-      sign_out current_user
+    if user_signed_in?
+      unless current_user.verified
+        flash[:error] = "Your account is not verified!"
+        sign_out current_user
+        redirect_to root_path
+      end
     end
   end
 
