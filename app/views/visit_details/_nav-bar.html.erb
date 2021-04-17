@@ -2,6 +2,36 @@
   <div className="px-4 sm:px-6 lg:px-8 bg-white">
     <div className="max-w-7xl mx-auto">
       <div>
+        <!--<div class="sm:hidden">
+          <label for="tabs" class="sr-only">Select a tab</label>
+          <select
+            id="tabs"
+            name="tabs"
+            class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+          >
+            <% if request.path == visit_general_information_path(visit) %>
+              <option selected="">General Health Information</option>
+              <option>Psychological Review</option>
+              <option>Physical Symptoms</option>
+              <option>Physical Examination</option>
+            <% elsif request.path == visit_psychological_review_path(visit) %>
+              <option>General Health Information</option>
+              <option selected="">Psychological Review</option>
+              <option>Physical Symptoms</option>
+              <option>Physical Examination</option>
+            <% elsif request.path == visit_physical_symptom_path(visit) %>
+              <option>General Health Information</option>
+              <option>Psychological Review</option>
+              <option selected="">Physical Symptoms</option>
+              <option>Physical Examination</option>
+            <% elsif request.path == visit_physical_examination_path(visit) %>
+              <option>General Health Information</option>
+              <option>Psychological Review</option>
+              <option>Physical Symptoms</option>
+              <option selected="">Physical Examination</option>
+            <% end %>
+          </select>
+        </div>-->
         <div className="hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8">

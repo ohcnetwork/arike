@@ -4,11 +4,7 @@ let s = React.string
 let make = (~value, ~question, ~field, ~options, ~isRequired) => {
   let isDisabled = op => op == "Not selected" && isRequired ? true : false
   let optionsTags =
-    options
-    ->Belt.Array.map(op =>
-      <option key=op value=op disabled={op->isDisabled} selected={op->isDisabled}> {s(op)} </option>
-    )
-    ->React.array
+    options->Belt.Array.map(op => <option key=op value=op> {s(op)} </option>)->React.array
   <div className="lg:col-span-1 my-4">
     <label
       className="block text-sm font-medium

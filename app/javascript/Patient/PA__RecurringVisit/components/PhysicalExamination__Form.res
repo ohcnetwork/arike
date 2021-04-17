@@ -87,7 +87,7 @@ let make = (~data: t) => {
             required=true
             className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
             {systematic_examination_options
-            ->Js.Array2.map(op => <option key=op value=op selected={true}> {s(op)} </option>)
+            ->Js.Array2.map(op => <option key=op value=op> {s(op)} </option>)
             ->React.array}
           </select>
         </div>

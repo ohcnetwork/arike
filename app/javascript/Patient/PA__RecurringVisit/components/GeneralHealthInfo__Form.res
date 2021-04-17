@@ -7,9 +7,9 @@ let phases_of_illness = ["Not selected", "Stable", "Unstable", "Deteriorating", 
 @react.component
 let make = (~data: t) => {
   <div className="lg:w-10/12">
-    <div className="font-bold text-xl mb-5"> {s("General Health Information")} </div>
-    <div className="pl-10">
-      <div className="sm:col-span-3 field py-2 my-4">
+    <div className="font-bold text-xl mb-5" key="heading"> {s("General Health Information")} </div>
+    <div className="pl-10" key="form">
+      <div className="sm:col-span-3 field py-2 my-4" key="akps-field">
         <label
           className="block text-sm font-medium
             text-gray-700">
@@ -22,12 +22,12 @@ let make = (~data: t) => {
             required=true
             className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
             {health_statuses
-            ->Js.Array2.map(op => <option key=op value=op> {s(op)} </option>)
+            ->Js.Array2.map(op => <option key={`akps-${op}`} value=op> {s(op)} </option>)
             ->React.array}
           </select>
         </div>
       </div>
-      <div className="sm:col-span-3 field py-2 my-4">
+      <div className="sm:col-span-3 field py-2 my-4" key="palliative_phase_field">
         <label
           className="block text-sm font-medium
             text-gray-700">
@@ -40,12 +40,14 @@ let make = (~data: t) => {
             required=true
             className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
             {phases_of_illness
-            ->Js.Array2.map(op => <option key=op value=op> {s(op)} </option>)
+            ->Js.Array2.map(op =>
+              <option key={`palliative_phase-${op}`} value=op> {s(op)} </option>
+            )
             ->React.array}
           </select>
         </div>
       </div>
-      <div className="sm:col-span-3 field mt-4">
+      <div className="sm:col-span-3 field mt-4" key="disease_history_field">
         <label className="block text-sm font-medium text-gray-700">
           {s("Any changes in disease history?")}
         </label>
@@ -55,6 +57,7 @@ let make = (~data: t) => {
             ->Js.Array2.map(op => {
               <div className="flex items-center it">
                 <input
+                  key={op}
                   name="disease_history_radio"
                   defaultValue={toString(data.disease_history_radio)}
                   type_="radio"
