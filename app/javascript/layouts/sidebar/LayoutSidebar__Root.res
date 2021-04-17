@@ -28,7 +28,9 @@ let showLinks = links => {
 
 let userDetails = currentUserName => {
   <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-    <a href="/logout" className="flex-shrink-0 group block">
+    <form action="/users/sign_out" className="flex-shrink-0 group block" method="POST">
+      <input type_="hidden" value="delete" name="_method" />
+      <input type_="hidden" value={AuthenticityToken.fromHead()} name="authenticity_token" />
       <div className="flex items-center">
         <div>
           <Avatar name={currentUserName} className="inline-block h-10 w-10 rounded-full" />
@@ -37,12 +39,12 @@ let userDetails = currentUserName => {
           <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
             {s(currentUserName)}
           </p>
-          <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
+          <button className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
             {s("Logout")}
-          </p>
+          </button>
         </div>
       </div>
-    </a>
+    </form>
   </div>
 }
 
