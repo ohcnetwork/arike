@@ -61,7 +61,7 @@ module Sort = {
         <div
           className={!showDropdown
             ? "hidden"
-            : "origin-top-right absolute md:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"}>
+            : "origin-top-right absolute md:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"}>
           <div className="py-1">
             <option
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -166,7 +166,7 @@ module Filter = {
       <div
         className={!showDropdown
           ? "hidden"
-          : "m-2 origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"}>
+          : "m-2 origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-10"}>
         <FilterSection name="Procedure" filters={procedures} searchbar={true} setFilterOptions />
         <FilterSection name="Ward" filters={["1", "2", "3", "4", "5"]} setFilterOptions />
       </div>
