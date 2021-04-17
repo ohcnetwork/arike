@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def ensure_verified_user!
     if user_signed_in?
       unless current_user.verified
-        flash[:error] = "Your account is not verified!"
+        flash[:alert] = "Your account is not verified!"
         sign_out current_user
         redirect_to root_path
       end
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:error] = "You are not authorized"
+    flash[:alert] = "You are not authorized"
     redirect_to(request.referer || root_path)
   end
 end
