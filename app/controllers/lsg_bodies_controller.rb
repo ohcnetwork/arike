@@ -1,16 +1,18 @@
 class LsgBodiesController < ApplicationController
-  before_action :ensure_superuser
   before_action :set_lsg_body, only: %i[edit update]
 
   def index
     @lsg_body = LsgBody.all
+    authorize @lsg_body
   end
 
   def new
     @lsg_body = LsgBody.new
+    authorize @lsg_body
   end
 
   def create
+    authorize LsgBody
     LsgBody.create(lsg_bodies_params)
     redirect_to lsg_bodies_path
   end
@@ -18,17 +20,22 @@ class LsgBodiesController < ApplicationController
   def show
     id = params[:id]
     @lsg_body = LsgBody.find(id)
+    authorize @lsg_body
     @wards = Ward.where(lsg_body_id: id)
   end
 
-  def edit; end
+  def edit
+    authorize @lsg_body
+  end
 
   def update
+    authorize @lsg_body
     @lsg_body.update(lsg_bodies_params)
     redirect_to lsg_body_path(params[:id])
   end
 
   def destroy
+    authorize LsgBody
     LsgBody.delete(params[:id])
     redirect_to lsg_bodies_path
   end
