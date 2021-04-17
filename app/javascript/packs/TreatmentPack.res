@@ -14,6 +14,6 @@
 // let props = DomUtils.parseJSONTag(~id="patient-vitals-data", ()) |> decode
 
 switch ReactDOM.querySelector("#treatment") {
-| Some(root) => ReactDOM.render(<Treatment />, root)
+| Some(root) => ReactDOM.render(<PatientTreatment__root />, root)
 | None => () // Do nothing
 }

@@ -1,15 +1,6 @@
 let s = React.string
 
-type option = {
-  id: string,
-  name: string,
-  category: string,
-}
-
-type optionGroup = {
-  categoryName: string,
-  options: array<option>,
-}
+open PatientTreatment__Types
 
 let onWindowClick = (showDropdown, setShowDropdown, _event) =>
   if showDropdown {
@@ -20,7 +11,7 @@ let onWindowClick = (showDropdown, setShowDropdown, _event) =>
 
 let search = (searchString, options) => {
   (options |> Js.Array.filter(option =>
-    option.name
+    option->DropdownOption.name
     |> String.lowercase_ascii
     |> Js.String.includes(searchString |> String.lowercase_ascii)
   ))->Belt.SortArray.stableSortBy((x, y) => String.compare(x.name, y.name))
@@ -30,7 +21,7 @@ module DropDown = {
   @react.component
   let make = (~options, ~show, ~clickHandler) => {
     let categories = options->Belt.Array.map(option => {
-      option.category
+      option->DropdownOption.category
     })
 
     // Removing duplicates of the category names
@@ -39,26 +30,34 @@ module DropDown = {
     })
 
     let optionGroups = categories->Belt.Array.map(category => {
-      {
-        categoryName: category,
-        options: options->Js.Array2.filter(op => op.category == category),
-      }
+      DropdownOptionGroup.make(
+        ~categoryName=category,
+        ~options=options->Js.Array2.filter(op => op->DropdownOption.category == category),
+      )
     })
 
     let optionGroups = optionGroups->Belt.Array.map(optionGroup => {
-      <div key=optionGroup.categoryName className="bg-white">
+      <div key={optionGroup->DropdownOptionGroup.categoryName} className="bg-white">
         <div
           className="z-10 border-t border-b border-white sticky top-0 bg-indigo-600 px-6 py-5 text-base font-medium text-white flex">
-          <h3> {s(optionGroup.categoryName)} </h3>
+          <h3> {s(optionGroup->DropdownOptionGroup.categoryName)} </h3>
         </div>
         <div className="relative grid gap-8 px-5 py-8 sm:p-8 sm:gap-8">
-          {optionGroup.options
+          {optionGroup
+          ->DropdownOptionGroup.options
           ->Belt.Array.map(option => {
             <button
-              key=option.id
+              key={option->DropdownOption.id}
               className="-m-3 p-3 px-4 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
-              onClick={e => clickHandler(option.id, option.name, option.category)}>
-              <p className="text-base font-medium text-gray-900 text-left"> {s(option.name)} </p>
+              onClick={e =>
+                clickHandler(
+                  ~id=option->DropdownOption.id,
+                  ~name=option->DropdownOption.name,
+                  ~category=option->DropdownOption.category,
+                )}>
+              <p className="text-base font-medium text-gray-900 text-left">
+                {s(option->DropdownOption.name)}
+              </p>
             </button>
           })
           ->React.array}
@@ -74,17 +73,8 @@ module DropDown = {
         </div>
       </div>
     } else {
-      <div />
+      React.null
     }
-  }
-}
-
-let decode = json => {
-  open Json.Decode
-  {
-    id: field("id", string, json),
-    name: field("name", string, json),
-    category: field("category", string, json),
   }
 }
 
@@ -102,7 +92,7 @@ let make = (~id, ~className, ~placeholder, ~label, ~optionClickHandler, ~api) =>
     |> then_(json => Js.Json.decodeArray(json) |> resolve)
     |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
     |> then_(items => {
-      let items = items->Belt.Array.map(item => item->decode)
+      let items = items->Belt.Array.map(item => item->DropdownOption.decode)
       setOptions(_ => items)
       items |> resolve
     })
