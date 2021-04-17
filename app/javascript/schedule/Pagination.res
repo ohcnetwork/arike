@@ -2,6 +2,16 @@ let s = React.string
 
 @react.component
 let make = (~pageNumber, ~setPageNumber, ~maxPages) => {
+  React.useEffect(() => {
+    if pageNumber > maxPages {
+      setPageNumber(prev => prev - 1)
+    }
+    if pageNumber == 0 && maxPages > 0 {
+      setPageNumber(_ => 1)
+    }
+    None
+  })
+
   <div
     className="flex-col sm:flex-row text-center bg-white px-4 py-3 flex items-center justify-between sm:px-6">
     <div className=" sm:block">

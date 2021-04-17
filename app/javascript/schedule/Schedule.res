@@ -17,7 +17,7 @@ let jssort = %raw(`
 module Schedule = {
   @react.component
   let make = (~unscheduled_patients) => {
-    let perPage = 2
+    let perPage = 1
 
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (sortOption, setSortOption) = React.useState(_ => "next_visit")
@@ -130,7 +130,7 @@ module Schedule = {
         setPageNumber
         maxPages={
           let max_pages = patients->Js.Array2.length / perPage
-          mod(max_pages, perPage) == 0 ? max_pages : max_pages + 1
+          mod(patients->Js.Array2.length, perPage) == 0 ? max_pages : max_pages + 1
         }
       />
     </div>
