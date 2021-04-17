@@ -129,7 +129,7 @@ let make = (~data: t) => {
         </div>
       </div>
     </div>
-    <div className="actions flex justify-center">
+    <div className="actions flex justify-center w-10/12">
       <input
         type_="submit"
         value="Save & Submit"

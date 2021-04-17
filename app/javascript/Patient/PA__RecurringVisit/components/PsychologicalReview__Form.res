@@ -42,7 +42,7 @@ let make = (~data: t) => {
   ]
   <div>
     <div className="font-bold text-xl mb-5"> {s("Psychological Review")} </div>
-    <div className="grid lg:grid-cols-2 lg:pl-10 lg:w-10/12">
+    <div className="grid lg:grid-cols-2 lg:pl-10 lg:w-10/12 lg:pr-5">
       {general_questions
       ->Belt.Array.map(((ques, field, required, value)) =>
         <DropDownInput
@@ -56,7 +56,7 @@ let make = (~data: t) => {
       )
       ->React.array}
     </div>
-    <div className="actions flex justify-center">
+    <div className="actions flex justify-center w-10/12">
       <input
         type_="submit"
         value="Save & Next"
