@@ -1,6 +1,7 @@
 class PhysicalExaminationsController < ApplicationController
   def new
     @visit = VisitDetail.find_by(id: params[:visit_id])
+    @info = PhysicalExamination.find_by(visit_id: params[:visit_id])
     render "visit_details/pa_new"
   end
 

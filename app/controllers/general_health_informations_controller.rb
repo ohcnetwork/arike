@@ -1,6 +1,7 @@
 class GeneralHealthInformationsController < ApplicationController
   def new
     @visit = VisitDetail.find_by(id: params[:visit_id])
+    @info = GeneralHealthInformation.find_by(visit_id: params[:visit_id])
     render "visit_details/pa_new"
   end
 

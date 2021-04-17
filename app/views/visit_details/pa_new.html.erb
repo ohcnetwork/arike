@@ -12,13 +12,13 @@
       <%= render partial: "visit_details/nav-bar", locals: {visit: @visit} %>
       <div class="mt-10">
         <% if request.path == visit_general_information_path(@visit) %>
-          <%= render partial: "visit_details/form-general-health-information", locals: {visit: @visit} %>
+          <%= render partial: "visit_details/form-general-health-information", locals: {visit: @visit, info: @info} %>
         <% elsif request.path == visit_psychological_review_path(@visit) %>
-          <%= render partial: "visit_details/form-psychological-review", locals: {visit: @visit} %>
+          <%= render partial: "visit_details/form-psychological-review", locals: {visit: @visit, info: @info} %>
         <% elsif request.path == visit_physical_symptom_path(@visit) %>
-          <%= render partial: "visit_details/form-physical-symptoms", locals: {visit: @visit} %>
+          <%= render partial: "visit_details/form-physical-symptoms", locals: {visit: @visit, info: @info} %>
         <% elsif request.path == visit_physical_examination_path(@visit) %>
-          <%= render partial: "visit_details/form-physical-examination", locals: {visit: @visit} %>
+          <%= render partial: "visit_details/form-physical-examination", locals: {visit: @visit, info: @info} %>
         <% end %>
       </div>
     </div>
