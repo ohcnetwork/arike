@@ -14,28 +14,37 @@
         <div class="space-y-1">
           <%= form.label :login_id, "Email or Phone", class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-2">
-            <%= form.text_field :login_id, {
-              placeholder: 'Email or Phone Number',
-              class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-            } %>
+            <%=
+              form.text_field :login_id,
+                              {
+                                placeholder: 'Email or Phone Number',
+                                class:
+                                  'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
+                                autofocus: true,
+                              }
+            %>
           </div>
         </div>
 
         <div class="space-y-1">
           <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-2">
-            <%= form.password_field :password, {
-              placeholder: 'Password',
-              class: 'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-            } %>
+            <%=
+              form.password_field :password,
+                                  {
+                                    placeholder: 'Password',
+                                    class:
+                                      'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
+                                  }
+            %>
           </div>
         </div>
 
         <div class="flex justify-between">
           <div class="flex items-center">
             <% if devise_mapping.rememberable? %>
-                <%= form.check_box :remember_me, class: "h-5 w-5 mr-2 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
-                <%= form.label :remember_me %>
+              <%= form.check_box :remember_me, class: "h-5 w-5 mr-2 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
+              <%= form.label :remember_me %>
             <% end %>
           </div>
           <%= link_to "Forgot Password?", new_user_password_path ,class:"text-blue-400"%>
@@ -49,7 +58,6 @@
             <span>Sign in</span>
           <% end %>
         </div>
-
       <% end %>
     </div>
   </div>
