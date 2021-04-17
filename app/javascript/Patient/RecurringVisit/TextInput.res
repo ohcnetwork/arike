@@ -8,14 +8,14 @@ let make = (~question, ~field, ~form_id, ~divClass, ~isRequired, ~defaultValue) 
       <textarea
         type_="text"
         name=field
+        defaultValue={defaultValue}
         cols=50
         rows=1
         id=form_id
         required=isRequired
         className="shadow-sm
-          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-16">
-        {s(defaultValue)}
-      </textarea>
+          focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md h-16"
+      />
     </div>
   </div>
 }

@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component @react.component
-let make = (~question, ~field, ~options, ~isRequired) => {
+let make = (~value, ~question, ~field, ~options, ~isRequired) => {
   let isDisabled = op => op == "Not selected" && isRequired ? true : false
   let optionsTags =
     options
@@ -18,6 +18,7 @@ let make = (~question, ~field, ~options, ~isRequired) => {
     <div className="mt-1">
       <select
         name=field
+        defaultValue=value
         required=isRequired
         className="block focus:ring-indigo-500 focus:border-indigo-500 shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md w-full">
         {optionsTags}

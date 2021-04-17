@@ -1,3 +1,4 @@
+type t = PhysicalSymptoms__Form__Type.t
 let general_options = [
   "Not selected",
   "Not at all",
@@ -7,31 +8,32 @@ let general_options = [
   "Overwhelmingly",
   "Cannot assess",
 ]
-
-let optional_questions = [
-  ("Do you think patient feels at peace?", "patient_at_peace", true),
-  ("Pain", "pain", false),
-  ("Shortness of breath", "shortness_breath", false),
-  ("Weakness/Lack of energy", "weakness", false),
-  ("Poor mobility", "poor_mobility", false),
-  ("Nausea", "nausea", false),
-  ("Constipation", "constipation", false),
-  ("Sore/dry mouth", "sore", false),
-  ("Drowsiness", "drowsiness", false),
-  ("Wound", "wound", false),
-]
-let required_questions = [
-  ("Vomiting", "vomiting", false),
-  ("Poor Appetite", "poor_appetite", false),
-  ("Lack of sleep", "lack_of_sleep", false),
-  ("Micturition", "micturition", false),
-]
+let toString = optionString => Js.Option.getWithDefault("", optionString)
 type state = {show_optional: bool, form_data: PhysicalSymptoms__Form__Type.t}
 let s = React.string
 let initialState = {show_optional: false, form_data: PhysicalSymptoms__Form__Type.make()}
 
 @react.component
-let make = () => {
+let make = (~data: t) => {
+  let optional_questions = [
+    ("Do you think patient feels at peace?", "patient_at_peace", true, data.patient_at_peace),
+    ("Pain", "pain", false, data.pain),
+    ("Shortness of breath", "shortness_breath", false, data.shortness_breath),
+    ("Weakness/Lack of energy", "weakness", false, data.weakness),
+    ("Poor mobility", "poor_mobility", false, data.poor_mobility),
+    ("Nausea", "nausea", false, data.nausea),
+    ("Constipation", "constipation", false, data.constipation),
+    ("Sore/dry mouth", "sore", false, data.sore),
+    ("Drowsiness", "drowsiness", false, data.drowsiness),
+    ("Wound", "wound", false, data.wound),
+  ]
+  let required_questions = [
+    ("Vomiting", "vomiting", false, data.vomiting),
+    ("Poor Appetite", "poor_appetite", false, data.poor_appetite),
+    ("Lack of sleep", "lack_of_sleep", false, data.lack_of_sleep),
+    ("Micturition", "micturition", false, data.micturition),
+  ]
+
   let (state, setState) = React.useState(_ => initialState)
   let optional_section_class = if state.show_optional {
     "visible"
@@ -72,8 +74,15 @@ let make = () => {
     </div>
     <div className="grid lg:grid-cols-2 mx-auto lg:pl-10">
       {required_questions
-      ->Belt.Array.map(((ques, field, required)) =>
-        <DropDownInput question=ques field options=general_options isRequired=required key=field />
+      ->Belt.Array.map(((ques, field, required, value)) =>
+        <DropDownInput
+          question=ques
+          field
+          value={toString(value)}
+          options=general_options
+          isRequired=required
+          key=field
+        />
       )
       ->React.array}
     </div>
@@ -83,8 +92,15 @@ let make = () => {
     <div className={`font-bold text-lg ml-4 ${optional_section_class}`}> {s("Optional")} </div>
     <div className={`grid lg:grid-cols-2 mx-auto lg:pl-10 ${optional_section_class}`}>
       {optional_questions
-      ->Belt.Array.map(((ques, field, required)) =>
-        <DropDownInput question=ques field options=general_options isRequired=required key=field />
+      ->Belt.Array.map(((ques, field, required, value)) =>
+        <DropDownInput
+          question=ques
+          field
+          value={toString(value)}
+          options=general_options
+          isRequired=required
+          key=field
+        />
       )
       ->React.array}
     </div>

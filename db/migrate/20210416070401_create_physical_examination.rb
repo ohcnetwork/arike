@@ -8,7 +8,7 @@ class CreatePhysicalExamination < ActiveRecord::Migration[6.1]
       t.string :pulse
       t.string :personal_hygiene
       t.string :mouth_hygiene
-      t.string :public_hygiene
+      t.string :pubic_hygiene
       t.string :systemic_examination
       t.string :systemic_examination_details
       t.uuid :done_by

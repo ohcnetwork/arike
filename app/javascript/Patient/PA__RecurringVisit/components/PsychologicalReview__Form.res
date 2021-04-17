@@ -1,4 +1,6 @@
+type t = PsychologicalReview__Form__Type.t
 let s = React.string
+let toString = optionString => Js.Option.getWithDefault("", optionString)
 let general_options = [
   "Not selected",
   "Not at all",
@@ -9,25 +11,48 @@ let general_options = [
   "Cannot assess",
 ]
 
-let general_questions = [
-  ("Is the patient feeling worried about illness/treatment?", "patient_worried", true),
-  ("Is patient depressed?", "patient_depressed", true),
-  ("Does family/friends feel anxious about patient's illness/treatment?", "family_anxious", true),
-  (
-    "Has the patient been able to share his feelings with his family/friends?",
-    "patient_feels",
-    true,
-  ),
-  ("Has the patient had as much information as he wanted?", "patient_informed", true),
-]
 @react.component
-let make = () => {
+let make = (~data: t) => {
+  let general_questions = [
+    (
+      "Is the patient feeling worried about illness/treatment?",
+      "patient_worried",
+      true,
+      data.patient_worried,
+    ),
+    ("Is patient depressed?", "patient_depressed", true, data.patient_depressed),
+    (
+      "Does family/friends feel anxious about patient's illness/treatment?",
+      "family_anxious",
+      true,
+      data.family_anxious,
+    ),
+    (
+      "Has the patient been able to share his feelings with his family/friends?",
+      "patient_feels",
+      true,
+      data.patient_feels,
+    ),
+    (
+      "Has the patient had as much information as he wanted?",
+      "patient_informed",
+      true,
+      data.patient_informed,
+    ),
+  ]
   <div>
     <div className="font-bold text-xl mb-5"> {s("Psychological Review")} </div>
     <div className="grid lg:grid-cols-2 lg:pl-10 lg:w-10/12">
       {general_questions
-      ->Belt.Array.map(((ques, field, required)) =>
-        <DropDownInput question=ques field options=general_options isRequired=required key=field />
+      ->Belt.Array.map(((ques, field, required, value)) =>
+        <DropDownInput
+          value={toString(value)}
+          question=ques
+          field
+          options=general_options
+          isRequired=required
+          key=field
+        />
       )
       ->React.array}
     </div>

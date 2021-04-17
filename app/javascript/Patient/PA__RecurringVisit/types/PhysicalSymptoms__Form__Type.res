@@ -47,6 +47,6 @@ let decode = json => {
     drowsiness: field("drowsiness", optional(string), json),
     wound: field("wound", optional(string), json),
     lack_of_sleep: field("lack_of_sleep", optional(string), json),
-    micturition: field("micturition", optional(string), json),
+    micturition: field("micnutrition", optional(string), json),
   }
 }

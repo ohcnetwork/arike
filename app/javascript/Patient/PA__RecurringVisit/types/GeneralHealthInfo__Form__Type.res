@@ -15,6 +15,6 @@ let decode = json => {
   {
     akps: field("akps", optional(string), json),
     palliative_phase: field("palliative_phase", optional(string), json),
-    disease_history_radio: field("disease_history_radio", optional(string), json),
+    disease_history_radio: Some(""), //field("disease_history_radio", optional(string), json),
   }
 }

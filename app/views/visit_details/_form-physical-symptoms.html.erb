@@ -3,22 +3,7 @@
 <% end %>
 
 <script type="text/json" id="physical-symptoms-form-data">
-  {
-    "patient_at_peace": <%= info.patient_at_peace %>,
-    "pain": <%= info.pain %>,
-    "shortness_breath": <%= info.shortness_breath %>,
-    "weakness": <%= info.weakness %>,
-    "poor_mobility": <%= info.poor_mobility %>,
-    "nausea": <%= info.nausea %>,
-    "vomiting": <%= info.vomiting %>,
-    "poor_appetite": <%= info.poor_appetite %>,
-    "constipation": <%= info.constipation %>,
-    "sore": <%= info.sore %>,
-    "drowsiness": <%= info.drowsiness %>,
-    "wound": <%= info.wound %>,
-    "lack_of_sleep": <%= info.lack_of_sleep %>,
-    "micturition": <%= info.micturition %>
-  }
+  <%= info.to_json.html_safe %>
 </script>
 
 <%= form_with url: new_visit_physical_symptom_path(visit), method: :post do |form| %>

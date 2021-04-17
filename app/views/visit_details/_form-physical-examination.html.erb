@@ -3,18 +3,7 @@
 <% end %>
 
 <script type="text/json" id="physical-examination-form-data">
-  {
-    "bp": <%= info.bp %>,
-    "grbs": <%= info.grbs %>,
-    "rr": <%= info.rr %>,
-    "pulse": <%= info.pulse %>,
-    "personal_hygiene": <%= info.personal_hygiene %>,
-    "mouth_hygiene": <%= info.mouth_hygiene %>,
-    "public_hygiene": <%= info.public_hygiene %>,
-    "systemic_examination": <%= info.systemic_examination %>,
-    "systemic_examination_details": <%= info.systemic_examination_details %>,
-    "done_by": <%= info.done_by %>
-  }
+  <%= info.to_json.html_safe %>
 </script>
 
 <%= form_with url: new_visit_physical_examination_path(visit), method: :post do |form| %>

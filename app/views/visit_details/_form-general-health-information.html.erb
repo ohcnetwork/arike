@@ -3,11 +3,7 @@
 <% end %>
 
 <script type="text/json" id="general-health-information-form-data">
-  {
-    "akps": <%= info.akps %>,
-    "palliative_phase": <%= info.palliative_phase %>,
-    "disease_history_radio": <%= info.disease_history_radio %>
-  }
+  <%= info.to_json.html_safe %>
 </script>
 
 <%= form_with url: new_visit_general_information_path(visit), method: :post do |form| %>

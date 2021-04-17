@@ -3,13 +3,7 @@
 <% end %>
 
 <script type="text/json" id="psychological-review-form-data">
-  {
-    "patient_worried": <%= info.patient_informed %>,
-    "family_anxious": <%= info.family_anxious %>,
-    "patient_feels": <%= info.patient_feels %>,
-    "patient_depressed": <%= info.patient_depressed  %>,
-    "patient_informed": "<%= info.patient_informed %>"
-  }
+  <%= info.to_json.html_safe %>
 </script>
 
 <%= form_with url: new_visit_psychological_review_path(visit), method: :post do |form| %>
