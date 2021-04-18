@@ -1,7 +1,9 @@
+type patient = Schedule__type.patient
+
 let s = React.string
 
 @react.component
-let make = (~patient: Schedule__type.unscheduled_patient, ~selectPatient) => {
+let make = (~patient: patient, ~selectPatient) => {
   let getDifferenceInDays = %raw(`
     function getDifferenceInDays(date1, date2) {
       const diffInMs = date2 - date1;

@@ -1,24 +1,12 @@
-type patient = Schedule__type.unscheduled_patient
-type props = {patients: array<patient>}
+type patient = Schedule__type.patient
+type patients = Schedule__type.patients
+type props = Schedule__type.props
+
 let s = React.string
 
-let jssort = %raw(`
-  function(arr, sortOption, ascending) {
-    return arr.sort((a, b) => {
-      let c = a[sortOption];
-      let d = b[sortOption];
-      if(sortOption.includes("visit")) {
-        c = Date.parse(c);
-        d = Date.parse(d);
-      }
-      return ascending ? c - d : d - c;
-    })
-  }
-`)
-
 @react.component
-let make = (~props: Schedule__type.unscheduled_patients) => {
-  let perPage = 1
+let make = (~props: props) => {
+  let perPage = 3
 
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
@@ -28,15 +16,6 @@ let make = (~props: Schedule__type.unscheduled_patients) => {
   let (patients, setPatients) = React.useState(_ => props.patients)
   let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
   let (pageNumber, setPageNumber) = React.useState(_ => 1)
-
-  let procedures = props.patients->Belt.Array.reduce([], (acc, patient) => {
-    let s0 = Belt.Set.String.fromArray(acc)
-    let s1 = Belt.Set.String.fromArray(patient.procedures)
-    let acc = Belt.Set.String.union(s0, s1)
-    acc->Belt.Set.String.toArray
-  })
-
-  Js.log(pageNumber)
 
   let setFilterOptions = (basis, value, active) => {
     let setFilter = setBasisFilter => {
@@ -62,11 +41,11 @@ let make = (~props: Schedule__type.unscheduled_patients) => {
     }
   }
 
-  let selectPatient = (patient: Schedule__type.unscheduled_patient) => {
+  let selectPatient = (patient: patient) => {
     setSelectedPatients(patients => patients->Belt.Array.concat([patient]))
   }
 
-  let unselectPatient = (patient: Schedule__type.unscheduled_patient) => {
+  let unselectPatient = (patient: patient) => {
     setSelectedPatients(patients =>
       patients->Belt.Array.reduce([], (acc, pat) => {
         if pat.id != patient.id {
@@ -80,7 +59,7 @@ let make = (~props: Schedule__type.unscheduled_patients) => {
 
   React.useEffect6(() => {
     let unselectedPatients =
-      props.patients->Js.Array2.filter((patient: Schedule__type.unscheduled_patient) =>
+      props.patients->Js.Array2.filter(patient =>
         !(selectedPatients->Js.Array2.some(spatient => spatient.id == patient.id))
       )
 
@@ -105,7 +84,7 @@ let make = (~props: Schedule__type.unscheduled_patients) => {
           )
       )
 
-    let sorted_patients = filtered_patients->jssort(sortOption, sortAscending)
+    let sorted_patients = filtered_patients->ScheduleUtils.jssort(sortOption, sortAscending)
 
     setPatients(_ => sorted_patients)
     None
@@ -118,7 +97,12 @@ let make = (~props: Schedule__type.unscheduled_patients) => {
 
   <div>
     <SearchSortFilter
-      setSearchTerm setSortOption sortAscending setSortAscending setFilterOptions procedures
+      setSearchTerm
+      setSortOption
+      sortAscending
+      setSortAscending
+      setFilterOptions
+      procedures={props.patients->ScheduleUtils.jsunion("procedures")}
     />
     <SelectedPatients selectedPatients unselectPatient />
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

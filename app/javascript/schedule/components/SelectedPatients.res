@@ -1,10 +1,13 @@
 @val external window: {..} = "window"
 
+type patient = Schedule__type.patient
+type patients = Schedule__type.patients
+
 let s = React.string
 
 module SelectedPatient = {
   @react.component
-  let make = (~patient: Schedule__type.unscheduled_patient, ~unselectPatient) => {
+  let make = (~patient: patient, ~unselectPatient) => {
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="w-full flex items-center justify-between p-6 space-x-6">
         <div className="flex-1 truncate">
@@ -23,7 +26,7 @@ module SelectedPatient = {
 }
 
 @react.component
-let make = (~selectedPatients: array<Schedule__type.unscheduled_patient>, ~unselectPatient) => {
+let make = (~selectedPatients: patients, ~unselectPatient) => {
   let (date, setDate) = React.useState(_ => "")
 
   let onDateChange = event => {
