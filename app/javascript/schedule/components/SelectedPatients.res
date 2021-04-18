@@ -4,15 +4,15 @@ let s = React.string
 
 module SelectedPatient = {
   @react.component
-  let make = (~patient, ~unselectPatient) => {
+  let make = (~patient: Schedule__type.unscheduled_patient, ~unselectPatient) => {
     <li className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="w-full flex items-center justify-between p-6 space-x-6">
         <div className="flex-1 truncate">
           <div className="flex items-center space-x-3">
-            <h3 className="text-gray-900 text-sm font-medium truncate"> {s(patient["name"])} </h3>
+            <h3 className="text-gray-900 text-sm font-medium truncate"> {s(patient.name)} </h3>
             <span
               className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-              {s(`ward ${patient["ward"]->Belt.Int.toString}`)}
+              {s(`ward ${patient.ward->Belt.Int.toString}`)}
             </span>
           </div>
         </div>
@@ -23,7 +23,7 @@ module SelectedPatient = {
 }
 
 @react.component
-let make = (~selectedPatients, ~unselectPatient) => {
+let make = (~selectedPatients: array<Schedule__type.unscheduled_patient>, ~unselectPatient) => {
   let (date, setDate) = React.useState(_ => "")
 
   let onDateChange = event => {
@@ -34,7 +34,7 @@ let make = (~selectedPatients, ~unselectPatient) => {
   let onSubmit = _ => {
     if date != "" {
       {
-        let patients = selectedPatients->Js.Array2.map(patient => patient["id"])
+        let patients = selectedPatients->Belt.Array.map(patient => patient.id)
         let payload = Js.Dict.empty()
         Js.Dict.set(payload, "date", Js.Json.string(date))
         Js.Dict.set(payload, "patients", Js.Json.stringArray(patients))
@@ -54,7 +54,7 @@ let make = (~selectedPatients, ~unselectPatient) => {
 
   let selectedPatientList =
     selectedPatients->Js.Array2.map(patient =>
-      <SelectedPatient key={patient["id"]} patient unselectPatient />
+      <SelectedPatient key={patient.id} patient unselectPatient />
     )
 
   <div className={selectedPatients->Js.Array2.length == 0 ? "hidden" : "bg-gray-100 py-8 my-4"}>

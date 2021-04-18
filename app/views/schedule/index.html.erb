@@ -1,9 +1,14 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'SchedulePack', "data-turbo-track": "reload", nonce: true %>
+<% end %>
+
+<script type="text/json" id="schedule-data">
+  {
+    "patients": <%= @unscheduled_patients.to_json.html_safe %>
+  }
+</script>
+
 <div id="schedule"></div>
 <%# <%= render partial: "schedule", locals: {visits: @unscheduled_visits} %>
 <div class="py-6"></div>
 <%= render partial: "agenda" %>
-
-<script>
-  var unscheduled_patients = <%= raw @unscheduled_patients.to_json %>;
-  window.Schedule.run(unscheduled_patients);
-</script>

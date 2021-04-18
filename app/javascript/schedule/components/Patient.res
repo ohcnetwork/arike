@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component
-let make = (~patient, ~selectPatient) => {
+let make = (~patient: Schedule__type.unscheduled_patient, ~selectPatient) => {
   let getDifferenceInDays = %raw(`
     function getDifferenceInDays(date1, date2) {
       const diffInMs = date2 - date1;
@@ -15,10 +15,10 @@ let make = (~patient, ~selectPatient) => {
     <div className="w-full flex items-center justify-between p-6 space-x-6">
       <div className="flex-1 truncate">
         <div className=" items-center space-x-3 justify-self-start">
-          <h3 className="text-gray-900 text-md font-bold"> {s(patient["name"])} </h3>
+          <h3 className="text-gray-900 text-md font-bold"> {s(patient.name)} </h3>
         </div>
         <div className="grid min-w-max">
-          {patient["procedures"]
+          {patient.procedures
           ->Belt.Array.map(procedure =>
             <p key={procedure} className="text-gray-500 sm:inline sm:mx-1 text-sm">
               {s(procedure)}
@@ -30,18 +30,22 @@ let make = (~patient, ~selectPatient) => {
       <div className="mt-2 min-w-max text-sm sm:mt-0 sm:ml-4 sm:text-right">
         <span
           className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-          {s(`ward ` ++ patient["ward"]->Belt.Int.toString)}
+          {s(`ward ` ++ patient.ward->Belt.Int.toString)}
         </span>
         <div className="font-bold text-sm text-red-400">
           {
-            let diff = getDifferenceInDays(Js.Date.now(), Js.Date.fromString(patient["next_visit"]))
+            let diff = getDifferenceInDays(Js.Date.now(), patient.next_visit)
             diff >= 0
               ? s(` ${diff->Belt.Int.toString} days`)
               : s(` Overdue by ${-diff->Belt.Int.toString} days`)
           }
         </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["next_visit"])} </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0"> {s(patient["last_visit"])} </div>
+        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
+          {s(Js.Date.toLocaleDateString(patient.next_visit))}
+        </div>
+        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
+          {s(Js.Date.toLocaleDateString(patient.last_visit))}
+        </div>
       </div>
     </div>
   </li>
