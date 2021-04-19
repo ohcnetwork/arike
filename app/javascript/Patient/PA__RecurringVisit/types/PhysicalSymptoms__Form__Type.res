@@ -50,3 +50,17 @@ let decode = json => {
     micturition: field("micnutrition", optional(string), json),
   }
 }
+let getRequired = () => {
+  let required = Belt.Map.String.empty
+  let _ =
+    required->Belt.Map.String.set(
+      "physio",
+      ["pain", "shortness_breath", "weakness", "poor_mobility"],
+    )
+  let _ =
+    required->Belt.Map.String.set(
+      "nurse",
+      ["vomiting", "poor_appetite", "lack_of_sleep", "micturition"],
+    )
+  required
+}

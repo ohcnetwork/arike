@@ -14,24 +14,31 @@ let s = React.string
 let initialState = {show_optional: false, form_data: PhysicalSymptoms__Form__Type.make()}
 
 @react.component
-let make = (~data: t) => {
-  let optional_questions = [
-    ("Do you think patient feels at peace?", "patient_at_peace", true, data.patient_at_peace),
-    ("Pain", "pain", false, data.pain),
-    ("Shortness of breath", "shortness_breath", false, data.shortness_breath),
-    ("Weakness/Lack of energy", "weakness", false, data.weakness),
-    ("Poor mobility", "poor_mobility", false, data.poor_mobility),
-    ("Nausea", "nausea", false, data.nausea),
-    ("Constipation", "constipation", false, data.constipation),
-    ("Sore/dry mouth", "sore", false, data.sore),
-    ("Drowsiness", "drowsiness", false, data.drowsiness),
-    ("Wound", "wound", false, data.wound),
-  ]
-  let required_questions = [
-    ("Vomiting", "vomiting", false, data.vomiting),
-    ("Poor Appetite", "poor_appetite", false, data.poor_appetite),
-    ("Lack of sleep", "lack_of_sleep", false, data.lack_of_sleep),
-    ("Micturition", "micturition", false, data.micturition),
+let make = (~data: t, ~role) => {
+  let role = "nurse"
+  let required = if role == "nurse" {
+    ["vomiting", "poor_appetite", "lack_of_sleep", "micturition"]
+  } else if role == "physio" {
+    ["pain", "shortness_breath", "weakness", "poor_mobility"]
+  } else {
+    []
+  }
+
+  let questions = [
+    ("Do you think patient feels at peace?", "patient_at_peace", data.patient_at_peace),
+    ("Pain", "pain", data.pain),
+    ("Shortness of breath", "shortness_breath", data.shortness_breath),
+    ("Weakness/Lack of energy", "weakness", data.weakness),
+    ("Poor mobility", "poor_mobility", data.poor_mobility),
+    ("Nausea", "nausea", data.nausea),
+    ("Constipation", "constipation", data.constipation),
+    ("Sore/dry mouth", "sore", data.sore),
+    ("Drowsiness", "drowsiness", data.drowsiness),
+    ("Wound", "wound", data.wound),
+    ("Vomiting", "vomiting", data.vomiting),
+    ("Poor Appetite", "poor_appetite", data.poor_appetite),
+    ("Lack of sleep", "lack_of_sleep", data.lack_of_sleep),
+    ("Micturition", "micturition", data.micturition),
   ]
 
   let (state, setState) = React.useState(_ => initialState)
@@ -73,14 +80,15 @@ let make = (~data: t) => {
       </div>
     </div>
     <div className="grid lg:grid-cols-2 mx-auto lg:pl-10">
-      {required_questions
-      ->Belt.Array.map(((ques, field, required, value)) =>
+      {questions
+      ->Js.Array2.filter(((_q, fieldName, _f)) => required->Js.Array2.includes(fieldName))
+      ->Belt.Array.map(((ques, field, value)) =>
         <DropDownInput
           question=ques
           field
           value={toString(value)}
           options=general_options
-          isRequired=required
+          isRequired=true
           key=field
         />
       )
@@ -91,18 +99,28 @@ let make = (~data: t) => {
     <br />
     <div className={`font-bold text-lg ml-4 ${optional_section_class}`}> {s("Optional")} </div>
     <div className={`grid lg:grid-cols-2 mx-auto lg:pl-10 ${optional_section_class}`}>
-      {optional_questions
-      ->Belt.Array.map(((ques, field, required, value)) =>
+      {questions
+      ->Js.Array2.filter(((_q, fieldName, _f)) => !(required->Js.Array2.includes(fieldName)))
+      ->Belt.Array.map(((ques, field, value)) =>
         <DropDownInput
           question=ques
           field
           value={toString(value)}
           options=general_options
-          isRequired=required
+          isRequired=false
           key=field
         />
       )
       ->React.array}
+      <DropDownInput
+        question="Wound"
+        field="wound"
+        value={toString(data.wound)}
+        options=general_options
+        isRequired=false
+        key="wound"
+      />
+      <WoundPushScore />
     </div>
     <div className="actions flex justify-center">
       <input
