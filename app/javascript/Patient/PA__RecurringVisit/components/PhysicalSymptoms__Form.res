@@ -14,7 +14,7 @@ let s = React.string
 let initialState = {show_optional: false, form_data: PhysicalSymptoms__Form__Type.make()}
 
 @react.component
-let make = (~data: t) => {
+let make = (~data: t /* , ~role */) => {
   let role = "nurse"
   let required = if role == "nurse" {
     ["vomiting", "poor_appetite", "lack_of_sleep", "micturition"]
@@ -34,7 +34,6 @@ let make = (~data: t) => {
     ("Constipation", "constipation", data.constipation),
     ("Sore/dry mouth", "sore", data.sore),
     ("Drowsiness", "drowsiness", data.drowsiness),
-    ("Wound", "wound", data.wound),
     ("Vomiting", "vomiting", data.vomiting),
     ("Poor Appetite", "poor_appetite", data.poor_appetite),
     ("Lack of sleep", "lack_of_sleep", data.lack_of_sleep),
