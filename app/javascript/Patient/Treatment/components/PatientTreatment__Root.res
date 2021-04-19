@@ -2,33 +2,35 @@ let s = React.string
 
 open PatientTreatment__Types
 
+let updateTreatmentsCB = json => {
+  Notification.success("Saved Changes", "The treatments for the current patient has been updated.")
+}
+
+let getTreatmentsCB = (setTreatments, json) => {
+  let treatments =
+    json
+    ->Js.Json.decodeArray
+    ->Belt.Option.getWithDefault([Js.Json.null])
+    ->Belt.Array.map(item => item->Treatment.decode)
+
+  setTreatments(_ => treatments)
+}
+
+let errorCB = () => Js.log("Something went wrong")
+
 let saveChanges = state => {
+  let authenticityToken = AuthenticityToken.fromHead()
+  let patient_id = "a7142391-bffd-4296-910d-7e362347fa36"
+  let url = "/treatment"
+
   let treatments = state->Js.Json.stringifyAny->Belt.Option.getWithDefault("")
 
-  let csrfMetaTag = ReactDOM.querySelector("meta[name=csrf-token]")->Belt.Option.getUnsafe
-  let csrfToken = Webapi.Dom.Element.getAttribute("content", csrfMetaTag)->Belt.Option.getUnsafe
+  let payload = Js.Dict.empty()
+  payload->Js.Dict.set("authenticity_token", authenticityToken |> Js.Json.string)
+  payload->Js.Dict.set("patient_id", Js.Json.string(patient_id))
+  payload->Js.Dict.set("treatment", treatments->Js.Json.string)
 
-  let requestBody = Js.Dict.empty()
-  requestBody->Js.Dict.set("patient_id", Js.Json.string("a7142391-bffd-4296-910d-7e362347fa36"))
-  requestBody->Js.Dict.set("treatment", treatments->Js.Json.string)
-
-  open Js.Promise
-  Fetch.fetchWithInit(
-    "/treatment",
-    Fetch.RequestInit.make(
-      ~method_=Post,
-      ~body=Fetch.BodyInit.make(Js.Json.stringify(Js.Json.object_(requestBody))),
-      ~headers=Fetch.HeadersInit.make({
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken,
-      }),
-      (),
-    ),
-  )
-  |> then_(Fetch.Response.text)
-  |> then_(text => text->Js.log |> resolve)
-  |> ignore
+  Api.create(url, payload, updateTreatmentsCB, errorCB)
 }
 
 @react.component
@@ -36,18 +38,9 @@ let make = () => {
   let (treatments, setTreatments) = React.useState(() => [])
 
   React.useEffect0(() => {
-    // Fetch the data([{id: string, name: string}])
-    open Js.Promise
-    Fetch.fetch("/patients/a7142391-bffd-4296-910d-7e362347fa36/treatment/details")
-    |> then_(Fetch.Response.json)
-    |> then_(json => Js.Json.decodeArray(json) |> resolve)
-    |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
-    |> then_(items => {
-      let items = items->Belt.Array.map(item => item->Treatment.decode)
-      setTreatments(_ => items)
-      items |> resolve
-    })
-    |> ignore
+    let patient_id = "a7142391-bffd-4296-910d-7e362347fa36"
+    let url = "/patients/" ++ patient_id ++ "/treatment/details"
+    Api.get(~url, ~responseCB=getTreatmentsCB(setTreatments), ~notify=true, ~errorCB)
 
     None
   })

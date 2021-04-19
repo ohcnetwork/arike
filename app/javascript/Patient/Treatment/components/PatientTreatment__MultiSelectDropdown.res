@@ -2,12 +2,25 @@ let s = React.string
 
 open PatientTreatment__Types
 
-let onWindowClick = (showDropdown, setShowDropdown, _event) =>
+let getOptionsCB = (setOptions, json) => {
+  let options =
+    json
+    ->Js.Json.decodeArray
+    ->Belt.Option.getWithDefault([Js.Json.null])
+    ->Belt.Array.map(item => item->DropdownOption.decode)
+
+  setOptions(_ => options)
+}
+
+let errorCB = () => Js.log("Something went wrong.")
+
+let onWindowClick = (showDropdown, setShowDropdown, _event) => {
   if showDropdown {
     setShowDropdown(_ => false)
   } else {
     ()
   }
+}
 
 let search = (searchString, options) => {
   (options |> Js.Array.filter(option =>
@@ -85,18 +98,7 @@ let make = (~id, ~className, ~placeholder, ~label, ~optionClickHandler, ~api) =>
   let (searchResults, setSearchResults) = React.useState(() => [])
 
   React.useEffect0(() => {
-    // Fetch the data([{id: string, name: string}]) from the provided api
-    open Js.Promise
-    Fetch.fetch(api)
-    |> then_(Fetch.Response.json)
-    |> then_(json => Js.Json.decodeArray(json) |> resolve)
-    |> then_(opt => opt->Belt.Option.getWithDefault([Js.Json.null]) |> resolve)
-    |> then_(items => {
-      let items = items->Belt.Array.map(item => item->DropdownOption.decode)
-      setOptions(_ => items)
-      items |> resolve
-    })
-    |> ignore
+    Api.get(~url=api, ~responseCB=getOptionsCB(setOptions), ~notify=true, ~errorCB)
 
     None
   })

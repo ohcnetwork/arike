@@ -4,7 +4,7 @@ class TreatmentController < ApplicationController
 
   def index
     treatments = Treatment.all
-    render json: treatments.to_json
+    render json: treatments
   end
 
   def create
@@ -14,9 +14,9 @@ class TreatmentController < ApplicationController
     )
 
     if patient.save
-      render plain: "Treatments Updated Successfully"
+      render json: []
     else
-      render plain: patient.errors.full_messages.to_sentence
+      render json: [error: patient.errors.full_messages.to_sentence]
     end
   end
 end

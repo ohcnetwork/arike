@@ -15,6 +15,7 @@
     "bs-platform": "^9.0.2",
     "bs-webapi": "^0.19.1",
     "nanoid": "^3.1.22",
+    "pnotify": "^5.2.0",
     "postcss": "^7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
