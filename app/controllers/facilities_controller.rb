@@ -38,7 +38,7 @@ class FacilitiesController < ApplicationController
       redirect_to facility_path(facility.id),
                   notice: "You have successfully created a facility!"
     else
-      flash[:error] = facility.errors.full_messages.to_sentence
+      flash[:alert] = facility.errors.full_messages.to_sentence
       redirect_to new_facility_path
     end
   end

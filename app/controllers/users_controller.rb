@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if user.save
       flash[:notice] = "Created user #{data[:full_name]} successfully with role #{data[:role]}"
     else
-      flash[:error] = user.errors.full_messages.to_sentence
+      flash[:alert] = user.errors.full_messages.to_sentence
     end
 
     redirect_back fallback_location: new_user_path
@@ -55,10 +55,10 @@ class UsersController < ApplicationController
     user =
       User.add_to_facility(assignables[:user_id], assignables[:facility_id])
     if user.save
-      flash[:success] = "Successfully assigned #{user.full_name} to this facility!"
+      flash[:notice] = "Successfully assigned #{user.full_name} to this facility!"
       redirect_to show_facility_users_path(assignables[:facility_id])
     else
-      flash[:error] = user.errors.full_messages.to_sentence
+      flash[:alert] = user.errors.full_messages.to_sentence
       redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
@@ -74,10 +74,10 @@ class UsersController < ApplicationController
         assignables[:facility_id],
       )
     if user.save
-      flash[:success] = "Successfully removed #{user.full_name} to this facility!"
+      flash[:notice] = "Successfully removed #{user.full_name} to this facility!"
       redirect_to show_facility_users_path(assignables[:facility_id])
     else
-      flash[:error] = user.errors.full_messages.to_sentence
+      flash[:alert] = user.errors.full_messages.to_sentence
       redirect_to show_facility_users_path(assignables[:facility_id])
     end
   end
