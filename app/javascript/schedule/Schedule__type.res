@@ -1,4 +1,4 @@
-type unscheduled_patient = {
+type patient = {
   name: string,
   id: string,
   ward: int,
@@ -7,7 +7,9 @@ type unscheduled_patient = {
   next_visit: Js.Date.t,
 }
 
-type unscheduled_patients = {patients: array<unscheduled_patient>}
+type patients = array<patient>
+
+type props = {patients: patients}
 
 let decode = json => {
   open Json.Decode

@@ -1,5 +1,5 @@
-type props = Schedule__type.unscheduled_patients
-type patient = Schedule__type.unscheduled_patient
+type props = Schedule__type.props
+
 let decode: Js.Json.t => props = json => {
   open Json.Decode
   {
