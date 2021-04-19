@@ -21,7 +21,7 @@ class PatientsController < ApplicationController
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
     @patient.add_users(volunteer_user_ids)
     if !@patient.valid?
-      flash[:error] = @patient.errors.full_messages.join(", ")
+      flash[:alert] = @patient.errors.full_messages.join(", ")
       redirect_to new_patient_path
       return
     end
@@ -49,7 +49,7 @@ class PatientsController < ApplicationController
     volunteer_user_ids = volunteer[:volunteer].to_h.filter { |_, value| value == "on" }.map { |key, _| key }
     @patient.update_users(volunteer_user_ids)
     if !@patient.valid?
-      flash[:error] = @patient.errors.full_messages.join(", ")
+      flash[:alert] = @patient.errors.full_messages.join(", ")
       redirect_to edit_patient_path
       return
     end

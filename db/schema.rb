@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_185010) do
+ActiveRecord::Schema.define(version: 2021_04_18_041813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -136,7 +136,6 @@ ActiveRecord::Schema.define(version: 2021_04_15_185010) do
     t.bigint "phone"
     t.boolean "verified", default: false
     t.uuid "facility_id"
-    t.string "otp_secret_key"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
