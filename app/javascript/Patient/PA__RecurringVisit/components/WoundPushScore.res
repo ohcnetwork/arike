@@ -43,7 +43,7 @@ let make = () => {
     pushScore: 0,
   })
 
-  <div className="mt-10 sm:col-span-3 field">
+  <div className="mt-10 field">
     <div className="mb-5">
       <label
         className="block text-sm font-medium
