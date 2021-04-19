@@ -14,7 +14,7 @@ let s = React.string
 let initialState = {show_optional: false, form_data: PhysicalSymptoms__Form__Type.make()}
 
 @react.component
-let make = (~data: t, ~role) => {
+let make = (~data: t) => {
   let role = "nurse"
   let required = if role == "nurse" {
     ["vomiting", "poor_appetite", "lack_of_sleep", "micturition"]
