@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_175538) do
+ActiveRecord::Schema.define(version: 2021_04_18_041813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -119,6 +119,13 @@ ActiveRecord::Schema.define(version: 2021_04_15_175538) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "full_name"
@@ -127,12 +134,16 @@ ActiveRecord::Schema.define(version: 2021_04_15_175538) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.bigint "phone"
-    t.string "password_digest"
-    t.boolean "verified", default: true
+    t.boolean "verified", default: false
     t.uuid "facility_id"
-    t.string "otp_secret_key"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["facility_id"], name: "index_users_on_facility_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "visit_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

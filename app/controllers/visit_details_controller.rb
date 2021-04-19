@@ -37,10 +37,10 @@ class VisitDetailsController < ApplicationController
     )
 
     if visit.save
-      flash[:success] = "Successfully created visit"
+      flash[:notice] = "Successfully created visit"
       redirect_to new_visit_detail_path
     else
-      flash[:error] = visit.error.full_messages.join(", ")
+      flash[:alert] = visit.error.full_messages.join(", ")
       redirect_to new_visit_detail_path
     end
   end
