@@ -3,12 +3,12 @@ class LsgBodiesController < ApplicationController
 
   def index
     @lsg_body = LsgBody.all
-    authorize @lsg_body
+    authorize LsgBody
   end
 
   def new
     @lsg_body = LsgBody.new
-    authorize @lsg_body
+    authorize LsgBody
   end
 
   def create
@@ -20,16 +20,16 @@ class LsgBodiesController < ApplicationController
   def show
     id = params[:id]
     @lsg_body = LsgBody.find(id)
-    authorize @lsg_body
+    authorize LsgBody
     @wards = Ward.where(lsg_body_id: id)
   end
 
   def edit
-    authorize @lsg_body
+    authorize LsgBody
   end
 
   def update
-    authorize @lsg_body
+    authorize LsgBody
     @lsg_body.update(lsg_bodies_params)
     redirect_to lsg_body_path(params[:id])
   end

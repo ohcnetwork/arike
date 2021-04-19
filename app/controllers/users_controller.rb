@@ -5,12 +5,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    authorize @user
+    authorize User
   end
 
   def edit
     @user = User.find(params[:id])
-    authorize @user
+    authorize User
   end
 
   def update
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
         .require(:user)
         .permit(:full_name, :first_name, :role, :email, :phone)
     user = User.find(params[:id])
-    authorize user
+    authorize User
     if user
       user.update(
         full_name: new_user[:full_name],
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
   def verify
     user = User.find_by(id: params[:id])
-    authorize user
+    authorize User
     user.update(verified: true) if user
     redirect_to users_path
   end

@@ -1,17 +1,17 @@
 class WardsController < ApplicationController
   def index
     @wards = Ward.all
-    authorize @wards
+    authorize Ward
   end
 
   def new
     @ward = Ward.new
-    authorize @ward
+    authorize Ward
   end
 
   def show
     @ward = Ward.find(params[:id])
-    authorize @ward
+    authorize Ward
   end
 
   def create
@@ -27,7 +27,7 @@ class WardsController < ApplicationController
 
   def edit
     @ward = Ward.find(params[:id])
-    authorize @ward
+    authorize Ward
   end
 
   def update
