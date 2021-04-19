@@ -18,7 +18,7 @@ let jssort = %raw(`
 
 @react.component
 let make = (~props: Schedule__type.unscheduled_patients) => {
-  let perPage = 1
+  let perPage = 9
 
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
