@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensure_superuser, only: %i[update verify]
+  before_action :ensure_superuser, only: %i[create update verify]
   before_action :ensure_facility_access, only: %i[index new]
 
   def index; end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def create_custom
+  def create
     data = params.require(:user).permit(
       :full_name, :first_name, :role,
       :email, :password, :phone, :verified
