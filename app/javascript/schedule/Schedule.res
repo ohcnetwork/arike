@@ -6,7 +6,7 @@ let s = React.string
 
 @react.component
 let make = (~props: props) => {
-  let perPage = 3
+  let perPage = 9
 
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
