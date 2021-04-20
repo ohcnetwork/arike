@@ -1,15 +1,23 @@
 class UsersController < ApplicationController
+<<<<<<< HEAD
+  def index
+    authorize User
+  end
+=======
   before_action :ensure_superuser, only: %i[create update verify]
   before_action :ensure_facility_access, only: %i[index new]
 
   def index; end
+>>>>>>> main
 
   def new
     @user = User.new
+    authorize User
   end
 
   def edit
     @user = User.find(params[:id])
+    authorize User
   end
 
   def update
@@ -18,6 +26,7 @@ class UsersController < ApplicationController
         .require(:user)
         .permit(:full_name, :first_name, :role, :email, :phone)
     user = User.find(params[:id])
+    authorize User
     if user
       user.update(
         full_name: new_user[:full_name],
@@ -39,7 +48,8 @@ class UsersController < ApplicationController
     user = User.new(data)
 
     if user.save
-      flash[:notice] = "Created user #{data[:full_name]} successfully with role #{data[:role]}"
+      flash[:notice] =
+        "Created user #{data[:full_name]} successfully with role #{data[:role]}"
     else
       flash[:alert] = user.errors.full_messages.to_sentence
     end
@@ -55,7 +65,8 @@ class UsersController < ApplicationController
     user =
       User.add_to_facility(assignables[:user_id], assignables[:facility_id])
     if user.save
-      flash[:notice] = "Successfully assigned #{user.full_name} to this facility!"
+      flash[:notice] =
+        "Successfully assigned #{user.full_name} to this facility!"
       redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:alert] = user.errors.full_messages.to_sentence
@@ -74,7 +85,8 @@ class UsersController < ApplicationController
         assignables[:facility_id],
       )
     if user.save
-      flash[:notice] = "Successfully removed #{user.full_name} to this facility!"
+      flash[:notice] =
+        "Successfully removed #{user.full_name} to this facility!"
       redirect_to show_facility_users_path(assignables[:facility_id])
     else
       flash[:alert] = user.errors.full_messages.to_sentence
@@ -84,6 +96,7 @@ class UsersController < ApplicationController
 
   def verify
     user = User.find_by(id: params[:id])
+    authorize User
     user.update(verified: true) if user
     redirect_to users_path
   end
