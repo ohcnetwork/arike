@@ -32,7 +32,6 @@
     <% end %>
   </div>
 <%end%>
-
 <div
   class="w-11/12 shadow overflow-hidden border border-gray-300 sm:rounded-lg m-0 m-auto mt-20"
 >
@@ -63,7 +62,7 @@
         </th>
       </tr>
     </thead>
-    <tbody x-max="2">
+    <tbody>
       <% if (@facility.primary_nurses.empty?) %>
         <tr>
           <td></td>
@@ -79,7 +78,6 @@
     </tbody>
   </table>
 </div>
-
 <div
   class="w-11/12 shadow overflow-hidden border border-gray-300 sm:rounded-lg m-0 m-auto mt-20 mb-20"
 >
@@ -110,7 +108,7 @@
         </th>
       </tr>
     </thead>
-    <tbody x-max="2">
+    <tbody>
       <% if (@facility.secondary_nurses.empty?) %>
         <tr>
           <td></td>
