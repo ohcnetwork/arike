@@ -42,16 +42,19 @@ class PatientsController < ApplicationController
 
   # GET /patients/:id/edit
   def edit
+    authorize Patient
     render '/patients/personal_details/form'
   end
 
   def show_detail
     @patient = Patient.find_by(id: params[:patient_id])
+    authorize Patient
     render 'show'
   end
 
   # PUT /patients/:id/
   def update
+    authorize Patient
     @patient.update(patient_params)
     volunteer = params[:patient].permit(volunteer: {})
     volunteer_user_ids =
