@@ -73,7 +73,7 @@ let make = (~show, ~setShow) => {
                   <PushScoreBar value={scores.pushScore} />
                 </div>
                 <form action="#" onSubmit={handleFormSubmit}>
-                  <div className="mb-5 px-2 w-6/12 mx-auto">
+                  <div className="mb-5 px-2 w-9/12 mx-auto">
                     <label
                       className="block text-sm font-medium
         text-gray-700">
