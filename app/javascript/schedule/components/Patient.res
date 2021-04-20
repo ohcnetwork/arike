@@ -14,7 +14,7 @@ let make = (~patient: patient, ~selectPatient) => {
       <div className="flex-1 truncate">
         <div className=" items-center space-x-3 justify-self-start">
           <h3
-            className="text-gray-900 text-md font-bold"
+            className="text-gray-900 text-md font-bold cursor-pointer"
             onClick={_ => {
               window["location"]["href"] = `patients/${patient.id}`
               Js.Global.setTimeout(() => (), 100000000)->ignore
