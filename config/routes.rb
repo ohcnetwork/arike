@@ -65,12 +65,13 @@ Rails
   resources :facilities
   resources :lsg_bodies
   resources :wards
-  post "/users/custom", to: "users#create_custom", as: :create_custom_user
-  put "/users/:id/verify", to: "users#verify", as: :verify_user
   devise_for :users, controllers: {
-                       sessions: "users/sessions",
-                       registrations: "users/registrations",
-                       passwords: "users/passwords",
-                     }
-  resources :users
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+  }  
+  scope :admin do
+    put "/users/:id/verify", to: "users#verify", as: :verify_user
+    resources :users
+  end
 end
