@@ -51,7 +51,7 @@ let make = (~show, ~setShow) => {
       ? <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative my-6 mx-auto md:w-1/4">
+            <div className="relative my-6 mx-auto w-11/12 md:w-1/3">
               {/* content */ React.null}
               <div
                 className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -69,9 +69,9 @@ let make = (~show, ~setShow) => {
                   </button>
                 </div>
                 {/* body */ React.null}
-                 <div className="px-1 lg:w-80 lg:mx-auto sm:w-full">
-                    <PushScoreBar value={scores.pushScore} />
-                  </div>
+                <div className="px-1 lg:w-80 lg:mx-auto sm:w-full">
+                  <PushScoreBar value={scores.pushScore} />
+                </div>
                 <form action="#" onSubmit={handleFormSubmit}>
                   <div className="mb-5 px-2 w-6/12 mx-auto">
                     <label
@@ -144,7 +144,6 @@ let make = (~show, ~setShow) => {
                       {renderOptions(tissueArray)}
                     </select>
                   </div>
-
                   {/* footer */ React.null}
                   <div
                     className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">

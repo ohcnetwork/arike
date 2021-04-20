@@ -3,14 +3,14 @@ let s = React.string
 let make = () => {
   let (show, setShow) = React.useState(_ => false)
 
-  <div className="mt-10 field">
+  <div className="mt-10 field font-bold font-xs text-yellow-800">
     <button
       onClick={evt => {
         evt->ReactEvent.Mouse.preventDefault
         setShow(_ => true)
       }}>
-      {s("Open Modal")}
+      {s("Push Score ?")}
     </button>
-    <Modal show setShow />
+    <PushScoreModal show setShow />
   </div>
 }
