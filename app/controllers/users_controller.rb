@@ -1,14 +1,7 @@
 class UsersController < ApplicationController
-<<<<<<< HEAD
   def index
     authorize User
   end
-=======
-  before_action :ensure_superuser, only: %i[create update verify]
-  before_action :ensure_facility_access, only: %i[index new]
-
-  def index; end
->>>>>>> main
 
   def new
     @user = User.new
@@ -40,10 +33,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    data = params.require(:user).permit(
-      :full_name, :first_name, :role,
-      :email, :password, :phone, :verified
-    )
+    data =
+      params
+        .require(:user)
+        .permit(
+          :full_name,
+          :first_name,
+          :role,
+          :email,
+          :password,
+          :phone,
+          :verified,
+        )
 
     user = User.new(data)
 
