@@ -77,7 +77,11 @@ let make = (~props: props) => {
     <div className="p-8 sm:flex items-center justify-center self-center text-center bg-white">
       <Search setSearchTerm placeholder="Search Patients" />
       <Sort setSortOption sortAscending setSortAscending />
-      <Filter procedures={props.patients->Schedule__Utils.jsunion("procedures")} dispatch />
+      <Filter
+        procedures={props.patients->Schedule__Utils.jsunion("procedures")}
+        selectedFilters={filters}
+        dispatch
+      />
     </div>
     <SelectedPatients selectedPatients unselectPatient />
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

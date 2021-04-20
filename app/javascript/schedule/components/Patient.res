@@ -1,3 +1,4 @@
+@val external window: {..} = "window"
 type patient = Schedule__Types.patient
 
 let s = React.string
@@ -5,12 +6,21 @@ let s = React.string
 @react.component
 let make = (~patient: patient, ~selectPatient) => {
   <li
-    onClick={_ => selectPatient(patient)}
+    onClick={_ => {
+      selectPatient(patient)
+    }}
     className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 hover:bg-gray-100 flex items-center">
-    <div className="w-full flex items-center justify-between p-6 space-x-6">
+    <div className="w-full flex justify-between p-6 space-x-6">
       <div className="flex-1 truncate">
         <div className=" items-center space-x-3 justify-self-start">
-          <h3 className="text-gray-900 text-md font-bold"> {s(patient.name)} </h3>
+          <h3
+            className="text-gray-900 text-md font-bold"
+            onClick={_ => {
+              window["location"]["href"] = `patients/${patient.id}`
+              Js.Global.setTimeout(() => (), 100000000)->ignore
+            }}>
+            {s(patient.name)} <i className="fas fa-info-circle ml-2" />
+          </h3>
         </div>
         <div className="grid min-w-max">
           {patient.procedures
@@ -35,12 +45,13 @@ let make = (~patient: patient, ~selectPatient) => {
               : s(` Overdue by ${-diff->Belt.Int.toString} days`)
           }
         </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
-          {s(Js.Date.toLocaleDateString(patient.next_visit))}
-        </div>
-        <div className="ml-1 text-gray-500 text-sm sm:ml-0">
-          {s(Js.Date.toLocaleDateString(patient.last_visit))}
-        </div>
+
+        //   <div className="ml-1 text-gray-500 text-sm sm:ml-0">
+        //     {s(Js.Date.toLocaleDateString(patient.next_visit))}
+        //   </div>
+        //   <div className="ml-1 text-gray-500 text-sm sm:ml-0">
+        //     {s(Js.Date.toLocaleDateString(patient.last_visit))}
+        //   </div>
       </div>
     </div>
   </li>

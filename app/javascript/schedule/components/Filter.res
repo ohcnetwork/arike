@@ -41,7 +41,7 @@ let reducer = (filters, action) => {
 
 module FilterOption = {
   @react.component
-  let make = (~name, ~basis, ~dispatchx) => {
+  let make = (~name, ~basis, ~selected, ~dispatchx) => {
     let onFilterOptionsChange = event => {
       let checked = ReactEvent.Synthetic.currentTarget(event)["checked"]
       let value = ReactEvent.Synthetic.currentTarget(event)["name"]
@@ -54,6 +54,7 @@ module FilterOption = {
           type_="checkbox"
           className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
           name={name}
+          checked={selected}
           onChange={onFilterOptionsChange}
         />
         <p className="px-2"> {s(name)} </p>
@@ -64,7 +65,7 @@ module FilterOption = {
 
 module FilterSection = {
   @react.component
-  let make = (~name, ~filters, ~searchbar=false, ~dispatch) => {
+  let make = (~name, ~filters, ~selectedFilters, ~searchbar=false, ~dispatch) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (options, setOptions) = React.useState(_ => filters)
 
@@ -86,7 +87,11 @@ module FilterSection = {
         {options
         ->Belt.Array.map(option =>
           <FilterOption
-            name={option} basis={name->Js.String.toLowerCase} key={option} dispatchx={dispatch}
+            name={option}
+            basis={name->Js.String.toLowerCase}
+            selected={selectedFilters->Js.Array2.includes(option)}
+            key={option}
+            dispatchx={dispatch}
           />
         )
         ->React.array}
@@ -96,7 +101,7 @@ module FilterSection = {
 }
 
 @react.component
-let make = (~procedures, ~dispatch) => {
+let make = (~procedures, ~selectedFilters, ~dispatch) => {
   let (showDropdown, setShowDropdown) = React.useState(_ => false)
 
   let toggleDropDown = _evt => {
@@ -116,8 +121,19 @@ let make = (~procedures, ~dispatch) => {
       className={!showDropdown
         ? "hidden"
         : "m-2 origin-top-right absolute right-0 mt-2 min-w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-10"}>
-      <FilterSection name="Procedure" filters={procedures} searchbar={true} dispatch />
-      <FilterSection name="Ward" filters={["1", "2", "3", "4", "5"]} dispatch />
+      <FilterSection
+        name="Procedure"
+        filters={procedures}
+        selectedFilters={selectedFilters.procedures}
+        searchbar={true}
+        dispatch
+      />
+      <FilterSection
+        name="Ward"
+        selectedFilters={selectedFilters.wards}
+        filters={["1", "2", "3", "4", "5"]}
+        dispatch
+      />
     </div>
   </div>
 }

@@ -22,7 +22,11 @@
       </div>
       <%Visit.scheduled_visits_on(d).each do |visit|%>
       <div class="ml-12">
-        <%= visit.patient.full_name %>
+        <%= link_to visit.patient.full_name,  patient_path(visit.patient.id) %>
+        <%= link_to "Visit", patient_path(visit.patient.id), class: "text-blue-400 ml-2"%>
+        <!--div class="ml-2">
+         <span class=" text-red-400"><%= visit.patient%></span>
+        </div-->
       </div>
       <%end%>
     </li>
