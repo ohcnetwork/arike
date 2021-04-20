@@ -1,16 +1,9 @@
-type patient = Schedule__type.patient
+type patient = Schedule__Types.patient
 
 let s = React.string
 
 @react.component
 let make = (~patient: patient, ~selectPatient) => {
-  let getDifferenceInDays = %raw(`
-    function getDifferenceInDays(date1, date2) {
-      const diffInMs = date2 - date1;
-      return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-    }
-  `)
-
   <li
     onClick={_ => selectPatient(patient)}
     className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 hover:bg-gray-100 flex items-center">
@@ -36,7 +29,7 @@ let make = (~patient: patient, ~selectPatient) => {
         </span>
         <div className="font-bold text-sm text-red-400">
           {
-            let diff = getDifferenceInDays(Js.Date.now(), patient.next_visit)
+            let diff = Schedule__Utils.jsdiffInDays(Js.Date.now(), patient.next_visit)
             diff >= 0
               ? s(` ${diff->Belt.Int.toString} days`)
               : s(` Overdue by ${-diff->Belt.Int.toString} days`)

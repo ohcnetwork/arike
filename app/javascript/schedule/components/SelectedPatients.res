@@ -1,7 +1,7 @@
 @val external window: {..} = "window"
 
-type patient = Schedule__type.patient
-type patients = Schedule__type.patients
+type patient = Schedule__Types.patient
+type patients = Schedule__Types.patients
 
 let s = React.string
 

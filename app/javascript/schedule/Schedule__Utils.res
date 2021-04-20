@@ -20,3 +20,10 @@ let jsunion = %raw(`
     return array.reduce((acc, element) => [...new Set([...acc, ...element[property]])], []);
   }
 `)
+
+let jsdiffInDays = %raw(`
+    function (date1, date2) {
+      const diffInMs = date2 - date1;
+      return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+    }
+  `)

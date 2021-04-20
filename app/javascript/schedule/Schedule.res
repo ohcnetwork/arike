@@ -1,8 +1,9 @@
-type patient = Schedule__type.patient
-type patients = Schedule__type.patients
-type props = Schedule__type.props
+type patient = Schedule__Types.patient
+type patients = Schedule__Types.patients
+type props = Schedule__Types.props
 
 let s = React.string
+let length = Js.Array2.length
 
 @react.component
 let make = (~props: props) => {
@@ -11,35 +12,10 @@ let make = (~props: props) => {
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
   let (sortAscending, setSortAscending) = React.useState(_ => true)
-  let (procedureFilters, setProcedureFilters) = React.useState(_ => [])
-  let (wardFilters, setWardFilters) = React.useState(_ => [])
   let (patients, setPatients) = React.useState(_ => props.patients)
   let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
   let (pageNumber, setPageNumber) = React.useState(_ => 1)
-
-  let setFilterOptions = (basis, value, active) => {
-    let setFilter = setBasisFilter => {
-      if active {
-        setBasisFilter(filters => filters->Belt.Array.concat([value]))
-      } else {
-        setBasisFilter(filters =>
-          filters->Belt.Array.reduce([], (acc, filter) => {
-            if filter != value {
-              acc->Belt.Array.concat([filter])
-            } else {
-              acc
-            }
-          })
-        )
-      }
-    }
-
-    switch basis {
-    | "procedure" => setFilter(setProcedureFilters)
-    | "ward" => setFilter(setWardFilters)
-    | _ => ()
-    }
-  }
+  let (filters, dispatch) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
 
   let selectPatient = (patient: patient) => {
     setSelectedPatients(patients => patients->Belt.Array.concat([patient]))
@@ -57,21 +33,23 @@ let make = (~props: props) => {
     )
   }
 
-  React.useEffect6(() => {
+  React.useEffect5(() => {
     let unselectedPatients =
       props.patients->Js.Array2.filter(patient =>
         !(selectedPatients->Js.Array2.some(spatient => spatient.id == patient.id))
       )
 
-    let procedure_filtered_patients = !(procedureFilters->Js.Array2.length == 0)
+    let procedure_filtered_patients = !(filters.procedures->length == 0)
       ? unselectedPatients->Js.Array2.filter(patient => {
-          procedureFilters->Js.Array2.every(filter => filter->Js.Array.includes(patient.procedures))
+          filters.procedures->Js.Array2.every(filter =>
+            filter->Js.Array.includes(patient.procedures)
+          )
         })
       : unselectedPatients
 
-    let ward_filtered_patients = !(wardFilters->Js.Array2.length == 0)
+    let ward_filtered_patients = !(filters.wards->length == 0)
       ? procedure_filtered_patients->Js.Array2.filter(patient => {
-          wardFilters->Js.Array2.includes(patient.ward->Belt.Int.toString)
+          filters.wards->Js.Array2.includes(patient.ward->Belt.Int.toString)
         })
       : procedure_filtered_patients
 
@@ -84,11 +62,11 @@ let make = (~props: props) => {
           )
       )
 
-    let sorted_patients = filtered_patients->ScheduleUtils.jssort(sortOption, sortAscending)
+    let sorted_patients = filtered_patients->Schedule__Utils.jssort(sortOption, sortAscending)
 
     setPatients(_ => sorted_patients)
     None
-  }, (selectedPatients, searchTerm, sortOption, sortAscending, procedureFilters, wardFilters))
+  }, (selectedPatients, searchTerm, sortOption, sortAscending, filters))
 
   let patientList =
     patients
@@ -96,14 +74,11 @@ let make = (~props: props) => {
     ->Js.Array2.map(patient => <Patient key={patient.id} patient selectPatient />)
 
   <div>
-    <SearchSortFilter
-      setSearchTerm
-      setSortOption
-      sortAscending
-      setSortAscending
-      setFilterOptions
-      procedures={props.patients->ScheduleUtils.jsunion("procedures")}
-    />
+    <div className="p-8 sm:flex items-center justify-center self-center text-center bg-white">
+      <Search setSearchTerm placeholder="Search Patients" />
+      <Sort setSortOption sortAscending setSortAscending />
+      <Filter procedures={props.patients->Schedule__Utils.jsunion("procedures")} dispatch />
+    </div>
     <SelectedPatients selectedPatients unselectPatient />
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {patientList->React.array}
@@ -112,8 +87,8 @@ let make = (~props: props) => {
       pageNumber
       setPageNumber
       maxPages={
-        let max_pages = patients->Js.Array2.length / perPage
-        mod(patients->Js.Array2.length, perPage) == 0 ? max_pages : max_pages + 1
+        let max_pages = patients->length / perPage
+        mod(patients->length, perPage) == 0 ? max_pages : max_pages + 1
       }
     />
   </div>
