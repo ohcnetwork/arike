@@ -41,11 +41,11 @@ let reducer = (filters, action) => {
 
 module FilterOption = {
   @react.component
-  let make = (~name, ~basis, ~selected, ~dispatchx) => {
+  let make = (~name, ~basis, ~selected, ~updateFilters) => {
     let onFilterOptionsChange = event => {
       let checked = ReactEvent.Synthetic.currentTarget(event)["checked"]
       let value = ReactEvent.Synthetic.currentTarget(event)["name"]
-      checked ? dispatchx(AddFilter(basis, value)) : dispatchx(RemoveFilter(basis, value))
+      checked ? AddFilter(basis, value)->updateFilters : RemoveFilter(basis, value)->updateFilters
     }
 
     <div className="p-2 bg-white flex items-center justify-center">
@@ -65,7 +65,7 @@ module FilterOption = {
 
 module FilterSection = {
   @react.component
-  let make = (~name, ~filters, ~selectedFilters, ~searchbar=false, ~dispatch) => {
+  let make = (~name, ~filters, ~selectedFilters, ~searchbar=false, ~updateFilters) => {
     let (searchTerm, setSearchTerm) = React.useState(_ => "")
     let (options, setOptions) = React.useState(_ => filters)
 
@@ -91,7 +91,7 @@ module FilterSection = {
             basis={name->Js.String.toLowerCase}
             selected={selectedFilters->Js.Array2.includes(option)}
             key={option}
-            dispatchx={dispatch}
+            updateFilters={updateFilters}
           />
         )
         ->React.array}
@@ -101,7 +101,7 @@ module FilterSection = {
 }
 
 @react.component
-let make = (~procedures, ~selectedFilters, ~dispatch) => {
+let make = (~procedures, ~selectedFilters, ~updateFilters) => {
   let (showDropdown, setShowDropdown) = React.useState(_ => false)
 
   let toggleDropDown = _evt => {
@@ -126,13 +126,13 @@ let make = (~procedures, ~selectedFilters, ~dispatch) => {
         filters={procedures}
         selectedFilters={selectedFilters.procedures}
         searchbar={true}
-        dispatch
+        updateFilters
       />
       <FilterSection
         name="Ward"
         selectedFilters={selectedFilters.wards}
         filters={["1", "2", "3", "4", "5"]}
-        dispatch
+        updateFilters
       />
     </div>
   </div>

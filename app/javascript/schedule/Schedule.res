@@ -1,5 +1,4 @@
 type patient = Schedule__Types.patient
-type patients = Schedule__Types.patients
 type props = Schedule__Types.props
 
 let s = React.string
@@ -12,40 +11,25 @@ let make = (~props: props) => {
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
   let (sortAscending, setSortAscending) = React.useState(_ => true)
-  let (patients, setPatients) = React.useState(_ => props.patients)
-  let (selectedPatients, setSelectedPatients) = React.useState(_ => [])
   let (pageNumber, setPageNumber) = React.useState(_ => 1)
-  let (filters, dispatch) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
+  let (patients, updatePatients) = React.useReducer(
+    Patients.reducer,
+    {unselectedPatients: props.patients, selectedPatients: []},
+  )
+  let (filters, updateFilters) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
 
-  let selectPatient = (patient: patient) => {
-    setSelectedPatients(patients => patients->Belt.Array.concat([patient]))
-  }
+  let upatients = patients.unselectedPatients
 
-  let unselectPatient = (patient: patient) => {
-    setSelectedPatients(patients =>
-      patients->Belt.Array.reduce([], (acc, pat) => {
-        if pat.id != patient.id {
-          acc->Belt.Array.concat([pat])
-        } else {
-          acc
-        }
-      })
-    )
-  }
+  Js.log(patients)
 
-  React.useEffect5(() => {
-    let unselectedPatients =
-      props.patients->Js.Array2.filter(patient =>
-        !(selectedPatients->Js.Array2.some(spatient => spatient.id == patient.id))
-      )
-
+  React.useEffect4(() => {
     let procedure_filtered_patients = !(filters.procedures->length == 0)
-      ? unselectedPatients->Js.Array2.filter(patient => {
+      ? upatients->Js.Array2.filter(patient => {
           filters.procedures->Js.Array2.every(filter =>
             filter->Js.Array.includes(patient.procedures)
           )
         })
-      : unselectedPatients
+      : upatients
 
     let ward_filtered_patients = !(filters.wards->length == 0)
       ? procedure_filtered_patients->Js.Array2.filter(patient => {
@@ -64,14 +48,9 @@ let make = (~props: props) => {
 
     let sorted_patients = filtered_patients->Schedule__Utils.jssort(sortOption, sortAscending)
 
-    setPatients(_ => sorted_patients)
+    Patients.SetUnSelectedPatients(sorted_patients)->updatePatients
     None
-  }, (selectedPatients, searchTerm, sortOption, sortAscending, filters))
-
-  let patientList =
-    patients
-    ->Js.Array2.slice(~start=(pageNumber - 1) * perPage, ~end_=pageNumber * perPage)
-    ->Js.Array2.map(patient => <Patient key={patient.id} patient selectPatient />)
+  }, (searchTerm, sortOption, sortAscending, filters))
 
   <div>
     <div className="p-8 sm:flex items-center justify-center self-center text-center bg-white">
@@ -80,19 +59,16 @@ let make = (~props: props) => {
       <Filter
         procedures={props.patients->Schedule__Utils.jsunion("procedures")}
         selectedFilters={filters}
-        dispatch
+        updateFilters
       />
     </div>
-    <SelectedPatients selectedPatients unselectPatient />
-    <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {patientList->React.array}
-    </ul>
+    <Patients patients updatePatients pageNumber />
     <Pagination
       pageNumber
       setPageNumber
       maxPages={
-        let max_pages = patients->length / perPage
-        mod(patients->length, perPage) == 0 ? max_pages : max_pages + 1
+        let max_pages = upatients->length / perPage
+        mod(upatients->length, perPage) == 0 ? max_pages : max_pages + 1
       }
     />
   </div>

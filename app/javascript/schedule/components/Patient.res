@@ -6,9 +6,7 @@ let s = React.string
 @react.component
 let make = (~patient: patient, ~selectPatient) => {
   <li
-    onClick={_ => {
-      selectPatient(patient)
-    }}
+    onClick={_ => selectPatient(patient)}
     className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 hover:bg-gray-100 flex items-center">
     <div className="w-full flex justify-between p-6 space-x-6">
       <div className="flex-1 truncate">
