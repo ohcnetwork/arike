@@ -25,3 +25,4 @@ let parseJSONAttribute = (~id="react-root", ~attribute="data-json-props", ()) =>
     }
   | None => raise(RootElementMissing(id))
   } |> Json.parseOrRaise
+@send external replaceAll: (string, string, string) => string = "replaceAll"

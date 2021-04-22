@@ -29,13 +29,26 @@ gem "tailwindcss-rails", "~> 0.3.3"
 
 gem "twilio-ruby", "~> 5.48"
 
-gem 'active_model_otp', '~> 2.1.1'
+
+# Flexible Authentication solution
+gem "devise", "~> 4.7"
+
+# Authorization using policy classes
+gem "pundit", "~> 2.1"
+
+# Add pagination
+gem "kaminari", "~> 1.2"
 
 gem "roo", "~> 2.8"
 # Better organized seed data.
 gem "seedbank", "~> 0.5.0"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
+# kramdown is a fast, pure Ruby Markdown superset converter, using a strict syntax definition and supporting several common extensions. http://kramdown.gettalong.org
+gem 'kramdown', '~> 2.3'
+
+# REST Client
+gem "rest-client"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,6 +57,7 @@ group :development, :test do
   gem "rspec-rails", "~> 4.0.2"
   gem "rails-controller-testing"
   gem "faker"
+  gem 'logchange', '~> 1.0'
 end
 
 group :development do
@@ -57,6 +71,8 @@ group :development do
   gem "spring"
   gem "pry", "~> 0.14.0"
   gem "htmlbeautifier"
+  gem "rubocop", "~> 1.2", require: false # Ruby Style Guide.
+  gem "rubocop-rails", "~> 2.8", require: false # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
 end
 
 group :test do
