@@ -35,7 +35,7 @@ let reducer = (patients, action) => {
 let make = (~patients, ~updatePatients) => {
   let (pageNumber, setPageNumber) = React.useState(_ => 1)
 
-  let perPage = 1
+  let perPage = 9
   let spatients = patients.selectedPatients
   let upatients = patients.unselectedPatients
 

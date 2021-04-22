@@ -1,19 +1,8 @@
-<!--<div id="calender" class="bg-gray-100 py-8">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <% for i in 0..4 do %>
-        <% date = Visit.working_day(i) %>
-        <%= render partial: "day", locals: { date: date.to_s(:short), day: date.strftime("%A") , visits: Visit.scheduled_visits_on(date) } %>
-      <% end %>
-    </ul>
-  </div>
-</div> -->
-
 
 <div class="relative w-1/2 m-8">
   <div class="border-r-2 border-gray-500 absolute h-full top-0" style="left: 15px"></div>
   <ul class="list-none m-0 p-0">
-  <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).each do |d|%>
+  <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
 
     <li class="mb-2">
       <div class="flex items-center mb-1">

@@ -62,17 +62,17 @@ let make = (~selectedPatients: patients, ~unselectPatient) => {
 
   <div className={selectedPatients->Js.Array2.length == 0 ? "hidden" : "bg-gray-100 py-8 my-4"}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {selectedPatientList->React.array}
-      </ul>
-      <div className="text-center">
-        <input onChange={onDateChange} type_="date" className=" rounded-md my-6 mx-4" />
+      <div className=" ">
+        <input onChange={onDateChange} type_="date" className=" rounded-md my-2 mx-2 mb-4" />
         <button
           onClick={onSubmit}
-          className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
-          {s("schedule")}
+          className="inline-flex float-right items-center px-2 py-2 mb-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+          {s("Schedule")}
         </button>
       </div>
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {selectedPatientList->React.array}
+      </ul>
     </div>
   </div>
 }
