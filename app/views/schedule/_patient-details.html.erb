@@ -51,7 +51,7 @@
 
   <%= form_with url: schedule_path(visit_id: visit_id), method: :post do |form| %>
     <%= form.date_field :next_visit ,class: "max-h-8 rounded-md mr-4" %>
-    <%= form.submit "Schedule", class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"%>
+    <%= form.submit "Schedule", class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50", data: { :disable_with => "Please wait..." } %>
   <% end %>
 
 

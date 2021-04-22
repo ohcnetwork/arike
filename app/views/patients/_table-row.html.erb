@@ -1,21 +1,21 @@
 <tr class="bg-white" x-description="Odd row">
   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-    <%= full_name %>
-  </td>
-  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= "#{lsg_body.name} - #{lsg_body.kind}"  %>
-  </td>
-  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= phone %>
-  </td>
-  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    <%= asha_member.full_name %>
-  </td>
-  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-    <%= link_to "View", patient_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+    <%= patient.full_name %>
   </td>
 
-  <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-    <%= link_to "Edit", edit_patient_path(id), class: "text-indigo-600 hover:text-indigo-900"  %>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= patient.dob %>
+  </td>
+
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= patient.phone %>
+  </td>
+
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= patient.address %>
+  </td>
+
+  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+    <%= link_to "View", patient_path(patient.id), class: "text-indigo-600 hover:text-indigo-900"  %>
   </td>
 </tr>

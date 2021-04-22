@@ -1,0 +1,40 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.6
+  Exclude:
+    - "db/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+# Rails specific
+
+require: rubocop-rails
+
+Rails/OutputSafety:
+  Enabled: false # This disallows .html_safe
+Rails/TimeZone:
+  Enabled: false # This enforces Time.zone.now
+Rails/Date:
+  Enabled: false # This enforces Time.zone.today
+Rails/HasAndBelongsToMany:
+  Enabled: false # This disallows HABTM.
+
+# Project styling
+
+Style: # Style is not Rubocop's responsibility. Use an auto-formatter like rufo.
+  Enabled: false
+Layout: # Layout is not Rubocop's responsibility. Use an auto-formatter like rufo.
+  Enabled: false
+Metrics: # Rubocop metrics are useless.
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Lint/ShadowingOuterLocalVariable: # shadowing is a language feature - we should use it where appropriate.
+  Enabled: false
+
+# Concessions (remove these if possible / appropriate).
+
+Bundler/OrderedGems:
+  Enabled: false # we have a ton of gems, grouped arbitrarily. Could be tackled later.

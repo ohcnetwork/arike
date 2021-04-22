@@ -33,10 +33,32 @@ bin/webpack-dev-server
 rails server
 
 #to run the tests
-
 bundle exec rspec
 ```
 
 ## General Notes
 
 - We use UUIDs instead of integer ids. This helps us create IDs from the client-side, so records can be saved on a mobile device without internet, and can be synced to the server once it is online. Further reading: https://pawelurbanek.com/uuid-order-rails
+
+## Gems Used
+
+- Authentication - Devise (https://github.com/heartcombo/devise)
+- Authorization - Pundit (https://github.com/varvet/pundit)
+- Pagination - Kaminari (https://github.com/kaminari/kaminari)
+
+## Changelog
+
+Using the following command to log a new change
+
+```
+$ bundle exec logchange new
+title: A cool new feature has been added.
+
+github_issue_link: Add link to related Github issue.
+https://github.com/harigopal/logchange/issues/1
+
+private: Hide this change from the public? Set to true or false.
+false
+
+Created [..]/changelog/unreleased/20170521-a-cool-new-feature-has-been-added.yml
+```
