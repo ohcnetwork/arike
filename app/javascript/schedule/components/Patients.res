@@ -1,10 +1,11 @@
+let length = Js.Array2.length
+
 type patient = Schedule__Types.patient
+
 type patients = {
   unselectedPatients: array<patient>,
   selectedPatients: array<patient>,
 }
-
-let perPage = 3
 
 type action =
   | SetUnSelectedPatients(array<patient>)
@@ -31,14 +32,18 @@ let reducer = (patients, action) => {
 }
 
 @react.component
-let make = (~patients, ~updatePatients, ~pageNumber) => {
+let make = (~patients, ~updatePatients) => {
+  let (pageNumber, setPageNumber) = React.useState(_ => 1)
+
+  let perPage = 1
   let spatients = patients.selectedPatients
   let upatients = patients.unselectedPatients
+
   let patientList =
     upatients
     ->Js.Array2.slice(~start=(pageNumber - 1) * perPage, ~end_=pageNumber * perPage)
     ->Js.Array2.map(patient =>
-      <Patient
+      <UnselectedPatient
         key={patient.id} patient selectPatient={patient => patient->SelectPatient->updatePatients}
       />
     )
@@ -51,5 +56,13 @@ let make = (~patients, ~updatePatients, ~pageNumber) => {
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {patientList->React.array}
     </ul>
+    <Pagination
+      pageNumber
+      setPageNumber
+      maxPages={
+        let max_pages = upatients->length / perPage
+        mod(upatients->length, perPage) == 0 ? max_pages : max_pages + 1
+      }
+    />
   </div>
 }

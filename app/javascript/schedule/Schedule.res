@@ -6,12 +6,9 @@ let length = Js.Array2.length
 
 @react.component
 let make = (~props: props) => {
-  let perPage = 9
-
   let (searchTerm, setSearchTerm) = React.useState(_ => "")
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
   let (sortAscending, setSortAscending) = React.useState(_ => true)
-  let (pageNumber, setPageNumber) = React.useState(_ => 1)
   let (patients, updatePatients) = React.useReducer(
     Patients.reducer,
     {unselectedPatients: props.patients, selectedPatients: []},
@@ -19,8 +16,6 @@ let make = (~props: props) => {
   let (filters, updateFilters) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
 
   let upatients = patients.unselectedPatients
-
-  Js.log(patients)
 
   React.useEffect4(() => {
     let procedure_filtered_patients = !(filters.procedures->length == 0)
@@ -62,14 +57,6 @@ let make = (~props: props) => {
         updateFilters
       />
     </div>
-    <Patients patients updatePatients pageNumber />
-    <Pagination
-      pageNumber
-      setPageNumber
-      maxPages={
-        let max_pages = upatients->length / perPage
-        mod(upatients->length, perPage) == 0 ? max_pages : max_pages + 1
-      }
-    />
+    <Patients patients updatePatients />
   </div>
 }
