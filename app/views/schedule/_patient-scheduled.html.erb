@@ -23,10 +23,7 @@
           <p class="sm:inline"><%= visit.patient.disease %></p>
         </div>
         <div class="text-gray-500">
-          <% visit.latest_record["procedures"].each do |procedure| %>
-            <p class="sm:inline"><%= procedure %></p>
-            <span class="hidden sm:inline sm:mx-1" aria-hidden="true">.</span>
-          <% end %>
+
         </div>
       </div>
     </div>
