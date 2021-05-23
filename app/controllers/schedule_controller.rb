@@ -1,12 +1,12 @@
 class ScheduleController < ApplicationController
-  skip_before_action :verify_authenticity_token
   def index
-    @unscheduled_patients = Visit.unscheduled_patients
+    @unscheduled_visits = Visit.unscheduled_visits
   end
 
   def schedule
-    date = params[:date]
-    patient_ids = params[:patients]
-    patient_ids.each { |patient_id| Visit.schedule(patient_id, date) }
+    visit = Visit.find(params[:visit_id])
+    visit.next_visit = params[:next_visit]
+    visit.save
+    redirect_to schedule_path
   end
 end

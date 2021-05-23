@@ -1,0 +1,10 @@
+<div id="calender" class="bg-gray-100 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% for i in 0..4 do %>
+        <% date = Visit.working_day(i) %>
+        <%= render partial: "day", locals: { date: date.to_s(:short), day: date.strftime("%A") , visits: Visit.scheduled_visits_on(date) } %>
+      <% end %>
+    </ul>
+  </div>
+</div>
