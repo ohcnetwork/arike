@@ -24,6 +24,13 @@ Rails
         as: :disease_history
     put "/patient_disease_summary/", to: "patient_disease_summaries#update"
 
+    # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+    get '/dashboard', to: 'dashboard#index', as: :dashboard
+    get '/search', to: 'search#index'
+    get '/schedule', to: 'schedule#index', as: :schedule
+    post '/schedule', to: 'schedule#schedule'
+    get '/agenda', to: 'agenda#index', as: :agenda
+
     # family_details
     get "/family_details", to: "family_details#index", as: :family_details
     put "/family_details/", to: "family_details#update"
@@ -65,12 +72,13 @@ Rails
   resources :facilities
   resources :lsg_bodies
   resources :wards
-  post "/users/custom", to: "users#create_custom", as: :create_custom_user
-  put "/users/:id/verify", to: "users#verify", as: :verify_user
   devise_for :users, controllers: {
-                       sessions: "users/sessions",
-                       registrations: "users/registrations",
-                       passwords: "users/passwords",
-                     }
-  resources :users
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+  }  
+  scope :admin do
+    put "/users/:id/verify", to: "users#verify", as: :verify_user
+    resources :users
+  end
 end

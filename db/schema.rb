@@ -121,54 +121,6 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.uuid "user_id"
   end
 
-  create_table "physical_examinations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "visit_id"
-    t.string "bp"
-    t.string "grbs"
-    t.string "rr"
-    t.string "pulse"
-    t.string "personal_hygiene"
-    t.string "mouth_hygiene"
-    t.string "public_hygiene"
-    t.string "systemic_examination"
-    t.string "systemic_examination_details"
-    t.uuid "done_by"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "physical_symptoms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "visit_id"
-    t.string "patient_at_peace"
-    t.string "pain"
-    t.string "shortness_breath"
-    t.string "weakness"
-    t.string "poor_mobility"
-    t.string "nausea"
-    t.string "vomiting"
-    t.string "poor_appetite"
-    t.string "constipation"
-    t.string "sore"
-    t.string "drowsiness"
-    t.string "wound"
-    t.string "lack_of_sleep"
-    t.string "micnutrition"
-    t.string "other_symptoms"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "psychological_reviews", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "visit_id"
-    t.string "patient_worried"
-    t.string "family_anxious"
-    t.string "patient_depressed"
-    t.string "patient_feels"
-    t.string "patient_informed"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -192,7 +144,6 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.bigint "phone"
     t.boolean "verified", default: false
     t.uuid "facility_id"
-    t.string "otp_secret_key"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
