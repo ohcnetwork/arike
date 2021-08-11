@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_041813) do
     t.bigint "phone"
     t.boolean "verified", default: false
     t.uuid "facility_id"
-    t.string "encrypted_password", default: "",
+    t.string "encrypted_password", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
