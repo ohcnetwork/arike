@@ -1,0 +1,29 @@
+version: "3"
+services:
+    arike:
+        build:
+            context: .
+            dockerfile: ./Dockerfile.dev
+        ports:
+            - "3000:3000"
+        volumes:
+            - .:/app
+        environment:
+            - DB_HOST=db
+            - DB_NAME=arike
+            - DB_NAME_TEST=arike_test
+            - DB_USERNAME=postgres
+            - DB_PASSWORD=changeme
+            - RAILS_ENV=development
+            - RACK_ENV=development
+            - PORT=3000
+        depends_on:
+            - db
+        command: >
+            sh -c "rm tmp/pids/server.pid; bin/webpack-dev-server & rails server -b 0.0.0.0"
+    db:
+        image: postgres:13-alpine
+        environment:
+            - POSTGRES_DB=arike
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=changeme
