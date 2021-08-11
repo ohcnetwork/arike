@@ -27,7 +27,7 @@ class User < ApplicationRecord
   scope :nurses, -> { (where(role: [roles[:primary_nurse], roles[:secondary_nurse]])) }
   scope :assignable_users, -> { where(role: roles[:primary_nurse]).or(where(role: roles[:secondary_nurse])).where(facility_id: nil) }
   scope :verified, -> { where(verified: true) }
-  scope :unverified, -> { where(verified: true) }
+  scope :unverified, -> { where(verified: false) }
 
   validates :phone, uniqueness: true
 
