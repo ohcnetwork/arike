@@ -1,0 +1,21 @@
+<tr class="bg-white border-b border-gray-200" x-description="Odd row">
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= nurse.full_name %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+    <%= nurse.phone %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+    <% if policy(@facility).unassign_facility? %>
+      <%= form_with scope: :facility, url: unassign_facility_path, method: :put do |form| %>
+        <%= form.hidden_field "facility_id", value: @facility.id %>
+        <%= form.hidden_field "nurse_id", value:nurse.id %>
+        <%= form.button "", {
+                      class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
+                      } do %>
+          <i class="fa fa-times" aria-hidden="true"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
-  skip_before_action :ensure_logged_in
-  layout 'public'
+  skip_before_action :authenticate_user!
+  layout "public"
 
   def index
-    redirect_to dashboard_path if current_user
+    redirect_to dashboard_path if user_signed_in?
   end
 end

@@ -4,16 +4,26 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs";
+window.Rails = Rails;
+
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
+
 import * as PatientFormPage from "../Patient/New/PersonalDetails/PersonalDetails.bs";
+import * as PatientVitals from "../Patient/RecurringVisit/PatientVitals.bs";
+import * as Schedule from "../schedule/Schedule.bs"
 
 import "stylesheets/application";
-import '@fortawesome/fontawesome-free/js/all';
+import "@fortawesome/fontawesome-free/js/all";
 
-Rails.start();
+if (Rails.fire(document, "rails:attachBindings")) {
+  Rails.start();
+}
+
 Turbolinks.start();
 ActiveStorage.start();
 
 window.PatientFormPage = PatientFormPage;
+window.PatientVitals=PatientVitals;
+window.Schedule = Schedule;

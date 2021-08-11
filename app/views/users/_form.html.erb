@@ -1,7 +1,7 @@
 <% presenter = ::Users::FormPresenter.new(self) %>
 
 <div class="max-w-3xl mx-auto">
-  <%= form_with(model: user) do |form| %>
+  <%= form_with(model: @user) do |form| %>
     <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
       <div class="sm:col-span-3">
         <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
@@ -16,15 +16,21 @@
         </div>
       </div>
       <div class="sm:col-span-3">
-        <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
-        <div class="mt-1">
-          <%= form.select("role", presenter.user_access.map { |role| [role, role] }, {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md") %>
-        </div>
-      </div>
-      <div class="sm:col-span-3">
         <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
         <div class="mt-1">
           <%= form.email_field :email, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= form.password_field :password, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+        </div>
+      </div>
+      <div class="sm:col-span-3">
+        <%= form.label :role, class: "block text-sm font-medium text-gray-700" %>
+        <div class="mt-1">
+          <%= form.select(:role, presenter.user_access.map { |role| [role, role] }, {}, class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md") %>
         </div>
       </div>
       <div class="sm:col-span-3">
@@ -33,7 +39,13 @@
           <%= form.telephone_field :phone, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
         </div>
       </div>
+      <div class="sm:col-span-6">
+        <div class="flex items-center">
+          <%= form.label :verified, class: "block text-sm font-semibold text-gray-700 mr-5" %>
+          <%= form.check_box :verified, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
+        </div>
+      </div>
     </div>
-    <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    <%= form.submit class: "mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50", data: { :disable_with => "Please wait..." } %>
   <% end %>
 </div>

@@ -6,11 +6,10 @@ Rails
 
   root "home#index"
 
-  # for assigning a nurse to a facility
-  put "/assign", to: "users#assign_facility", as: :assign_facility
-
-  # for removing a nurse from a facility
-  put "/unassign", to: "users#unassign_facility", as: :unassign_facility
+  # Public change log
+  scope "changelog", as: "changelog", controller: "changelog" do
+    get "(/:year)", action: "index"
+  end
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
   get "/dashboard", to: "dashboard#index", as: :dashboard
@@ -18,23 +17,48 @@ Rails
   get "/schedule", to: "schedule#index", as: :schedule
   post "/schedule", to: "schedule#schedule"
 
-  put "/users/:id/verify", to: "users#verify", as: :verify_user
+  # patients
+  resources :patients do
+    get "/disease_history",
+        to: "patient_disease_summaries#index",
+        as: :disease_history
+    put "/patient_disease_summary/", to: "patient_disease_summaries#update"
 
-  get "logout", to: "sessions#logout"
+    # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
+    get '/dashboard', to: 'dashboard#index', as: :dashboard
+    get '/search', to: 'search#index'
+    get '/schedule', to: 'schedule#index', as: :schedule
+    post '/schedule', to: 'schedule#schedule'
+    get '/agenda', to: 'agenda#index', as: :agenda
 
-  resources :patients
-  resources :users
+    #treatment
+    get "/patients/:id/treatment/details", to: "patients#treatment_details", as: :treatment_details
+
+    # family_details
+    get "/family_details", to: "family_details#index", as: :family_details
+    put "/family_details/", to: "family_details#update"
+
+    # patient information
+    get "/show/family_details",
+        to: "patients#show_detail",
+        as: :show_family_details
+    get "/show/personal_details",
+        to: "patients#show_detail",
+        as: :show_personal_details
+    get "/show/disease_history",
+        to: "patients#show_detail",
+        as: :show_disease_history
+  end
+
+  # get '/stories', to: redirect('/articles')
+
+  # for assigning a nurse to a facility
+  put "/assign", to: "users#assign_facility", as: :assign_facility
+
+  # for removing a nurse from a facility
+  put "/unassign", to: "users#unassign_facility", as: :unassign_facility
 
   # get "/patients/:id/view/details/edit", to: "patients#family_details", as: :patient_details
-
-  get "/patients/:id/treatment/details", to: "patients#treatment_details", as: :treatment_details
-
-  get "/signup", to: "users#signup", as: :signup
-
-  get "/password_reset", to: "password_reset#index", as: "password_reset_page"
-  post "/password_reset/send_otp", to: "password_reset#send_otp"
-  post "/password_reset/verify", to: "password_reset#verify"
-  post "/password_reset/update", to: "password_reset#update"
 
   # visit_details
   get "/visit_details/decision", to: "visit_details#decision"
@@ -42,10 +66,22 @@ Rails
   post "/visit_details/schedule_revisit", to: "visit_details#schedule_revisit"
   post "/visit_details/expired", to: "visit_details#expired"
 
+  # get users belonging to a facility
+  get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
+  get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
+
   resources :visit_details
-  resources :treatment
   resources :sessions
   resources :facilities
   resources :lsg_bodies
   resources :wards
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+  }  
+  scope :admin do
+    put "/users/:id/verify", to: "users#verify", as: :verify_user
+    resources :users
+  end
 end
