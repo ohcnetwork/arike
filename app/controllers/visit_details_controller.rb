@@ -50,8 +50,6 @@ class VisitDetailsController < ApplicationController
 
   def pa_new
     @visit = VisitDetail.create!(bp: "")
-    puts "New Visit is "
-    puts @visit
     redirect_to visit_general_information_path(@visit)
   end
 
