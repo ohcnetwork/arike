@@ -5,7 +5,7 @@ after "development:superuser" do
       full_name: Faker::Name.name,
       role: User.roles.values.sample,
       encrypted_password: "password",
-      password: "check12345",
+      password: "password",
       email: Faker::Internet.email,
       phone: rand(10 ** 10),
     )
