@@ -97,7 +97,7 @@ Rails
   resources :wards
 
   # Users
-  resources :users
+
   devise_for :users, controllers: {
     sessions: "users/sessions",
     registrations: "users/registrations",
@@ -113,6 +113,7 @@ Rails
     post '/password_reset/send_otp', to: 'password_reset#send_otp'
     post '/password_reset/verify', to: 'password_reset#verify'
     post '/password_reset/update', to: 'password_reset#update'
+    resources :users
 
   end
 end
