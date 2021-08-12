@@ -103,9 +103,9 @@ ActiveRecord::Schema.define(version: 2021_04_18_041813) do
     t.string "patient_views"
     t.string "family_views"
     t.datetime "expired"
-    t.json "treatment"
     t.string "state"
     t.string "district"
+    t.json "treatment"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
 
@@ -120,17 +120,18 @@ ActiveRecord::Schema.define(version: 2021_04_18_041813) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "treatments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "category"
-  end
   create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.integer "age"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "treatments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "category"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
