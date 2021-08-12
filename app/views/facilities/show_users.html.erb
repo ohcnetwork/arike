@@ -4,90 +4,125 @@
       <h3 class="text-lg leading-6 font-medium text-gray-900">
         <%= "Members assigned to #{@facility.name} facility" %>
       </h3>
-      <p class="mt-2 max-w-4xl text-sm text-gray-500">All of the users assigned under a facility, including nurses, volunteers, asha workers can be managed from here.</p>
+      <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        All of the users assigned under a facility, including nurses,
+        volunteers, asha workers can be managed from here.
+      </p>
     </div>
   </div>
 </div>
 <% if policy(@facility).assign_facility? %>
-  <div class="mt-6 flex flex-col justify-stretch mb-6">
-    <%= form_with scope: :facility, url: assign_facility_path, class: "flex items-center justify-center", method: :put do |form| %>
+  <div class="w-full flex justify-center items-center mt-6 mb-6">
+    <%= form_with scope: :facility, url: assign_facility_path, class: "w-5/6 flex items-center", method: :put do |form| %>
       <div class="col-span-6 sm:col-span-3 w-2/3">
-        <%= form.select("user_id", User.assignable_users.map{ |body| ["#{body.full_name} - #{body.role}", body.id]}, {
-            }, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md")
-            %>
+        <%=
+          form.select(
+            'user_id',
+            User.assignable_users.map do |body|
+              ["#{body.full_name} - #{body.role}", body.id]
+            end,
+            {},
+            class:
+              'focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md',
+          )
+        %>
       </div>
       <%= form.hidden_field "facility_id", value: @facility.id %>
       <%= form.submit "Assign New Nurse", class: "cursor-pointer ml-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
     <% end %>
   </div>
 <%end%>
-<div class="flex flex-wrap justify-center items-center">
-  <div class="w-1/2 ">
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div class="max-w-none mx-auto">
-        <div class="bg-white overflow-hidden sm:rounded-lg sm:shadow">
-          <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Primary Nurses
-            </h3>
-          </div>
-          <ul class="divide-y divide-gray-200 h-64">
-            <% @facility.primary_nurses.each do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2 mx-8">
-                <h1><%= nurse.full_name %></h1>
-                <% if policy(@facility).unassign_facility? %>
-                  <%= form_with scope: :facility, url: unassign_facility_path, method: :put do |form| %>
-                    <%= form.hidden_field "facility_id", value: @facility.id %>
-                    <%= form.hidden_field "nurse_id", value:nurse.id %>
-                    <%= form.submit "", {
-                      class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
-                      onClick: "this.form.submit()"
-                      } do %>
-                      <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                      </svg>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="w-1/2 ">
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div class="max-w-none mx-auto">
-        <div class="bg-white overflow-hidden sm:rounded-lg sm:shadow">
-          <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-              Secondary Nurses
-            </h3>
-          </div>
-          <ul class="divide-y divide-gray-200 h-64">
-            <% @facility.secondary_nurses.map do |nurse| %>
-              <li class="text-gray-800 list-disc ml-4 text-sm flex items-center justify-between my-2 mx-8">
-                <h1><%= nurse.full_name %></h1>
-                <% if policy(@facility).unassign_facility? %>
-                  <%= form_with url: unassign_facility_path, method: :put do |form| %>
-                    <%= form.hidden_field "facility[facility_id]", value: @facility.id %>
-                    <%= form.hidden_field "facility[nurse_id]", value:nurse.id %>
-                    <%= form.submit "", {
-                      class: "bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600",
-                      onClick: "this.form.submit()"
-                      } do %>
-                      <svg class="h-3 w-3" x-description="Heroicon name: solid/x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                      </svg>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<div
+  class="w-11/12 shadow overflow-hidden border border-gray-300 sm:rounded-lg m-0 m-auto mt-20"
+>
+  <table class="min-w-full divide-y divide-gray-200">
+    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2 mt-3 ml-3">
+      Primary Nurses
+    </h3>
+    <thead class="bg-gray-50">
+      <tr>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Full Name
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Phone Number
+        </th>
+        <th
+          scope="col"
+          colspan="2"
+          class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (@facility.primary_nurses.empty?) %>
+        <tr>
+          <td></td>
+          <td>
+            <p class="text-center mt-5 mb-5">No primary nurses assigned yet.</p>
+          </td>
+        </tr>
+      <% else %>
+        <% @facility.primary_nurses.each do |nurse| %>
+          <%= render partial: 'members-table-row', locals: { nurse: nurse} %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div
+  class="w-11/12 shadow overflow-hidden border border-gray-300 sm:rounded-lg m-0 m-auto mt-20 mb-20"
+>
+  <table class="min-w-full divide-y divide-gray-200">
+    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2 mt-3 ml-3">
+      Secondary Nurses
+    </h3>
+    <thead class="bg-gray-50">
+      <tr>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Full Name
+        </th>
+        <th
+          scope="col"
+          class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Phone Number
+        </th>
+        <th
+          scope="col"
+          colspan="2"
+          class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (@facility.secondary_nurses.empty?) %>
+        <tr>
+          <td></td>
+          <td>
+            <p class="text-center mt-5 mb-5">
+              No secondary nurses assigned yet.
+            </p>
+          </td>
+        </tr>
+      <% else %>
+        <% @facility.secondary_nurses.each do |nurse| %>
+          <%= render partial: 'members-table-row', locals: { nurse: nurse} %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
 </div>

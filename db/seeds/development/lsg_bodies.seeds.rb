@@ -1,5 +1,5 @@
 after 'development:districts' do
-  kinds = %w[Panchayat Municipliaty Corporation]
+  kinds = LsgBody.kinds.values
   (1..15).each do |index|
     LsgBody.create!(
       name: Faker::Name.name,

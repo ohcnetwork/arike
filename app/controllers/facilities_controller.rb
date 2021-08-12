@@ -4,7 +4,7 @@ class FacilitiesController < ApplicationController
   # GET /facilities/
   def index
     @page = params.fetch(:page, 1).to_i
-    @search_text = params.fetch(:search, '')
+    @search_text = params.fetch(:search, "")
 
     # filter and paginate
     @facilities = filter_facilities(@search_text, @page)
@@ -25,29 +25,32 @@ class FacilitiesController < ApplicationController
 
   # POST /facilities
   def create
+    authorize Facility
     facility = Facility.create(facilities_params)
-    user_saved =
-      if !current_user.superuser?
-        user = User.add_to_facility(current_user.id, facility.id)
-        user.save
+    user_saved = if !current_user.superuser?
+        save_user_in_facility = User.add_to_facility(current_user.id, facility.id)
+        save_user_in_facility.save
       else
         true
       end
 
     if facility.errors.empty? && user_saved
       redirect_to facility_path(facility.id),
-                  notice: 'You have successfully created a facility!'
+                  notice: "You have successfully created a facility!"
     else
-      flash[:error] = facility.errors.full_messages.to_sentence
+      flash[:alert] = facility.errors.full_messages.to_sentence
       redirect_to new_facility_path
     end
   end
 
   # GET /facilities/:id/edit
-  def edit; end
+  def edit
+    authorize @facility
+  end
 
   # PATCH /facilities/:id
   def update
+    authorize @facility
     @facility.update!(facilities_params)
     redirect_to facility_path(@facility.id)
   end
@@ -63,14 +66,14 @@ class FacilitiesController < ApplicationController
   end
 
   # GET /facilities/get_districts_of_state/:state_id
-  def get_districts_of_state
+  def districts_of_state
     state_id = params[:state_id]
     @districts = state_id ? State.find(state_id).districts : []
     respond_to { |format| format.json { render json: @districts } }
   end
 
   # GET facilities/get_wards_of_lsg_body/:lsg_body_id
-  def get_wards_of_lsg_body
+  def wards_of_lsg_body
     lsg_body_id = params[:lsg_body_id]
     @wards = lsg_body_id ? LsgBody.find(lsg_body_id).wards : []
     respond_to { |format| format.json { render json: @wards } }
@@ -101,7 +104,7 @@ class FacilitiesController < ApplicationController
 
   def filter_facilities(search_text, page)
     policy_scope(Facility)
-      .where('name ILIKE :search_text', search_text: "%#{search_text}%")
+      .where("name ILIKE :search_text", search_text: "%#{search_text}%")
       .page(page)
   end
 end

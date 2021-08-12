@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "parent_id"
-    t.uuid "state_id"
-    t.uuid "district_id"
+    t.uuid "state_id", null: false
+    t.uuid "district_id", null: false
     t.index ["district_id"], name: "index_facilities_on_district_id"
     t.index ["parent_id"], name: "index_facilities_on_parent_id"
     t.index ["phone"], name: "index_facilities_on_phone", unique: true
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
-    t.uuid "district_id"
+    t.uuid "district_id", null: false
     t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 
@@ -183,12 +183,16 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.bigint "phone"
-    t.string "password_digest"
-    t.boolean "verified", default: true
+    t.boolean "verified", default: false
     t.uuid "facility_id"
-    t.string "otp_secret_key"
+    t.string "encrypted_password", default: ""
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["facility_id"], name: "index_users_on_facility_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "visit_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

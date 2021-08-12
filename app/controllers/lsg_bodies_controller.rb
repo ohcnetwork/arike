@@ -1,53 +1,52 @@
 class LsgBodiesController < ApplicationController
-  before_action :ensure_superuser
+  before_action :set_lsg_body, only: %i[edit update]
 
   def index
     @lsg_body = LsgBody.all
+    authorize LsgBody
   end
 
   def new
     @lsg_body = LsgBody.new
+    authorize LsgBody
   end
 
   def create
-    p = params[:lsg_body]
-    LsgBody.create!(
-      name: p[:name],
-      kind: p[:kind],
-      code: p[:code],
-      district_id: p[:district_id],
-    )
+    authorize LsgBody
+    LsgBody.create(lsg_bodies_params)
     redirect_to lsg_bodies_path
   end
 
   def show
     id = params[:id]
     @lsg_body = LsgBody.find(id)
+    authorize LsgBody
     @wards = Ward.where(lsg_body_id: id)
   end
 
   def edit
-    id = params[:id]
-    @lsg_body = LsgBody.find(id)
+    authorize LsgBody
   end
 
   def update
-    id = params[:id]
-    p = params[:lsg_body]
-
-    LsgBody.update(
-      id,
-      name: p[:name],
-      kind: p[:kind],
-      code: p[:code],
-      district_id: p[:district_id],
-    )
-    redirect_to lsg_body_path(id)
+    authorize LsgBody
+    @lsg_body.update(lsg_bodies_params)
+    redirect_to lsg_body_path(params[:id])
   end
 
   def destroy
+    authorize LsgBody
     LsgBody.delete(params[:id])
-
     redirect_to lsg_bodies_path
+  end
+
+  private
+
+  def set_lsg_body
+    @lsg_body = LsgBody.find(params[:id])
+  end
+
+  def lsg_bodies_params
+    params.require(:lsg_body).permit(:name, :kind, :code, :district_id)
   end
 end

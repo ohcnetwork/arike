@@ -10,7 +10,7 @@ RSpec.describe "Patients", type: :request do
     Patient.create(full_name: Faker::Name.name, phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
     Disease.create(name: "Corona")
     @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
-    post "/sessions", params: { user: { login_id: @superuser.email, password: @superuser.password } }
+    post user_session_path, params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
 
   it "renders the list of patients" do
