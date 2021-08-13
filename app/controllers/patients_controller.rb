@@ -71,8 +71,8 @@ class PatientsController < ApplicationController
   end
 
   def treatment_details
-    patient = Patient.find(params[:id])
-    render plain: patient.treatment
+    patient = Patient.find(params[:patient_id])
+    render "treatment/new"
   end
 
   private
