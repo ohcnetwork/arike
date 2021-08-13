@@ -20,8 +20,7 @@ class PatientPolicy < ApplicationPolicy
         Facility
           .where(id: user.facility.id)
           .or(Facility.where(parent_id: user.facility.id))
-return Patient.joins(:facility).where(facilities: all_facilities) if user.secondary_nurse? || user.medical_officer?
-      end
+          return Patient.joins(:facility).where(facilities: all_facilities) if user.secondary_nurse? || user.medical_officer?
 
       return user.facility.patients if user.primary_nurse?
 
