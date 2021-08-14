@@ -54,7 +54,7 @@ Rails
   put "/unassign", to: "users#unassign_facility", as: :unassign_facility
 
   # visit_details
-  resources :visit_details
+
   get '/visit_details/decision', to: 'visit_details#decision'
   post '/visit_details/assign_to', to: 'visit_details#assign_to'
   post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
@@ -71,7 +71,7 @@ Rails
 
   get '/visit_details/:visit_id/physical_examination',to: "physical_examinations#new", as: :visit_physical_examination
   post '/visit_details/:visit_id/physical_examination',to: "physical_examinations#create", as: :new_visit_physical_examination
-
+  resources :visit_details
 
   #Sessions
   resources :sessions
