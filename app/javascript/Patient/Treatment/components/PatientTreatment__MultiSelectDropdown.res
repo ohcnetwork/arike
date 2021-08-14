@@ -52,22 +52,17 @@ module DropDown = {
     let optionGroups = optionGroups->Belt.Array.map(optionGroup => {
       <div key={optionGroup->DropdownOptionGroup.categoryName} className="bg-white">
         <div
-          className="z-10 border-t border-b border-white sticky top-0 bg-indigo-600 px-6 py-5 text-base font-medium text-white flex">
+          className="z-10 border-t border-b border-white sticky top-0 bg-indigo-600 px-6 py-4 text-base font-medium text-white flex">
           <h3> {s(optionGroup->DropdownOptionGroup.categoryName)} </h3>
         </div>
-        <div className="relative grid gap-8 px-5 py-8 sm:p-8 sm:gap-8">
+        <div className="relative grid px-5 py-2 ">
           {optionGroup
           ->DropdownOptionGroup.options
           ->Belt.Array.map(option => {
             <button
               key={option->DropdownOption.id}
-              className="-m-3 p-3 px-4 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
-              onClick={e =>
-                clickHandler(
-                  ~id=option->DropdownOption.id,
-                  ~name=option->DropdownOption.name,
-                  ~category=option->DropdownOption.category,
-                )}>
+              className="m-0 py-2 px-4 block rounded-md hover:bg-gray-100 transition ease-in-out duration-150"
+              onClick={e => clickHandler(option)}>
               <p className="text-base font-medium text-gray-900 text-left">
                 {s(option->DropdownOption.name)}
               </p>
@@ -92,16 +87,10 @@ module DropDown = {
 }
 
 @react.component
-let make = (~id, ~className, ~placeholder, ~label, ~optionClickHandler, ~api) => {
-  let (options, setOptions) = React.useState(() => [])
+let make = (~id, ~className, ~placeholder, ~label, ~optionClickHandler, ~options) => {
+  // let (options, setOptions) = React.useState(() => [])
   let (showDropdown, setShowDropdown) = React.useState(() => false)
   let (searchResults, setSearchResults) = React.useState(() => [])
-
-  React.useEffect0(() => {
-    Api.get(~url=api, ~responseCB=getOptionsCB(setOptions), ~notify=true, ~errorCB)
-
-    None
-  })
 
   React.useEffect1(() => {
     let curriedFunction = onWindowClick(showDropdown, setShowDropdown)

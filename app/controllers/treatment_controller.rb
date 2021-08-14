@@ -1,10 +1,19 @@
 class TreatmentController < ApplicationController
-  def new; end
-
-  def index
+  def new
     @patient = Patient.find_by(id: params[:patient_id])
     @treatments = Treatment.all
     render 'new'
+  end
+
+  def index
+    treatments = Treatment.all
+    render json: treatments
+  end
+
+  def active_treatments
+    patient = Patient.find_by(id: params[:patient_id])
+    treatments = patient.patient_treatments
+    render json: treatments
   end
 
   def create

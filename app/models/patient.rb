@@ -2,6 +2,7 @@ class Patient < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :family_details, dependent: :destroy
   has_many :patient_disease_summaries, dependent: :destroy
+  has_many :patient_treatments, dependent: :destroy
   belongs_to :facility
   validates :full_name, presence: true, length: { minimum: 1 }
   validates :phone, :emergency_phone_no, :presence => { :message => "Invalid Phone Number" },

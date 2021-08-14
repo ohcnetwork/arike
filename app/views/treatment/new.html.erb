@@ -1,6 +1,11 @@
 <%=content_for(:tail) do %>
   <%= javascript_pack_tag 'TreatmentPack' %>
 <% end %>
+<script type="text/json" id="treatment-data">
+  {
+    "patient_id": <%= @patient.id.to_json.html_safe %>
+  }
+</script>
 <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
   <h1 class="text-3xl font-bold leading-tight text-gray-900">Treatments</h1>
 </div>
