@@ -1,7 +1,7 @@
 module Dashboard
   class IndexPresenter < ::ApplicationPresenter
     def links
-      schedule + visit + lsg_body + wards + enroll_patients + patients +
+      schedule + lsg_body + wards + patients +
         calendar + new_users + users + facilities + account_settings
     end
 
@@ -17,14 +17,6 @@ module Dashboard
 
     def schedule
       [link('schedule', view.schedule_path)]
-    end
-
-    def visit
-      [link('visit', '')]
-    end
-
-    def enroll_patients
-      [link('enroll_patients', view.new_patient_path)]
     end
 
     def patients
