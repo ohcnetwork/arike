@@ -2,14 +2,16 @@ class PsychologicalReviewsController < ApplicationController
   def new
     @visit = VisitDetail.find_by(id: params[:visit_id])
     @info = PsychologicalReview.find_by(visit_id: params[:visit_id])
+    @patient=Patient.find_by(id: params[:patient_id])
     if @info.nil?
       @info = PsychologicalReview.new
       @info.visit_id = params[:visit_id]
     end
-    render 'visit_details/pa_new'
+    render 'visit_details/new'
   end
   def create
     @visit = VisitDetail.find_by(id: params[:visit_id])
+    @patient=Patient.find_by(id: params[:patient_id])
     rec = PsychologicalReview.find_by(visit_id: params[:visit_id])
     if rec == nil
       new_rec = PsychologicalReview.create!(allowed_params)
@@ -17,7 +19,7 @@ class PsychologicalReviewsController < ApplicationController
     else
       rec.update(allowed_params)
     end
-    redirect_to visit_physical_symptom_path(@visit)
+    redirect_to patient_visit_physical_symptom_path(@patient,@visit)
   end
   def allowed_params
     params.permit(

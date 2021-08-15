@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_070401) do
+ActiveRecord::Schema.define(version: 2021_08_15_050220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -196,49 +196,13 @@ ActiveRecord::Schema.define(version: 2021_04_16_070401) do
   end
 
   create_table "visit_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "akps"
-    t.text "disease_history_changed"
-    t.string "palliative_phase"
-    t.string "patient_worried"
-    t.string "family_anxious"
-    t.string "patient_depressed"
-    t.string "patient_feels"
-    t.string "patient_informed"
-    t.string "patient_at_peace"
-    t.string "pain"
-    t.string "shortness_breath"
-    t.string "weakness"
-    t.string "poor_mobility"
-    t.string "nausea"
-    t.string "vomiting"
-    t.string "poor_appetite"
-    t.string "constipation"
-    t.string "sore"
-    t.string "drowsiness"
-    t.string "wound"
-    t.string "lack_of_sleep"
-    t.string "micturition"
-    t.text "other_symptoms"
-    t.float "bp"
-    t.float "grbs"
-    t.float "rr"
-    t.float "pulse"
-    t.text "personal_hygiene"
-    t.text "mouth_hygiene"
-    t.text "pubic_hygiene"
-    t.string "systemic_examination"
-    t.text "systemic_examination_details"
-    t.text "done_by"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "assigned_to_specialist_nurse", default: false
-    t.boolean "assigned_to_primary_nurse", default: false
-    t.boolean "assigned_to_physiotherapist", default: false
-    t.boolean "is_doctor_accompanying", default: false
     t.uuid "general_health_information_id"
     t.uuid "psychological_review_id"
     t.uuid "physical_symptoms_id"
     t.uuid "physical_examination_id"
+    t.uuid "patient_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "visits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

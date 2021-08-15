@@ -1,11 +1,26 @@
-<% presenter = ::VisitDetails::VisitDetailsPresenter.new(self) %>
-
-<%=content_for(:tail) do %>
-  <%= javascript_pack_tag 'PatientVitalsPack' %>
-<% end %>
-
-<div id="patient-vitals-form"></div>
-
-<script type="application/json" id="patient-vitals-data">
-  <%= presenter.props.to_json.html_safe %>
-</script>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div>
+        <h3 class="text-2xl leading-6 font-bold text-gray-900">
+          Current Disease Status and Patient Vitals
+        </h3>
+        <p class="mt-1 mb-5 max-w-2xl text-sm text-gray-500">
+          Captured during every visit
+        </p>
+      </div>
+      <%= render partial: "visit_details/nav-bar", locals: {patient: @patient, visit: @visit} %>
+      <div class="mt-10">
+        <% if request.path == patient_visit_general_information_path(@patient,@visit) %>
+          <%= render partial: "visit_details/form-general-health-information", locals: {patient: @patient, visit: @visit, info: @info} %>
+        <% elsif request.path == patient_visit_psychological_review_path(@patient,@visit) %>
+          <%= render partial: "visit_details/form-psychological-review", locals: {patient: @patient, visit: @visit, info: @info} %>
+        <% elsif request.path == patient_visit_physical_symptom_path(@patient,@visit) %>
+          <%= render partial: "visit_details/form-physical-symptoms", locals: {patient: @patient, visit: @visit, info: @info} %>
+        <% elsif request.path == patient_visit_physical_examination_path(@patient,@visit) %>
+          <%= render partial: "visit_details/form-physical-examination", locals: {patient: @patient, visit: @visit, info: @info} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

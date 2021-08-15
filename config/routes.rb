@@ -43,6 +43,26 @@ Rails
     get "/show/disease_history",
         to: "patients#show_detail",
         as: :show_disease_history
+
+    # visit_details
+
+    get '/visit_details/decision', to: 'visit_details#decision'
+    post '/visit_details/assign_to', to: 'visit_details#assign_to'
+    post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
+    post '/visit_details/expired', to: 'visit_details#expired'
+    get '/visit_details/new', to: 'visit_details#new', as: :visit_details_new
+    get '/visit_details/:visit_id/general_health_information',to: "general_health_informations#new", as: :visit_general_information
+    post '/visit_details/:visit_id/general_health_information',to: "general_health_informations#create", as: :new_visit_general_information
+
+    get '/visit_details/:visit_id/psychological_review',to: "psychological_reviews#new", as: :visit_psychological_review
+    post '/visit_details/:visit_id/psychological_review',to: "psychological_reviews#create", as: :new_visit_psychological_review
+
+    get '/visit_details/:visit_id/physical_symptom',to: "physical_symptoms#new", as: :visit_physical_symptom
+    post '/visit_details/:visit_id/physical_symptom',to: "physical_symptoms#create", as: :new_visit_physical_symptom
+
+    get '/visit_details/:visit_id/physical_examination',to: "physical_examinations#new", as: :visit_physical_examination
+    post '/visit_details/:visit_id/physical_examination',to: "physical_examinations#create", as: :new_visit_physical_examination
+    resources :visit_details
   end
 
   # get '/stories', to: redirect('/articles')
@@ -53,25 +73,6 @@ Rails
   # for removing a nurse from a facility
   put "/unassign", to: "users#unassign_facility", as: :unassign_facility
 
-  # visit_details
-
-  get '/visit_details/decision', to: 'visit_details#decision'
-  post '/visit_details/assign_to', to: 'visit_details#assign_to'
-  post '/visit_details/schedule_revisit', to: 'visit_details#schedule_revisit'
-  post '/visit_details/expired', to: 'visit_details#expired'
-  get '/visit_details/pa_new', to: 'visit_details#pa_new', as: :pa_new
-  get '/visit_details/:visit_id/general_health_information',to: "general_health_informations#new", as: :visit_general_information
-  post '/visit_details/:visit_id/general_health_information',to: "general_health_informations#create", as: :new_visit_general_information
-
-  get '/visit_details/:visit_id/psychological_review',to: "psychological_reviews#new", as: :visit_psychological_review
-  post '/visit_details/:visit_id/psychological_review',to: "psychological_reviews#create", as: :new_visit_psychological_review
-
-  get '/visit_details/:visit_id/physical_symptom',to: "physical_symptoms#new", as: :visit_physical_symptom
-  post '/visit_details/:visit_id/physical_symptom',to: "physical_symptoms#create", as: :new_visit_physical_symptom
-
-  get '/visit_details/:visit_id/physical_examination',to: "physical_examinations#new", as: :visit_physical_examination
-  post '/visit_details/:visit_id/physical_examination',to: "physical_examinations#create", as: :new_visit_physical_examination
-  resources :visit_details
 
   #Sessions
   resources :sessions
