@@ -9,6 +9,21 @@
           Captured during every visit
         </p>
       </div>
+      <div class="text-xl">Patient Information</div>
+      <div class="w-3/4 mt-3 mb-5 flex justify-evenly">
+        <div class="flex">
+          Name:
+          <div class="mx-2 font-bold"><%= @patient.full_name %></div>
+        </div>
+        <div class="flex">
+          Date of Birth:
+          <div class="mx-2 font-bold"><%= @patient.dob %></div>
+        </div>
+        <div class="flex">
+          Phone No.:
+          <div class="mx-2 font-bold"><%= @patient.phone %></div>
+        </div>
+      </div>
       <%= render partial: "visit_details/nav-bar", locals: {patient: @patient, visit: @visit} %>
       <div class="mt-10">
         <% if request.path == patient_visit_general_information_path(@patient,@visit) %>

@@ -1,114 +1,110 @@
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div className="px-4 sm:px-6 lg:px-8 bg-white">
-    <div className="max-w-7xl mx-auto">
+<div class="w-3/4">
+  <div class="bg-white">
+    <div class="mx-auto">
       <div>
-        <div className="hidden sm:block">
-          <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
-              <% if request.path == patient_visit_general_information_path(patient,visit) %>
-                <%=
-                  link_to 'General Health Information',
-                          '#',
-                          class:
-                            'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Psychological Review',
-                          patient_visit_psychological_review_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Symptoms',
-                          patient_visit_physical_symptom_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Examination',
-                          patient_visit_physical_examination_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-              <% elsif request.path == patient_visit_psychological_review_path(patient,visit) %>
-                <%=
-                  link_to 'General Health Information',
-                          patient_visit_general_information_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Psychological Review',
-                          '#',
-                          class:
-                            'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Symptoms',
-                          patient_visit_physical_symptom_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Examination',
-                          patient_visit_physical_examination_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-              <% elsif request.path == patient_visit_physical_symptom_path(patient,visit) %>
-                <%=
-                  link_to 'General Health Information',
-                          patient_visit_general_information_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Psychological Review',
-                          patient_visit_psychological_review_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2  group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Symptoms',
-                          '#',
-                          class:
-                            'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Examination',
-                          patient_visit_physical_examination_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-              <% elsif request.path == patient_visit_physical_examination_path(patient,visit) %>
-                <%=
-                  link_to 'General Health Information',
-                          patient_visit_general_information_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Psychological Review',
-                          patient_visit_psychological_review_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Symptoms',
-                          patient_visit_physical_symptom_path(patient,visit),
-                          class:
-                            'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-                <%=
-                  link_to 'Physical Examination',
-                          '#',
-                          class:
-                            'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
-                %>
-              <% end %>
-            </nav>
-          </div>
-        </div>
+        <nav class="-mb-px flex justify-between">
+          <% if request.path == patient_visit_general_information_path(patient,visit) %>
+            <%=
+              link_to 'General Health Information',
+                      '#',
+                      class:
+                        'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Psychological Review',
+                      patient_visit_psychological_review_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Symptoms',
+                      patient_visit_physical_symptom_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Examination',
+                      patient_visit_physical_examination_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+          <% elsif request.path == patient_visit_psychological_review_path(patient,visit) %>
+            <%=
+              link_to 'General Health Information',
+                      patient_visit_general_information_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Psychological Review',
+                      '#',
+                      class:
+                        'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Symptoms',
+                      patient_visit_physical_symptom_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Examination',
+                      patient_visit_physical_examination_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+          <% elsif request.path == patient_visit_physical_symptom_path(patient,visit) %>
+            <%=
+              link_to 'General Health Information',
+                      patient_visit_general_information_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Psychological Review',
+                      patient_visit_psychological_review_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2  group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Symptoms',
+                      '#',
+                      class:
+                        'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Examination',
+                      patient_visit_physical_examination_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+          <% elsif request.path == patient_visit_physical_examination_path(patient,visit) %>
+            <%=
+              link_to 'General Health Information',
+                      patient_visit_general_information_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Psychological Review',
+                      patient_visit_psychological_review_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Symptoms',
+                      patient_visit_physical_symptom_path(patient, visit),
+                      class:
+                        'cursor-pointer mx-2 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+            <%=
+              link_to 'Physical Examination',
+                      '#',
+                      class:
+                        'cursor-pointer mx-2 border-indigo-500 text-indigo-600 group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm'
+            %>
+          <% end %>
+        </nav>
       </div>
     </div>
   </div>
