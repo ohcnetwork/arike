@@ -2,15 +2,14 @@ let s = React.string
 
 open PatientTreatment__Types
 
-type patient = {patient_id: string}
-
 type state = {
+  patientId: string,
   allTreatments: array<DropdownOption.t>,
   activeTreatments: array<Treatment.t>,
   selectedTreatments: array<DropdownOption.t>,
 }
 
-type props = patient
+type props = state
 
 type treatment =
   | All
@@ -22,12 +21,6 @@ type action =
   | SetActiveTreatments(array<Treatment.t>)
   | AddTreatment(DropdownOption.t)
   | RemoveSelectedTreatment(DropdownOption.t)
-
-let initialState: state = {
-  allTreatments: [],
-  activeTreatments: [],
-  selectedTreatments: [],
-}
 
 let reducer = (state, action) =>
   switch action {
@@ -69,63 +62,32 @@ let getTreatmentsCB = (dispatch, treatment, json) => {
 
 let errorCB = () => Js.log("Something went wrong")
 
-let saveChanges = state => {
+let saveChanges = (selectedTreatments: array<DropdownOption.t>, patient_id) => {
   let authenticityToken = AuthenticityToken.fromHead()
-  let patient_id = "a7142391-bffd-4296-910d-7e362347fa36"
-  let url = "/treatment"
+  // let patient_id = "a7142391-bffd-4296-910d-7e362347fa36"
+  let url = "/patients/" ++ patient_id ++ "/treatment/update"
 
-  let treatments = state->Js.Json.stringifyAny->Belt.Option.getWithDefault("")
+  let treatments = selectedTreatments->Js.Json.stringifyAny->Belt.Option.getWithDefault("")
 
   let payload = Js.Dict.empty()
-  payload->Js.Dict.set("authenticity_token", authenticityToken |> Js.Json.string)
-  payload->Js.Dict.set("patient_id", Js.Json.string(patient_id))
-  payload->Js.Dict.set("treatment", treatments->Js.Json.string)
+  payload->Js.Dict.set("authenticity_token", authenticityToken->Js.Json.string)
+  payload->Js.Dict.set("patient_id", patient_id->Js.Json.string)
+  payload->Js.Dict.set("treatments", "treatments"->Js.Json.string)
+  Js.log(payload)
 
   Api.create(url, payload, updateTreatmentsCB, errorCB)
 }
 
 @react.component
-let make = (~props: patient) => {
-  let (state, dispatch) = React.useReducer(reducer, initialState)
+let make = (~props) => {
+  let (state, dispatch) = React.useReducer(reducer, props)
 
-  React.useEffect0(() => {
-    let url = "/patients/" ++ props.patient_id ++ "/treatment/all_treatments"
-    Js.log(url)
-    Api.get(~url, ~responseCB=getTreatmentsCB(dispatch, All), ~notify=true, ~errorCB)
-
-    None
-  })
-
-  React.useEffect0(() => {
-    let url = "/patients/" ++ props.patient_id ++ "/treatment/active_treatments"
-    Js.log(url)
-    Api.get(~url, ~responseCB=getTreatmentsCB(dispatch, Active), ~notify=true, ~errorCB)
-
-    None
-  })
-  Js.log(state)
   let optionClickHandler = (option: DropdownOption.t) => {
     Js.log(option)
     let isSelected = state.selectedTreatments->Js.Array2.find(i => i.id === option.id)
     if isSelected->Belt.Option.isNone {
       dispatch(AddTreatment(option))
     }
-  }
-
-  let removeClickHandler = id => {
-    Js.log(id)
-
-    // setTreatments(treatments =>
-    //   treatments->Belt.Array.map(treatment => {
-    //     if treatment.id == id {
-    //       treatment->Treatment.updateDeletedAt(
-    //         Some(Js.Date.now()->Js.Date.fromFloat->Js.Date.toDateString->Js.Date.fromString),
-    //       )
-    //     } else {
-    //       treatment
-    //     }
-    //   })
-    // )
   }
 
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -151,6 +113,14 @@ let make = (~props: patient) => {
           />
         </div>
       </div>
+    </div>
+    <div className="my-8 flex justify-end">
+      <button
+        type_="button"
+        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={_ => saveChanges(state.selectedTreatments, state.patientId)}>
+        {s("Save Changes")}
+      </button>
     </div>
     // <div className="m-2">
     //   <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-2">

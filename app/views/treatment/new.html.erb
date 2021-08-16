@@ -3,7 +3,9 @@
 <% end %>
 <script type="text/json" id="treatment-data">
   {
-    "patient_id": <%= @patient.id.to_json.html_safe %>
+    "patient_id": <%= @patient.id.to_json.html_safe %>,
+    "all_treatments": <%= Treatment.all.to_json.html_safe %>,
+    "active_treatments": <%= @patient.patient_treatments.to_json.html_safe %>
   }
 </script>
 <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">

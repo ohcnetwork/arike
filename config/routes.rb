@@ -32,9 +32,8 @@ Rails
       get '/agenda', to: 'agenda#index', as: :agenda
 
       #treatment
-      get '/treatment/all_treatments', to: 'treatment#index'
-      get '/treatment/active_treatments', to: 'treatment#active_treatments'
       get '/treatment', to: 'treatment#new'
+      post '/treatment/update', to: 'treatment#update'
 
       # family_details
       get '/family_details', to: 'family_details#index', as: :family_details

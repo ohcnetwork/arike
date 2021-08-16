@@ -5,11 +5,11 @@ open PatientTreatment__Types
 @react.component
 let make = (~treatments) => {
   let treatments =
-    treatments->Js.Array2.filter(treatment => treatment->Treatment.deleted_at != None)
+    treatments->Js.Array2.filter(treatment => treatment->Treatment.stopped_at != None)
 
   let deletedDates =
     treatments->Belt.Array.map(treatment =>
-      treatment->Treatment.deleted_at->Belt.Option.getUnsafe->Js.Date.toDateString
+      treatment->Treatment.stopped_at->Belt.Option.getUnsafe->Js.Date.toDateString
     )
 
   let deletedDates = deletedDates->Js.Array2.filteri((date, index) => {
@@ -20,7 +20,7 @@ let make = (~treatments) => {
     TreatmentHistory.make(
       ~date=deletedDate->Js.Date.fromString,
       ~treatments=treatments->Js.Array2.filter(tr =>
-        tr.deleted_at == Some(deletedDate->Js.Date.fromString)
+        tr.stopped_at == Some(deletedDate->Js.Date.fromString)
       ),
     )
   })

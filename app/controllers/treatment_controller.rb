@@ -5,15 +5,16 @@ class TreatmentController < ApplicationController
     render 'new'
   end
 
-  def index
-    treatments = Treatment.all
-    render json: treatments
-  end
 
-  def active_treatments
+  def update
     patient = Patient.find_by(id: params[:patient_id])
-    treatments = patient.patient_treatments
-    render json: treatments
+
+    # treatments = params[:treatments]
+    render plain: params
+    # params[:treatments].each do |treatment|
+    #   Treatment.create(name: treatment.name, category: treatment.category)
+    # end
+    # redirect_to patient_treatment_path(params[:patient_id])
   end
 
   def create
