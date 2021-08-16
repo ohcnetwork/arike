@@ -1,0 +1,174 @@
+<div>
+  <div>Visit Details</div>
+
+  <%# General Health Information %>
+  <div>
+    <div>General Health Information</div>
+    <div>
+      <div>
+        Patient's general health status(AKPS)
+        <%= @general_health_information.akps %>
+      </div>
+      <div>
+        Palliative phase of illness
+        <%= @general_health_information.palliative_phase %>
+      </div>
+    </div>
+  </div>
+
+  <%# Pschological Review %>
+  <div>
+    <div>Psychlogical Review</div>
+    <div>
+      Is the patient feeling worried about illness/treatment?
+      <%= @psychological_review.patient_worried %>
+    </div>
+    <div>
+      Does family/friends feel anxious about patient's illness/treatment?
+      <%= @psychological_review.family_anxious %>
+    </div>
+    <div>
+      Has the patient had as much information as he wanted?
+      <%= @psychological_review.patient_informed %>
+    </div>
+
+    <div>
+      is patient depressed?
+      <%= @psychological_review.patient_depressed %>
+    </div>
+
+    <div>
+      Has the patient been able to share his feelings with his family/friends?
+      <%= @psychological_review.patient_feels %>
+    </div>
+  </div>
+
+  <%# Physical Symptoms %>
+  <div>
+    <div>Physical Symptoms</div>
+
+    <div>
+      Vomitting
+      <%= @physical_symptom.vomiting %>
+    </div>
+
+    <div>
+      Poor Appetite
+      <%= @physical_symptom.poor_appetite %>
+    </div>
+
+    <div>
+      Lack of Sleep
+      <%= @physical_symptom.lack_of_sleep %>
+    </div>
+
+    <div>
+      Mictruition
+      <%= @physical_symptom.micnutrition %>
+    </div>
+
+    <div>Optional Fields</div>
+    <div>
+      Do you think patient feels at peace?
+      <%= @physical_symptom.patient_at_peace %>
+    </div>
+
+    <div>
+      Pain
+      <%= @physical_symptom.pain %>
+    </div>
+
+    <div>
+      Shortness of breath
+      <%= @physical_symptom.shortness_breath %>
+    </div>
+
+    <div>
+      Weakness/Lack of energy
+      <%= @physical_symptom.weakness %>
+    </div>
+
+    <div>
+      Poor Mobility
+      <%= @physical_symptom.poor_mobility %>
+    </div>
+
+    <div>
+      Nausea
+      <%= @physical_symptom.nausea %>
+    </div>
+
+    <div>
+      Constipation
+      <%= @physical_symptom.constipation %>
+    </div>
+
+    <div>
+      Sore/dry mouth
+      <%= @physical_symptom.sore %>
+    </div>
+
+    <div>
+      Drowsiness
+      <%= @physical_symptom.drowsiness %>
+    </div>
+
+    <div>
+      Wound
+      <%= @physical_symptom.wound %>
+    </div>
+  </div>
+
+  <%# Physical Examination %>
+  <div>
+    <div>Physical Examination</div>
+    <div>
+      BP
+      <%= @physical_examination.bp %>
+    </div>
+
+    <div>
+      GRBS
+      <%= @physical_examination.grbs %>
+    </div>
+
+    <div>
+      RR
+      <%= @physical_examination.rr %>
+    </div>
+
+    <div>
+      Pulse
+      <%= @physical_examination.pulse %>
+    </div>
+
+    <div>
+      Personal hygiene
+      <%= @physical_examination.personal_hygiene %>
+    </div>
+    <div>
+      Mouth Hygiene
+      <%= @physical_examination.mouth_hygiene %>
+    </div>
+
+    <div>
+      Public Hygiene
+      <%= @physical_examination.pubic_hygiene %>
+    </div>
+
+    <div>
+      Systematic Examination
+      <%= @physical_examination.systemic_examination %>
+    </div>
+
+    <div>
+      Systematic Examination Details
+      <%= @physical_examination.systemic_examination_details %>
+    </div>
+
+    <div>
+      Visit Done by
+      <%= @physical_examination.done_by %>
+    </div>
+  </div>
+</div>
