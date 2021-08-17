@@ -48,4 +48,11 @@ class Patient < ApplicationRecord
       PatientDiseaseSummary.create!(details)
     }
   end
+
+  def add_treatments(treatments, patient_id)
+    treatments.values.each { |details|
+      details[:patient_id] = patient_id
+      PatientTreatment.create!(details)
+    }
+  end
 end

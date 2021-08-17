@@ -7,14 +7,9 @@ class TreatmentController < ApplicationController
 
 
   def update
-    patient = Patient.find_by(id: params[:patient_id])
-
-    # treatments = params[:treatments]
-    render plain: params
-    # params[:treatments].each do |treatment|
-    #   Treatment.create(name: treatment.name, category: treatment.category)
-    # end
-    # redirect_to patient_treatment_path(params[:patient_id])
+    @patient = Patient.find_by(id: params[:patient_id])
+    @patient.add_treatments(params[:treatments], params[:patient_id])
+    redirect_to patient_path(@patient)
   end
 
   def create

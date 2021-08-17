@@ -89,6 +89,7 @@ let make = (~props) => {
       dispatch(AddTreatment(option))
     }
   }
+  Js.log(state)
 
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div className="max-w-3xl mx-auto mb-10">
@@ -116,10 +117,9 @@ let make = (~props) => {
     </div>
     <div className="my-8 flex justify-end">
       <button
-        type_="button"
-        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        onClick={_ => saveChanges(state.selectedTreatments, state.patientId)}>
-        {s("Save Changes")}
+        type_="submit"
+        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        {s("Add Treatments")}
       </button>
     </div>
     // <div className="m-2">

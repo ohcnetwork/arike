@@ -15,12 +15,26 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
           className="flex flex-col justify-between col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
           <div className="w-full flex flex-grow justify-between p-6 space-x-6">
             <div className="flex flex-col items-left">
-              <h3 className="text-gray-700 text-base font-medium">
+              <h3
+                className="text-gray-700 text-base font-medium"
+                name={`treatments[${treatment->DropdownOption.id}][category]`}>
                 {s(treatment->DropdownOption.category)}
               </h3>
-              <h3 className="text-gray-900 text-lg font-semibold">
+              <input
+                type_="hidden"
+                name={`treatments[${treatment->DropdownOption.id}][category]`}
+                value={treatment->DropdownOption.category}
+              />
+              <h3
+                className="text-gray-900 text-lg font-semibold"
+                name={`treatmnents[${treatment->DropdownOption.id}][name]`}>
                 {s(treatment->DropdownOption.name)}
               </h3>
+              <input
+                type_="hidden"
+                name={`treatments[${treatment->DropdownOption.id}][name]`}
+                value={treatment->DropdownOption.name}
+              />
             </div>
           </div>
           <div className="-mt-px flex flex-grow-0 divide-x divide-gray-200">
