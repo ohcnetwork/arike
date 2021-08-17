@@ -79,9 +79,9 @@ document.addEventListener("turbolinks:load", () => {
     removeCHCSelect();
   });
 
-      const facilityStateInput = document.getElementById("facility_state_id");
+  const facilityStateInput = document.getElementById("facility_state_id");
   facilityStateInput.addEventListener("click", (event) => {
-            getDistrictOptionsAndEnableSelect();
+    getDistrictOptionsAndEnableSelect();
   });
 
   const facilityLsgBodyInput = document.getElementById("facility_lsg_body_id");
