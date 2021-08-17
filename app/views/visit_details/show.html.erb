@@ -1,174 +1,239 @@
-<div>
-  <div>Visit Details</div>
+<div class="lg:w-3/4 mx-auto">
+  <div class="text-2xl font-bold">Visit Details</div>
 
   <%# General Health Information %>
-  <div>
-    <div>General Health Information</div>
+  <div class="bg-gray-50 my-4 p-3">
+    <div class="font-bold my-3 text-xl">General Health Information</div>
     <div>
-      <div>
-        Patient's general health status(AKPS)
-        <%= @general_health_information.akps %>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Patient's general health status(AKPS)</div>
+        <div>
+          <%= @general_health_information&.akps %>
+        </div>
       </div>
-      <div>
-        Palliative phase of illness
-        <%= @general_health_information.palliative_phase %>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Palliative phase of illness</div>
+        <div>
+          <%= @general_health_information&.palliative_phase %>
+        </div>
       </div>
     </div>
   </div>
 
   <%# Pschological Review %>
-  <div>
-    <div>Psychlogical Review</div>
-    <div>
-      Is the patient feeling worried about illness/treatment?
-      <%= @psychological_review.patient_worried %>
+  <div class="bg-gray-100 my-4 p-3">
+    <div class="font-bold my-3 text-xl">Psychlogical Review</div>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Is the patient feeling worried about illness/treatment?</div>
+      <div>
+        <%= @psychological_review&.patient_worried %>
+      </div>
     </div>
-    <div>
-      Does family/friends feel anxious about patient's illness/treatment?
-      <%= @psychological_review.family_anxious %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>
+        Does family/friends feel anxious about patient's illness/treatment?
+      </div>
+      <div>
+        <%= @psychological_review&.family_anxious %>
+      </div>
     </div>
-    <div>
-      Has the patient had as much information as he wanted?
-      <%= @psychological_review.patient_informed %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Has the patient had as much information as he wanted?</div>
+      <div>
+        <%= @psychological_review&.patient_informed %>
+      </div>
     </div>
 
-    <div>
-      is patient depressed?
-      <%= @psychological_review.patient_depressed %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Is patient depressed?</div>
+      <div>
+        <%= @psychological_review&.patient_depressed %>
+      </div>
     </div>
 
-    <div>
-      Has the patient been able to share his feelings with his family/friends?
-      <%= @psychological_review.patient_feels %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>
+        Has the patient been able to share his feelings with his family/friends?
+      </div>
+      <div>
+        <%= @psychological_review&.patient_feels %>
+      </div>
     </div>
   </div>
 
   <%# Physical Symptoms %>
-  <div>
-    <div>Physical Symptoms</div>
+  <div class="bg-gray-50 my-4 p-3">
+    <div class="font-bold my-3 text-xl">Physical Symptoms</div>
 
-    <div>
-      Vomitting
-      <%= @physical_symptom.vomiting %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Vomitting</div>
+      <div>
+        <%= @physical_symptom&.vomiting %>
+      </div>
     </div>
 
-    <div>
-      Poor Appetite
-      <%= @physical_symptom.poor_appetite %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Poor Appetite</div>
+      <div>
+        <%= @physical_symptom&.poor_appetite %>
+      </div>
     </div>
 
-    <div>
-      Lack of Sleep
-      <%= @physical_symptom.lack_of_sleep %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Lack of Sleep</div>
+      <div>
+        <%= @physical_symptom&.lack_of_sleep %>
+      </div>
     </div>
 
-    <div>
-      Mictruition
-      <%= @physical_symptom.micnutrition %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Mictruition</div>
+      <div>
+        <%= @physical_symptom&.micnutrition %>
+      </div>
     </div>
 
-    <div>Optional Fields</div>
-    <div>
-      Do you think patient feels at peace?
-      <%= @physical_symptom.patient_at_peace %>
+    <div class="text-lg">Optional Fields</div>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Do you think patient feels at peace?</div>
+      <div>
+        <%= @physical_symptom&.patient_at_peace %>
+      </div>
     </div>
 
-    <div>
-      Pain
-      <%= @physical_symptom.pain %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Pain</div>
+      <div>
+        <%= @physical_symptom&.pain %>
+      </div>
     </div>
 
-    <div>
-      Shortness of breath
-      <%= @physical_symptom.shortness_breath %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Shortness of breath</div>
+      <div>
+        <%= @physical_symptom&.shortness_breath %>
+      </div>
     </div>
 
-    <div>
-      Weakness/Lack of energy
-      <%= @physical_symptom.weakness %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Weakness/Lack of energy</div>
+      <div>
+        <%= @physical_symptom&.weakness %>
+      </div>
     </div>
 
-    <div>
-      Poor Mobility
-      <%= @physical_symptom.poor_mobility %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Poor Mobility</div>
+      <div>
+        <%= @physical_symptom&.poor_mobility %>
+      </div>
     </div>
 
-    <div>
-      Nausea
-      <%= @physical_symptom.nausea %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Nausea</div>
+      <div>
+        <%= @physical_symptom&.nausea %>
+      </div>
     </div>
 
-    <div>
-      Constipation
-      <%= @physical_symptom.constipation %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Constipation</div>
+      <div>
+        <%= @physical_symptom&.constipation %>
+      </div>
     </div>
 
-    <div>
-      Sore/dry mouth
-      <%= @physical_symptom.sore %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Sore/dry mouth</div>
+      <div>
+        <%= @physical_symptom&.sore %>
+      </div>
     </div>
 
-    <div>
-      Drowsiness
-      <%= @physical_symptom.drowsiness %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Drowsiness</div>
+      <div>
+        <%= @physical_symptom&.drowsiness %>
+      </div>
     </div>
 
-    <div>
-      Wound
-      <%= @physical_symptom.wound %>
-    </div>
-  </div>
-
-  <%# Physical Examination %>
-  <div>
-    <div>Physical Examination</div>
-    <div>
-      BP
-      <%= @physical_examination.bp %>
+    <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+      <div>Wound</div>
+      <div>
+        <%= @physical_symptom&.wound %>
+      </div>
     </div>
 
-    <div>
-      GRBS
-      <%= @physical_examination.grbs %>
-    </div>
+    <%# Physical Examination %>
+    <div class="bg-gray-100 my-4 p-3">
+      <div class="font-bold my-3 text-xl">Physical Examination</div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>BP</div>
+        <div>
+          <%= @physical_examination&.bp %>
+        </div>
+      </div>
 
-    <div>
-      RR
-      <%= @physical_examination.rr %>
-    </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>GRBS</div>
+        <div>
+          <%= @physical_examination&.grbs %>
+        </div>
+      </div>
 
-    <div>
-      Pulse
-      <%= @physical_examination.pulse %>
-    </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>RR</div>
+        <div>
+          <%= @physical_examination&.rr %>
+        </div>
+      </div>
 
-    <div>
-      Personal hygiene
-      <%= @physical_examination.personal_hygiene %>
-    </div>
-    <div>
-      Mouth Hygiene
-      <%= @physical_examination.mouth_hygiene %>
-    </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Pulse</div>
 
-    <div>
-      Public Hygiene
-      <%= @physical_examination.pubic_hygiene %>
-    </div>
+        <div><%= @physical_examination&.pulse %></div>
+      </div>
 
-    <div>
-      Systematic Examination
-      <%= @physical_examination.systemic_examination %>
-    </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Personal hygiene</div>
+        <div>
+          <%= @physical_examination&.personal_hygiene %>
+        </div>
+      </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Mouth Hygiene</div>
+        <div>
+          <%= @physical_examination&.mouth_hygiene %>
+        </div>
+      </div>
 
-    <div>
-      Systematic Examination Details
-      <%= @physical_examination.systemic_examination_details %>
-    </div>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Public Hygiene</div>
+        <div>
+          <%= @physical_examination&.pubic_hygiene %>
+        </div>
+      </div>
 
-    <div>
-      Visit Done by
-      <%= @physical_examination.done_by %>
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Systematic Examination</div>
+        <div>
+          <%= @physical_examination&.systemic_examination %>
+        </div>
+      </div>
+
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Systematic Examination Details</div>
+        <div>
+          <%= @physical_examination&.systemic_examination_details %>
+        </div>
+      </div>
+
+      <div class="grid w-11/12 mx-auto border-b-2 border-gray-200 p-2 my-3">
+        <div>Visit Done by</div>
+        <div>
+          <%= @physical_examination&.done_by %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
