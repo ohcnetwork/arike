@@ -1,5 +1,5 @@
 pre-commit:
-  parallel: true # tell Lefthook to utilise all cores
+  parallel: true
   commands:
     js:
       glob: "*.js"
