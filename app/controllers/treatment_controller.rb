@@ -5,11 +5,17 @@ class TreatmentController < ApplicationController
     render 'new'
   end
 
-
   def update
-    @patient = Patient.find_by(id: params[:patient_id])
-    @patient.add_treatments(params[:treatments], params[:patient_id])
-    redirect_to patient_path(@patient)
+    patient = Patient.find_by(id: params[:patient_id])
+    patient.add_treatments(params[:treatments], params[:patient_id])
+    redirect_to patient_path(patient)
+  end
+
+  def stop_treatment
+    patient = Patient.find_by(id: params[:patient_id])
+    treatment = PatientTreatment.find_by(id: params[:treatment])
+    treatment.update(stopped_at: Time.now)
+    redirect_to patient_path(patient)
   end
 
   def create

@@ -1,18 +1,16 @@
 <%=content_for(:tail) do %>
   <%= javascript_pack_tag 'TreatmentPack' %>
-<% end %>
-<script type="text/json" id="treatment-data">
+    <% end %>
+      <script type="text/json" id="treatment-data">
   {
     "patient_id": <%= @patient.id.to_json.html_safe %>,
     "all_treatments": <%= Treatment.all.to_json.html_safe %>,
-    "active_treatments": <%= @patient.patient_treatments.to_json.html_safe %>
+    "active_treatments": <%= @patient.patient_treatments.where(stopped_at: nil).order("created_at").to_json.html_safe %>
   }
 </script>
 <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
   <h1 class="text-3xl font-bold leading-tight text-gray-900">Treatments</h1>
 </div>
-<%= form_with url: "/patients/#{@patient.id}/treatment/update", method: :post do |form| %>
 <div id="treatment">
 <div id="multi-select"></div>
 </div>
-<% end %>

@@ -20,7 +20,7 @@ let category = t => t.category
 let created_at = t => t.created_at
 let stopped_at = t => t.stopped_at
 
-let updateDeletedAt = (t, stopped_at) => {...t, stopped_at: stopped_at}
+let updateStoppedAt = (t, stopped_at) => {...t, stopped_at: stopped_at}
 
 let decode = json => {
   open Json.Decode

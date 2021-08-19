@@ -90,50 +90,51 @@ let make = (~props) => {
     }
   }
   Js.log(state)
-
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-3xl mx-auto mb-10">
-      <PatientTreatment__MultiSelectDropdown
-        id="treatment-dropdown"
-        className="p-4"
-        label="Add new treatment"
-        placeholder="Search"
-        options={state.allTreatments}
-        optionClickHandler
-      />
-    </div>
-    <div className="m-2">
-      <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-2">
-        {s("Selected Treatments")}
-      </h3>
-      <div className="bg-gray-100 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PatientTreatment__SelectedTreatments
-            selectedTreatments={state.selectedTreatments}
-            removeClickHandler={x => dispatch(RemoveSelectedTreatment(x))}
-          />
+    <form action={`/patients/${state.patientId}/treatment/update`} method="POST">
+      <input type_="hidden" name="authenticity_token" value={AuthenticityToken.fromHead()} />
+      <div className="max-w-3xl mx-auto mb-10">
+        <PatientTreatment__MultiSelectDropdown
+          id="treatment-dropdown"
+          className="p-4"
+          label="Add new treatment"
+          placeholder="Search"
+          options={state.allTreatments}
+          optionClickHandler
+        />
+      </div>
+      <div className="m-2">
+        <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-2">
+          {s("Selected Treatments")}
+        </h3>
+        <div className="bg-gray-100 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PatientTreatment__SelectedTreatments
+              selectedTreatments={state.selectedTreatments}
+              removeClickHandler={x => dispatch(RemoveSelectedTreatment(x))}
+            />
+          </div>
         </div>
       </div>
+      <div className="my-8 flex justify-end">
+        <button
+          type_="submit"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          {s("Add Treatments")}
+        </button>
+      </div>
+    </form>
+    <div className="m-2">
+      <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-2">
+        {s("Active Treatments")}
+      </h3>
+      <div className="my-2">
+        <PatientTreatment__ActiveTreatments
+          patientId={state.patientId} treatments={state.activeTreatments}
+        />
+      </div>
     </div>
-    <div className="my-8 flex justify-end">
-      <button
-        type_="submit"
-        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        {s("Add Treatments")}
-      </button>
-    </div>
-    // <div className="m-2">
-    //   <h3 className="text-2xl leading-6 font-medium text-gray-900 mb-2">
-    //     {s("Active Treatments")}
-    //   </h3>
-    //   <div className="bg-gray-100 py-8">
-    //     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    //       <PatientTreatment__AllTreatments
-    //         activeTreatments={state.activeTreatments} removeClickHandler
-    //       />
-    //     </div>
-    //   </div>
-    // </div>
+    // </form>
     //   <div className="my-8 flex justify-end">
     //     <button
     //       type_="button"
