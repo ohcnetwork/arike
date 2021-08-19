@@ -1,0 +1,31 @@
+<div class="container mx-auto w-full h-full">
+  <div class="relative wrap overflow-hidden pl-4 sm:px-4 md:px-10 h-full pt-0">
+    <div
+      class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border"
+    ></div>
+    <div class="mb-8 flex justify-between items-center w-full">
+      <div
+        class="-mx-10 z-20 flex items-center order-1 bg-gray-800 shadow-xl px-2 h-8 rounded"
+      >
+        <h1 class="mx-auto font-semibold text-sm text-white">
+          <%= date.present? ? date : "- - -" %>
+        </h1>
+      </div>
+      <div class="order-1 bg-gray-100 rounded-lg shadow-lg w-11/12 ml-8 px-6 py-4">
+        <% treatments.each do |treatment| %>
+          <div class="flex flex-col py-2 px-6 hover:bg-gray-100 col-span-3">
+            <div class="text-sm font-medium text-indigo-600">
+              <%= treatment.category %>
+            </div>
+            <div class="flex flex-row justify-between">
+              <div class="text-gray-900">
+                <%= treatment.name %>
+              </div>
+              <div class='inline-flex text-xs leading-5 font-semibold <%= treatment.stopped_at.present? ? "": "px-2 w-max rounded-full bg-green-100 text-green-800" %>'><%= treatment.stopped_at.present? ? treatment.stopped_at : "Active"%></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

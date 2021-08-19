@@ -50,6 +50,9 @@ Rails
       get '/show/disease_history',
           to: 'patients#show_detail',
           as: :show_disease_history
+      get '/show/treatment_history',
+          to: 'patients#show_detail',
+          as: :show_treatment_history
     end
 
     # get '/stories', to: redirect('/articles')

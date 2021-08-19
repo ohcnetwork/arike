@@ -52,10 +52,11 @@
         Additional Information
       </h3>
 
-      <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md">
+      <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md gap-x-2">
         <%= link_to "Personal Details", patient_show_personal_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 w-3/12 lg:mr-0 text-center" %>
         <%= link_to "Family Details", patient_show_family_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
-        <%= link_to "Disease History", patient_show_disease_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
+        <%= link_to "Disease History", patient_show_disease_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
+        <%= link_to "Treatment History", patient_show_treatment_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
       </div>
 
           <% if request.path == patient_show_personal_details_path(@patient) %>
@@ -72,7 +73,7 @@
               </div>
             </div>
 
-          <% else %>
+          <% elsif request.path == patient_show_disease_history_path(@patient) %>
             <div class="overflow-hidden bg-gray-100 p-0 sm:p-4">
               <div class="container bg-gray-200 mx-auto w-full h-full">
                 <div
@@ -81,6 +82,20 @@
                   <div class="absolute h-full"></div>
                   <% @patient.patient_disease_summaries.order(date_of_diagnosis: :desc).each_with_index do |disease,i| %>
                     <%= render partial: "/patients/disease_history/info-card", locals: {disease: disease, index: i + 1} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+          <% else %>
+            <div class="overflow-hidden bg-gray-100 p-0 sm:p-4">
+              <div class="container bg-gray-200 mx-auto w-full h-full">
+                <div
+                  class="relative wrap overflow-hidden px-4 sm:px-6 md:px-8 h-full py-8"
+                >
+                  <div class="absolute h-full"></div>
+                  <% @patient.patient_treatments.order(created_at: :desc).group_by { |c| c.created_at.to_date }.each_with_index do |(date, treatments),i| %>
+                    <%= render partial: "/patients/treatment_history/info-card", locals: {date: date, treatments: treatments, index: i + 1} %>
                   <% end %>
                 </div>
               </div>
