@@ -8,7 +8,7 @@ RSpec.describe 'Facility as superuser', type: :request do
     FactoryBot.create(:ward)
     @superuser =
       FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
-    post '/sessions',
+    post new_user_session_path,
          params: {
            user: {
              login_id: @superuser.email,

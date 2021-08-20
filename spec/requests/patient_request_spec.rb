@@ -2,11 +2,12 @@ require "rails_helper"
 
 RSpec.describe "Patients", type: :request do
   before :each do
-    LsgBody.create(district: "Kerale")
-    Ward.create(name: "ward", lsg_body_id: LsgBody.last.id)
-    Facility.create(kind: Facility.kinds.values[1], name: Faker::Name.name,
-      state: "Kerale", district: "ABC",
-      lsg_body_id: LsgBody.last.id, ward_id: Ward.last.id, address: "Address", pincode: "121321", phone: "43287423647")
+    FactoryBot.create(:state)
+    FactoryBot.create(:district)
+    FactoryBot.create(:lsg_body)
+    FactoryBot.create(:ward)
+    FactoryBot.create(:facility)
+
     Patient.create(full_name: Faker::Name.name, phone: rand(10**11), emergency_phone_no: rand(10**11), facility_id: Facility.last.id)
     Disease.create(name: "Corona")
     @superuser = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
