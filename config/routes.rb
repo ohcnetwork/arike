@@ -33,7 +33,7 @@ Rails
 
       #treatment
       get '/treatment', to: 'treatment#new'
-      post '/treatment/update', to: 'treatment#update'
+      post '/treatment/', to: 'treatment#update'
       put 'treatment/stop_treatment', to: 'treatment#stop_treatment'
 
       # family_details

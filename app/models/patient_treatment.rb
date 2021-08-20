@@ -10,4 +10,5 @@ class PatientTreatment < ApplicationRecord
               in: Treatment.all.map { |d| d.category }.to_a,
               message: '%{value} is not a valid category',
             }
+  scope :active_treatments, -> { where(stopped_at: nil) }
 end

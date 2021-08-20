@@ -4,8 +4,8 @@
       <script type="text/json" id="treatment-data">
   {
     "patient_id": <%= @patient.id.to_json.html_safe %>,
-    "all_treatments": <%= Treatment.all.to_json.html_safe %>,
-    "active_treatments": <%= @patient.patient_treatments.where(stopped_at: nil).order("created_at").to_json.html_safe %>
+    "all_treatments": <%= Treatment.available_treatments(@patient).to_json.html_safe %>,
+    "active_treatments": <%= @patient.patient_treatments.active_treatments.order("created_at").to_json.html_safe %>
   }
 </script>
 <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
@@ -13,4 +13,8 @@
 </div>
 <div id="treatment">
 <div id="multi-select"></div>
+</div>
+<div class="flex justify-end max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <%= button_to "Patient Home", patient_path(@patient), :class => "inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600  disabled:opacity-40 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+ :method => :get %>
 </div>

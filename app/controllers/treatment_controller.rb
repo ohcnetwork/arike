@@ -1,31 +1,23 @@
 class TreatmentController < ApplicationController
+  # GET	/patients/:patient_id/treatment
   def new
     @patient = Patient.find_by(id: params[:patient_id])
     @treatments = Treatment.all
     render 'new'
   end
 
+  # POST /patients/:patient_id/treatment
   def update
     patient = Patient.find_by(id: params[:patient_id])
     patient.add_treatments(params[:treatments], params[:patient_id])
-    redirect_to patient_path(patient)
+    redirect_to patient_treatment_path(patient)
   end
 
+  # PUT /patients/:patient_id/treatment/stop_treatment
   def stop_treatment
     patient = Patient.find_by(id: params[:patient_id])
     treatment = PatientTreatment.find_by(id: params[:treatment])
     treatment.update(stopped_at: Time.now)
-    redirect_to patient_path(patient)
-  end
-
-  def create
-    patient = Patient.find(params[:patient_id])
-    patient.update(treatment: params[:treatment])
-
-    if patient.save
-      render json: []
-    else
-      render json: [error: patient.errors.full_messages.to_sentence]
-    end
+    redirect_to patient_treatment_path(patient)
   end
 end

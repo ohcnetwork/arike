@@ -11,11 +11,6 @@ type state = {
 
 type props = state
 
-type treatment =
-  | All
-  | Active
-  | Selected
-
 type action =
   | SetAllTreatments(array<DropdownOption.t>)
   | SetActiveTreatments(array<Treatment.t>)
@@ -44,40 +39,6 @@ let reducer = (state, action) =>
     }
   }
 
-let updateTreatmentsCB = json => {
-  Notification.success("Saved Changes", "The treatments for the current patient has been updated.")
-}
-
-let getTreatmentsCB = (dispatch, treatment, json) => {
-  let treatments = json->Js.Json.decodeArray->Belt.Option.getWithDefault([Js.Json.null])
-  Js.log2(treatment, json)
-
-  switch treatment {
-  | All =>
-    dispatch(SetAllTreatments(treatments->Belt.Array.map(item => item->DropdownOption.decode)))
-  | Active =>
-    dispatch(SetActiveTreatments(treatments->Belt.Array.map(item => item->Treatment.decode)))
-  }
-}
-
-let errorCB = () => Js.log("Something went wrong")
-
-let saveChanges = (selectedTreatments: array<DropdownOption.t>, patient_id) => {
-  let authenticityToken = AuthenticityToken.fromHead()
-  // let patient_id = "a7142391-bffd-4296-910d-7e362347fa36"
-  let url = "/patients/" ++ patient_id ++ "/treatment/update"
-
-  let treatments = selectedTreatments->Js.Json.stringifyAny->Belt.Option.getWithDefault("")
-
-  let payload = Js.Dict.empty()
-  payload->Js.Dict.set("authenticity_token", authenticityToken->Js.Json.string)
-  payload->Js.Dict.set("patient_id", patient_id->Js.Json.string)
-  payload->Js.Dict.set("treatments", "treatments"->Js.Json.string)
-  Js.log(payload)
-
-  Api.create(url, payload, updateTreatmentsCB, errorCB)
-}
-
 @react.component
 let make = (~props) => {
   let (state, dispatch) = React.useReducer(reducer, props)
@@ -90,8 +51,10 @@ let make = (~props) => {
     }
   }
   Js.log(state)
+  let disableButton = state.selectedTreatments->Js.Array2.length === 0
+
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <form action={`/patients/${state.patientId}/treatment/update`} method="POST">
+    <form action={`/patients/${state.patientId}/treatment/`} method="POST">
       <input type_="hidden" name="authenticity_token" value={AuthenticityToken.fromHead()} />
       <div className="max-w-3xl mx-auto mb-10">
         <PatientTreatment__MultiSelectDropdown
@@ -119,7 +82,10 @@ let make = (~props) => {
       <div className="my-8 flex justify-end">
         <button
           type_="submit"
-          className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          disabled={disableButton}
+          className={`inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600  disabled:opacity-40 ${disableButton
+              ? "cursor-default"
+              : "hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"}`}>
           {s("Add Treatments")}
         </button>
       </div>
