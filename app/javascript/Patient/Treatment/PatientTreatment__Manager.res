@@ -6,7 +6,7 @@ type state = {
   patientId: string,
   allTreatments: array<DropdownOption.t>,
   activeTreatments: array<Treatment.t>,
-  selectedTreatments: array<DropdownOption.t>,
+  selectedTreatments: array<SelectedTreatment.t>,
 }
 
 type props = state
@@ -15,7 +15,7 @@ type action =
   | SetAllTreatments(array<DropdownOption.t>)
   | SetActiveTreatments(array<Treatment.t>)
   | AddTreatment(DropdownOption.t)
-  | RemoveSelectedTreatment(DropdownOption.t)
+  | RemoveSelectedTreatment(SelectedTreatment.t)
 
 let reducer = (state, action) =>
   switch action {
@@ -30,11 +30,30 @@ let reducer = (state, action) =>
   | AddTreatment(treatment) => {
       ...state,
       allTreatments: state.allTreatments->Js.Array2.filter(x => x.id !== treatment.id),
-      selectedTreatments: Js.Array2.concat(state.selectedTreatments, [treatment]),
+      selectedTreatments: Js.Array2.concat(
+        state.selectedTreatments,
+        [
+          SelectedTreatment.make(
+            ~id=treatment->DropdownOption.id,
+            ~name=treatment->DropdownOption.name,
+            ~category=treatment->DropdownOption.category,
+            ~description=None,
+          ),
+        ],
+      ),
     }
   | RemoveSelectedTreatment(treatment) => {
       ...state,
-      allTreatments: Js.Array2.concat(state.allTreatments, [treatment]),
+      allTreatments: Js.Array2.concat(
+        state.allTreatments,
+        [
+          DropdownOption.make(
+            ~id=treatment->SelectedTreatment.id,
+            ~name=treatment->SelectedTreatment.name,
+            ~category=treatment->SelectedTreatment.category,
+          ),
+        ],
+      ),
       selectedTreatments: state.selectedTreatments->Js.Array2.filter(x => x.id !== treatment.id),
     }
   }

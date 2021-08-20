@@ -4,36 +4,45 @@ open PatientTreatment__Types
 
 @react.component
 let make = (~selectedTreatments, ~removeClickHandler) => {
-  <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
     {if selectedTreatments->Belt.Array.length == 0 {
       <h4> {s("No treatments selected")} </h4>
     } else {
       selectedTreatments
       ->Belt.Array.map(treatment =>
         <li
-          key={treatment->DropdownOption.id}
+          key={treatment->SelectedTreatment.id}
           className="flex flex-col justify-between col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-          <div className="w-full flex flex-grow justify-between p-6 space-x-6">
-            <div className="flex flex-col items-left">
-              <h3
-                className="text-gray-700 text-base font-medium"
-                name={`treatments[${treatment->DropdownOption.id}][category]`}>
-                {s(treatment->DropdownOption.category)}
-              </h3>
-              <input
-                type_="hidden"
-                name={`treatments[${treatment->DropdownOption.id}][category]`}
-                value={treatment->DropdownOption.category}
-              />
-              <h3
-                className="text-gray-900 text-lg font-semibold"
-                name={`treatmnents[${treatment->DropdownOption.id}][name]`}>
-                {s(treatment->DropdownOption.name)}
-              </h3>
-              <input
-                type_="hidden"
-                name={`treatments[${treatment->DropdownOption.id}][name]`}
-                value={treatment->DropdownOption.name}
+          <div className="px-6 py-4">
+            <div className="w-full flex flex-grow justify-between">
+              <div className="flex flex-col items-left">
+                <h3
+                  className="text-gray-700 text-base font-medium"
+                  name={`treatments[${treatment->SelectedTreatment.id}][category]`}>
+                  {s(treatment->SelectedTreatment.category)}
+                </h3>
+                <input
+                  type_="hidden"
+                  name={`treatments[${treatment->SelectedTreatment.id}][category]`}
+                  value={treatment->SelectedTreatment.category}
+                />
+                <h3
+                  className="text-gray-900 text-lg font-semibold"
+                  name={`treatmnents[${treatment->SelectedTreatment.id}][name]`}>
+                  {s(treatment->SelectedTreatment.name)}
+                </h3>
+                <input
+                  type_="hidden"
+                  name={`treatments[${treatment->SelectedTreatment.id}][name]`}
+                  value={treatment->SelectedTreatment.name}
+                />
+              </div>
+            </div>
+            <div className="w-full p-1">
+              <textarea
+                name={`treatments[${treatment->SelectedTreatment.id}][description]`}
+                placeholder="Description"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md max-h-32 h-32"
               />
             </div>
           </div>
@@ -50,5 +59,5 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
       )
       ->React.array
     }}
-  </ul>
+  </div>
 }

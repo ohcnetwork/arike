@@ -5,7 +5,7 @@
   {
     "patient_id": <%= @patient.id.to_json.html_safe %>,
     "all_treatments": <%= Treatment.available_treatments(@patient).to_json.html_safe %>,
-    "active_treatments": <%= @patient.patient_treatments.active_treatments.order("created_at").to_json.html_safe %>
+    "active_treatments": <%= @patient.patient_treatments.active_treatments.order(created_at: :desc).to_json.html_safe %>
   }
 </script>
 <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
