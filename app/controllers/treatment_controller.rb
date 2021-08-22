@@ -9,7 +9,7 @@ class TreatmentController < ApplicationController
   # POST /patients/:patient_id/treatment
   def update
     patient = Patient.find_by(id: params[:patient_id])
-    patient.add_treatments(params[:treatments], params[:patient_id])
+    patient.add_treatments(params[:treatments])
     redirect_to patient_treatment_path(patient)
   end
 

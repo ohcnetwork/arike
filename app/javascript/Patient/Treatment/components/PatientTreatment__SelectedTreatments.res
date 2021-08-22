@@ -11,7 +11,7 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
       selectedTreatments
       ->Belt.Array.map(treatment =>
         <li
-          key={treatment->SelectedTreatment.id}
+          key={`selected_${treatment->SelectedTreatment.id}`}
           className="flex flex-col justify-between col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
           <div className="px-6 py-4">
             <div className="w-full flex flex-grow justify-between">

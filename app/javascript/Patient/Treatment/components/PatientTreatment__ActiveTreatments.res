@@ -6,7 +6,9 @@ open PatientTreatment__Types
 let make = (~patientId, ~treatments) => {
   let treatmentList =
     treatments->Js.Array2.map(treatment =>
-      <div className="bg-white shadow col-span-1 rounded-md px-6 py-4">
+      <div
+        key={`active_${treatment->Treatment.id}`}
+        className="bg-white shadow col-span-1 rounded-md px-6 py-4">
         <div className="space-y-4">
           <div className="flex flex-col justify-evenly">
             <p className="text-base font-medium text-indigo-600 truncate">
