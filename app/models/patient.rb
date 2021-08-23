@@ -51,8 +51,8 @@ class Patient < ApplicationRecord
 
   def add_treatments(treatments)
     treatments.values.each { |details|
-      details["patient_id"] = self.id
-      PatientTreatment.create!(details)
+      details[:patient_id] = self.id
+      PatientTreatment.create(details)
     }
   end
 end

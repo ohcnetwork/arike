@@ -17,7 +17,7 @@ class TreatmentController < ApplicationController
   def stop_treatment
     patient = Patient.find_by(id: params[:patient_id])
     treatment = PatientTreatment.find_by(id: params[:treatment])
-    treatment.update(stopped_at: Time.now)
+    treatment.update(stopped_at: Time.now) if treatment
     redirect_to patient_treatment_path(patient)
   end
 end
