@@ -17,14 +17,14 @@ RSpec.describe "Patient Treatments", type: :request do
     post user_session_path, params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
 
-  it "Add any number of treatments" do
+    it "Add any number of treatments" do
     patient = Patient.last
     number = rand(1..5)
     treatments = {}
     Treatment.limit(number).each do |t|
       treatments[t.id] = {name: t.name, category: t.category}
     end
-    post "/patients/#{patient.id}/treatment", params: { patient_id: patient.id, treatments: treatments } 
+    post "/patients/#{patient.id}/treatment", params: { patient_id: patient.id, treatments: treatments }
     treatments = patient.patient_treatments
     expect(treatments.count).to eq(number)
   end
@@ -32,11 +32,10 @@ RSpec.describe "Patient Treatments", type: :request do
   it "Stop a treatment" do
     patient = Patient.last
     treatment = { Treatment.first.id => { "name" => Treatment.first.name, "category" => Treatment.first.category } }
-    puts Treatment.all.pluck(:name)
-    patient.add_treatments(treatment) 
-    put "/patients/#{patient.id}/treatment/stop_treatment", params: { patient_id: patient.id, treatment: Treatment.first.id}
+    patient.add_treatments(treatment)
+    put "/patients/#{patient.id}/treatment/stop_treatment", params: { patient_id: patient.id, treatment: PatientTreatment.first.id}
     stopped_treatment = patient.patient_treatments.where.not(stopped_at: nil)
-    puts stopped_treatment.count
-    expect(stop_treatment.count).to eq(1)
+    expect(stopped_treatment.count).to eq(1)
   end
+
 end
