@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :facility, class: 'Facility' do
-    kind { 'PHC' }
+    kind { 'CHC' }
     name { Faker::Name.first_name }
     state_id { State.first.id }
     district_id { District.first.id }
@@ -9,6 +9,5 @@ FactoryBot.define do
     address { 'Test Address Body' }
     pincode { Faker::Number.number(digits: 7) }
     phone { Faker::Number.number(digits: 10) }
-    parent_id nil
   end
 end
