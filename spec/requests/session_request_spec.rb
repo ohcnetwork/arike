@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Sessions", type: :request do
   it "creates a new session" do
-    password = "random"
+    password = "password123"
     user = FactoryBot.create(:volunteer, password: password)
     post user_session_path, params: { user: { login_id: user.email, password: password } }
     expect(response).to redirect_to(dashboard_path)
