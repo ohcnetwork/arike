@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Patient Treatments", type: :request do
-  before :each do
+  before :all do
     FactoryBot.create(:state)
     FactoryBot.create(:district)
     FactoryBot.create(:lsg_body)
@@ -17,7 +17,7 @@ RSpec.describe "Patient Treatments", type: :request do
     post user_session_path, params: { user: { login_id: @superuser.email, password: @superuser.password } }
   end
 
-    it "Add any number of treatments" do
+  it "Add any number of treatments" do
     patient = Patient.last
     number = rand(1..5)
     treatments = {}
@@ -38,4 +38,19 @@ RSpec.describe "Patient Treatments", type: :request do
     expect(stopped_treatment.count).to eq(1)
   end
 
+  it "Adding invalid treatment" do
+    treatment = FactoryBot.create(:treatment, name: "Treatment", category: "Category")
+    patient = Patient.last
+    post "/patients/#{patient.id}/treatment", params: { patient_id: patient.id, treatments: { treatment.id => { name: treatment.name, category: treatment.category } } }
+    treatments = patient.patient_treatments
+    expect(treatments.count).to eq(0)
+  end
+
+  it "Stopping a treatment not linked to a patient" do
+    patient = Patient.last
+    treatment = Treatment.last
+    put "/patients/#{patient.id}/treatment/stop_treatment", params: { patient_id: patient.id, treatment: treatment.id}
+    stopped_treatment = patient.patient_treatments.where.not(stopped_at: nil)
+    expect(stopped_treatment.count).to eq(0)
+  end
 end
