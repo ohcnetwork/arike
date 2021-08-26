@@ -10,10 +10,7 @@ feature "Index spec", js: true do
     FactoryBot.create(:lsg_body)
     FactoryBot.create(:ward)
     FactoryBot.create(:facility, kind: 'CHC')
-
-    (1..5).each do
-      FactoryBot.create(:patient)
-    end
+    @patient = FactoryBot.create(:patient)
 
 		(1..5).each do |i|
 			category = "category_#{i}"
@@ -21,14 +18,18 @@ feature "Index spec", js: true do
 				FactoryBot.create(:treatment, category: category)
 			end
 		end
+		
+		@active_treatments = Treatment.limit(4).order("RANDOM()")
+		@active_treatments.each do |x|
+			PatientTreatment.create(name: x.name, category: x.category, patient_id: @patient.id)
+		end
+
+
 	end
 
 	context 'When user sign in' do
 		before do
 			@user = FactoryBot.create(:user, verified: true)
-			@patient = Patient.first
-			@treatments = Treatment.limit(4).order("RANDOM()")
-			@active_treatments = Treatment.where.not(id: @treatments.pluck(:id)).limit(4).order("RANDOM()")
 			login_as(@user)
 			visit patient_treatment_path(@patient)
 		end
@@ -38,10 +39,11 @@ feature "Index spec", js: true do
     end
 
 		scenario "Add treatments to a patient" do
+			treatments = Treatment.where.not(id: @active_treatments.pluck(:id)).limit(4).order("RANDOM()")
 
 			#Select treatments from dropdowm
       within("#treatment-dropdown") do
-				@treatments.each do |x|
+				treatments.each do |x|
 					find("input[placeholder='Search']").click
 					within("#dropdown-options") do
 						click_button x.name
@@ -49,15 +51,15 @@ feature "Index spec", js: true do
 				end
 			end
 			within("#selected-treatments") do
-				@treatments.each do |x|
+				treatments.each do |x|
 					expect(page).to have_text(x.name)
 				end
 			end
 
 			#Add description
 			within("#selected-treatments") do
-				@treatments.each do |x|
-					find("#textarea-#{x.id}").set(x.name)
+				treatments.each do |x|
+					find("#textarea-#{x.id}").set(Faker::Lorem.paragraph)
 
 				end
 			end
@@ -66,13 +68,24 @@ feature "Index spec", js: true do
 
 			#Check is treatments are added
 			within("#active-treatments") do
-				@treatments.each do |x|
+				treatments.each do |x|
 					expect(page).to have_text(x.name)
 				end
 			end
 		end
+
+
 		scenario "Stop current treatments" do
-			
+
+			#Stop any 2 treatments
+			treatment = PatientTreatment.limit(2).order("RANDOM()")
+			within("#active-treatments") do
+				treatment.each do |x|
+					expect(page).to have_text(x.name)
+					find("button[value='#{x.id}']").click
+					expect(page).not_to have_text(x.name)
+				end
+			end
 		end
 	end
 end
