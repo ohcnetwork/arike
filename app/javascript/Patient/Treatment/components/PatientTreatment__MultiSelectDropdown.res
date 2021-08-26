@@ -74,7 +74,9 @@ module DropDown = {
     })
 
     if show {
-      <div className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-full sm:px-0">
+      <div
+        id="dropdown-options"
+        className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-full sm:px-0">
         <div
           className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 max-h-80 overflow-auto">
           <div className="relative grid bg-white"> {optionGroups->React.array} </div>

@@ -42,7 +42,7 @@ let make = (~patientId, ~treatments) => {
 
   {
     if treatmentList->Js.Array2.length > 0 {
-      <div>
+      <div id="active-treatments">
         <form
           action={`/patients/${patientId}/treatment/stop_treatment`}
           method="POST"

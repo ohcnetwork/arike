@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Patient Treatments", type: :request do
-  before :all do
+  before :each do
     FactoryBot.create(:state)
     FactoryBot.create(:district)
     FactoryBot.create(:lsg_body)

@@ -4,7 +4,7 @@ open PatientTreatment__Types
 
 @react.component
 let make = (~selectedTreatments, ~removeClickHandler) => {
-  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+  <div id="selected-treatments" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
     {if selectedTreatments->Belt.Array.length == 0 {
       <h4> {s("No treatments selected")} </h4>
     } else {
@@ -40,6 +40,7 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
             </div>
             <div className="w-full p-1">
               <textarea
+                id={`textarea-${treatment->SelectedTreatment.id}`}
                 name={`treatments[${treatment->SelectedTreatment.id}][description]`}
                 placeholder="Description"
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md max-h-32 h-32"
