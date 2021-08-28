@@ -11,6 +11,7 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
       selectedTreatments
       ->Belt.Array.map(treatment =>
         <li
+          id={`selected-${treatment->SelectedTreatment.id}`}
           key={`selected_${treatment->SelectedTreatment.id}`}
           className="flex flex-col justify-between col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
           <div className="px-6 py-4">
@@ -50,6 +51,7 @@ let make = (~selectedTreatments, ~removeClickHandler) => {
           <div className="-mt-px flex flex-grow-0 divide-x divide-gray-200">
             <div className="w-0 flex-1 flex">
               <button
+                id={`remove-${treatment->SelectedTreatment.id}`}
                 onClick={_ => removeClickHandler(treatment)}
                 className="relative mb-0 -mr-px w-0 flex-1 inline-flex items-center justify-center py-2 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
                 <span className="ml-3"> {s("Remove")} </span>

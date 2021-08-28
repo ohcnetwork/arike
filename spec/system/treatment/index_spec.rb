@@ -1,5 +1,4 @@
 require "rails_helper"
-require "pry"
 
 feature "Index spec", js: true do
 	include UserSpecHelper
@@ -23,8 +22,6 @@ feature "Index spec", js: true do
 		@active_treatments.each do |x|
 			PatientTreatment.create(name: x.name, category: x.category, patient_id: @patient.id)
 		end
-
-
 	end
 
 	context 'When user sign in' do
@@ -50,6 +47,7 @@ feature "Index spec", js: true do
 					end
 				end
 			end
+
 			within("#selected-treatments") do
 				treatments.each do |x|
 					expect(page).to have_text(x.name)
@@ -60,20 +58,25 @@ feature "Index spec", js: true do
 			within("#selected-treatments") do
 				treatments.each do |x|
 					find("#textarea-#{x.id}").set(Faker::Lorem.paragraph)
-
 				end
+			end
+			
+			#Remove last treatment
+			within("#selected-#{treatments.last.id}") do
+				click_button 'Remove'
 			end
 		
 			click_button "Add Treatment"
 
 			#Check is treatments are added
 			within("#active-treatments") do
-				treatments.each do |x|
-					expect(page).to have_text(x.name)
+				puts treatments.pluck(:name)
+				puts treatments.limit(3).pluck(:name)
+				treatments.each_with_index do |x, i|
+					treatments.last == x ? (expect(page).not_to have_text(x.name)) : (expect(page).to have_text(x.name))
 				end
 			end
 		end
-
 
 		scenario "Stop current treatments" do
 
