@@ -62,3 +62,5 @@ false
 
 Created [..]/changelog/unreleased/20170521-a-cool-new-feature-has-been-added.yml
 ```
+## More
+Check out the wiki for more information!
