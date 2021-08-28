@@ -8,7 +8,7 @@
         class="-mx-10 z-20 flex items-center order-1 bg-gray-800 shadow-xl px-2 h-8 rounded"
       >
         <h1 class="mx-auto font-semibold text-sm text-white">
-          <%= date.present? ? date : "- - -" %>
+          <%= date.present? ? date.strftime("%d %b, %Y") : "- - -" %>
         </h1>
       </div>
       <div class="order-1 bg-gray-100 rounded-lg shadow-lg w-11/12 ml-8 px-6 py-4">
@@ -21,7 +21,11 @@
               <div class="text-gray-900">
                 <%= treatment.name %>
               </div>
-              <div class='inline-flex text-xs leading-5 font-semibold <%= treatment.stopped_at.present? ? "": "px-2 w-max rounded-full bg-green-100 text-green-800" %>'><%= treatment.stopped_at.present? ? treatment.stopped_at : "Active"%></div>
+              <% if treatment.stopped_at.present? %>      
+                <div class='inline-flex text-xs leading-5 font-semibold '><span class="text-gray-500 mr-2">Stopped at:</span> <%= treatment.stopped_at.strftime("%I:%m %p, %d/%m/%Y") %></div>
+              <% else %>
+                <div class='inline-flex text-xs leading-5 font-semibold px-2 w-max rounded-full bg-green-100 text-green-800'>Active</div>
+              <% end %>
             </div>
           </div>
         <% end %>
