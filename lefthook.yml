@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: true
+  commands:
+    js:
+      glob: "*.{js,erb}"
+      run: yarn prettier --write {staged_files}  && git add {staged_files}
+
+    rubocop:
+      glob: "*.{rb}"
+      run: rubocop {staged_files} --parallel
+
+    # rspec:
+    #   tags: rspec backend
+    #   run: bundle exec rspec --fail-fast

@@ -70,9 +70,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
   gem "pry", "~> 0.14.0"
-  gem "htmlbeautifier"
   gem "rubocop", "~> 1.2", require: false # Ruby Style Guide.
   gem "rubocop-rails", "~> 2.8", require: false # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
+  gem "lefthook", "~> 0.7.6"
 end
 
 group :test do
