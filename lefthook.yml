@@ -9,6 +9,6 @@ pre-commit:
       glob: "*.{rb}"
       run: rubocop {staged_files} --parallel
 
-    rspec:
-      tags: rspec backend
-      run: bundle exec rspec --fail-fast
+    # rspec:
+    #   tags: rspec backend
+    #   run: bundle exec rspec --fail-fast
