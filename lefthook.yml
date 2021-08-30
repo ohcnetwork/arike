@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     js:
-      glob: "*.js"
+      glob: "*.{js,erb}"
       run: yarn prettier --write {staged_files}  && git add {staged_files}
 
     rubocop:
