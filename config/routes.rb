@@ -66,6 +66,8 @@ Rails
   # get users belonging to a facility
   get "/facilities/:id/users", to: "facilities#show_users", as: :show_facility_users
   get "/facilities/:id/patients", to: "facilities#show_patients", as: :show_facility_patients
+  get "/facilities/districts_of_state/:state_id", to: "facilities#districts_of_state"
+  get "/facilities/wards_of_lsg_body/:lsg_body_id", to: "facilities#wards_of_lsg_body"
 
   resources :visit_details
   resources :sessions
