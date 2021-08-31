@@ -65,18 +65,22 @@ class FacilitiesController < ApplicationController
     authorize @facility
   end
 
-  # GET /facilities/get_districts_of_state/:state_id
+  # GET /facilities/districts_of_state/:state_id
   def districts_of_state
     state_id = params[:state_id]
     @districts = state_id ? State.find(state_id).districts : []
-    respond_to { |format| format.json { render json: @districts } }
+    respond_to do |format| 
+      format.json { render json: @districts } 
+    end
   end
 
-  # GET facilities/get_wards_of_lsg_body/:lsg_body_id
+  # GET facilities/wards_of_lsg_body/:lsg_body_id
   def wards_of_lsg_body
     lsg_body_id = params[:lsg_body_id]
     @wards = lsg_body_id ? LsgBody.find(lsg_body_id).wards : []
-    respond_to { |format| format.json { render json: @wards } }
+    respond_to do |format| 
+      format.json { render json: @wards } 
+    end
   end
 
   private
