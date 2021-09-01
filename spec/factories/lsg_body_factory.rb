@@ -3,6 +3,6 @@ FactoryBot.define do
     name { generate(:name) }
     kind { 'Panchayat' }
     code { '101' }
-    district_id { District.first.id }
+    district_id { District.last.id }
   end
 end

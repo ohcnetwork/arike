@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :facility, class: 'Facility' do
     kind { 'PHC' }
     name { Faker::Name.first_name }
-    state_id { State.first.id }
-    district_id { District.first.id }
+    state_id { State.last.id }
+    district_id { District.last.id }
     lsg_body_id { LsgBody.last.id }
     ward_id { Ward.last.id }
     address { 'Test Address Body' }
