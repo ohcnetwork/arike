@@ -24,5 +24,18 @@ feature 'Index spec' do
       expect(page).to have_text('Patients')
       expect(page).to have_text(@user.full_name)
     end
+
+    scenario 'View Patient Information' do
+      login_as(@user)
+
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
+
+      click_on("View")
+      expect(page).to have_text(@user.full_name)
+
+    end
   end
 end
