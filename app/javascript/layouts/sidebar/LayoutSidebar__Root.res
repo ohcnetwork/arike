@@ -49,7 +49,7 @@ let userDetails = currentUserName => {
 }
 
 let mobileMenu = (setShowMenu, links, currentUserName) => {
-  <div className="fixed inset-0 flex z-40 md:hidden" role="dialog" ariaModal={true}>
+  <div className="mobileLayoutSidebar fixed inset-0 flex z-40 md:hidden" role="dialog" ariaModal={true}>
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75" ariaHidden={true} />
     <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
       <div className="absolute top-0 right-0 -mr-12 pt-2">
@@ -81,7 +81,7 @@ let mobileMenu = (setShowMenu, links, currentUserName) => {
 }
 
 let desktopMenu = (links, currentUserName) => {
-  <div className="hidden md:flex md:flex-shrink-0 h-full">
+  <div className="desktopLayoutSidebar hidden md:flex md:flex-shrink-0 h-full">
     <div className="flex flex-col w-64">
       <div className="flex flex-col h-0 flex-1 border-r border-gray-200 bg-white">
         <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">

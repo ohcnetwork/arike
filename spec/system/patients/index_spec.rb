@@ -17,16 +17,12 @@ feature 'Index spec' do
     scenario 'View Patients' do
       login_as(@user)
 
-      visit patients_path
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
       expect(page).to have_text('Patients')
       expect(page).to have_text(@user.full_name)
-    end
-
-    scenario 'View a Patient Information' do
-      login_as(@user)
-
-      visit patients_path
-
     end
   end
 end
