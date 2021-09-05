@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    puts "##################################################in user controller"
     authorize User
   end
 
