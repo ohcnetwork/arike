@@ -11,6 +11,7 @@ feature 'Index spec' do
     FactoryBot.create(:facility, kind: 'CHC')
     @patient = FactoryBot.create(:patient)
     @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+    @family_member = FactoryBot.create(:family_details, patient_id: @patient.id)
   end
 
   context 'Superuser', js: true do
@@ -55,6 +56,23 @@ feature 'Index spec' do
       expect(page).to have_text(@patient.phone)
       expect(page).to have_text(@patient.address)
       expect(page).to have_text(@patient.route)
+    end
+
+    scenario "View Family Details of Patient" do
+      login_as(@user)
+
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
+
+      click_on("View")
+
+      click_on("Family Details")
+
+      expect(page).to have_text(@family_member.full_name)
+      expect(page).to have_text(@family_member.phone)
+      expect(page).to have_text(@family_member.relation)
     end
   end
 end
