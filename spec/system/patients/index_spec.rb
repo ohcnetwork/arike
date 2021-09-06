@@ -34,8 +34,27 @@ feature 'Index spec' do
 
 
       click_on("View")
-      expect(page).to have_text(@user.full_name)
+      expect(page).to have_text(@patient.full_name)
 
+    end
+
+    scenario "View Personal Details of Patient" do
+      login_as(@user)
+
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
+
+      click_on("View")
+
+      click_on("Personal Details")
+
+      expect(page).to have_text(@patient.full_name)
+      expect(page).to have_text(@patient.dob)
+      expect(page).to have_text(@patient.phone)
+      expect(page).to have_text(@patient.address)
+      expect(page).to have_text(@patient.route)
     end
   end
 end
