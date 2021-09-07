@@ -3,10 +3,14 @@ class PatientsController < ApplicationController
 
   # GET /patients/
   def index
-    @search_text = params.fetch(:search, '')
+    @search_text = params.fetch(:search, "")
+    @facility_id = params.fetch(:facility, "")
+
+    @facilities = policy_scope(Facility).map { |f| [f.name, f.id] }
+    @facilities.unshift(["all", nil])
 
     # filter and paginate
-    @patients = filter_patients(@search_text)
+    @patients = filter_patients(@search_text, @facility_id)
     authorize Patient
   end
 
@@ -14,7 +18,7 @@ class PatientsController < ApplicationController
   def new
     @patient = Patient.new
     authorize Patient
-    render '/patients/personal_details/form'
+    render "/patients/personal_details/form"
   end
 
   # POST /patients
@@ -24,11 +28,11 @@ class PatientsController < ApplicationController
     volunteer = params[:patient].permit(volunteer: {})
     volunteer_user_ids =
       volunteer[:volunteer].to_h.filter do |_, value|
-        value == 'on'
+        value == "on"
       end.map { |key, _| key }
     @patient.add_users(volunteer_user_ids)
     if !@patient.valid?
-      flash[:alert] = @patient.errors.full_messages.join(', ')
+      flash[:alert] = @patient.errors.full_messages.join(", ")
       redirect_to new_patient_path
       return
     end
@@ -43,13 +47,13 @@ class PatientsController < ApplicationController
   # GET /patients/:id/edit
   def edit
     authorize Patient
-    render '/patients/personal_details/form'
+    render "/patients/personal_details/form"
   end
 
   def show_detail
     @patient = Patient.find_by(id: params[:patient_id])
     authorize Patient
-    render 'show'
+    render "show"
   end
 
   # PUT /patients/:id/
@@ -59,11 +63,11 @@ class PatientsController < ApplicationController
     volunteer = params[:patient].permit(volunteer: {})
     volunteer_user_ids =
       volunteer[:volunteer].to_h.filter do |_, value|
-        value == 'on'
+        value == "on"
       end.map { |key, _| key }
     @patient.update_users(volunteer_user_ids)
     if !@patient.valid?
-      flash[:alert] = @patient.errors.full_messages.join(', ')
+      flash[:alert] = @patient.errors.full_messages.join(", ")
       redirect_to edit_patient_path
       return
     end
@@ -94,9 +98,11 @@ class PatientsController < ApplicationController
       )
   end
 
-  def filter_patients(search_text)
+  def filter_patients(search_text, facility_id)
+    return policy_scope(Patient).where(facility_id: facility_id) if (facility_id != "")
+
     policy_scope(Patient).where(
-      'full_name ILIKE :search_text',
+      "full_name ILIKE :search_text",
       search_text: "%#{search_text}%",
     )
   end
