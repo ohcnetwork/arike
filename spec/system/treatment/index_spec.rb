@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Index spec", js: true do
+feature "Treatment spec", js: true do
 	include UserSpecHelper
 	
 	before(:all) do
@@ -24,11 +24,16 @@ feature "Index spec", js: true do
 		end
 	end
 
-	context 'When user sign in' do
+	context 'When an authorized user sign in' do
 		before do
-			@user = FactoryBot.create(:user, verified: true)
+			@user = FactoryBot.create(:user, verified: true, role: ["Superuser", "Medical Officer", "Primary Nurse", "Secondary Nurse"].sample)
 			login_as(@user)
-			visit patient_treatment_path(@patient)
+			within('#dashboard-tiles') do
+				click_link "Patients"
+			end
+			find_link('View', match: :first).click
+
+			find_link("Edit Treatment").click
 		end
 
     scenario "Treatment Page" do      
@@ -70,8 +75,6 @@ feature "Index spec", js: true do
 
 			#Check is treatments are added
 			within("#active-treatments") do
-				puts treatments.pluck(:name)
-				puts treatments.limit(3).pluck(:name)
 				treatments.each_with_index do |x, i|
 					treatments.last == x ? (expect(page).not_to have_text(x.name)) : (expect(page).to have_text(x.name))
 				end

@@ -29,5 +29,6 @@ FactoryBot.define do
     verified { true }
     password { 'password123' }
     role { User.roles[:asha] }
+    facility_id { Facility.last.id }
   end
 end
