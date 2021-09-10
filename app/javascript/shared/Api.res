@@ -43,7 +43,6 @@ let handleResponse = (~responseCB, ~errorCB, ~notify=true, promise) => {
   |> then_(json => handleResponseJSON(json, responseCB, errorCB, notify) |> resolve)
   |> catch(error => {
     errorCB()
-    Js.log(error)
     resolve(notify ? handleResponseError(error) : ())
   })
   |> ignore

@@ -63,13 +63,11 @@ let make = (~props) => {
   let (state, dispatch) = React.useReducer(reducer, props)
 
   let optionClickHandler = (option: DropdownOption.t) => {
-    Js.log(option)
     let isSelected = state.selectedTreatments->Js.Array2.find(i => i.id === option.id)
     if isSelected->Belt.Option.isNone {
       dispatch(AddTreatment(option))
     }
   }
-  Js.log(state)
   let disableButton = state.selectedTreatments->Js.Array2.length === 0
 
   <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
