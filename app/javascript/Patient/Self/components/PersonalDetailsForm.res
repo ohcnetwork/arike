@@ -156,7 +156,9 @@ let make = (~props) => {
                 />
               </div>
               <div className="ml-3 text-sm">
-                <label name="patient[volunteer[${e[1]}]]" className="font-medium text-gray-700">
+                <label
+                  name={`patient[volunteer[${toString(e[1])}]]`}
+                  className="font-medium text-gray-700">
                   {s(toString(e[0]))}
                 </label>
               </div>
@@ -185,6 +187,7 @@ let make = (~props) => {
     <div className="actions">
       <input
         type_="submit"
+        value="Submit"
         className="mt-8 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       />
     </div>
