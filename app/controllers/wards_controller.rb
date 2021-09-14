@@ -40,10 +40,10 @@ class WardsController < ApplicationController
     redirect_to ward_path(id)
   end
 
-  def destroy
-    authorize Ward
-    Ward.delete(params[:id])
+  # def destroy
+  #   authorize Ward
+  #   Ward.delete(params[:id])
 
-    redirect_to wards_path
-  end
+  #   redirect_to wards_path
+  # end
 end

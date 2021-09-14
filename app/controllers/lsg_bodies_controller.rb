@@ -34,11 +34,11 @@ class LsgBodiesController < ApplicationController
     redirect_to lsg_body_path(params[:id])
   end
 
-  def destroy
-    authorize LsgBody
-    LsgBody.delete(params[:id])
-    redirect_to lsg_bodies_path
-  end
+  # def destroy
+  #   authorize LsgBody
+  #   LsgBody.delete(params[:id])
+  #   redirect_to lsg_bodies_path
+  # end
 
   private
 
