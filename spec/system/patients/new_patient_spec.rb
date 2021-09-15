@@ -12,7 +12,7 @@ feature 'Create Patient spec' do
     @patient = FactoryBot.create(:patient)
     (1...5).each do
       FactoryBot.create(:volunteer)
-    end    
+    end
   end
 
   context 'For a superuser', js: true do
@@ -49,10 +49,12 @@ feature 'Create Patient spec' do
       fill_in "patient[route]", with: route
       fill_in "patient[address]", with: address
       fill_in "patient[notes]", with: notes
-      find("label[name='patient[volunteer[#{volunteer.id}]]']").click
+      # find("label[name='patient[volunteer[#{volunteer.id}]]']").click
       select economic_status, from: "patient[economic_status]"
 
-      click_button "Submit"
+      within(find("div.actions")) do
+        click_on("Submit")
+      end
 
       expect(page).to have_text("Patients")
       expect(page).to have_text(name)
