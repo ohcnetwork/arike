@@ -16,14 +16,12 @@ class PatientPolicy < ApplicationPolicy
       return Patient.all if (user.superuser?)
 
       # CHC -> All PHCs
-      all_facilities =
-        Facility
+      all_facilities = user.facility ? 
+        (Facility
           .where(id: user.facility.id)
-          .or(Facility.where(parent_id: user.facility.id))
-      if user.secondary_nurse? || user.medical_officer?
-        return Patient.joins(:facility).where(facilities: all_facilities)
-      end
-
+          .or(Facility.where(parent_id: user.facility.id))) : Facility.none
+      
+      return Patient.joins(:facility).where(facilities: all_facilities) if user.secondary_nurse? || user.medical_officer?
       return user.facility.patients if user.primary_nurse?
 
       return user.facility.patients if (user.primary_nurse?)

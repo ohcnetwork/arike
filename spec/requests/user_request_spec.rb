@@ -3,20 +3,17 @@ require "rails_helper"
 RSpec.describe "Users", type: :request do
   it "creates a new user with correct details" do
     full_name = Faker::Name.name
-    first_name = Faker::Name.first_name
     email = Faker::Internet.email
-    post create_custom_user_path, params: { user: { first_name: first_name, full_name: full_name, role: User.roles[:asha], email: email, phone: Faker::Number.number(digits: 10), verified: false, password: "0" } }
+    post create_custom_user_path, params: { user: { full_name: full_name, role: User.roles[:asha], email: email, phone: Faker::Number.number(digits: 10), verified: false, password: "0" } }
     user = User.last
     expect(user.full_name).to eq(full_name)
-    expect(user.first_name).to eq(first_name)
     expect(user.email).to eq(email)
   end
 
   it "validates new user email address" do
     full_name = Faker::Name.name
-    first_name = Faker::Name.first_name
     email = "invalid_abcd$!@"
-    post create_custom_user_path, params: { user: { first_name: first_name, full_name: full_name, role: User.roles[:asha], email: email, phone: Faker::Number.number(digits: 10), verified: false, password: "0" } }
+    post create_custom_user_path, params: { user: { full_name: full_name, role: User.roles[:asha], email: email, phone: Faker::Number.number(digits: 10), verified: false, password: "0" } }
     expect(User.count).to eq(0)
     expect(response).to redirect_to("/signup")
     follow_redirect!

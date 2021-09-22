@@ -11,9 +11,6 @@
                     Full Name
                   </th>
                   <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    First Name
-                  </th>
-                  <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Email
                   </th>
                   <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -32,7 +29,7 @@
               <tbody x-max="2">
                 <% users.each do |user| %>
                   <%= render partial: "table-row",
-                             locals: { full_name: user[:full_name], first_name: user[:first_name], phone: user[:phone], email: user[:email], role: user[:role], id: user[:id], verified: user[:verified], can_edit: user[:can_edit] } %>
+                             locals: { full_name: user[:full_name], phone: user[:phone], email: user[:email], role: user[:role], id: user[:id], verified: user[:verified], can_edit: user[:can_edit] } %>
                 <% end %>
               </tbody>
             </table>
