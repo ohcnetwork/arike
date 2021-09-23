@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_11_083108) do
+ActiveRecord::Schema.define(version: 2021_09_24_202133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -79,6 +79,9 @@ ActiveRecord::Schema.define(version: 2021_09_11_083108) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "code"
     t.uuid "district_id", null: false
+    t.boolean "archived", default: false
+    t.string "archived_by"
+    t.datetime "archived_at"
     t.index ["district_id"], name: "index_lsg_bodies_on_district_id"
   end
 

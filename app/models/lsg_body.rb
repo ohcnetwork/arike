@@ -10,4 +10,6 @@ class LsgBody < ApplicationRecord
          corporation: 'Corporation',
          panchayat: 'Panchayat',
        }
+
+  scope :live_lsgs, -> { where(archived: false) }
 end
