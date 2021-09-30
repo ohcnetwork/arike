@@ -42,7 +42,7 @@ feature 'Index spec' do
     end
 
     # Edit Personal Details of Patient
-    scenario 'Edit Name of Patient' do
+    scenario 'Edit Personal Details of Patient' do
       @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
       login_as(@user)
 
@@ -92,7 +92,7 @@ feature 'Index spec' do
     end
 
     # Edit Family Details of Patient
-    scenario 'Edit Name of Patient' do
+    scenario 'Edit Family Details of Patient' do
       @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
       login_as(@user)
 
@@ -126,6 +126,51 @@ feature 'Index spec' do
       expect(page).to have_text(name)
       expect(page).to have_text(dob)
       expect(page).to have_text(phone)
+    end
+
+    # Edit Disease History of Patient
+    scenario 'Edit Disease History of Patient' do
+      Disease.create!([
+        {name: "DM", icds_code: "D-32"},
+        {name: "Hypertension", icds_code: "HT-58"},
+        {name: "IHD", icds_code: "IDH-21"},
+        {name: "COPD", icds_code: "DPOC-144"},
+        {name: "Dementia", icds_code: "DM-62"},
+        {name: "CVA", icds_code: "CAV-89"},
+        {name: "Cancer", icds_code: "C-98"},
+        {name: "CKD", icds_code: "DC-25"}
+      ])
+
+      @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+      login_as(@user)
+
+      @patient = Patient.last
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
+      click_on("View")
+      click_on("Add Health Information")
+
+      expect(page).to have_text("Disease History")
+
+      disease_name = ["DPOC-144 - COPD", "D-32 - DM", "CAV-89 - CVA"].sample
+      diagnosis_date = Faker::Date.in_date_period
+      investigation = Faker::Lorem.paragraph
+      treatment = Faker::Lorem.paragraph
+
+      select disease_name, from: "patientDiseases[2][name]"
+      fill_in "patientDiseases[2][date_of_diagnosis]", with: diagnosis_date
+      fill_in "patientDiseases[2][treatments]", with: treatment
+      fill_in "patientDiseases[2][investigation]", with: investigation
+
+      click_on("Save")
+
+      click_on("Disease History")
+
+      expect(page).to have_text("Patients")
+      expect(page).to have_text(investigation)
+      expect(page).to have_text(treatment)
     end
   end
 end
