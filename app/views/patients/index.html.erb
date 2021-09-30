@@ -59,7 +59,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody x-max="2">
+              <tbody x-max="2" class="patients_table">
                 <% @patients.each do |patient| %>
                   <%= render partial: 'table-row', locals: { patient: patient} %>
                 <% end %>
