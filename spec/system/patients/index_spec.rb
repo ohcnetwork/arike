@@ -40,6 +40,8 @@ feature 'Index spec' do
       expect(page).to have_text(@patient.full_name)
 
     end
+
+    # Edit Personal Details of Patient
     scenario 'Edit Name of Patient' do
       @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
       login_as(@user)
@@ -87,6 +89,43 @@ feature 'Index spec' do
       expect(page).to have_text(dob)
       expect(page).to have_text(phone)
       expect(page).to have_text(address)
+    end
+
+    # Edit Family Details of Patient
+    scenario 'Edit Name of Patient' do
+      @user = FactoryBot.create(:user, role: User.roles[:superuser], verified: true)
+      login_as(@user)
+
+      @patient = Patient.last
+      within(find("div.desktopLayoutSidebar")) do
+        click_on("Patients")
+      end
+
+      click_on("View")
+      click_on("Edit Family Details")
+
+      name = generate(:full_name)
+      dob = Faker::Date.in_date_period
+      relationship = ["Mother", "Father", "Sister", "Brother"].sample
+      phone = Faker::Number.number(digits: 10)
+      education = ["Uneducated", "10th Standard", "12th Standard", "Graduate"].sample
+      occupation = ["Jobless", "Public Servant", "Private Job", "Business"].sample
+
+      fill_in "familyDetails[1][full_name]", with: name
+      select relationship, from: "familyDetails[1][relation]"
+      fill_in "familyDetails[1][dob]", with: dob
+      fill_in "familyDetails[1][phone]", with: phone
+      select education, from: "familyDetails[1][education]"
+      select occupation, from: "familyDetails[1][occupation]"
+
+      click_on("Save")
+
+      click_on("Family Details")
+
+      expect(page).to have_text("Patients")
+      expect(page).to have_text(name)
+      expect(page).to have_text(dob)
+      expect(page).to have_text(phone)
     end
   end
 end
