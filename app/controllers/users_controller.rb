@@ -17,13 +17,12 @@ class UsersController < ApplicationController
     new_user =
       params
         .require(:user)
-        .permit(:full_name, :first_name, :role, :email, :phone)
+        .permit(:full_name, :role, :email, :phone)
     user = User.find(params[:id])
     authorize User
     if user
       user.update(
         full_name: new_user[:full_name],
-        first_name: new_user[:first_name],
         role: new_user[:role],
         email: new_user[:email],
         phone: new_user[:phone],
@@ -38,7 +37,6 @@ class UsersController < ApplicationController
         .require(:user)
         .permit(
           :full_name,
-          :first_name,
           :role,
           :email,
           :password,

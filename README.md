@@ -34,6 +34,9 @@ rails server
 
 #to run the tests
 bundle exec rspec
+
+#to run a specific test file
+bundle exec rspec path/to/spec/file.rb #(eg: bundle exec rspec spec/system/home/index_spec.rb)
 ```
 
 ## General Notes
@@ -62,3 +65,5 @@ false
 
 Created [..]/changelog/unreleased/20170521-a-cool-new-feature-has-been-added.yml
 ```
+## More
+Check out the wiki for more information!

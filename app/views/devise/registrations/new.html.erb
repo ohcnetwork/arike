@@ -11,14 +11,8 @@
         </h2>
       </div>
 
-      <%= form_with model: @user do |form| %>
+      <%= form_with model: @user, url: user_registration_path, method: :POST do |form| %>
         <%= render "devise/shared/error_messages", resource: resource %>
-        <div class="my-2">
-          <%= form.label :first_name, class: "block text-sm font-medium text-gray-700" %>
-          <div class="mt-1">
-            <%= form.text_field :first_name, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
-          </div>
-        </div>
         <div class="my-2">
           <%= form.label :full_name, class: "block text-sm font-medium text-gray-700" %>
           <div class="mt-1">
