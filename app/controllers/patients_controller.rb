@@ -70,6 +70,11 @@ class PatientsController < ApplicationController
     redirect_to patient_path
   end
 
+  def treatment_details
+    patient = Patient.find(params[:patient_id])
+    render "treatment/new"
+  end
+
   private
 
   def set_patient

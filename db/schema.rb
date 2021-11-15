@@ -93,6 +93,16 @@ ActiveRecord::Schema.define(version: 2021_08_15_050220) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "patient_treatments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "patient_id"
+    t.string "category"
+    t.string "name"
+    t.datetime "stopped_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+  end
+
   create_table "patients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "full_name"
     t.date "dob"
@@ -113,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_050220) do
     t.datetime "expired"
     t.string "state"
     t.string "district"
+    t.json "treatment"
     t.index ["facility_id"], name: "index_patients_on_facility_id"
   end
 
@@ -173,6 +184,13 @@ ActiveRecord::Schema.define(version: 2021_08_15_050220) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "treatments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "category"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
