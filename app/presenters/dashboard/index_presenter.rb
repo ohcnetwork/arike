@@ -27,7 +27,7 @@ module Dashboard
     end
 
     def calendar
-      [link("calendar", view.schedule_path(anchor: "calender"))]
+      [link("calendar", view.agenda_path)]
     end
 
 
