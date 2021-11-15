@@ -13,7 +13,7 @@ FactoryBot.define do
     full_name { generate(:full_name) }
     email { Faker::Internet.email }
     phone { Faker::Number.number(digits: 10) }
-    password { "password123" }
+    password { 'password123' }
     role { User.roles[:volunteer] }
   end
 
@@ -22,7 +22,8 @@ FactoryBot.define do
     email { Faker::Internet.email }
     phone { Faker::Number.number(digits: 10) }
     verified { true }
-    password { "password123" }
+    password { 'password123' }
     role { User.roles[:asha] }
+    facility_id { Facility.last.id }
   end
 end
