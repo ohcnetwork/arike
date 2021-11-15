@@ -15,16 +15,14 @@ let make = (~props: props) => {
   )
   let (filters, updateFilters) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
 
-  let upatients = patients.unselectedPatients
-
   React.useEffect4(() => {
     let procedure_filtered_patients = !(filters.procedures->length == 0)
-      ? upatients->Js.Array2.filter(patient => {
+      ? props.patients->Js.Array2.filter(patient => {
           filters.procedures->Js.Array2.every(filter =>
             filter->Js.Array.includes(patient.procedures)
           )
         })
-      : upatients
+      : props.patients
 
     let ward_filtered_patients = !(filters.wards->length == 0)
       ? procedure_filtered_patients->Js.Array2.filter(patient => {
