@@ -2,7 +2,7 @@ module Dashboard
   class IndexPresenter < ::ApplicationPresenter
     def links
       schedule + lsg_body + wards + patients +
-        calendar + new_users + users + facilities + account_settings
+        agenda + new_users + users + facilities + account_settings
     end
 
     def link(key, path)
@@ -23,8 +23,8 @@ module Dashboard
       [link('patients', view.patients_path)]
     end
 
-    def calendar
-      [link('calendar', view.schedule_path(anchor: 'calender'))]
+    def agenda
+      [link('agenda', view.agenda_path)]
     end
 
     def new_users
