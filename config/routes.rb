@@ -69,10 +69,14 @@ Rails
   get "/facilities/districts_of_state/:state_id", to: "facilities#districts_of_state"
   get "/facilities/wards_of_lsg_body/:lsg_body_id", to: "facilities#wards_of_lsg_body"
 
+  resources :lsg_bodies do
+    put 'archive'
+    put 'unarchive'
+  end
+
   resources :visit_details
   resources :sessions
   resources :facilities
-  resources :lsg_bodies
   resources :wards
   devise_for :users, controllers: {
     sessions: "users/sessions",

@@ -52,7 +52,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @lsg_body.each do |lsg_body| %>
+                <% policy_scope(@lsg_body).each do |lsg_body| %>
                   <tr class="bg-white">
                     <td
                       class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
@@ -79,7 +79,11 @@
                     >
                       <%= link_to "View", lsg_body_path(lsg_body.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
                       <%= link_to "Edit", edit_lsg_body_path(lsg_body.id), class: "px-2 text-indigo-600 hover:text-indigo-900" %>
-                      <%= link_to "Delete", lsg_body_path(lsg_body.id), class: "px-2 text-red-600 hover:text-red-900", method: :delete %>
+                      <% if lsg_body.archived? %>
+                        <%= link_to "Unarchive", lsg_body_unarchive_path(lsg_body), class: "px-2 text-red-600 hover:text-red-900", method: :put %>
+                      <% else %>
+                        <%= link_to "Archive", lsg_body_archive_path(lsg_body), class: "px-2 text-red-600 hover:text-red-900", method: :put %>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
