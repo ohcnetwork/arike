@@ -42,9 +42,9 @@ en:
             title: "Visit"
             text: "Visit a patient and record their details."
             icon: "bus-alt"
-          calendar:
-            title: "Calendar"
-            text: "See the current calendar for visits."
+          agenda:
+            title: "Agenda"
+            text: "See the Agenda for scheduled visits."
             icon: "calendar"
           enroll_patients:
             title: "Enroll New Patients"
