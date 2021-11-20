@@ -18,6 +18,7 @@ Rails
   #Schedule
   get "/schedule", to: "schedule#index", as: :schedule
   post "/schedule", to: "schedule#schedule"
+  delete "/schedule", to: "schedule#unschedule"
   get '/agenda', to: 'agenda#index', as: :agenda
 
   # patients
