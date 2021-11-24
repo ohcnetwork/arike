@@ -1,26 +1,43 @@
+<div className="mt-10 flex align-center">
+  <input id="agenda-goto-date" type="date" class="rounded-md my-2 mx-2 mb-4" />
+  <button
+    onClick="gotoAgendaDate()"
+    class="items-center px-2 py-2 mb-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+    Goto
+  </button>
+</div>
+
 
 <div class="relative w-1/2 m-8">
-  <div class="border-r-2 border-gray-500 absolute h-full top-0" style="left: 15px"></div>
+  <div class="border-r-2 border-gray-500 absolute h-full top-5" style="left: 15px"></div>
+
   <ul class="list-none m-0 p-0">
-  <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
-
-    <li class="mb-2">
-      <div class="flex items-center mb-1">
-        <div class="bg-gray-500 rounded-full h-8 w-8"></div>
-        <div class="flex-1 ml-4 font-medium"><%=d.strftime("%a, %d %b, %Y")%></div>
-      </div>
-      <%Visit.scheduled_visits_on(d).each do |visit|%>
-      <div class="ml-12">
-        <%= link_to visit.patient.full_name,  patient_path(visit.patient.id) %>
-        <%= link_to "Unschedule", schedule_path(patient: visit.patient.id), method: "delete", class: "text-blue-400 ml-2" %>
-        <%= link_to "Visit", patient_path(visit.patient.id), class: "text-blue-400 ml-2" %>
-        <!--div class="ml-2">
-         <span class=" text-red-400"><%= visit.patient%></span>
-        </div-->
-      </div>
-      <%end%>
-    </li>
+    <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
+      <li class="mb-2">
+        <div class="flex items-center mb-1">
+          <div class="bg-gray-500 rounded-full h-8 w-8"></div>
+          <div class="flex-1 ml-4 font-medium font-bold" id="agenda-<%=d.strftime("%Y-%m-%d")%>"><%=d.strftime("%a, %d %b, %Y")%></div>
+        </div>
+        <%Visit.scheduled_visits_on(d).each do |visit|%>
+        <div class="ml-12">
+          <%= link_to visit.patient.full_name,  patient_path(visit.patient.id) %>
+          <%= link_to "Unschedule", schedule_path(patient: visit.patient.id), method: "delete", class: "text-red-400 ml-2" %>
+          <%= link_to "Visit", patient_path(visit.patient.id), class: "text-blue-400 ml-2" %>
+          <!--div class="ml-2">
+          <span class=" text-red-400"><%= visit.patient%></span>
+          </div-->
+        </div>
+        <%end%>
+      </li>
     <%end%>
-
   </ul>
 </div>
+
+<script>
+  function gotoAgendaDate(){
+    const date = document.getElementById("agenda-goto-date").value;
+    const agenda = document.getElementById(`agenda-${date}`);
+    console.log(agenda, `agenda-${date}`)
+    agenda.scrollIntoView();
+  }
+</script>
