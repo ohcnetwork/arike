@@ -1,4 +1,4 @@
-<div class="mt-10 flex align-center">
+<div class="mt-10 flex align-center justify-end">
   <input id="agenda-goto-date" type="date" class="rounded-md my-2 mx-2 mb-4" />
   <button
     onClick="gotoAgendaDate()"
@@ -14,14 +14,14 @@
   <ul class="list-none m-0 p-0">
     <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
       <li class="mb-2">
-        <div class="flex items-center mb-1">
+        <div class="flex items-center mb-2 mt-4">
           <div class="bg-gray-500 rounded-full h-8 w-8"></div>
           <div class="flex-1 ml-4 font-medium font-bold" id="agenda-<%=d.strftime("%Y-%m-%d")%>"><%=d.strftime("%a, %d %b, %Y")%></div>
         </div>
 
         <ul class="ml-12 flex flex-wrap gap-6">
           <%Visit.scheduled_visits_on(d).each do |visit|%>
-            <li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+            <li class="col-span-1 bg-white rounded-lg border border-gray-100 shadow divide-y divide-gray-200">
               <div class="w-full flex items-center justify-between p-6 space-x-6">
                 <div class="flex-1 truncate">
                   <div class="flex items-center space-x-3">
