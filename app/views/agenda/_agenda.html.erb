@@ -37,7 +37,7 @@
 
               <div class="flex align-center justify-evenly">
                 <%= link_to "Unschedule", schedule_path(patient: visit.patient.id), method: "delete", class: "items-center my-2 p-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none" %>
-                <%= link_to "Visit", patient_path(visit.patient.id), class: "items-center my-2 p-1 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none" %>
+                <%= link_to "Visit Patient", patient_visit_details_new_path(patient_id: visit.patient.id), class: "items-center my-2 p-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none" %>
               </div>
             </li>
           <%end%>
