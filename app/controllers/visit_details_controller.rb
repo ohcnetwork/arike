@@ -1,64 +1,57 @@
 class VisitDetailsController < ApplicationController
-  skip_before_action :verify_authenticity_token 
+  skip_before_action :verify_authenticity_token
+
+  def index
+    @patient = Patient.find_by(id: params[:patient_id])
+    @visits = VisitDetail.all.where(patient_id: params[:patient_id]).reverse()
+    render "index"
+  end
+
   def create
-    visit = VisitDetail.new(
-      akps: Integer(params[:akps]),
-      disease_history_changed: params[:disease_history_changed],
-      palliative_phase: params[:palliative_phase],
-      patient_worried: params[:patient_worried],
-      family_anxious: params[:family_anxious],
-      patient_depressed: params[:patient_depressed],
-      patient_feels: params[:patient_feels],
-      patient_informed: params[:patient_informed],
-      patient_at_peace: params[:patient_at_peace],
-      pain: params[:pain],
-      shortness_breath: params[:shortness_breath],
-      weakness: params[:weakness],
-      poor_mobility: params[:poor_mobility],
-      nausea: params[:nausea],
-      vomiting: params[:vomiting],
-      poor_appetite: params[:poor_appetite],
-      constipation: params[:constipation],
-      sore: params[:sore],
-      drowsiness: params[:drowsiness],
-      wound: params[:wound],
-      lack_of_sleep: params[:lack_of_sleep],
-      micturition: params[:micturition],
-      other_symptoms: params[:other_symptoms],
-      bp: params[:bp],
-      grbs: params[:grbs],
-      rr: params[:rr],
-      pulse: params[:pulse],
-      personal_hygiene: params[:personal_hygiene],
-      mouth_hygiene: params[:mouth_hygiene],
-      pubic_hygiene: params[:pubic_hygiene],
-      systemic_examination: params[:systemic_examination],
-      done_by: params[:done_by]
-    )
+    visit =
+      VisitDetail.new()
 
     if visit.save
-      flash[:notice] = "Successfully created visit"
+      flash[:notice] = 'Successfully created visit'
       redirect_to new_visit_detail_path
     else
-      flash[:alert] = visit.error.full_messages.join(", ")
+      flash[:alert] = visit.error.full_messages.join(', ')
       redirect_to new_visit_detail_path
     end
   end
 
   def new
-
+    @visit = VisitDetail.create!(patient_id: params[:patient_id])
+    @patient=Patient.find_by(id: params[:patient_id])
+    redirect_to patient_visit_general_information_path(@patient,@visit)
   end
 
-  def decision
+  def show
+    @general_health_information = GeneralHealthInformation.find_by(visit_id: params[:id])
+    @physical_symptom = PhysicalSymptom.find_by(visit_id: params[:id])
+    @physical_examination = PhysicalExamination.find_by(visit_id: params[:id])
+    @psychological_review = PsychologicalReview.find_by(visit_id: params[:id])
+
+    puts "General Health Info"
+    puts @general_health_information
+
+    puts "Physical Symptom"
+    puts @physical_symptom
+
+    puts "Physical Examination"
+    puts @physical_examination
+
+    puts "Psychological"
+    puts @psychological_review
+
+    render "show"
   end
 
-  def expired
-  end
+  def decision; end
 
-  def assign_to
-  end
+  def expired; end
 
-  def schedule_revisit
-  end
+  def assign_to; end
 
+  def schedule_revisit; end
 end

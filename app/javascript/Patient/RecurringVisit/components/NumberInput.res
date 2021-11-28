@@ -1,7 +1,7 @@
 let s = React.string
 
 @react.component
-let make = (~question, ~field, ~minimum, ~maximum, ~divClass,~isRequired) => {
+let make = (~value, ~question, ~field, ~minimum, ~maximum, ~divClass, ~isRequired) => {
   let min_value = minimum->Belt.Option.map(limit => Belt.Int.toString(limit))
   let min_value = switch min_value {
   | Some(min_value) => min_value
@@ -18,6 +18,7 @@ let make = (~question, ~field, ~minimum, ~maximum, ~divClass,~isRequired) => {
     <div className="mt-1">
       <input
         type_="number"
+        defaultValue=value
         min=min_value
         max=max_value
         name=field

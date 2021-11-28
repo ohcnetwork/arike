@@ -1,0 +1,11 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PhysicalSymptomPack' %>
+<% end %>
+
+<script type="text/json" id="physical-symptoms-form-data">
+  <%= info.to_json.html_safe %>
+</script>
+
+<%= form_with url: patient_new_visit_physical_symptom_path(patient,visit), method: :post do |form| %>
+  <div id="physical-symptoms-form"></div>
+<% end %>

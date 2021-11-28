@@ -4,7 +4,7 @@ after "development:facilities" do
       full_name: Faker::Name.name,
       role: User.roles[:superuser],
       encrypted_password: "Superpassword",
-      password: "check12345",
+      password: "password",
       verified: true,
       email: "admin@arike.com",
       phone: rand(10 ** 10),

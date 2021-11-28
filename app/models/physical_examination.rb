@@ -1,0 +1,2 @@
+class PhysicalExamination < ApplicationRecord
+end

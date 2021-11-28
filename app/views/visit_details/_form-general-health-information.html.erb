@@ -1,0 +1,11 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'GeneralHealthInfoPack' %>
+<% end %>
+
+<script type="text/json" id="general-health-information-form-data">
+  <%= info.to_json.html_safe %>
+</script>
+
+<%= form_with url: patient_new_visit_general_information_path(patient,visit), method: :post do |form| %>
+  <div id="general-health-information-form"></div>
+<% end %>

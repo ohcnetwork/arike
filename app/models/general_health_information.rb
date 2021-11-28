@@ -1,0 +1,2 @@
+class GeneralHealthInformation < ApplicationRecord
+end

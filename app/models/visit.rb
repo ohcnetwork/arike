@@ -53,6 +53,12 @@ class Visit < ApplicationRecord
     visit.save
   end
 
+  def self.unschedule(patient_id)
+    visit = all.where(patient_id: patient_id)[0]
+    visit.next_visit = nil
+    visit.save
+  end
+
   def self.scheduled_visits_on(date)
     all.where(next_visit: date)
   end

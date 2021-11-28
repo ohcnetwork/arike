@@ -1,0 +1,11 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PhysicalExaminationPack' %>
+<% end %>
+
+<script type="text/json" id="physical-examination-form-data">
+  <%= info.to_json.html_safe %>
+</script>
+
+<%= form_with url: patient_new_visit_physical_examination_path(patient,visit), method: :post do |form| %>
+  <div id="physical-examination-form"></div>
+<% end %>

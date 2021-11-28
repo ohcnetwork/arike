@@ -27,17 +27,25 @@
         </div>
       </div>
       <div class="w-full sm:w-1/4 md:w-2/5 justify-between">
-        <div class="w-full mx-1 mb-4 md:text-lg inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          <i class="fas fa-plus-square w-32 ml-16 mr-3 my-1 align-middle"></i>
+        <div class="w-full justify-center mx-1 mb-4 md:text-lg inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <i class="fas fa-plus-square w-32 mr-3 my-1 align-middle"></i>
           <%= link_to 'Add Health Information', patient_disease_history_path(@patient) %>
         </div>
-        <div class="text-indigo-800 md:text-lg w-full mx-1 mb-4 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
-          <i class="fas fa-user-edit ml-16 mr-3 my-1 align-middle"></i>
+        <div class="text-indigo-800 justify-center md:text-lg w-full mx-1 mb-4 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+          <i class="fas fa-user-edit mr-3 my-1 align-middle"></i>
           <%= link_to "Edit Personal Details", edit_patient_path(@patient) %>
         </div>
-        <div class="text-indigo-800 md:text-lg w-full mx-1 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
-          <i class="far fa-edit ml-16 mr-3 my-1 align-middle"></i>
+        <div class="text-indigo-800 justify-center md:text-lg w-full mx-1 mb-4 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+          <i class="far fa-edit mr-3 my-1 align-middle"></i>
           <%= link_to 'Edit Family Details', patient_family_details_path(@patient) %>
+        </div>
+        <div class="text-indigo-800 justify-center md:text-lg w-full mx-1 mb-4 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+          <i class="fas fa-bus-alt mr-3 my-1 align-middle"></i>
+          <%= link_to 'Visit Details', patient_visit_details_path(@patient) %>
+        </div>
+        <div class="text-indigo-800 justify-center md:text-lg w-full mx-1 inline-flex py-4 px-4 border border-transparent shadow-sm rounded-md text-white bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+           <i class="fas fa-bus-alt mr-3 my-1 align-middle"></i>
+          <%= link_to 'Edit Treatment', patient_treatment_path(@patient) %>
         </div>
       </div>
     </div>
@@ -48,10 +56,11 @@
         Additional Information
       </h3>
 
-      <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md">
+      <div class="flex justify-between mb-8 bg-indigo-100 px-2 lg:px-8 py-4 rounded-md gap-x-2">
         <%= link_to "Personal Details", patient_show_personal_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 w-3/12 lg:mr-0 text-center" %>
         <%= link_to "Family Details", patient_show_family_details_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
-        <%= link_to "Disease History", patient_show_disease_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
+        <%= link_to "Disease History", patient_show_disease_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 mr-4 lg:mr-0 w-3/12 text-center" %>
+        <%= link_to "Treatment History", patient_show_treatment_history_path(@patient), class: "text-xs tab-label px-4 py-6 lg:text-lg text-white bg-indigo-600 rounded hover:bg-indigo-800 w-3/12 text-center" %>
       </div>
 
           <% if request.path == patient_show_personal_details_path(@patient) %>
@@ -68,7 +77,7 @@
               </div>
             </div>
 
-          <% else %>
+          <% elsif request.path == patient_show_disease_history_path(@patient) %>
             <div class="overflow-hidden bg-gray-100 p-0 sm:p-4">
               <div class="container bg-gray-200 mx-auto w-full h-full">
                 <div
@@ -77,6 +86,20 @@
                   <div class="absolute h-full"></div>
                   <% @patient.patient_disease_summaries.order(date_of_diagnosis: :desc).each_with_index do |disease,i| %>
                     <%= render partial: "/patients/disease_history/info-card", locals: {disease: disease, index: i + 1} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+          <% else %>
+            <div class="overflow-hidden bg-gray-100 p-0 sm:p-4">
+              <div class="container bg-gray-200 mx-auto w-full h-full">
+                <div
+                  class="relative wrap overflow-hidden px-4 sm:px-6 md:px-8 h-full py-8"
+                >
+                  <div class="absolute h-full"></div>
+                  <% @patient.patient_treatments.order(created_at: :desc).group_by { |c| c.created_at.to_date }.each_with_index do |(date, treatments),i| %>
+                    <%= render partial: "/patients/treatment_history/info-card", locals: {date: date, treatments: treatments, index: i + 1} %>
                   <% end %>
                 </div>
               </div>

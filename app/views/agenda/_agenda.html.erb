@@ -1,25 +1,57 @@
+<div class="mt-10 flex align-center justify-end">
+  <input id="agenda-goto-date" type="date" class="rounded-md my-2 mx-2 mb-4" />
+  <button
+    onClick="gotoAgendaDate()"
+    class="items-center px-2 py-2 mb-4 mt-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+    Goto
+  </button>
+</div>
 
-<div class="relative w-1/2 m-8">
-  <div class="border-r-2 border-gray-500 absolute h-full top-0" style="left: 15px"></div>
+
+<div class="relative w-full m-8">
+  <div class="border-r-2 border-gray-500 absolute h-full top-5" style="left: 15px"></div>
+
   <ul class="list-none m-0 p-0">
-  <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
+    <%Visit.where.not(next_visit: nil).distinct.pluck(:next_visit).sort.each do |d|%>
+      <li class="mb-2">
+        <div class="flex items-center mb-2 mt-4">
+          <div class="bg-gray-500 rounded-full h-8 w-8"></div>
+          <div class="flex-1 ml-4 font-medium font-bold" id="agenda-<%=d.strftime("%Y-%m-%d")%>"><%=d.strftime("%a, %d %b, %Y")%></div>
+        </div>
 
-    <li class="mb-2">
-      <div class="flex items-center mb-1">
-        <div class="bg-gray-500 rounded-full h-8 w-8"></div>
-        <div class="flex-1 ml-4 font-medium"><%=d.strftime("%a, %d %b, %Y")%></div>
-      </div>
-      <%Visit.scheduled_visits_on(d).each do |visit|%>
-      <div class="ml-12">
-        <%= link_to visit.patient.full_name,  patient_path(visit.patient.id) %>
-        <%= link_to "Visit", patient_path(visit.patient.id), class: "text-blue-400 ml-2"%>
-        <!--div class="ml-2">
-         <span class=" text-red-400"><%= visit.patient%></span>
-        </div-->
-      </div>
-      <%end%>
-    </li>
+        <ul class="ml-12 flex flex-wrap gap-6">
+          <%Visit.scheduled_visits_on(d).each do |visit|%>
+            <li class="col-span-1 bg-white rounded-lg border border-gray-100 shadow divide-y divide-gray-200">
+              <div class="w-full flex items-center justify-between p-6 space-x-6">
+                <div class="flex-1 truncate">
+                  <div class="flex items-center space-x-3">
+                    <h3 class="text-gray-600 text-md font-bold cursor-pointer">
+                      <%= link_to visit.patient.full_name,  patient_path(visit.patient.id) %>
+                    </h3>
+                    <span class="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                      <%= "ward #{visit.patient.facility.ward.number}" %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex align-center justify-evenly">
+                <%= link_to "Unschedule", schedule_path(patient: visit.patient.id), method: "delete", class: "items-center my-2 p-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none" %>
+                <%= link_to "Visit Patient", patient_visit_details_new_path(patient_id: visit.patient.id), class: "items-center my-2 p-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none" %>
+              </div>
+            </li>
+          <%end%>
+        </ul>
+      </li>
     <%end%>
-
   </ul>
 </div>
+
+<script>
+  function gotoAgendaDate(){
+    const date = document.getElementById("agenda-goto-date").value;
+    const agenda = document.getElementById(`agenda-${date}`);
+    console.log(agenda, `agenda-${date}`)
+    agenda.scrollIntoView();
+  }
+</script>
