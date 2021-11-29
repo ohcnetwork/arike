@@ -2,7 +2,7 @@ class PhysicalExaminationsController < ApplicationController
   def new
     @visit = VisitDetail.find_by(id: params[:visit_id])
     @info = PhysicalExamination.find_by(visit_id: params[:visit_id])
-    @patient=Patient.find_by(id: params[:patient_id])
+    @patient = Patient.find_by(id: params[:patient_id])
     if @info.nil?
       @info = PhysicalExamination.new
       @info.visit_id = params[:visit_id]
@@ -12,7 +12,7 @@ class PhysicalExaminationsController < ApplicationController
 
   def create
     @visit = VisitDetail.find_by(id: params[:visit_id])
-    @patient=Patient.find_by(id: params[:patient_id])
+    @patient = Patient.find_by(id: params[:patient_id])
     rec = PhysicalExamination.find_by(visit_id: params[:visit_id])
     if rec == nil
       new_rec = PhysicalExamination.create!(allowed_params)
@@ -20,8 +20,9 @@ class PhysicalExaminationsController < ApplicationController
     else
       rec.update(allowed_params)
     end
-    redirect_to root_path
+    redirect_to patient_treatment_new_path
   end
+
   def allowed_params
     params.permit(
       :visit_id,
