@@ -10,15 +10,17 @@ let make = (~patient: patient, ~selectPatient) => {
     className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200 hover:bg-gray-100 flex items-center">
     <div className="w-full flex justify-between p-6 space-x-6">
       <div className="flex-1 truncate">
-        <div className="items-center space-x-3 justify-self-start">
-          <h3
-            className="text-gray-900 text-md font-bold cursor-pointer"
-            onClick={event => {
-              event->ReactEvent.Mouse.stopPropagation
-              window["location"]["href"] = `patients/${patient.id}`
-            }}>
-            {s(patient.name)} <i className="fas fa-info-circle ml-2" />
+        <div 
+          className="flex items-center space-x-1 justify-self-start cursor-pointer"
+          onClick={event => {
+            event->ReactEvent.Mouse.stopPropagation
+            window["location"]["href"] = `patients/${patient.id}`
+          }}
+        >
+          <h3 className="text-gray-900 text-md font-bold truncate mr-1">
+            {s(patient.name)}
           </h3>
+          <i className="fas fa-info-circle mb-0.5 static" />
         </div>
         <div className="grid min-w-max">
           {patient.procedures
