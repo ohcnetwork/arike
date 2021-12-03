@@ -10,5 +10,6 @@ let make = (~props: props) => {
 
     <div>
         <h3>{s("Agenda")}</h3>
+        <Agenda__Patient patient={props.scheduled_patients[0].patients[0]} />
     </div>
 }
