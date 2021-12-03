@@ -4,14 +4,18 @@ type patient = {
   ward: int,
 }
 
+type date = Js.Date.t
+
 type patients = array<patient>
 
-type scheduled_patients = {
-    date: Js.Date.t,
+type schedule = {
+    date: date,
     patients: patients
 }
 
-type props = {scheduled_patients: array<scheduled_patients>}
+type schedules = array<schedule>
+
+type props = {schedules: schedules}
 
 
 

@@ -3,7 +3,7 @@ type props = Agenda__Types.props
 let decode: Js.Json.t => props = json => {
   open Json.Decode
   {
-    scheduled_patients: field("patients", array(Agenda__Types.decode), json),
+    schedules: field("patients", array(Agenda__Types.decode), json),
   }
 }
 let props = DomUtils.parseJSONTag(~id="agenda-data", ()) |> decode

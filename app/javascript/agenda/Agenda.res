@@ -8,8 +8,6 @@ let make = (~props: props) => {
     
     <div>
         <Agenda__Goto />
-
-        <h3>{s("Agenda")}</h3>
-        <Agenda__Patient patient={props.scheduled_patients[0].patients[0]} />
+        <Agenda__Timeline schedules={props.schedules} />
     </div>
 }
