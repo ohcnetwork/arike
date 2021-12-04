@@ -47,6 +47,32 @@ class Visit < ApplicationRecord
     end
   end
 
+  def self.scheduled_patients
+    scheduled_visits = all.where.not(next_visit: nil)
+    
+    scheduled_patients = {}
+    scheduled_visits.each do |visit|
+      patient = {
+        name: visit.patient.full_name,
+        id: visit.patient_id,
+        ward: visit.patient.facility.ward.number,
+      }
+      if scheduled_patients[visit.next_visit]
+        scheduled_patients[visit.next_visit].append(patient)
+      else
+        scheduled_patients[visit.next_visit] = [patient]
+      end
+    end
+
+    
+    scheduled_patients.keys.map do |next_visit|
+      {
+        next_visit: next_visit.to_s,
+        patients: scheduled_patients[next_visit]
+      }
+    end
+  end
+
   def self.schedule(patient_id, date)
     visit = all.where(patient_id: patient_id)[0]
     visit.next_visit = date

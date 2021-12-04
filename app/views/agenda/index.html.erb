@@ -1,1 +1,11 @@
-<%= render partial: "agenda"%>
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'AgendaPack', "data-turbo-track": "reload", nonce: true %>
+<% end %>
+
+<script type="text/json" id="agenda-data">
+  {
+    "patients": <%= @scheduled_patients.to_json.html_safe %>
+  }
+</script>
+
+<div id="agenda"></div>
