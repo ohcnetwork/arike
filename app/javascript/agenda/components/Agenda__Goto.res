@@ -20,7 +20,7 @@ let make = () => {
     }
 
 
-    <div className="sticky top-16 bg-gray-50 rounded-md px-2 z-50 flex align-center justify-end">
+    <div className="sticky top-16 md:top-2 bg-gray-50 rounded-md px-2 z-50 flex align-center justify-end">
         <input id="agenda-goto-date" type_="date" onChange={onDateChange} className="rounded-md my-2 mx-2" />
         <button
             onClick={scrollTo}
