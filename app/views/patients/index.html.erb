@@ -1,3 +1,18 @@
+<%=content_for(:tail) do %>
+  <%= javascript_pack_tag 'PatientsPack', "data-turbo-track": "reload", nonce: true %>
+<% end %>
+
+<script type="text/json" id="patients-data">
+  {
+    "patients": <%= @patients.to_json.html_safe %>
+  }
+</script>
+
+<div id="patients"></div>
+
+
+
+
 <div class="bg-gray-100 py-6">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="flex mb-5 ml-1 justify-between">
