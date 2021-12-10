@@ -16,6 +16,18 @@ class Patient < ApplicationRecord
     very_poor: "Very Poor",
   }
 
+  def self.get_formatted
+    all.map do |patient|
+      {
+        name: patient.full_name,
+        dob: patient.dob,
+        phone: patient.phone,
+        address: patient.address,
+        id: patient.id
+      }
+    end
+  end
+
   def add_users(user_ids)
     user_ids.each do |user_id|
       self.users << User.find(user_id)

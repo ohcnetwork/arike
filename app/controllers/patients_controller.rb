@@ -3,26 +3,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/
   def index
-    @search_text = params.fetch(:search, "")
-    @facility_id = params.fetch(:facility, "")
-
-    @facilities = policy_scope(Facility).map { |f| [f.name, f.id] }
-    @facilities.unshift(["all", nil])
-
-    # filter and paginate
-    # @patients = filter_patients(@search_text, @facility_id)
-    
-    @patients = Patient.all.map do |patient|
-      {
-        name: patient.full_name,
-        dob: patient.dob,
-        phone: patient.phone,
-        address: patient.address,
-        id: patient.id
-      }
-    end
-    puts @patients
-    # authorize Patient
+    @patients = Patient.get_formatted
   end
 
   # GET /patients/new
@@ -112,14 +93,5 @@ class PatientsController < ApplicationController
         :disease,
         :facility_id,
       )
-  end
-
-  def filter_patients(search_text, facility_id)
-    return policy_scope(Patient).where(facility_id: facility_id) if (facility_id != "")
-
-    policy_scope(Patient).where(
-      "full_name ILIKE :search_text",
-      search_text: "%#{search_text}%",
-    )
   end
 end
