@@ -10,8 +10,19 @@ class PatientsController < ApplicationController
     @facilities.unshift(["all", nil])
 
     # filter and paginate
-    @patients = filter_patients(@search_text, @facility_id)
-    authorize Patient
+    # @patients = filter_patients(@search_text, @facility_id)
+    
+    @patients = Patient.all.map do |patient|
+      {
+        name: patient.full_name,
+        dob: patient.dob,
+        phone: patient.phone,
+        address: patient.address,
+        id: patient.id
+      }
+    end
+    puts @patients
+    # authorize Patient
   end
 
   # GET /patients/new
