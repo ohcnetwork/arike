@@ -5,6 +5,21 @@ let s = React.string
 
 @react.component
 let make = (~props: props) => {
+    let (patients, setPatients) = React.useState(_ => props.patients)
+    let (searchTerm, setSearchTerm) = React.useState(_ => "")
+
+    React.useEffect1(() => {
+        let search_term = searchTerm->Js.String.toLowerCase
+        let filtered_patients =
+        props.patients->Js.Array2.filter(patient =>
+            search_term->Js.String.includes(patient.name->Js.String.toLowerCase) ||
+            search_term->Js.String.includes(patient.address->Js.String.toLowerCase) ||
+            search_term->Js.String.includes(patient.phone->Js.String.toLowerCase)
+        )
+
+        setPatients(_ => filtered_patients)
+        None
+  }, [searchTerm])
     
     <div className=" py-6">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -22,7 +37,8 @@ let make = (~props: props) => {
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <Patients__PatientsTable patients={props.patients} />
+                        <Patients__Search placeholder="Search Patients" setSearchTerm />
+                        <Patients__PatientsTable patients />
                     </div>
                 </div>
             </div>
