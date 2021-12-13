@@ -43,20 +43,20 @@ let make = (~patients, ~updatePatients) => {
     upatients
     ->Js.Array2.slice(~start=(pageNumber - 1) * perPage, ~end_=pageNumber * perPage)
     ->Js.Array2.map(patient =>
-      <UnselectedPatient
+      <Schedule__UnselectedPatient
         key={patient.id} patient selectPatient={patient => patient->SelectPatient->updatePatients}
       />
     )
 
   <div>
-    <SelectedPatients
+    <Schedule__SelectedPatients
       selectedPatients={spatients}
       unselectPatient={patient => patient->UnselectPatient->updatePatients}
     />
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {patientList->React.array}
     </ul>
-    <Pagination
+    <Schedule__Pagination
       pageNumber
       setPageNumber
       maxPages={
