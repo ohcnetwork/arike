@@ -11,19 +11,22 @@ module Patient = {
     let make = (~patient: patient) => {
 
         let unschedule = _ => {
-            let payload = Js.Dict.empty()
-            Js.Dict.set(payload, "patient", Js.Json.string(patient.id))
+            if(window["confirm"](`UNSCHEDULE ${patient.name}`)) { 
 
-            Fetch.fetchWithInit(
-            "/schedule",
-            Fetch.RequestInit.make(
-                ~method_=Delete,
-                ~body=Fetch.BodyInit.make(Js.Json.stringify(Js.Json.object_(payload))),
-                ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
-                (),
-            ),
-            ) |> Js.Promise.then_(_ => window["location"]["reload"](true)->ignore |> Js.Promise.resolve)
-        }->ignore
+                let payload = Js.Dict.empty()
+                Js.Dict.set(payload, "patient", Js.Json.string(patient.id))
+
+                (Fetch.fetchWithInit(
+                    "/schedule",
+                    Fetch.RequestInit.make(
+                        ~method_=Delete,
+                        ~body=Fetch.BodyInit.make(Js.Json.stringify(Js.Json.object_(payload))),
+                        ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
+                        (),
+                    ),
+                ) |> Js.Promise.then_(_ => window["location"]["reload"](true)->ignore |> Js.Promise.resolve))->ignore
+            }
+        }
             
 
 
