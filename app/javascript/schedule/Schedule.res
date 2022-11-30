@@ -10,10 +10,10 @@ let make = (~props: props) => {
   let (sortOption, setSortOption) = React.useState(_ => "next_visit")
   let (sortAscending, setSortAscending) = React.useState(_ => true)
   let (patients, updatePatients) = React.useReducer(
-    Patients.reducer,
+    Schedule__Patients.reducer,
     {unselectedPatients: props.patients, selectedPatients: []},
   )
-  let (filters, updateFilters) = React.useReducer(Filter.reducer, {procedures: [], wards: []})
+  let (filters, updateFilters) = React.useReducer(Schedule__Filter.reducer, {procedures: [], wards: []})
 
   React.useEffect4(() => {
     let procedure_filtered_patients = !(filters.procedures->length == 0)
@@ -41,20 +41,20 @@ let make = (~props: props) => {
 
     let sorted_patients = filtered_patients->Schedule__Utils.jssort(sortOption, sortAscending)
 
-    Patients.SetUnSelectedPatients(sorted_patients)->updatePatients
+    Schedule__Patients.SetUnSelectedPatients(sorted_patients)->updatePatients
     None
   }, (searchTerm, sortOption, sortAscending, filters))
 
   <div>
     <div className="p-8 sm:flex items-center justify-center self-center text-center bg-white">
-      <Search setSearchTerm placeholder="Search Patients" />
-      <Sort setSortOption sortAscending setSortAscending />
-      <Filter
+      <Schedule__Search setSearchTerm placeholder="Search Patients" />
+      <Schedule__Sort setSortOption sortAscending setSortAscending />
+      <Schedule__Filter
         procedures={props.patients->Schedule__Utils.jsunion("procedures")}
         selectedFilters={filters}
         updateFilters
       />
     </div>
-    <Patients patients updatePatients />
+    <Schedule__Patients patients updatePatients />
   </div>
 }
